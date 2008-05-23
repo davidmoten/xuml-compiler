@@ -52,12 +52,79 @@ public class JoinLayer extends JPanel {
 			}
 			for (SpecializationGroup group : cc.getClass_()
 					.getSpecializationGroup()) {
-				for (Specialization sp : group.getSpecialization()) {
-					ClassComponent subComponent = viewer.getClassComponent(sp);
-					joinComponents(g, usedPoints, cc, subComponent);
+				joinComponents(g, usedPoints, viewer, group, cc);
+				// for (Specialization sp : group.getSpecialization()) {
+				// ClassComponent subComponent = viewer.getClassComponent(sp);
+				// joinComponents(g, usedPoints, cc, subComponent);
+				// }
+			}
+		}
+	}
+
+	private void joinComponents(Graphics g, Set<Point> usedPoints,
+			SystemViewer viewer, SpecializationGroup group,
+			ClassComponent superComponent) {
+		Point[] points = getBestJoin(usedPoints, superComponent, viewer
+				.getClassComponent(group.getSpecialization().get(0)));
+		Point p1 = points[0];
+		Point p2 = points[1];
+		Graphics2D g2d = (Graphics2D) g;
+
+		Point joinPoint;
+		final int joinLength = 50;
+		if (p1.x == superComponent.getX())
+			joinPoint = new Point(p1.x - joinLength, p1.y);
+		else if (p1.x == superComponent.getX() + superComponent.getWidth())
+			joinPoint = new Point(p1.x + joinLength, p1.y);
+		else if (p1.y == superComponent.getY())
+			joinPoint = new Point(p1.x, p1.y - joinLength);
+		else
+			joinPoint = new Point(p1.x, p1.y + joinLength);
+		for (Specialization sp : group.getSpecialization()) {
+			Point p = getBestJoin(usedPoints, viewer.getClassComponent(sp),
+					joinPoint);
+			g2d.drawLine(p.x, p.y, joinPoint.x, joinPoint.y);
+		}
+		int arrowDepth = 10;
+		int arrowSide = 6;
+		double length = getDistance(p1, joinPoint);
+		double xFactor = (joinPoint.x - p1.x) / length;
+		double yFactor = (joinPoint.y - p1.y) / length;
+		double theta = Math.atan2(joinPoint.x - p1.x, joinPoint.y - p1.y);
+		Point mark = new Point((int) (xFactor * arrowDepth + p1.x),
+				(int) (yFactor * arrowDepth + p1.y));
+		Point bottom = new Point((int) (mark.x + arrowSide * Math.cos(-theta)),
+				(int) (mark.y + arrowSide * Math.sin(-theta)));
+		Point top = new Point((int) (mark.x - arrowSide * Math.cos(-theta)),
+				(int) (mark.y - arrowSide * Math.sin(-theta)));
+		g2d.drawLine(joinPoint.x, joinPoint.y, mark.x, mark.y);
+		Polygon p = new Polygon();
+		p.addPoint(mark.x, mark.y);
+		p.addPoint(bottom.x, bottom.y);
+		p.addPoint(p1.x, p1.y);
+		p.addPoint(top.x, top.y);
+		g2d.drawPolygon(p);
+
+	}
+
+	private Point getBestJoin(Set<Point> usedPoints, Component component,
+			Point p) {
+		Double shortestDistance = null;
+		Point[] points = getPoints(component);
+		Point centre = getCentre(component);
+		Point bestPoint = null;
+		for (Point point : points) {
+			if (!usedPoints.contains(point)) {
+				double distance = getDistance(point, p)
+						+ getDistance(point, centre);
+				if (shortestDistance == null || distance < shortestDistance) {
+					shortestDistance = distance;
+					bestPoint = point;
 				}
 			}
 		}
+		usedPoints.add(bestPoint);
+		return bestPoint;
 	}
 
 	private Point[] getBestJoin(Set<Point> usedPoints, Component aComponent,
@@ -112,11 +179,9 @@ public class JoinLayer extends JPanel {
 
 	private void joinComponents(Graphics g, Set<Point> usedPoints,
 			ClassComponent superComponent, ClassComponent subComponent) {
-		Point p1 = getCentre(superComponent);
-		Point p2 = getCentre(subComponent);
 		Point[] points = getBestJoin(usedPoints, superComponent, subComponent);
-		p1 = points[0];
-		p2 = points[1];
+		Point p1 = points[0];
+		Point p2 = points[1];
 		Graphics2D g2d = (Graphics2D) g;
 
 		int arrowDepth = 10;
