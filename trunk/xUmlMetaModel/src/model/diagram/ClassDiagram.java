@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: ClassDiagram.java,v 1.2 2008/05/23 05:15:21 dxm Exp $
  */
 package model.diagram;
 

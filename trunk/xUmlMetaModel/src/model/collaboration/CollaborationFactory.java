@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: CollaborationFactory.java,v 1.2 2008/05/23 05:15:18 dxm Exp $
  */
 package model.collaboration;
 
