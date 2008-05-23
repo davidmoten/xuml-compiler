@@ -5,6 +5,7 @@
 ==Define a system==
 Consider this class diagram:
 <img src="images/img01.jpg"/>
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img01.jpg
 To define this system create this class:
 
 {{{
