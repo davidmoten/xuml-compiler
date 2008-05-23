@@ -63,7 +63,9 @@ public class Shop extends SystemBase {
 Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be <i>Shop.ini</i> in the java working directory. Change it if you like.
 To view the system, run the above class (the main method calls the viewer). You will need to reposition the elements but when you close the viewer the positions will be saved automatically. 
 You may want to change the name of the location of the settings file in the main method.
-<img src="images/img02.jpg"/>
+
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img02.jpg
+
 ==Add methods to the classes==
 Add this code to the end of the initialize() method: 
 
@@ -77,7 +79,9 @@ Add this code to the end of the initialize() method:
 }}}
 
 Run the viewer and we see the new operations in the classes.
-<img src="images/img03.jpg"/>
+
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img03.jpg
+
 ==Generate the classes==
 xUmlCompiler generates
   *entity classes with ejb3 annotations (and possible hibernate specific annotations)
@@ -102,9 +106,13 @@ public class ShopGenerator {
 All classes will be written to the directory temp/shop. Change it if you wish. Create the directory if it does not exist.
 
 Run the main method in the above class and classes will be generated as below:
-<img src="images/img04.jpg"/>
+
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img04.jpg
+
 Notice the getter and setter methods on the Customer interface class and the search methods. If we had defined identifiers (uniqueness rules other than the primary key id field) we would see finders for the identifier attribute groups as well.  
-<img src="images/img05.jpg"/>
+
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img05.jpg
+
 ==Implement actions==
 All methods and state machine entry points should be implemented by your behaviour classes.
 
