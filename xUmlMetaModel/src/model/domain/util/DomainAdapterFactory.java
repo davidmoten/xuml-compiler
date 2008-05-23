@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: DomainAdapterFactory.java,v 1.2 2008/05/23 05:15:19 dxm Exp $
  */
 package model.domain.util;
 

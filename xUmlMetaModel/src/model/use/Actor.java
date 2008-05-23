@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: Actor.java,v 1.2 2008/05/23 05:15:14 dxm Exp $
  */
 package model.use;
 

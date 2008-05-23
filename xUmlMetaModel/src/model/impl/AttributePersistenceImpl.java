@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: AttributePersistenceImpl.java,v 1.2 2008/05/23 05:15:16 dxm Exp $
  */
 package model.impl;
 

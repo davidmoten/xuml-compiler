@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: DomainFactoryImpl.java,v 1.2 2008/05/23 05:15:13 dxm Exp $
  */
 package model.domain.impl;
 
