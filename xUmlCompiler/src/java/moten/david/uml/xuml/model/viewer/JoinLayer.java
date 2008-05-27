@@ -53,10 +53,6 @@ public class JoinLayer extends JPanel {
 			for (SpecializationGroup group : cc.getClass_()
 					.getSpecializationGroup()) {
 				joinComponents(g, usedPoints, viewer, group, cc);
-				// for (Specialization sp : group.getSpecialization()) {
-				// ClassComponent subComponent = viewer.getClassComponent(sp);
-				// joinComponents(g, usedPoints, cc, subComponent);
-				// }
 			}
 		}
 	}
