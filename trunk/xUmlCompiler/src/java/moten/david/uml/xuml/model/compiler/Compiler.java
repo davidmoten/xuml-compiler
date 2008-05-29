@@ -13,6 +13,8 @@ import model.Association;
 import model.AssociationClass;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
+import model.AttributeDerived;
+import model.IdentifierNonPrimary;
 import model.ModelFactory;
 import model.System;
 import moten.david.uml.xuml.model.compiler.templates.ResourceLocator;
@@ -75,21 +77,14 @@ public class Compiler {
 	public void compile() throws IOException, TemplateException {
 		// Add implicit associations from associations with Association Classes
 		List<Association> implicitAssociations = new ArrayList<Association>();
-		List<Association> explicitAssociations = new ArrayList<Association>();
 
 		for (Association association : system.getAssociation()) {
 			implicitAssociations.addAll(getImplicitAssociations(association));
-			if (association.getAssociationClass() != null) {
-				explicitAssociations.add(association);
-			}
 		}
-		system.getAssociation().removeAll(explicitAssociations);
 		system.getAssociation().addAll(implicitAssociations);
 		for (model.Package pkg : system.getPackage()) {
 			compile(pkg);
 		}
-		system.getAssociation().removeAll(implicitAssociations);
-		system.getAssociation().addAll(explicitAssociations);
 	}
 
 	private List<Association> getImplicitAssociations(Association association) {
@@ -147,6 +142,22 @@ public class Compiler {
 		aes2.setMultiple(association.getPrimary().isMultiple());
 		aes2.setClass(assClass);
 		ass2.setSecondary(aes2);
+
+		IdentifierNonPrimary id = ModelFactory.eINSTANCE
+				.createIdentifierNonPrimary();
+		AttributeDerived a1 = ModelFactory.eINSTANCE.createAttributeDerived();
+		a1.setClass(assClass);
+		a1.setName("primary");
+		a1.setAssociationEnd(aep);
+		id.getDerivedAttribute().add(a1);
+		AttributeDerived a2 = ModelFactory.eINSTANCE.createAttributeDerived();
+		a2.setClass(assClass);
+		a2.setName("secondary");
+		a2.setAssociationEnd(aep2);
+		id.getDerivedAttribute().add(a2);
+		id
+				.setName("implicitly defined because this class is an association class");
+		assClass.getIdentifierNonPrimary().add(id);
 
 		list.add(ass);
 		list.add(ass2);

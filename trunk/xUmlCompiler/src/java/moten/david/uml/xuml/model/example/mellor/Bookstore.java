@@ -150,10 +150,8 @@ public class Bookstore extends SystemBase {
 	}
 
 	private AssociationClass createAuthorship(Package pkg) {
-		AssociationClass a = createAssociationClass(pkg, "Authorship",
-				"multiple authors of one book");
-		createPrimaryKey(createAttribute(a, "id", Primitive.ARBITRARY_ID),
-				Generator.GENERATED_VALUE);
+		AssociationClass a = createAssociationClassWithArbitraryId(pkg,
+				"Authorship", "multiple authors of one book");
 		createAttribute(a, "preCredit").setMandatory(false);
 		createAttribute(a, "postCredit").setMandatory(false);
 		return a;

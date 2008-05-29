@@ -22,7 +22,6 @@ import ${package}.actions.*;
 <#if operationsPackageExtension?exists>import ${package}.${operationsPackageExtension}.*;</#if>
 </#compress>
 
-
 /**
 * ${description!""}
 *
@@ -34,7 +33,7 @@ import ${package}.actions.*;
 @Entity(name="${name}")
 	<#if hasSubClasses>
 @Inheritance(strategy=InheritanceType.JOINED)<#rt/>
-	<#else>
+	</#if>
 @Table(name="${persistenceTable}"<#rt/>
 		<#if (persistence.schema)?exists>, schema="${persistence.schema}"</#if><#lt/><#if identifiers?size gt 0>, 
 	uniqueConstraints={<#list identifiers as identifier><#if identifier_index gt 0>,</#if>
@@ -48,7 +47,6 @@ import ${package}.actions.*;
 		@org.hibernate.annotations.Index(
 			name="${index.name}", 
 			columnNames={<#list index.attributes as att><#if att_index gt 0>, </#if>"${att.name}"</#list>})</#list>})
-	</#if>
 </#if>
 public class ${name}Impl <#if superClass?exists>extends ${superClass}Impl </#if>implements ${name} {
 
@@ -69,6 +67,26 @@ public class ${name}Impl <#if superClass?exists>extends ${superClass}Impl </#if>
 	private enum State {${initialStateCapital?upper_case}<#list states as state>, <#assign tempName><@underscore>${state.name}</@underscore></#assign>${tempName?upper_case}</#list>};
 	
 	private State state = State.${initialStateCapital?upper_case};
+</#if>
+<#assign isCompositeId=false/>
+<#if identifierPrimary?exists>
+	<#if identifierPrimary.attributes?size gt 1>
+		<#assign isCompositeId=true/>
+	</#if>
+</#if>
+<#assign pkType>${name?cap_first}PrimaryKey</#assign>
+<#if isCompositeId=true>
+
+	private ${pkType} primaryKey;
+
+	@Id
+	public ${pkType} getPrimaryKey() {
+		return primaryKey;
+	}
+	
+	public void setPrimaryKey(${pkType} primaryKey){
+		this.primaryKey = primaryKey;
+	}
 </#if>
 <#list attributes as attribute>
 <#if !attribute.derived>
@@ -209,8 +227,8 @@ public class ${name}Impl <#if superClass?exists>extends ${superClass}Impl </#if>
 </#list>
 <#list associations as association>
 <#if association.associationClass?exists>
-	<#if associationClassTable?exists>
-		<#assign joinTable>${association.associationClassSchema}.${association.assocationClassTable}</#assign>
+	<#if association.associationClassTable?exists>
+		<#assign joinTable>${association.associationClassTable}</#assign>
 	<#else>
 		<#assign joinTable><@underscore>${association.associationClass}</@underscore></#assign>
 	</#if>
@@ -677,6 +695,12 @@ public class ${name}Impl <#if superClass?exists>extends ${superClass}Impl </#if>
 ${prePersist}
 	}
 </#if>
-
 </#if>
-} 
+}
+
+<#if isCompositeId>
+@Embeddable
+class ${pkType} {
+
+}
+</#if> 

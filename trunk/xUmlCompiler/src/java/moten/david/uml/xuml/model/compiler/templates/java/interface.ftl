@@ -176,13 +176,13 @@ public interface ${name}  {
 <#list identifiers as identifier>
 		
 		/**
-		* find method based on uniqueness of identitifer ${identifier.name}
+		* find method based on uniqueness of identitifer ${identifier.name} <#list identifier.attributes as attribute> ${attribute.name} ${attribute.type}</#list>
 		*/
 		@SuppressWarnings("unchecked")
 		public static ${name} findBy<#list identifier.attributes as attribute><#if attribute_index gt 0>_</#if>${attribute.name?cap_first}</#list>(EntityManager em,
-			<#list identifier.attributes as attribute><#if attribute_index gt 0>, </#if><#if attribute.derived>${attribute.name?cap_first}<#else>${attribute.type}</#if> ${attribute.name?uncap_first}</#list>){
+			<#list identifier.attributes as attribute><#if attribute_index gt 0>, </#if>${attribute.type} ${attribute.name?uncap_first}</#list>){
 				<#assign whereClause><#list identifier.attributes as attribute><#if attribute_index gt 0> and </#if>${attribute.name?uncap_first}<#if attribute.derived>.id</#if>=:${attribute.name}</#list></#assign>
-				<#assign setParameters><#list identifier.attributes as attribute>.setParameter("${attribute.name?uncap_first}",${attribute.name?uncap_first}<#if attribute.derived>.getId()</#if>)</#list></#assign>
+				<#assign setParameters><#list identifier.attributes as attribute>.setParameter("${attribute.name?uncap_first}",${attribute.name?uncap_first}<#if attribute.derived>.get${attribute.idProperty?cap_first}()</#if>)</#list></#assign>
 				List<${name}> list = (List<${name}>)  em.createQuery(
 					"from ${name}  where ${whereClause}")
 					${setParameters}
@@ -205,7 +205,7 @@ public interface ${name}  {
 		public static List<${name}> findBy<#list index.attributes as attribute><#if attribute_index gt 0>_</#if>${attribute.name?cap_first}</#list>(EntityManager em,
 			<#list index.attributes as attribute><#if attribute_index gt 0>, </#if><#if attribute.derived>${attribute.name?cap_first}<#else>${attribute.type}</#if> ${attribute.name?uncap_first}</#list>){
 				<#assign whereClause><#list index.attributes as attribute><#if attribute_index gt 0> and </#if>${attribute.name?uncap_first}<#if attribute.derived>.id</#if>=:${attribute.name}</#list></#assign>
-				<#assign setParameters><#list index.attributes as attribute>.setParameter("${attribute.name?uncap_first}",${attribute.name?uncap_first}<#if attribute.derived>.getId()</#if>)</#list></#assign>
+				<#assign setParameters><#list index.attributes as attribute>.setParameter("${attribute.name?uncap_first}",${attribute.name?uncap_first}<#if attribute.derived>.get${attribute.idProperty?cap_first}()</#if>)</#list></#assign>
 				List<${name}> list = (List<${name}>)  em.createQuery(
 					"from ${name}  where ${whereClause}")
 					${setParameters}

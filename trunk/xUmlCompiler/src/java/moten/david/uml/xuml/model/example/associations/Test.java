@@ -20,7 +20,6 @@ public class Test {
 		Database.createNew();
 		Connection con = Database.getConnection();
 		MetaDataReporter reporter = new MetaDataReporter(con.getMetaData());
-		log.info("metadata:\n" + reporter.getReport("CTS"));
 		log.info("metadata:\n" + reporter.getReport("BOOKSTORE"));
 		for (Multiplicity m1 : Multiplicity.values()) {
 			for (Multiplicity m2 : Multiplicity.values()) {
