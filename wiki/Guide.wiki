@@ -17,7 +17,7 @@ _Figure 1:_
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class1.png
 
-To define this system create this class:
+To define this system create the class [http://xuml-compiler.googlecode.com/svntrunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/Shop.java Shop.java]
 
 {{{
 package moten.david.uml.xuml.model.example.shop;
