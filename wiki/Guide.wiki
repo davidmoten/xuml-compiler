@@ -1,6 +1,5 @@
 #summary Guide to using xUmlCompiler
 
-= xUmlCompiler User's Guide =
 ==Introduction==
 This guide shows you how to define, generate and execute a system using xUmlCompiler.
 
