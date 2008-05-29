@@ -5,7 +5,6 @@ import java.io.IOException;
 import model.AssociationClass;
 import model.Class;
 import model.Primitive;
-import moten.david.uml.xuml.model.Generator;
 import moten.david.uml.xuml.model.Multiplicity;
 import moten.david.uml.xuml.model.util.SystemBase;
 
@@ -21,40 +20,47 @@ public class Shop extends SystemBase {
 
 	private void initialize() {
 		model.Package pkg = createRootPackage("shop", "shop system");
-		Class request = createClass(pkg, "Request", "a purchase request");
-		createPrimaryKey(
-				createAttribute(request, "id", Primitive.ARBITRARY_ID),
-				Generator.GENERATED_VALUE);
-		createAttribute(request, "whenReceived", Primitive.TIMESTAMP);
-		createAttribute(request, "prepaid", Primitive.BOOLEAN);
-		createAttribute(request, "number", Primitive.INTEGER);
-		createAttribute(request, "price", Primitive.DECIMAL);
+		Class customer = createClassWithArbitraryId(pkg, "Customer",
+				"a shop customer, a potential or actual purchaser of products from the shop");
+		createAttribute(customer, "name");
+		createAttribute(customer, "billingName");
+		createAttribute(customer, "billingAddress");
+		createAttribute(customer, "shippingName");
+		createAttribute(customer, "shippingAddress");
 
-		AssociationClass customerRequest = createAssociationClass(pkg,
-				"CustomerRequest", "");
-		createPrimaryKey(createAttribute(customerRequest, "id",
-				Primitive.ARBITRARY_ID), Generator.GENERATED_VALUE);
+		Class order = createClassWithArbitraryId(pkg, "Order",
+				"an order of products made by a customer");
+		createAttribute(order, "timeCreated", Primitive.TIMESTAMP);
 
-		Class customer = createClass(pkg, "ShopCustomer", "shop customer");
-		createPrimaryKey(
-				createAttribute(customer, "id", Primitive.ARBITRARY_ID),
-				Generator.GENERATED_VALUE);
-		createAttribute(customer, "name", Primitive.STRING);
-		createAttribute(customer, "address", Primitive.STRING);
+		Class product = createClassWithArbitraryId(pkg, "Product", "products");
+		createAttribute(product, "numberInStock", Primitive.INTEGER);
+		createAttribute(product, "numberCommitted", Primitive.INTEGER);
+
+		AssociationClass orderProduct = createAssociationClassWithArbitraryId(
+				pkg, "OrderProduct", "products on an order");
+		createAttribute(orderProduct, "itemCount", Primitive.INTEGER);
+
+		Class shipment = createClassWithArbitraryId(pkg, "Shipment",
+				"shipment of an order");
+		createAttribute(shipment, "timePacked", Primitive.TIMESTAMP);
+		createAttribute(shipment, "timeSent", Primitive.TIMESTAMP);
+		createAttribute(shipment, "timeUnpacked", Primitive.TIMESTAMP);
+		createAttribute(shipment, "comment");
+
+		createAssociation("R1", createAssociationEndPrimary(customer,
+				Multiplicity.ONE, "is made by"), createAssociationEndSecondary(
+				order, Multiplicity.MANY, "makes"));
+		createAssociation("R2", createAssociationEndPrimary(order,
+				Multiplicity.ONE, "delivers"), createAssociationEndSecondary(
+				shipment, Multiplicity.ZERO_ONE, "is delivered by"));
+
 		createAssociation(
-				"R1",
-				createAssociationEndPrimary(request, Multiplicity.MANY,
-						"places"),
-				createAssociationEndSecondary(customer, Multiplicity.MANY,
-						"is placed by")).setAssociationClass(customerRequest);
+				"R3",
+				createAssociationEndPrimary(order, Multiplicity.MANY,
+						"is included in"),
+				createAssociationEndSecondary(product, Multiplicity.MANY,
+						"includes")).setAssociationClass(orderProduct);
 
-		createOperation(request, "dispatch", "dispatches the order", null,
-				false);
-		createOperation(
-				customer,
-				"getCreditRating",
-				"gets the credit rating for this customer as an integer 1-5, 1 is most trusted",
-				"Integer", false);
 	}
 
 	public static void main(String[] args) throws NumberFormatException,

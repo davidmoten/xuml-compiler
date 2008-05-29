@@ -58,6 +58,8 @@ public class SystemBase implements CodeGenerator {
 
 	private final System system;
 
+	private Generator generator = Generator.GENERATED_VALUE;
+
 	public SystemBase(String schema, System system) {
 		this.schema = schema;
 		this.system = system;
@@ -205,6 +207,14 @@ public class SystemBase implements CodeGenerator {
 			id.getAttribute().add(attribute);
 		}
 		return id;
+	}
+
+	public AssociationClass createAssociationClassWithArbitraryId(
+			model.Package pkg, String name, String description) {
+		AssociationClass cls = createAssociationClass(pkg, name, description);
+		createPrimaryKey(createAttribute(cls, "id", Primitive.ARBITRARY_ID),
+				generator);
+		return cls;
 	}
 
 	private String getNextIdentifierName(model.Class cls) {
@@ -476,6 +486,22 @@ public class SystemBase implements CodeGenerator {
 		s.setGroup(group);
 		createPersistence(s, null);
 		return s;
+	}
+
+	public void setGenerator(Generator generator) {
+		this.generator = generator;
+	}
+
+	public Generator getGenerator() {
+		return this.generator;
+	}
+
+	public Class createClassWithArbitraryId(Package pkg, String name,
+			String description) {
+		Class cls = createClass(pkg, name, description);
+		createPrimaryKey(createAttribute(cls, "id", Primitive.ARBITRARY_ID),
+				generator);
+		return cls;
 	}
 
 	public String getSchema() {

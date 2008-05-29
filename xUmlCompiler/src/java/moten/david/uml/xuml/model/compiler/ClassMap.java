@@ -16,9 +16,11 @@ import model.AssociationEndSecondary;
 import model.Attribute;
 import model.AttributeDerived;
 import model.CallEvent;
+import model.Class;
 import model.ClassPersistence;
 import model.Event;
 import model.IdentifierNonPrimary;
+import model.IdentifierPrimary;
 import model.Index;
 import model.Named;
 import model.Operation;
@@ -76,7 +78,20 @@ public class ClassMap {
 		map.putAll(getEventsMap(cls));
 		map.put("identifiers", getIdentifiersNonPrimaryList(cls
 				.getIdentifierNonPrimary()));
+		map.put("identifierPrimary", getIdentifierPrimary(cls));
 		return this.map;
+	}
+
+	private KeyMap getIdentifierPrimary(Class cls) {
+		KeyMap map = new KeyMap();
+		IdentifierPrimary id = cls.getIdentifierPrimary();
+		if (id == null)
+			return null;
+		map.put("name", id.getName());
+		map.put("description", id.getDescription());
+		map.put("attributes", getAttributesList(id.getAttribute(), id
+				.getDerivedAttribute()));
+		return map;
 	}
 
 	private KeyMap getEventsMap(model.Class cls) {
@@ -197,8 +212,31 @@ public class ClassMap {
 	private KeyMap getAttributeDerivedMap(AttributeDerived attribute) {
 		KeyMap map = new KeyMap();
 		map.put("name", attribute.getAssociationEnd().getRole());
+		map.put("type", registerClass(ModelUtil
+				.getCanonicalName(getClass(attribute.getAssociationEnd()))));
+		String idProperty = getIdProperty(getClass(attribute
+				.getAssociationEnd()));
 		map.put("derived", true);
+		map.put("idProperty", idProperty);
 		return map;
+	}
+
+	private String getIdProperty(Class cls) {
+		for (Attribute a : cls.getAttribute()) {
+			if (cls.getIdentifierPrimary().getAttribute().contains(a)) {
+				return a.getName();
+			}
+		}
+		return null;
+	}
+
+	private Class getClass(AssociationEnd ae) {
+		Class cls;
+		if (ae instanceof AssociationEndPrimary)
+			cls = ((AssociationEndPrimary) ae).getClass_();
+		else
+			cls = ((AssociationEndSecondary) ae).getClass_();
+		return cls;
 	}
 
 	private KeyMap getNamedMap(Named named) {
@@ -230,17 +268,21 @@ public class ClassMap {
 		return map;
 	}
 
+	private boolean includeAssociation(Association a) {
+		return a.getAssociationClass() == null;
+	}
+
 	private List<KeyMap> getAssociationsList(model.Class cls) {
 		List<KeyMap> list = new ArrayList<KeyMap>();
 		for (AssociationEndPrimary ae : cls.getAssociationEndPrimary()) {
-			list
-					.add(getAssociationEndsMap(ae.getAssociation(), "this",
-							"other"));
+			if (includeAssociation(ae.getAssociation()))
+				list.add(getAssociationEndsMap(ae.getAssociation(), "this",
+						"other"));
 		}
 		for (AssociationEndSecondary ae : cls.getAssociationEndSecondary()) {
-			list
-					.add(getAssociationEndsMap(ae.getAssociation(), "other",
-							"this"));
+			if (includeAssociation(ae.getAssociation()))
+				list.add(getAssociationEndsMap(ae.getAssociation(), "other",
+						"this"));
 		}
 
 		return list;
@@ -262,7 +304,11 @@ public class ClassMap {
 				map.put("associationClassSchema", ass.getAssociationClass()
 						.getPersistence().getSchema());
 				map.put("associationClassTable", ass.getAssociationClass()
-						.getPersistence().getSchema());
+						.getPersistence().getTable());
+				if (ass.getName().equals("R9")
+						&& ass.getAssociationClass().getPersistence()
+								.getTable() == null)
+					throw new Error("null!");
 			}
 		}
 		return map;
@@ -427,6 +473,10 @@ public class ClassMap {
 			KeyMap map2 = new KeyMap();
 			map.put("persistence", map2);
 			map2.put("id", attribute.getIdentifierPrimary() != null);
+			map2.put("composite",
+					attribute.getIdentifierPrimary() != null
+							&& attribute.getIdentifierPrimary().getAttribute()
+									.size() > 1);
 			map2.put("column", attribute.getPersistence().getColumn());
 			map2.put("generatedBySequence", attribute.getPersistence()
 					.isGeneratedBySequence());
