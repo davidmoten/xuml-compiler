@@ -4,6 +4,12 @@
 ==Introduction==
 This guide shows you how to define, generate and execute a system using xUmlCompiler.
 
+==Build xUmlCompiler==
+Checkout the latest version and run the build.xml file with ant (works fine with 1.7).
+
+==Setup your classpath==
+Include the xuml-compiler.jar and it's dependent jars (downloaded by maven during the build) in your classpath.
+
 ==Define a system==
 Consider this class diagram:
 
