@@ -2,19 +2,8 @@
 
 = xUmlCompiler User's Guide =
 ==Introduction==
-*xUmlCompiler* generates ejb3 annotated java classes that can be executed once Action Language elements (state entry procedures and class operations) have been written in Java. 
+This guide shows you how to define, generate and execute a system using xUmlCompiler.
 
-The data model (class diagram) and state machines can be
-  * defined in java classes using utility classes provided by *xUmlCompiler* 
-  * defined using the ecore editor 
-
-The UML profile is inspired by that proposed in _Executable UML_ (Mellor & Balcer, 2002).
-
-The action language elements are injected into the entities at runtime using a lightweight dependency injection framework (Guice).
-
-Viewers (using Swing) are provided for the class diagrams and state machines.
-
-The result is an executable system so that we satisfy to a fair degree that "the model is the code".
 ==Define a system==
 Consider this class diagram:
 
