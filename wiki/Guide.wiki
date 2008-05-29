@@ -13,6 +13,8 @@ Include the jars below in your classpath:
 ==Define a system==
 Consider this class diagram:
 
+_Figure 1:_
+
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class1.png
 
 To define this system create this class:
@@ -99,7 +101,7 @@ To view the system, run the above class (the main method calls the viewer). You 
  
 You may want to change the name of the location of the settings file in the main method.
 
-When you run the viewer you will see an image 
+When you run the viewer you will see a window with the image of Figure 1.
 
 ==Add the State Machine==
 Now we add in the state machine details to the Shop class:
