@@ -85,11 +85,16 @@ public class Shop extends SystemBase {
 
 }}}
 ==View the system==
-Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be <i>Shop.ini</i> in the java working directory. Change it if you like.
-To view the system, run the above class (the main method calls the viewer). You will need to reposition the elements but when you close the viewer the positions will be saved automatically. 
+Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be _Shop.ini_ in the java working directory. Change it if you like.
+
+To view the system, run the above class (the main method calls the viewer). You will need to reposition the elements but when you close the viewer the positions will be saved automatically.
+ 
 You may want to change the name of the location of the settings file in the main method.
 
-http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img02.jpg
+When you run the viewer you will see an image 
+
+==Add the State Machine==
+Now we add in the state machine details to the Shop class:
 
 ==Add methods to the classes==
 Add this code to the end of the initialize() method: 
@@ -109,12 +114,12 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img
 
 ==Generate the classes==
 xUmlCompiler generates
-  *entity classes with ejb3 annotations (and possible hibernate specific annotations)
-  *interfaces for all entities
-  *object factory classes
-  *injector classes for late binding of actions
-  *search classes based on identifier and index specifications 
-  *value enumerations for static constants associated with attributes
+  * entity classes with ejb3 annotations (and possible hibernate specific annotations)
+  * interfaces for all entities
+  * object factory classes
+  * injector classes for late binding of actions
+  * search classes based on identifier and index specifications 
+  * value enumerations for static constants associated with attributes
 
 Paste in the following class:
 {{{
