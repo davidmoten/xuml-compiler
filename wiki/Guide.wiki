@@ -9,7 +9,8 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class1.png
 
 To define this system create this class:
 
-{{{package moten.david.uml.xuml.model.example.shop;
+{{{
+package moten.david.uml.xuml.model.example.shop;
 
 import java.io.IOException;
 
