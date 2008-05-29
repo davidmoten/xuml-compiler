@@ -4,6 +4,7 @@
 ==Introduction==
 ==Define a system==
 Consider this class diagram:
+http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/docs/wiki/class1.png
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img01.jpg
 
