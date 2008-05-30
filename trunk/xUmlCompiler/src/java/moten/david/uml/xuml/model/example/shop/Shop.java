@@ -60,7 +60,11 @@ public class Shop extends SystemBase {
 						"is included in"),
 				createAssociationEndSecondary(product, Multiplicity.MANY,
 						"includes")).setAssociationClass(orderProduct);
-
+		createState(order, "Created");
+		createCallEvent(order, "createOrder");
+		createState(order, "Open");
+		createSignalEvent(order, "addProduct");
+		createSignalEvent(order, "createShipment");
 	}
 
 	public static void main(String[] args) throws NumberFormatException,
