@@ -236,737 +236,370 @@ As an example have a look at the ejb class for Order:
 {{{
 package shop.impl;
 
-
-
 import java.util.Date;
-
 import shop.Shipment;
-
 import shop.impl.ShipmentImpl;
-
 import shop.Order;
-
 import shop.impl.OrderImpl;
-
 import shop.OrderProduct;
-
 import shop.impl.OrderProductImpl;
-
 import shop.Customer;
-
 import shop.impl.CustomerImpl;
-
 import javax.persistence.*;
-
 import org.hibernate.annotations.Type;
-
 import org.apache.log4j.Logger;
-
 import java.util.Set;
-
 import java.util.HashSet;
-
 import moten.david.uml.xuml.model.compiler.runtime.InvalidRecordException;
-
 import com.google.inject.Inject;
-
 import shop.*;
-
 import shop.actions.*;
-
 /**
-
 * an order of products made by a customer
-
 *
-
 * @generated
-
 * @generatedBy xUML
-
 */
-
 @Entity(name="Order")
-
 @Table(name="order_table", schema="SHOP")
-
 public class OrderImpl implements Order {
 
-
-
 	/**
-
 	* static logger
-
 	**/
-
 	private static Logger log = Logger.getLogger(OrderImpl.class);
 
-
-
 	/**
-
 	* constructor has default access to ensure that instantiation 
-
 	* occurs via the factory.
-
 	*/
-
 	protected OrderImpl(){
-
 		//
-
 	}
-
 	private enum State {INITIAL_STATE, OPEN, DELIVERED, CANCELLED, BEING_PREPAREDAND_SHIPPED, FINAL_STATE};
-
 	
-
 	private State state = State.INITIAL_STATE;
 
-
-
 	/**
-
 	* member field for id
-
 	*/
-
 	private int id ;
 
-
-
 	/**
-
 	* member field for timeCreated
-
 	*/
-
 	private Date timeCreated ;
 
-
-
 	/**
-
 	* role for association "R2" (inverse role is order)
-
 	*/
-
 	private Shipment shipment;
 
-
-
 	/**
-
 	* role for association "R3A" (inverse role is order)
-
 	*/
-
 	private Set<OrderProduct> orderProduct = new HashSet<OrderProduct>();
 
-
-
 	/**
-
 	* role for association "R1" (inverse role is order)
-
 	*/
-
 	private Customer customer;
 
-
-
 	/**
-
 	*	implementation of the operations interface for this class
-
 	*
-
 	*/
-
 	private OrderActions orderActions;
 
-
-
 	/**
-
 	* getter for the implementation of the operations interface for this class
-
 	*
-
 	*/
-
 	@Transient
-
 	public OrderActions getOrderActions() {
-
 		return orderActions;
-
 	}
 
-
-
 	/**
-
 	* setter for the implementation of the operations interface for this class.
-
 	* This field is set via <b>guice</b> injection.
-
 	*
-
 	*/
-
 	@Inject
-
 	public void setOrderActions(OrderActions orderActions) {
-
 		this.orderActions=orderActions;
-
 		this.orderActions.setOrder(this);
-
 	}
 
-
-
 	/**
-
 	* on load of this object from persistence necessary operations are injected.
-
 	* This ensures that the object operations are available before the object is "used in anger".
-
 	*/
-
 	@PostLoad
-
 	public void inject() {
-
 		ObjectFactory.instance.injectMembers(this);
-
 	}
-
 	
-
 	/** 
-
 	* check that operations have been injected
-
 	*/
-
 	private void checkActions(){
-
 		if (orderActions==null)
-
 			throw new Error(
-
 				"no implementation for operations has been injected yet! Perhaps there is no binding for OrderActions.class in the InjectorModule.");
-
 	}
 
-
-
 	/**
-
 	 * getter for id
-
 	 */
-
 	@Id
-
 	@Column(name="order_id", nullable=false, unique=false)
-
 	@GeneratedValue
-
 	public int getId(){
-
 		return id;
-
 	}
 
-
-
 	/**
-
 	 * setter for id
-
 	 */
-
 	public void setId(int id){
-
 		this.id = id;
-
 	}
 
-
-
 	/**
-
 	 * getter for timeCreated
-
 	 */
-
 	@Column(name="time_created", nullable=false, unique=false)
-
     @Temporal(TemporalType.TIMESTAMP)
-
 	public Date getTimeCreated(){
-
 		return timeCreated;
-
 	}
 
-
-
 	/**
-
 	 * setter for timeCreated
-
 	 */
-
 	public void setTimeCreated(Date timeCreated){
-
 		this.timeCreated = timeCreated;
-
 	}
-
-
 
 	/**
-
 	* 1 to 0..1 (association "R2")
-
 	*/
-
 	@OneToOne(
-
 		mappedBy = "order",
-
 		fetch=FetchType.LAZY,
-
 		targetEntity=ShipmentImpl.class)
-
 	public Shipment getShipment(){
-
 		return shipment;
-
 	}
-
-
 
 	public void setShipment(Shipment shipment){
-
 		this.shipment=shipment;
-
 	}
-
-
 
   	/**
-
   	* 1 .. * (association "R3A")
-
   	*/
-
 	@OneToMany(
-
 		mappedBy = "order",
-
 		cascade=CascadeType.ALL,
-
 		fetch=FetchType.LAZY,
-
 		targetEntity=OrderProductImpl.class)
-
 	public Set<OrderProduct> getOrderProduct(){
-
 		return orderProduct;
-
 	}
-
-
 
 	public void setOrderProduct(Set<OrderProduct> orderProduct){
-
 		this.orderProduct=orderProduct;
-
 	}
-
-
 
   	/**
-
   	* * to 1 (association "R1")
-
   	*/
-
 	@ManyToOne(targetEntity=CustomerImpl.class)
-
 	@JoinColumn(name = "customer_id",nullable = false)
-
 	public Customer getCustomer(){
-
 		return customer;
-
 	}
-
-
 
 	public void setCustomer(Customer customer){
-
 		this.customer=customer;
-
 	}
-
  
-
  	@Column(name="state")
-
 	public String getStateValue() {
-
 		return getState().toString();
-
 	}
-
 	
-
 	public void setStateValue(String stateString) {
-
 		setState(State.valueOf(stateString));
-
 	}
-
 	
-
 	@Transient
-
 	public State getState() {
-
 		return state;
-
 	}
-
 	
-
 	public void setState(State state) {
-
 		this.state = state;
-
 	}
-
 	
-
 	/**
-
 	* process the received Call event <em>createOrder</em>
-
 	*/
-
 	public void processEvent(final Order.EventCreateOrder event) {
-
 		log.debug("processing event createOrder");
-
 		
-
 		if (state.equals(State.INITIAL_STATE)){
-
 			state = State.OPEN;
-
 			checkActions();
-
 			synchronized (this) {
-
 				log.debug("performOnEntryOpen");
-
 				orderActions.performOnEntryOpen(event);
-
 			}
-
 		}
-
 	}
-
 	
-
 	/**
-
 	* process the received Signal event <em>addProduct</em>
-
 	*/
-
 	public void processEvent(final Order.EventAddProduct event) {
-
 		log.debug("processing event addProduct");
-
 		
-
 		if (state.equals(State.OPEN)){
-
 			state = State.OPEN;
-
 			final Object thisObject = this;
-
 			Thread t = new Thread(new Runnable() {
-
 					public void run() {
-
 						checkActions();
-
 						synchronized (thisObject) {
-
 							log.debug("performOnEntryOpen");
-
 							orderActions.performOnEntryOpen(event);
-
 						}
-
 					}
-
 				});
-
 			t.start();
-
 		}
-
 	}
-
 	
-
 	/**
-
 	* process the received Signal event <em>removeProduct</em>
-
 	*/
-
 	public void processEvent(final Order.EventRemoveProduct event) {
-
 		log.debug("processing event removeProduct");
-
 		
-
 		if (state.equals(State.OPEN)){
-
 			state = State.OPEN;
-
 			final Object thisObject = this;
-
 			Thread t = new Thread(new Runnable() {
-
 					public void run() {
-
 						checkActions();
-
 						synchronized (thisObject) {
-
 							log.debug("performOnEntryOpen");
-
 							orderActions.performOnEntryOpen(event);
-
 						}
-
 					}
-
 				});
-
 			t.start();
-
 		}
-
 	}
-
 	
-
 	/**
-
 	* process the received Signal event <em>changeProductQuantity</em>
-
 	*/
-
 	public void processEvent(final Order.EventChangeProductQuantity event) {
-
 		log.debug("processing event changeProductQuantity");
-
 		
-
 		if (state.equals(State.OPEN)){
-
 			state = State.OPEN;
-
 			final Object thisObject = this;
-
 			Thread t = new Thread(new Runnable() {
-
 					public void run() {
-
 						checkActions();
-
 						synchronized (thisObject) {
-
 							log.debug("performOnEntryOpen");
-
 							orderActions.performOnEntryOpen(event);
-
 						}
-
 					}
-
 				});
-
 			t.start();
-
 		}
-
 	}
-
 	
-
 	/**
-
 	* process the received Signal event <em>ship</em>
-
 	*/
-
 	public void processEvent(final Order.EventShip event) {
-
 		log.debug("processing event ship");
-
 		
-
 		if (state.equals(State.OPEN)){
-
 			state = State.BEING_PREPAREDAND_SHIPPED;
-
 			final Object thisObject = this;
-
 			Thread t = new Thread(new Runnable() {
-
 					public void run() {
-
 						checkActions();
-
 						synchronized (thisObject) {
-
 							log.debug("performOnEntryBeingPreparedandShipped");
-
 							orderActions.performOnEntryBeingPreparedandShipped(event);
-
 						}
-
 					}
-
 				});
-
 			t.start();
-
 		}
-
 	}
-
 	
-
 	/**
-
 	* process the received Signal event <em>cancel</em>
-
 	*/
-
 	public void processEvent(final Order.EventCancel event) {
-
 		log.debug("processing event cancel");
-
 		
-
 		if (state.equals(State.OPEN)){
-
 			state = State.CANCELLED;
-
 			final Object thisObject = this;
-
 			Thread t = new Thread(new Runnable() {
-
 					public void run() {
-
 						checkActions();
-
 						synchronized (thisObject) {
-
 							log.debug("performOnEntryCancelled");
-
 							orderActions.performOnEntryCancelled(event);
-
 						}
-
 					}
-
 				});
-
 			t.start();
-
 		}
-
 		else
-
 		if (state.equals(State.BEING_PREPAREDAND_SHIPPED)){
-
 			state = State.CANCELLED;
-
 			final Object thisObject = this;
-
 			Thread t = new Thread(new Runnable() {
-
 					public void run() {
-
 						checkActions();
-
 						synchronized (thisObject) {
-
 							log.debug("performOnEntryCancelled");
-
 							orderActions.performOnEntryCancelled(event);
-
 						}
-
 					}
-
 				});
-
 			t.start();
-
 		}
-
 		else
-
 		if (state.equals(State.BEING_PREPAREDAND_SHIPPED)){
-
 			state = State.CANCELLED;
-
 			final Object thisObject = this;
-
 			Thread t = new Thread(new Runnable() {
-
 					public void run() {
-
 						checkActions();
-
 						synchronized (thisObject) {
-
 							log.debug("performOnEntryCancelled");
-
 							orderActions.performOnEntryCancelled(event);
-
 						}
-
 					}
-
 				});
-
 			t.start();
-
 		}
-
 	}
-
 }
-
-
 }}}
 
 Notice the getter and setter methods on the Customer interface class and the search methods. If we had defined identifiers (uniqueness rules other than the primary key id field) we would see finders for the identifier attribute groups as well.  
