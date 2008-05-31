@@ -107,13 +107,13 @@ When you run the viewer you will see a window with the image of Figure 1.
 Now we add in the state machine details to the Shop class:
 
 {{{
-private void initialize() {
+	private void initialize() {
 		...
 		createOrderStateMachine(order);
 		createShipmentStateMachine(shipment);
 	}
 
-	public void createOrderStateMachine(Class order) {
+		public void createOrderStateMachine(Class order) {
 		State open = createState(order, "Open");
 		State delivered = createState(order, "Delivered");
 		State cancelled = createState(order, "Cancelled");
@@ -121,12 +121,17 @@ private void initialize() {
 				"Being Prepared and Shipped");
 		CallEvent createOrder = createCallEvent(order, "createOrder");
 		SignalEvent addProduct = createSignalEvent(order, "addProduct");
+		createParameter(addProduct, "product", "Product");
 		SignalEvent removeProduct = createSignalEvent(order, "removeProduct");
+		createParameter(addProduct, "product", "Product");
 		SignalEvent changeQuantity = createSignalEvent(order,
 				"changeProductQuantity");
+		createParameter(addProduct, "product", "Product");
+		createParameter(addProduct, "newQuantity", Primitive.INTEGER);
 		SignalEvent ship = createSignalEvent(order, "ship");
-		SignalEvent orderDelivered = createSignalEvent(order, "delivered");
 		SignalEvent cancel = createSignalEvent(order, "cancel");
+		createParameter(addProduct, "newQuantity", Primitive.INTEGER);
+
 		createTransition(order.getStateMachine().getInitialState(), open,
 				createOrder);
 		createTransition(open, open, addProduct);
@@ -135,7 +140,6 @@ private void initialize() {
 		createTransition(open, cancelled, cancel);
 		createTransition(beingPreparedAndShipped, cancelled, cancel);
 		createTransition(open, beingPreparedAndShipped, ship);
-		createTransition(beingPreparedAndShipped, delivered, orderDelivered);
 		createTransition(beingPreparedAndShipped, cancelled, cancel);
 	}
 
@@ -148,12 +152,22 @@ private void initialize() {
 		State lostState = createState(shipment, "Lost");
 		State returnedState = createState(shipment, "Returned");
 		CallEvent ship = createCallEvent(shipment, "createShipment");
+		createParameter(ship, "order", "Order");
 		SignalEvent prepared = createSignalEvent(shipment, "prepared");
+		createParameter(ship, "time", Primitive.TIMESTAMP);
 		SignalEvent shipped = createSignalEvent(shipment, "shipped");
+		createParameter(shipped, "time", Primitive.TIMESTAMP);
 		SignalEvent delivered = createSignalEvent(shipment, "delivered");
+		createParameter(delivered, "time", Primitive.TIMESTAMP);
 		SignalEvent cancel = createSignalEvent(shipment, "cancel");
+		createParameter(cancel, "time", Primitive.TIMESTAMP);
 		SignalEvent lost = createSignalEvent(shipment, "lost");
+		createParameter(cancel, "time", Primitive.TIMESTAMP);
+		createParameter(cancel, "comment");
 		SignalEvent returned = createSignalEvent(shipment, "returned");
+		createParameter(cancel, "time", Primitive.TIMESTAMP);
+		createParameter(cancel, "comment");
+
 		createTransition(shipment.getStateMachine().getInitialState(),
 				beingPrepared, ship);
 		createTransition(beingPrepared, beingShipped, prepared);
