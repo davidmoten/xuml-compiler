@@ -106,6 +106,73 @@ When you run the viewer you will see a window with the image of Figure 1.
 ==Add the State Machine==
 Now we add in the state machine details to the Shop class:
 
+{{{
+private void initialize() {
+		...
+		createOrderStateMachine(order);
+		createShipmentStateMachine(shipment);
+	}
+
+	public void createOrderStateMachine(Class order) {
+		State open = createState(order, "Open");
+		State delivered = createState(order, "Delivered");
+		State cancelled = createState(order, "Cancelled");
+		State beingPreparedAndShipped = createState(order,
+				"Being Prepared and Shipped");
+		CallEvent createOrder = createCallEvent(order, "createOrder");
+		SignalEvent addProduct = createSignalEvent(order, "addProduct");
+		SignalEvent removeProduct = createSignalEvent(order, "removeProduct");
+		SignalEvent changeQuantity = createSignalEvent(order,
+				"changeProductQuantity");
+		SignalEvent ship = createSignalEvent(order, "ship");
+		SignalEvent orderDelivered = createSignalEvent(order, "delivered");
+		SignalEvent cancel = createSignalEvent(order, "cancel");
+		createTransition(order.getStateMachine().getInitialState(), open,
+				createOrder);
+		createTransition(open, open, addProduct);
+		createTransition(open, open, changeQuantity);
+		createTransition(open, open, removeProduct);
+		createTransition(open, cancelled, cancel);
+		createTransition(beingPreparedAndShipped, cancelled, cancel);
+		createTransition(open, beingPreparedAndShipped, ship);
+		createTransition(beingPreparedAndShipped, delivered, orderDelivered);
+		createTransition(beingPreparedAndShipped, cancelled, cancel);
+	}
+
+	private void createShipmentStateMachine(Class shipment) {
+		State beingPrepared = createState(shipment, "Being Prepared");
+		State beingShipped = createState(shipment, "Being Shipped");
+		State shippedState = createState(shipment, "Shipped");
+		State cancelled = createState(shipment, "Cancelled");
+		State deliveredState = createState(shipment, "Delivered");
+		State lostState = createState(shipment, "Lost");
+		State returnedState = createState(shipment, "Returned");
+		CallEvent ship = createCallEvent(shipment, "createShipment");
+		SignalEvent prepared = createSignalEvent(shipment, "prepared");
+		SignalEvent shipped = createSignalEvent(shipment, "shipped");
+		SignalEvent delivered = createSignalEvent(shipment, "delivered");
+		SignalEvent cancel = createSignalEvent(shipment, "cancel");
+		SignalEvent lost = createSignalEvent(shipment, "lost");
+		SignalEvent returned = createSignalEvent(shipment, "returned");
+		createTransition(shipment.getStateMachine().getInitialState(),
+				beingPrepared, ship);
+		createTransition(beingPrepared, beingShipped, prepared);
+		createTransition(beingShipped, shippedState, shipped);
+		createTransition(beingPrepared, cancelled, cancel);
+		createTransition(beingShipped, cancelled, cancel);
+		createTransition(shippedState, deliveredState, delivered);
+		createTransition(shippedState, lostState, lost);
+		createTransition(shippedState, returnedState, returned);
+	}
+}}}
+
+Running the viewer now gives us:
+
+_Figure 2:_
+
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class2.png
+
+
 ==Add methods to the classes==
 Add this code to the end of the initialize() method: 
 
