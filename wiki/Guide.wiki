@@ -228,7 +228,9 @@ All classes will be written to the directory temp/shop. Change it if you wish. C
 
 Run the main method in the above class and classes will be generated as below:
 
-http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img04.jpg
+_Figure 3:_
+
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/generated1.png
 
 Notice the getter and setter methods on the Customer interface class and the search methods. If we had defined identifiers (uniqueness rules other than the primary key id field) we would see finders for the identifier attribute groups as well.  
 
