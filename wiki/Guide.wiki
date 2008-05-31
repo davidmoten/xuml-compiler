@@ -232,7 +232,247 @@ _Figure 3:_
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/generated1.png
 
-As an example have a look at the ejb class for Order:
+Now have a look at the interface Order.java and the ejb implementation OrderImpl:
+
+*Order.java:*
+{{{
+package shop;
+
+import java.util.Date;
+import shop.Shipment;
+import shop.impl.ShipmentImpl;
+import shop.Order;
+import shop.impl.OrderImpl;
+import shop.OrderProduct;
+import shop.impl.OrderProductImpl;
+import shop.Customer;
+import shop.impl.CustomerImpl;
+
+import java.util.Set;
+import java.util.List;
+import javax.persistence.EntityManager;
+
+
+/**
+* an order of products made by a customer
+*
+* @generated
+* @generatedBy xUML
+*/
+
+public interface Order  {
+
+	/**
+	 * getter for id
+	 */
+    public int getId();
+
+	/**
+	 * setter for id
+	 */
+	public void setId(int id);
+
+	/**
+	 * getter for timeCreated
+	 */
+    public Date getTimeCreated();
+
+	/**
+	 * setter for timeCreated
+	 */
+	public void setTimeCreated(Date timeCreated);
+
+	/**
+	* via association "R2"
+	**/
+	public Shipment getShipment();
+
+	/**
+	* via association "R2"
+	**/
+	public void setShipment(Shipment shipment);
+
+	/**
+	* via association "R3A"
+	**/
+	public Set<OrderProduct> getOrderProduct();
+
+	/**
+	* via association "R3A"
+	**/
+	public void setOrderProduct(Set<OrderProduct> orderProduct);
+
+	/**
+	* via association "R1"
+	**/
+	public Customer getCustomer();
+
+	/**
+	* via association "R1"
+	**/
+	public void setCustomer(Customer customer);
+	
+	/**
+	* process the received Call event <em>createOrder</em>
+	*/
+	public void processEvent(final EventCreateOrder event);
+	
+	/**
+	* process the received Signal event <em>addProduct</em>
+	*/
+	public void processEvent(final EventAddProduct event);
+	
+	/**
+	* process the received Signal event <em>removeProduct</em>
+	*/
+	public void processEvent(final EventRemoveProduct event);
+	
+	/**
+	* process the received Signal event <em>changeProductQuantity</em>
+	*/
+	public void processEvent(final EventChangeProductQuantity event);
+	
+	/**
+	* process the received Signal event <em>ship</em>
+	*/
+	public void processEvent(final EventShip event);
+	
+	/**
+	* process the received Signal event <em>cancel</em>
+	*/
+	public void processEvent(final EventCancel event);
+
+	/** 
+	* Event <em>createOrder</em>
+	* 
+	*/
+	public static class EventCreateOrder {
+	}
+
+	/** 
+	* Event <em>addProduct</em>
+	* 
+	*/
+	public static class EventAddProduct {
+	
+		/**
+		* * 
+		*/
+		private Product product;
+	
+		/**
+		* * 
+		*/
+		public Product getProduct(){
+			return product;
+		}
+		
+		public void setProduct(Product product){
+			this.product = product;
+		}
+	}
+
+	/** 
+	* Event <em>removeProduct</em>
+	* 
+	*/
+	public static class EventRemoveProduct {
+	
+		/**
+		* * 
+		*/
+		private Product product;
+	
+		/**
+		* * 
+		*/
+		public Product getProduct(){
+			return product;
+		}
+		
+		public void setProduct(Product product){
+			this.product = product;
+		}
+	}
+
+	/** 
+	* Event <em>changeProductQuantity</em>
+	* 
+	*/
+	public static class EventChangeProductQuantity {
+	
+		/**
+		* * 
+		*/
+		private Product product;
+	
+		/**
+		* * 
+		*/
+		private Integer newQuantity;
+	
+		/**
+		* * 
+		*/
+		public Product getProduct(){
+			return product;
+		}
+		
+		public void setProduct(Product product){
+			this.product = product;
+		}
+	
+		/**
+		* * 
+		*/
+		public Integer getNewQuantity(){
+			return newQuantity;
+		}
+		
+		public void setNewQuantity(Integer newQuantity){
+			this.newQuantity = newQuantity;
+		}
+	}
+
+	/** 
+	* Event <em>ship</em>
+	* 
+	*/
+	public static class EventShip {
+	}
+
+	/** 
+	* Event <em>cancel</em>
+	* 
+	*/
+	public static class EventCancel {
+	}
+
+	/** 
+	* static class to contain static search methods 
+	*/
+	public static class Search {
+
+		/**
+		* returns all instances of Order
+		*/
+		@SuppressWarnings("unchecked")
+		public static List<Order> findAll(EntityManager em) {
+			return (List<Order>) em.createQuery("from Order").getResultList();
+		}
+		
+		/**
+		* returns all instances of Order satisfying the clause. Note that you might use a where clause and/or an order by clause.
+		*/
+		@SuppressWarnings("unchecked")
+		public static List<Order> findAll(EntityManager em, String clause) {
+			return (List<Order>) em.createQuery("from Order "+clause).getResultList();
+		}
+	}
+}
+}}}
+
+*OrderImpl.java*
 {{{
 package shop.impl;
 
