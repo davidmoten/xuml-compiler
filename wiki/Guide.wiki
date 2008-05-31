@@ -276,7 +276,7 @@ public class OrderImpl implements Order {
 	protected OrderImpl(){
 		//
 	}
-	private enum State {INITIAL_STATE, OPEN, DELIVERED, CANCELLED, BEING_PREPAREDAND_SHIPPED, FINAL_STATE};
+	private enum State {INITIAL_STATE, OPEN, DELIVERED, CANCELLED, BEING_PREPARED_AND_SHIPPED, FINAL_STATE};
 	
 	private State state = State.INITIAL_STATE;
 
@@ -533,14 +533,14 @@ public class OrderImpl implements Order {
 		log.debug("processing event ship");
 		
 		if (state.equals(State.OPEN)){
-			state = State.BEING_PREPAREDAND_SHIPPED;
+			state = State.BEING_PREPARED_AND_SHIPPED;
 			final Object thisObject = this;
 			Thread t = new Thread(new Runnable() {
 					public void run() {
 						checkActions();
 						synchronized (thisObject) {
-							log.debug("performOnEntryBeingPreparedandShipped");
-							orderActions.performOnEntryBeingPreparedandShipped(event);
+							log.debug("performOnEntryBeingPreparedAndShipped");
+							orderActions.performOnEntryBeingPreparedAndShipped(event);
 						}
 					}
 				});
@@ -569,22 +569,7 @@ public class OrderImpl implements Order {
 			t.start();
 		}
 		else
-		if (state.equals(State.BEING_PREPAREDAND_SHIPPED)){
-			state = State.CANCELLED;
-			final Object thisObject = this;
-			Thread t = new Thread(new Runnable() {
-					public void run() {
-						checkActions();
-						synchronized (thisObject) {
-							log.debug("performOnEntryCancelled");
-							orderActions.performOnEntryCancelled(event);
-						}
-					}
-				});
-			t.start();
-		}
-		else
-		if (state.equals(State.BEING_PREPAREDAND_SHIPPED)){
+		if (state.equals(State.BEING_PREPARED_AND_SHIPPED)){
 			state = State.CANCELLED;
 			final Object thisObject = this;
 			Thread t = new Thread(new Runnable() {
