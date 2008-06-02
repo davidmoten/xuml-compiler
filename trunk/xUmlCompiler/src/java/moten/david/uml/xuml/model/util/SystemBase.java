@@ -353,6 +353,16 @@ public class SystemBase implements CodeGenerator {
 		return operation;
 	}
 
+	public Parameter createParameter(Event event, String name,
+			String description, Primitive primitive) {
+		Parameter p = ModelFactory.eINSTANCE.createParameter();
+		p.setName(name);
+		p.setDescription(description);
+		p.setType(getPrimitiveType(primitive));
+		event.getParameter().add(p);
+		return p;
+	}
+
 	public Parameter createParameter(String name, String description,
 			String type) {
 		Parameter p = ModelFactory.eINSTANCE.createParameter();
