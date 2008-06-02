@@ -95,7 +95,7 @@ public class Shop extends SystemBase {
 
 }}}
 ==View the system==
-Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be _Shop.ini_ in the java working directory. Change it if you like.
+Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be _src/viewer/Shop.ini_. Change it if you like.
 
 To view the system, run the above class (the main method calls the viewer). You will need to reposition the elements but when you close the viewer the positions will be saved automatically.
  
