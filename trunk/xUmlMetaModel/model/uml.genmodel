@@ -44,7 +44,7 @@
     <genClasses ecoreClass="uml.ecore#//Class">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//Class/package"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/attribute"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/attributeDerived"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/attributeReferential"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/operation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/constraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/stateMachine"/>
@@ -91,11 +91,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Attribute/persistence"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//Attribute/values"/>
     </genClasses>
-    <genClasses ecoreClass="uml.ecore#//AttributeDerived">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AttributeDerived/associationEnd"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//AttributeDerived/class"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AttributeDerived/identifierPrimary"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AttributeDerived/identifierNonPrimary"/>
+    <genClasses ecoreClass="uml.ecore#//AttributeReferential">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AttributeReferential/associationEnd"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//AttributeReferential/class"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AttributeReferential/identifierPrimary"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AttributeReferential/identifierNonPrimary"/>
     </genClasses>
     <genClasses ecoreClass="uml.ecore#//OperationSignature">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//OperationSignature/parameter"/>
@@ -128,11 +128,11 @@
     <genClasses image="false" ecoreClass="uml.ecore#//Identifier"/>
     <genClasses ecoreClass="uml.ecore#//IdentifierPrimary">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierPrimary/attribute"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierPrimary/derivedAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierPrimary/attributeReferential"/>
     </genClasses>
     <genClasses ecoreClass="uml.ecore#//IdentifierNonPrimary">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierNonPrimary/attribute"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierNonPrimary/derivedAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierNonPrimary/attributeReferential"/>
     </genClasses>
     <genClasses image="false" ecoreClass="uml.ecore#//IdentifierParticipant"/>
     <genClasses image="false" ecoreClass="uml.ecore#//Event">

@@ -50,8 +50,8 @@
         eOpposite="#//Package/class"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" upperBound="-1"
         eType="#//Attribute" containment="true" eOpposite="#//Attribute/class"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attributeDerived" upperBound="-1"
-        eType="#//AttributeDerived" containment="true" eOpposite="#//AttributeDerived/class"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributeReferential" upperBound="-1"
+        eType="#//AttributeReferential" containment="true" eOpposite="#//AttributeReferential/class"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operation" upperBound="-1"
         eType="#//Operation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" eType="#//ObjectConstraintLanguage"
@@ -102,7 +102,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rolePlural" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="derivedAttribute" upperBound="-1"
-        eType="#//AttributeDerived" eOpposite="#//AttributeDerived/associationEnd"/>
+        eType="#//AttributeReferential" eOpposite="#//AttributeReferential/associationEnd"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="persistence" eType="#//AssociationEndPersistence"
         containment="true"/>
   </eClassifiers>
@@ -130,15 +130,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="values" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AttributeDerived" eSuperTypes="#//IdentifierParticipant">
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeReferential" eSuperTypes="#//IdentifierParticipant">
     <eStructuralFeatures xsi:type="ecore:EReference" name="associationEnd" eType="#//AssociationEnd"
         eOpposite="#//AssociationEnd/derivedAttribute"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="class" lowerBound="1" eType="#//Class"
-        eOpposite="#//Class/attributeDerived"/>
+        eOpposite="#//Class/attributeReferential"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="identifierPrimary" upperBound="-1"
-        eType="#//IdentifierPrimary" eOpposite="#//IdentifierPrimary/derivedAttribute"/>
+        eType="#//IdentifierPrimary" eOpposite="#//IdentifierPrimary/attributeReferential"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="identifierNonPrimary" upperBound="-1"
-        eType="#//IdentifierNonPrimary" eOpposite="#//IdentifierNonPrimary/derivedAttribute"/>
+        eType="#//IdentifierNonPrimary" eOpposite="#//IdentifierNonPrimary/attributeReferential"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OperationSignature" eSuperTypes="#//Named">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
@@ -181,15 +181,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="IdentifierPrimary" eSuperTypes="#//Identifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" upperBound="-1"
         eType="#//Attribute" eOpposite="#//Attribute/identifierPrimary" eKeys="#//Named/name"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="derivedAttribute" upperBound="-1"
-        eType="#//AttributeDerived" eOpposite="#//AttributeDerived/identifierPrimary"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributeReferential" upperBound="-1"
+        eType="#//AttributeReferential" eOpposite="#//AttributeReferential/identifierPrimary"
         eKeys="#//Named/name"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IdentifierNonPrimary" eSuperTypes="#//Identifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" upperBound="-1"
         eType="#//Attribute" eOpposite="#//Attribute/identifierNonPrimary" eKeys="#//Named/name"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="derivedAttribute" upperBound="-1"
-        eType="#//AttributeDerived" eOpposite="#//AttributeDerived/identifierNonPrimary"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributeReferential" upperBound="-1"
+        eType="#//AttributeReferential" eOpposite="#//AttributeReferential/identifierNonPrimary"
         eKeys="#//Named/name"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IdentifierParticipant" abstract="true"

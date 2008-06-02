@@ -14,7 +14,7 @@ import model.AssociationEndPersistence;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
 import model.Attribute;
-import model.AttributeDerived;
+import model.AttributeReferential;
 import model.CallEvent;
 import model.Class;
 import model.ClassPersistence;
@@ -90,7 +90,7 @@ public class ClassMap {
 		map.put("name", id.getName());
 		map.put("description", id.getDescription());
 		map.put("attributes", getAttributesList(id.getAttribute(), id
-				.getDerivedAttribute()));
+				.getAttributeReferential()));
 		return map;
 	}
 
@@ -193,23 +193,23 @@ public class ClassMap {
 		KeyMap map = new KeyMap();
 		map.putAll(getNamedMap(identifier));
 		map.put("attributes", getAttributesList(identifier.getAttribute(),
-				identifier.getDerivedAttribute()));
+				identifier.getAttributeReferential()));
 		return map;
 	}
 
 	private List<KeyMap> getAttributesList(EList<Attribute> attributes,
-			EList<AttributeDerived> derivedAttributes) {
+			EList<AttributeReferential> derivedAttributes) {
 		List<KeyMap> list = new ArrayList<KeyMap>();
 		for (Attribute a : attributes) {
 			list.add(getAttributeMap(a));
 		}
-		for (AttributeDerived a : derivedAttributes) {
-			list.add(getAttributeDerivedMap(a));
+		for (AttributeReferential a : derivedAttributes) {
+			list.add(getAttributeReferentialMap(a));
 		}
 		return list;
 	}
 
-	private KeyMap getAttributeDerivedMap(AttributeDerived attribute) {
+	private KeyMap getAttributeReferentialMap(AttributeReferential attribute) {
 		KeyMap map = new KeyMap();
 		map.put("name", attribute.getAssociationEnd().getRole());
 		map.put("type", registerClass(ModelUtil
@@ -394,7 +394,7 @@ public class ClassMap {
 
 		Set<String> derivedAttributeNames = new HashSet<String>();
 		for (IdentifierNonPrimary identifier : cls.getIdentifierNonPrimary()) {
-			for (AttributeDerived da : identifier.getDerivedAttribute()) {
+			for (AttributeReferential da : identifier.getAttributeReferential()) {
 				derivedAttributeNames.add(da.getAssociationEnd().getRole());
 			}
 		}

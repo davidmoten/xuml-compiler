@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.util.HashSet;
 import java.util.Set;
@@ -68,11 +69,12 @@ public class JoinLayer extends JPanel {
 
 		Point joinPoint;
 		final int joinLength = 50;
-		if (p1.x == superComponent.getX())
+		if (p1.x == superComponent.getBounds().x)
 			joinPoint = new Point(p1.x - joinLength, p1.y);
-		else if (p1.x == superComponent.getX() + superComponent.getWidth())
+		else if (p1.x == superComponent.getBounds().x
+				+ superComponent.getBounds().width)
 			joinPoint = new Point(p1.x + joinLength, p1.y);
-		else if (p1.y == superComponent.getY())
+		else if (p1.y == superComponent.getBounds().y)
 			joinPoint = new Point(p1.x, p1.y - joinLength);
 		else
 			joinPoint = new Point(p1.x, p1.y + joinLength);
@@ -107,7 +109,7 @@ public class JoinLayer extends JPanel {
 			Point p) {
 		Double shortestDistance = null;
 		Point[] points = getPoints(component);
-		Point centre = getCentre(component);
+		Point centre = getCentre(component.getBounds());
 		Point bestPoint = null;
 		for (Point point : points) {
 			if (!usedPoints.contains(point)) {
@@ -129,8 +131,8 @@ public class JoinLayer extends JPanel {
 		Point[] aPoints = getPoints(aComponent);
 		Point[] bPoints = getPoints(bComponent);
 		Double shortestDistance = null;
-		Point centreA = getCentre(aComponent);
-		Point centreB = getCentre(bComponent);
+		Point centreA = getCentre(aComponent.getBounds());
+		Point centreB = getCentre(bComponent.getBounds());
 		Point bestA = null;
 		Point bestB = null;
 		for (Point a : aPoints) {
@@ -205,8 +207,8 @@ public class JoinLayer extends JPanel {
 	private void joinComponents(Graphics g, Set<Point> usedPoints,
 			ClassComponent c1, ClassComponent c2, String label,
 			ClassComponent joinToCentre) {
-		Point p1 = getCentre(c1);
-		Point p2 = getCentre(c2);
+		Point p1 = getCentre(c1.getBounds());
+		Point p2 = getCentre(c2.getBounds());
 		Point[] points = getBestJoin(usedPoints, c1, c2);
 		p1 = points[0];
 		p2 = points[1];
@@ -220,7 +222,7 @@ public class JoinLayer extends JPanel {
 			g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
 		if (joinToCentre != null) {
 			Point centre = getCentre(p1, p2);
-			Point other = getCentre(joinToCentre);
+			Point other = getCentre(joinToCentre.getBounds());
 			Stroke stroke = g2d.getStroke();
 			g2d.setStroke(STROKE_THIN_DASHED);
 			g2d.drawLine(centre.x, centre.y, other.x, other.y);
@@ -258,10 +260,14 @@ public class JoinLayer extends JPanel {
 		g2d.drawString(label, labelX, labelY);
 	}
 
-	private static Point getCentre(Component c) {
+	// private static Point getCentre(Component c) {
+	// return getCentre(c.getBounds());
+	// }
+
+	private static Point getCentre(Rectangle r) {
 		Point p = new Point();
-		p.x = c.getX() + c.getSize().width / 2;
-		p.y = c.getY() + c.getSize().height / 2;
+		p.x = r.x + r.width / 2;
+		p.y = r.y + r.height / 2;
 		return p;
 	}
 

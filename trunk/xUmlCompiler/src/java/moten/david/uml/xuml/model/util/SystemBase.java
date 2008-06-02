@@ -13,8 +13,8 @@ import model.AssociationEndPersistence;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
 import model.Attribute;
-import model.AttributeDerived;
 import model.AttributePersistence;
+import model.AttributeReferential;
 import model.CallEvent;
 import model.Class;
 import model.ClassPersistence;
@@ -255,9 +255,10 @@ public class SystemBase implements CodeGenerator {
 		return a;
 	}
 
-	public AttributeDerived createAttributeDerived(model.Class cls,
+	public AttributeReferential createAttributeReferential(model.Class cls,
 			AssociationEnd end, String name) {
-		AttributeDerived a = ModelFactory.eINSTANCE.createAttributeDerived();
+		AttributeReferential a = ModelFactory.eINSTANCE
+				.createAttributeReferential();
 		a.setAssociationEnd(end);
 		a.setClass(cls);
 		a.setName(name);
@@ -266,7 +267,7 @@ public class SystemBase implements CodeGenerator {
 
 	public IdentifierPrimary createIdentifierPrimary(model.Class cls,
 			String name, Attribute[] attributes,
-			AttributeDerived... derivedAttributes) {
+			AttributeReferential... derivedAttributes) {
 		IdentifierPrimary identifierPrimary = ModelFactory.eINSTANCE
 				.createIdentifierPrimary();
 		identifierPrimary.setName(name);
@@ -274,7 +275,7 @@ public class SystemBase implements CodeGenerator {
 			identifierPrimary.getAttribute().addAll(Arrays.asList(attributes));
 		}
 		if (derivedAttributes != null) {
-			identifierPrimary.getDerivedAttribute().addAll(
+			identifierPrimary.getAttributeReferential().addAll(
 					Arrays.asList(derivedAttributes));
 		}
 		cls.setIdentifierPrimary(identifierPrimary);
@@ -283,7 +284,7 @@ public class SystemBase implements CodeGenerator {
 
 	public IdentifierNonPrimary createIdentifierNonPrimary(model.Class cls,
 			String name, Attribute[] attributes,
-			AttributeDerived... derivedAttributes) {
+			AttributeReferential... derivedAttributes) {
 		IdentifierNonPrimary identifierNonPrimary = ModelFactory.eINSTANCE
 				.createIdentifierNonPrimary();
 		identifierNonPrimary.setName(name);
@@ -292,7 +293,7 @@ public class SystemBase implements CodeGenerator {
 					Arrays.asList(attributes));
 		}
 		if (derivedAttributes != null) {
-			identifierNonPrimary.getDerivedAttribute().addAll(
+			identifierNonPrimary.getAttributeReferential().addAll(
 					Arrays.asList(derivedAttributes));
 		}
 		cls.getIdentifierNonPrimary().add(identifierNonPrimary);

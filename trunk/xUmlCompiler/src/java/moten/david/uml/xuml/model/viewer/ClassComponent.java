@@ -15,7 +15,7 @@ import model.AssociationEnd;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
 import model.Attribute;
-import model.AttributeDerived;
+import model.AttributeReferential;
 import model.Event;
 import model.IdentifierNonPrimary;
 import model.Operation;
@@ -65,15 +65,16 @@ public class ClassComponent extends Container {
 
 			lines.add(line);
 		}
-		for (AttributeDerived a : cls.getAttributeDerived()) {
+		for (AttributeReferential a : cls.getAttributeReferential()) {
 			Association association = getAssociation(a.getAssociationEnd());
 			String line = "  " + a.getAssociationEnd().getRole() + " {"
 					+ association.getName() + "} ";
-			if (cls.getIdentifierPrimary().getDerivedAttribute().contains(a)) {
+			if (cls.getIdentifierPrimary().getAttributeReferential()
+					.contains(a)) {
 				line = line + "{" + cls.getIdentifierPrimary().getName() + "}";
 			}
 			for (IdentifierNonPrimary i : cls.getIdentifierNonPrimary()) {
-				if (i.getDerivedAttribute().contains(a)) {
+				if (i.getAttributeReferential().contains(a)) {
 					line = line + "{" + i.getName() + "}";
 				}
 			}
