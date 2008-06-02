@@ -188,20 +188,21 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class2.png
 
 
 ==Add methods to the classes==
+Let's add a method to the customer class to send an email for instance to notify the customer that their order has been shipped.
+
 Add this code to the end of the initialize() method: 
 
 {{{
-    createOperation(order, "dispatch", "dispatches the order", null, false);
-    createOperation(
-        customer,
-        "getCreditRating",
-        "gets the credit rating",
-        "Integer", false);
+	createOperation(customer, "sendMessage",
+		"sends the customer a message, probably via email", null,
+		false, 
+		createParameter("subject","subject of message",	Primitive.STRING), 
+		createParameter("body","body of message", Primitive.STRING));
 }}}
 
 Run the viewer and we see the new operations in the classes.
 
-http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img03.jpg
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class3.png
 
 ==Generate the classes==
 xUmlCompiler generates
