@@ -14,6 +14,8 @@ import org.hibernate.annotations.Type;
 import org.apache.log4j.Logger;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 import moten.david.uml.xuml.model.compiler.runtime.InvalidRecordException;
 import com.google.inject.Inject;
 import ${package}.*;
@@ -98,6 +100,14 @@ public class ${name}Impl <#if superClass?exists>extends ${superClass}Impl </#if>
 </#if>
 </#list>
 <#list associations as association>
+<#assign collectionType>Set</#assign>
+<#assign collectionTypeImpl>HashSet</#assign>
+<#if association.other.persistence?exists>
+<#if association.other.persistence.orderBy?exists>
+	<#assign collectionType>List</#assign>
+	<#assign collectionTypeImpl>ArrayList</#assign>
+</#if>
+</#if>
 <#assign otherType><#if association.other.multiple>${"Set\l"}</#if>${association.other.class}<#if association.other.multiple>${"\g"}</#if></#assign>
 <#assign otherName>${association.other.role?uncap_first}</#assign>
 <#assign thisName>${association.this.role?uncap_first}</#assign>
@@ -107,7 +117,7 @@ public class ${name}Impl <#if superClass?exists>extends ${superClass}Impl </#if>
 	* role for association "${association.name}" (inverse role is ${thisName})
 	*/
 <#if association.other.multiple>
-	private Set<${association.other.type}> ${otherName} = new HashSet<${association.other.type}>();
+	private ${collectionType}<${association.other.type}> ${otherName} = new ${collectionTypeImpl}<${association.other.type}>();
 <#else>
 	private ${association.other.type} ${otherName};
 </#if>
@@ -577,19 +587,21 @@ public class ${name}Impl <#if superClass?exists>extends ${superClass}Impl </#if>
 <#else>
   This is a problem, one of the if clauses is not working!
 </#if>
+<#assign collectionType>Set</#assign>
 <#if association.other.persistence?exists>
 <#if association.other.persistence.orderBy?exists>
+	<#assign collectionType>List</#assign>
 	@OrderBy("<#list association.other.persistence.orderBy as orderBy><#rt/>
 <#if orderBy_index gt 0>,</#if>${orderBy.name}<#rt/>
 </#list>")
 </#if>
 </#if>
 <#if association.other.multiple>
-	public Set<${association.other.type}> get${otherName?cap_first}(){
+	public ${collectionType}<${association.other.type}> get${otherName?cap_first}(){
 		return ${otherName};
 	}
 
-	public void set${otherName?cap_first}(Set<${association.other.type}> ${otherName}){
+	public void set${otherName?cap_first}(${collectionType}<${association.other.type}> ${otherName}){
 		this.${otherName}=${otherName};
 	}
 <#else>

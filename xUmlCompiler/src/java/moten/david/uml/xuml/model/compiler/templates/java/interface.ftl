@@ -46,17 +46,23 @@ public interface ${name}  {
 <#assign otherName>${association.other.role?uncap_first}</#assign>
 <#assign thisName>${association.this.role?uncap_first}</#assign>
 <#assign otherColumn>${association.other.role}_id</#assign>
+<#assign collectionType>Set</#assign>
+<#if association.other.persistence?exists>
+<#if association.other.persistence.orderBy?exists>
+	<#assign collectionType>List</#assign>
+</#if>
+</#if>
 <#if association.other.multiple>
 
 	/**
 	* via association "${association.name}"
 	**/
-	public Set<${association.other.type}> get${otherName?cap_first}();
+	public ${collectionType}<${association.other.type}> get${otherName?cap_first}();
 
 	/**
 	* via association "${association.name}"
 	**/
-	public void set${otherName?cap_first}(Set<${association.other.type}> ${otherName});
+	public void set${otherName?cap_first}(${collectionType}<${association.other.type}> ${otherName});
 <#else>
 
 	/**

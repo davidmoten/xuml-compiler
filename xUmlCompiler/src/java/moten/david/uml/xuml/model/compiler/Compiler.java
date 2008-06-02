@@ -13,7 +13,7 @@ import model.Association;
 import model.AssociationClass;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
-import model.AttributeDerived;
+import model.AttributeReferential;
 import model.IdentifierNonPrimary;
 import model.ModelFactory;
 import model.System;
@@ -145,16 +145,18 @@ public class Compiler {
 
 		IdentifierNonPrimary id = ModelFactory.eINSTANCE
 				.createIdentifierNonPrimary();
-		AttributeDerived a1 = ModelFactory.eINSTANCE.createAttributeDerived();
+		AttributeReferential a1 = ModelFactory.eINSTANCE
+				.createAttributeReferential();
 		a1.setClass(assClass);
 		a1.setName("primary");
 		a1.setAssociationEnd(aep);
-		id.getDerivedAttribute().add(a1);
-		AttributeDerived a2 = ModelFactory.eINSTANCE.createAttributeDerived();
+		id.getAttributeReferential().add(a1);
+		AttributeReferential a2 = ModelFactory.eINSTANCE
+				.createAttributeReferential();
 		a2.setClass(assClass);
 		a2.setName("secondary");
 		a2.setAssociationEnd(aep2);
-		id.getDerivedAttribute().add(a2);
+		id.getAttributeReferential().add(a2);
 		id
 				.setName("implicitly defined because this class is an association class");
 		assClass.getIdentifierNonPrimary().add(id);
