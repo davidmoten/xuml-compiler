@@ -8,7 +8,7 @@ Checkout the latest version and run the build.xml file with ant (works fine with
 
 Include the jars below in your classpath:
   * xUmlCompiler/temp/deployment/xuml-compiler.jar
-  * xUmlCompiler/temp/dependencies/*.jar
+  * xUmlCompiler/temp/dependencies/'*'.jar
 
 ==Define a system==
 Consider this class diagram:
