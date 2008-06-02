@@ -31,6 +31,11 @@ public class Shop extends SystemBase {
 		createAttribute(customer, "billingAddress");
 		createAttribute(customer, "shippingName");
 		createAttribute(customer, "shippingAddress");
+		createOperation(customer, "sendMessage",
+				"sends the customer a message, probably via email", null,
+				false, createParameter("subject", "subject of message",
+						Primitive.STRING), createParameter("body",
+						"body of message", Primitive.STRING));
 
 		Class order = createClassWithArbitraryId(pkg, "Order",
 				"an order of products made by a customer");
