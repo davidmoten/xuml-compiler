@@ -89,7 +89,8 @@ public class Shop extends SystemBase {
 		SignalEvent changeQuantity = createSignalEvent(order,
 				"changeProductQuantity");
 		createParameter(changeQuantity, "product", "Product");
-		createParameter(changeQuantity, "newQuantity", Primitive.INTEGER);
+		createParameter(changeQuantity, "newQuantity",
+				"new quantity of product", Primitive.INTEGER);
 		SignalEvent ship = createSignalEvent(order, "ship");
 		SignalEvent cancel = createSignalEvent(order, "cancel");
 
@@ -114,18 +115,19 @@ public class Shop extends SystemBase {
 		CallEvent ship = createCallEvent(shipment, "createShipment");
 		createParameter(ship, "order", "Order");
 		SignalEvent prepared = createSignalEvent(shipment, "prepared");
-		createParameter(prepared, "time", Primitive.TIMESTAMP);
+		createParameter(prepared, "time", "time prepared", Primitive.TIMESTAMP);
 		SignalEvent shipped = createSignalEvent(shipment, "shipped");
-		createParameter(shipped, "time", Primitive.TIMESTAMP);
+		createParameter(shipped, "time", "time shipped", Primitive.TIMESTAMP);
 		SignalEvent delivered = createSignalEvent(shipment, "delivered");
-		createParameter(delivered, "time", Primitive.TIMESTAMP);
+		createParameter(delivered, "time", "time delivered",
+				Primitive.TIMESTAMP);
 		SignalEvent cancel = createSignalEvent(shipment, "cancel");
-		createParameter(cancel, "time", Primitive.TIMESTAMP);
+		createParameter(cancel, "time", "time cancelled", Primitive.TIMESTAMP);
 		SignalEvent lost = createSignalEvent(shipment, "lost");
-		createParameter(lost, "time", Primitive.TIMESTAMP);
+		createParameter(lost, "time", "time lost", Primitive.TIMESTAMP);
 		createParameter(cancel, "comment");
 		SignalEvent returned = createSignalEvent(shipment, "returned");
-		createParameter(returned, "time", Primitive.TIMESTAMP);
+		createParameter(returned, "time", "time returned", Primitive.TIMESTAMP);
 		createParameter(returned, "comment");
 
 		createTransition(shipment.getStateMachine().getInitialState(),
