@@ -12,6 +12,7 @@
 	<property name="generated.bookstore" value="${temp}/bookstore" />
 	<property name="generated.associations" value="${temp}/associations" />
 	<property name="generated.microwave" value="${temp}/microwave" />
+	<property name="generated.shop" value="${temp}/shop"/>
 	<property name="deployment" value="${temp}/deployment" />
 	<property name="dependencies" value="${temp}/dependencies" />
 	<property name="use.proxy" value="true" />
@@ -79,6 +80,7 @@
 		<delete dir="${generated.bookstore}" />
 		<delete dir="${generated.associations}" />
 		<delete dir="${generated.microwave}" />
+		<delete dir="${generated.shop}"/>
 		<delete dir="${deployment}" />
 
 		<mkdir dir="${temp}" />
@@ -88,6 +90,7 @@
 		<mkdir dir="${generated.bookstore}" />
 		<mkdir dir="${generated.associations}" />
 		<mkdir dir="${generated.microwave}" />
+		<mkdir dir="${generated.shop}"/>
 		<mkdir dir="${deployment}" />
 
 	</target>
