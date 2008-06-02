@@ -188,7 +188,7 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class2.png
 
 
 ==Add methods to the classes==
-Let's add a method to the customer class to send an email for instance to notify the customer that their order has been shipped.
+Let's add a method to the Customer class to send an email for instance to notify the customer that their order has been shipped.
 
 Add this code to the end of the initialize() method: 
 
@@ -200,7 +200,7 @@ Add this code to the end of the initialize() method:
 		createParameter("body","body of message", Primitive.STRING));
 }}}
 
-Run the viewer and we see the new operations in the classes.
+Run the viewer and we see the new operation on the Customer class.
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class3.png
 
