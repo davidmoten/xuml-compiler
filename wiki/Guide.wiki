@@ -324,7 +324,7 @@ public class OrderBehaviour implements OrderActions {
 }
 }}}
 
-Here's the actions implementation skeleton for the Shipment class:
+Here's the actions implementation for the Shipment class:
 {{{
 package moten.david.uml.xuml.model.example.shop;
 
@@ -340,53 +340,54 @@ import shop.actions.ShipmentActions;
 
 public class ShipmentBehaviour implements ShipmentActions {
 
+	private Shipment shipment;
+
 	@Override
-	public void performOnEntryBeingPrepared(EventCreateShipment event) {
-		// TODO Auto-generated method stub
-		
+	public void setShipment(Shipment shipment) {
+		this.shipment = shipment;
 	}
 
 	@Override
-	public void performOnEntryBeingShipped(EventPrepared event) {
-		// TODO Auto-generated method stub
-		
+	public void performOnEntryBeingPrepared(EventCreateShipment event) {
+		// initialise shipment
+		shipment.setShippingName(event.getShippingName());
+		shipment.setShippingAddress(event.getShippingAddress());
+		shipment.setEmail(event.getEmail());
+
+		// establish R2
+		shipment.setOrder(event.getOrder());
 	}
 
 	@Override
 	public void performOnEntryCancelled(EventCancel event) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void performOnEntryDelivered(EventDelivered event) {
-		// TODO Auto-generated method stub
-		
+		shipment.setTimeDelivered(event.getTime());
 	}
 
 	@Override
 	public void performOnEntryLost(EventLost event) {
-		// TODO Auto-generated method stub
-		
+		shipment.setTimeLost(event.getTime());
+	}
+
+	@Override
+	public void performOnEntryReadyForShipping(EventPrepared event) {
+
 	}
 
 	@Override
 	public void performOnEntryReturned(EventReturned event) {
-		// TODO Auto-generated method stub
-		
+		shipment.setTimeReturned(event.getTime());
 	}
 
 	@Override
 	public void performOnEntryShipped(EventShipped event) {
-		// TODO Auto-generated method stub
-		
+		shipment.setTimeShipped(event.getTime());
 	}
 
-	@Override
-	public void setShipment(Shipment shipment) {
-		// TODO Auto-generated method stub
-		
-	}
 }
 }}}
 
