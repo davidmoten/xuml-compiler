@@ -328,6 +328,9 @@ Here's the actions implementation for the Shipment class:
 {{{
 package moten.david.uml.xuml.model.example.shop;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import shop.Shipment;
 import shop.Shipment.EventCancel;
 import shop.Shipment.EventCreateShipment;
@@ -338,9 +341,22 @@ import shop.Shipment.EventReturned;
 import shop.Shipment.EventShipped;
 import shop.actions.ShipmentActions;
 
+import com.google.inject.Inject;
+
 public class ShipmentBehaviour implements ShipmentActions {
 
 	private Shipment shipment;
+	private EntityManagerFactory entityManagerFactory;
+
+	public EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
+	@Inject
+	public void setEntityManagerFactory(
+			EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
+	}
 
 	@Override
 	public void setShipment(Shipment shipment) {
@@ -349,6 +365,8 @@ public class ShipmentBehaviour implements ShipmentActions {
 
 	@Override
 	public void performOnEntryBeingPrepared(EventCreateShipment event) {
+		EntityManager em = entityManagerFactory.createEntityManager();
+		em.getTransaction().begin();
 		// initialise shipment
 		shipment.setShippingName(event.getShippingName());
 		shipment.setShippingAddress(event.getShippingAddress());
@@ -356,6 +374,9 @@ public class ShipmentBehaviour implements ShipmentActions {
 
 		// establish R2
 		shipment.setOrder(event.getOrder());
+		em.persist(shipment);
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	@Override
