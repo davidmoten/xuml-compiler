@@ -90,9 +90,7 @@ public class Shop extends SystemBase {
 		Shop shop = new Shop();
 		shop.view("src/viewer/Shop.ini");
 	}  
-
 }
-
 }}}
 ==View the system==
 Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be _src/viewer/Shop.ini_. Change it if you like.
@@ -240,29 +238,158 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img
 ==Implement actions==
 All methods and state machine entry points should be implemented by your behaviour classes.
 
-Here's the behaviour class for the Order class:
+Here's the actions implementation for the Customer class (the sendMessage operation):
+{{{
+package moten.david.uml.xuml.model.example.shop;
+
+import shop.Customer;
+import shop.actions.CustomerActions;
+
+public class CustomerBehaviour implements CustomerActions {
+
+	private Customer customer;
+
+	@Override
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	@Override
+	public void sendMessage(String subject, String body) {
+		String destination = customer.getEmail();
+		sendEmail(subject, body, destination);
+	}
+
+	private void sendEmail(String subject, String body, String destination) {
+		// TODO
+	}
+}
+}}}
+Here's the actions implementation skeleton for the Order class:
 {{{
 package moten.david.uml.xuml.model.example.shop;
 
 import shop.Order;
+import shop.Order.EventAddProduct;
+import shop.Order.EventCancel;
+import shop.Order.EventChangeProductQuantity;
+import shop.Order.EventCreateOrder;
+import shop.Order.EventRemoveProduct;
+import shop.Order.EventShip;
 import shop.actions.OrderActions;
 
 public class OrderBehaviour implements OrderActions {
 
-    private Order order;
+	@Override
+	public void performOnEntryBeingPreparedAndShipped(EventShip event) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public void dispatch() {
-        System.out.println("dispatching order " + order.getId());
-    }
+	@Override
+	public void performOnEntryCancelled(EventCancel event) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+	@Override
+	public void performOnEntryOpen(EventCreateOrder event) {
+		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void performOnEntryOpen(EventAddProduct event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void performOnEntryOpen(EventRemoveProduct event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void performOnEntryOpen(EventChangeProductQuantity event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOrder(Order order) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 }}}
+
+Here's the actions implementation skeleton for the Shipment class:
+{{{
+package moten.david.uml.xuml.model.example.shop;
+
+import shop.Shipment;
+import shop.Shipment.EventCancel;
+import shop.Shipment.EventCreateShipment;
+import shop.Shipment.EventDelivered;
+import shop.Shipment.EventLost;
+import shop.Shipment.EventPrepared;
+import shop.Shipment.EventReturned;
+import shop.Shipment.EventShipped;
+import shop.actions.ShipmentActions;
+
+public class ShipmentBehaviour implements ShipmentActions {
+
+	@Override
+	public void performOnEntryBeingPrepared(EventCreateShipment event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void performOnEntryBeingShipped(EventPrepared event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void performOnEntryCancelled(EventCancel event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void performOnEntryDelivered(EventDelivered event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void performOnEntryLost(EventLost event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void performOnEntryReturned(EventReturned event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void performOnEntryShipped(EventShipped event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setShipment(Shipment shipment) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+}}}
+
 ==Define an injector==
 {{{
 package moten.david.uml.xuml.model.example.shop;
