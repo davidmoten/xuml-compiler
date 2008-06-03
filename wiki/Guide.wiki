@@ -188,7 +188,7 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class2.png
 
 
 ==Add methods to the classes==
-Let's add a method to the Customer class to send an email for instance to notify the customer that their order has been shipped.
+Let's add a method to the Customer class to send an email to notify the customer that their order has been shipped.
 
 Add this code to the end of the initialize() method: 
 
