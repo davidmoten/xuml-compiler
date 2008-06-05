@@ -90,7 +90,7 @@
 		<mkdir dir="${generated.bookstore}" />
 		<mkdir dir="${generated.associations}" />
 		<mkdir dir="${generated.microwave}" />
-		<delete dir="${generated.shop}" />
+		<mkdir dir="${generated.shop}" />
 		<mkdir dir="${deployment}" />
 
 	</target>
@@ -241,7 +241,10 @@
 		               codeGenerator="moten.david.uml.xuml.model.example.associations.Associations" />
 		<xuml-generate outputDirectory="${generated.microwave}"
 		               codeGenerator="moten.david.uml.xuml.model.example.microwave.Microwave" />
+		<xuml-generate outputDirectory="${generated.shop}"
+		               codeGenerator="moten.david.uml.xuml.model.example.shop.Shop" />
 
+		
 		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}"
 		       destdir="${bin}"
 		       classpathref="libraries"
