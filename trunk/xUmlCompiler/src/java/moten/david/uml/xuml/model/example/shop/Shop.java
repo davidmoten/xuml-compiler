@@ -87,8 +87,11 @@ public class Shop extends SystemBase {
 		State beingPreparedAndShipped = createState(order,
 				"BeingPreparedAndShipped");
 		CallEvent createOrder = createCallEvent(order, "createOrder");
+		createParameter(createOrder, "customer", "Customer");
 		SignalEvent addProduct = createSignalEvent(order, "addProduct");
 		createParameter(addProduct, "product", "Product");
+		createParameter(addProduct, "quantity", "quantity of product",
+				Primitive.INTEGER);
 		SignalEvent removeProduct = createSignalEvent(order, "removeProduct");
 		createParameter(removeProduct, "product", "Product");
 		SignalEvent changeQuantity = createSignalEvent(order,
@@ -111,7 +114,7 @@ public class Shop extends SystemBase {
 
 	private void createShipmentStateMachine(Class shipment) {
 		State beingPrepared = createState(shipment, "BeingPrepared");
-		State beingShipped = createState(shipment, "BeingShipped");
+		State beingShipped = createState(shipment, "ReadyForShipping");
 		State shippedState = createState(shipment, "Shipped");
 		State cancelled = createState(shipment, "Cancelled");
 		State deliveredState = createState(shipment, "Delivered");
@@ -119,6 +122,9 @@ public class Shop extends SystemBase {
 		State returnedState = createState(shipment, "Returned");
 		CallEvent ship = createCallEvent(shipment, "createShipment");
 		createParameter(ship, "order", "Order");
+		createParameter(ship, "shippingName");
+		createParameter(ship, "shippingAddress");
+		createParameter(ship, "email");
 		SignalEvent prepared = createSignalEvent(shipment, "prepared");
 		createParameter(prepared, "time", "time prepared", Primitive.TIMESTAMP);
 		SignalEvent shipped = createSignalEvent(shipment, "shipped");
