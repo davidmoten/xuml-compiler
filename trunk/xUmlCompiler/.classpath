@@ -5,6 +5,7 @@
 	<classpathentry kind="src" path="temp/associations"/>
 	<classpathentry kind="src" path="temp/microwave"/>
 	<classpathentry kind="src" path="temp/shop"/>
+	<classpathentry kind="src" path="temp/simple"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/xUmlMetaModel"/>
 	<classpathentry kind="lib" path="lib/emf/org.eclipse.emf.ecore.xmi_2.4.0.v200804012208.jar"/>
