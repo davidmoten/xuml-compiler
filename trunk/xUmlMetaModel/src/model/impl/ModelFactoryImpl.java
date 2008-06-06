@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModelFactoryImpl.java,v 1.2 2008/05/23 05:15:16 dxm Exp $
+ * $Id$
  */
 package model.impl;
 
@@ -13,8 +13,8 @@ import model.AssociationEndPersistence;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
 import model.Attribute;
-import model.AttributeDerived;
 import model.AttributePersistence;
+import model.AttributeReferential;
 import model.CallEvent;
 import model.ChangeEvent;
 import model.ClassPersistence;
@@ -104,7 +104,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.ASSOCIATION_END_SECONDARY: return createAssociationEndSecondary();
 			case ModelPackage.ASSOCIATION_CLASS: return createAssociationClass();
 			case ModelPackage.ATTRIBUTE: return createAttribute();
-			case ModelPackage.ATTRIBUTE_DERIVED: return createAttributeDerived();
+			case ModelPackage.ATTRIBUTE_REFERENTIAL: return createAttributeReferential();
 			case ModelPackage.OPERATION_SIGNATURE: return createOperationSignature();
 			case ModelPackage.OPERATION: return createOperation();
 			case ModelPackage.FREE_TYPE: return createFreeType();
@@ -252,9 +252,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AttributeDerived createAttributeDerived() {
-		AttributeDerivedImpl attributeDerived = new AttributeDerivedImpl();
-		return attributeDerived;
+	public AttributeReferential createAttributeReferential() {
+		AttributeReferentialImpl attributeReferential = new AttributeReferentialImpl();
+		return attributeReferential;
 	}
 
 	/**

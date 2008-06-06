@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: IdentifierNonPrimary.java,v 1.2 2008/05/23 05:15:11 dxm Exp $
+ * $Id$
  */
 package model;
 
@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link model.IdentifierNonPrimary#getAttribute <em>Attribute</em>}</li>
- *   <li>{@link model.IdentifierNonPrimary#getDerivedAttribute <em>Derived Attribute</em>}</li>
+ *   <li>{@link model.IdentifierNonPrimary#getAttributeReferential <em>Attribute Referential</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,21 +45,21 @@ public interface IdentifierNonPrimary extends Identifier {
 	EList<Attribute> getAttribute();
 
 	/**
-	 * Returns the value of the '<em><b>Derived Attribute</b></em>' reference list.
-	 * The list contents are of type {@link model.AttributeDerived}.
-	 * It is bidirectional and its opposite is '{@link model.AttributeDerived#getIdentifierNonPrimary <em>Identifier Non Primary</em>}'.
+	 * Returns the value of the '<em><b>Attribute Referential</b></em>' reference list.
+	 * The list contents are of type {@link model.AttributeReferential}.
+	 * It is bidirectional and its opposite is '{@link model.AttributeReferential#getIdentifierNonPrimary <em>Identifier Non Primary</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Derived Attribute</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Attribute Referential</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Derived Attribute</em>' reference list.
-	 * @see model.ModelPackage#getIdentifierNonPrimary_DerivedAttribute()
-	 * @see model.AttributeDerived#getIdentifierNonPrimary
+	 * @return the value of the '<em>Attribute Referential</em>' reference list.
+	 * @see model.ModelPackage#getIdentifierNonPrimary_AttributeReferential()
+	 * @see model.AttributeReferential#getIdentifierNonPrimary
 	 * @model opposite="identifierNonPrimary" keys="name"
 	 * @generated
 	 */
-	EList<AttributeDerived> getDerivedAttribute();
+	EList<AttributeReferential> getAttributeReferential();
 
 } // IdentifierNonPrimary

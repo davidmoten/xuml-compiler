@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: AssociationEndImpl.java,v 1.2 2008/05/23 05:15:15 dxm Exp $
+ * $Id$
  */
 package model.impl;
 
@@ -10,7 +10,7 @@ import java.util.Collection;
 
 import model.AssociationEnd;
 import model.AssociationEndPersistence;
-import model.AttributeDerived;
+import model.AttributeReferential;
 import model.ModelPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -197,7 +197,7 @@ public abstract class AssociationEndImpl extends EObjectImpl implements Associat
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AttributeDerived> derivedAttribute;
+	protected EList<AttributeReferential> derivedAttribute;
 
 	/**
 	 * The cached value of the '{@link #getPersistence() <em>Persistence</em>}' containment reference.
@@ -380,9 +380,9 @@ public abstract class AssociationEndImpl extends EObjectImpl implements Associat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AttributeDerived> getDerivedAttribute() {
+	public EList<AttributeReferential> getDerivedAttribute() {
 		if (derivedAttribute == null) {
-			derivedAttribute = new EObjectWithInverseResolvingEList<AttributeDerived>(AttributeDerived.class, this, ModelPackage.ASSOCIATION_END__DERIVED_ATTRIBUTE, ModelPackage.ATTRIBUTE_DERIVED__ASSOCIATION_END);
+			derivedAttribute = new EObjectWithInverseResolvingEList<AttributeReferential>(AttributeReferential.class, this, ModelPackage.ASSOCIATION_END__DERIVED_ATTRIBUTE, ModelPackage.ATTRIBUTE_REFERENTIAL__ASSOCIATION_END);
 		}
 		return derivedAttribute;
 	}
@@ -523,7 +523,7 @@ public abstract class AssociationEndImpl extends EObjectImpl implements Associat
 				return;
 			case ModelPackage.ASSOCIATION_END__DERIVED_ATTRIBUTE:
 				getDerivedAttribute().clear();
-				getDerivedAttribute().addAll((Collection<? extends AttributeDerived>)newValue);
+				getDerivedAttribute().addAll((Collection<? extends AttributeReferential>)newValue);
 				return;
 			case ModelPackage.ASSOCIATION_END__PERSISTENCE:
 				setPersistence((AssociationEndPersistence)newValue);

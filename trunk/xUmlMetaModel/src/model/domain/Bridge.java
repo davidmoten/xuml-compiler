@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Bridge.java,v 1.2 2008/05/23 05:15:22 dxm Exp $
+ * $Id$
  */
 package model.domain;
 

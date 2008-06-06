@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModelFactory.java,v 1.2 2008/05/23 05:15:12 dxm Exp $
+ * $Id$
  */
 package model;
 
@@ -98,13 +98,13 @@ public interface ModelFactory extends EFactory {
 	Attribute createAttribute();
 
 	/**
-	 * Returns a new object of class '<em>Attribute Derived</em>'.
+	 * Returns a new object of class '<em>Attribute Referential</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Attribute Derived</em>'.
+	 * @return a new object of class '<em>Attribute Referential</em>'.
 	 * @generated
 	 */
-	AttributeDerived createAttributeDerived();
+	AttributeReferential createAttributeReferential();
 
 	/**
 	 * Returns a new object of class '<em>Operation Signature</em>'.

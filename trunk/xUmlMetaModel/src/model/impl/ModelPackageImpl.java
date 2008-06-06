@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModelPackageImpl.java,v 1.2 2008/05/23 05:15:17 dxm Exp $
+ * $Id$
  */
 package model.impl;
 
@@ -14,8 +14,8 @@ import model.AssociationEndPersistence;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
 import model.Attribute;
-import model.AttributeDerived;
 import model.AttributePersistence;
+import model.AttributeReferential;
 import model.CallEvent;
 import model.ChangeEvent;
 import model.ClassPersistence;
@@ -156,7 +156,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass attributeDerivedEClass = null;
+	private EClass attributeReferentialEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -698,7 +698,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClass_AttributeDerived() {
+	public EReference getClass_AttributeReferential() {
 		return (EReference)classEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1058,8 +1058,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getAttributeDerived() {
-		return attributeDerivedEClass;
+	public EClass getAttributeReferential() {
+		return attributeReferentialEClass;
 	}
 
 	/**
@@ -1067,8 +1067,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAttributeDerived_AssociationEnd() {
-		return (EReference)attributeDerivedEClass.getEStructuralFeatures().get(0);
+	public EReference getAttributeReferential_AssociationEnd() {
+		return (EReference)attributeReferentialEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1076,8 +1076,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAttributeDerived_Class() {
-		return (EReference)attributeDerivedEClass.getEStructuralFeatures().get(1);
+	public EReference getAttributeReferential_Class() {
+		return (EReference)attributeReferentialEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1085,8 +1085,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAttributeDerived_IdentifierPrimary() {
-		return (EReference)attributeDerivedEClass.getEStructuralFeatures().get(2);
+	public EReference getAttributeReferential_IdentifierPrimary() {
+		return (EReference)attributeReferentialEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1094,8 +1094,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAttributeDerived_IdentifierNonPrimary() {
-		return (EReference)attributeDerivedEClass.getEStructuralFeatures().get(3);
+	public EReference getAttributeReferential_IdentifierNonPrimary() {
+		return (EReference)attributeReferentialEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1319,7 +1319,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIdentifierPrimary_DerivedAttribute() {
+	public EReference getIdentifierPrimary_AttributeReferential() {
 		return (EReference)identifierPrimaryEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1346,7 +1346,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIdentifierNonPrimary_DerivedAttribute() {
+	public EReference getIdentifierNonPrimary_AttributeReferential() {
 		return (EReference)identifierNonPrimaryEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1987,7 +1987,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		classEClass = createEClass(CLASS);
 		createEReference(classEClass, CLASS__PACKAGE);
 		createEReference(classEClass, CLASS__ATTRIBUTE);
-		createEReference(classEClass, CLASS__ATTRIBUTE_DERIVED);
+		createEReference(classEClass, CLASS__ATTRIBUTE_REFERENTIAL);
 		createEReference(classEClass, CLASS__OPERATION);
 		createEReference(classEClass, CLASS__CONSTRAINTS);
 		createEReference(classEClass, CLASS__STATE_MACHINE);
@@ -2034,11 +2034,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(attributeEClass, ATTRIBUTE__PERSISTENCE);
 		createEAttribute(attributeEClass, ATTRIBUTE__VALUES);
 
-		attributeDerivedEClass = createEClass(ATTRIBUTE_DERIVED);
-		createEReference(attributeDerivedEClass, ATTRIBUTE_DERIVED__ASSOCIATION_END);
-		createEReference(attributeDerivedEClass, ATTRIBUTE_DERIVED__CLASS);
-		createEReference(attributeDerivedEClass, ATTRIBUTE_DERIVED__IDENTIFIER_PRIMARY);
-		createEReference(attributeDerivedEClass, ATTRIBUTE_DERIVED__IDENTIFIER_NON_PRIMARY);
+		attributeReferentialEClass = createEClass(ATTRIBUTE_REFERENTIAL);
+		createEReference(attributeReferentialEClass, ATTRIBUTE_REFERENTIAL__ASSOCIATION_END);
+		createEReference(attributeReferentialEClass, ATTRIBUTE_REFERENTIAL__CLASS);
+		createEReference(attributeReferentialEClass, ATTRIBUTE_REFERENTIAL__IDENTIFIER_PRIMARY);
+		createEReference(attributeReferentialEClass, ATTRIBUTE_REFERENTIAL__IDENTIFIER_NON_PRIMARY);
 
 		operationSignatureEClass = createEClass(OPERATION_SIGNATURE);
 		createEReference(operationSignatureEClass, OPERATION_SIGNATURE__PARAMETER);
@@ -2073,11 +2073,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		identifierPrimaryEClass = createEClass(IDENTIFIER_PRIMARY);
 		createEReference(identifierPrimaryEClass, IDENTIFIER_PRIMARY__ATTRIBUTE);
-		createEReference(identifierPrimaryEClass, IDENTIFIER_PRIMARY__DERIVED_ATTRIBUTE);
+		createEReference(identifierPrimaryEClass, IDENTIFIER_PRIMARY__ATTRIBUTE_REFERENTIAL);
 
 		identifierNonPrimaryEClass = createEClass(IDENTIFIER_NON_PRIMARY);
 		createEReference(identifierNonPrimaryEClass, IDENTIFIER_NON_PRIMARY__ATTRIBUTE);
-		createEReference(identifierNonPrimaryEClass, IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE);
+		createEReference(identifierNonPrimaryEClass, IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL);
 
 		identifierParticipantEClass = createEClass(IDENTIFIER_PARTICIPANT);
 
@@ -2222,7 +2222,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		associationEndEClass.getESuperTypes().add(this.getNamed());
 		associationClassEClass.getESuperTypes().add(this.getClass_());
 		attributeEClass.getESuperTypes().add(this.getIdentifierParticipant());
-		attributeDerivedEClass.getESuperTypes().add(this.getIdentifierParticipant());
+		attributeReferentialEClass.getESuperTypes().add(this.getIdentifierParticipant());
 		operationSignatureEClass.getESuperTypes().add(this.getNamed());
 		operationEClass.getESuperTypes().add(this.getOperationSignature());
 		freeTypeEClass.getESuperTypes().add(this.getType());
@@ -2286,7 +2286,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(classEClass, model.Class.class, "Class", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getClass_Package(), this.getPackage(), this.getPackage_Class(), "package", null, 0, 1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Attribute(), this.getAttribute(), this.getAttribute_Class(), "attribute", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClass_AttributeDerived(), this.getAttributeDerived(), this.getAttributeDerived_Class(), "attributeDerived", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClass_AttributeReferential(), this.getAttributeReferential(), this.getAttributeReferential_Class(), "attributeReferential", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Operation(), this.getOperation(), null, "operation", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Constraints(), this.getObjectConstraintLanguage(), null, "constraints", null, 0, 1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_StateMachine(), this.getStateMachine(), this.getStateMachine_Class(), "stateMachine", null, 0, 1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2319,7 +2319,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getAssociationEnd_VerbClause(), ecorePackage.getEString(), "verbClause", null, 1, 1, AssociationEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAssociationEnd_Role(), ecorePackage.getEString(), "role", null, 1, 1, AssociationEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAssociationEnd_RolePlural(), ecorePackage.getEString(), "rolePlural", null, 0, 1, AssociationEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAssociationEnd_DerivedAttribute(), this.getAttributeDerived(), this.getAttributeDerived_AssociationEnd(), "derivedAttribute", null, 0, -1, AssociationEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssociationEnd_DerivedAttribute(), this.getAttributeReferential(), this.getAttributeReferential_AssociationEnd(), "derivedAttribute", null, 0, -1, AssociationEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAssociationEnd_Persistence(), this.getAssociationEndPersistence(), null, "persistence", null, 0, 1, AssociationEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(associationClassEClass, AssociationClass.class, "AssociationClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2337,11 +2337,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getAttribute_Persistence(), this.getAttributePersistence(), null, "persistence", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAttribute_Values(), ecorePackage.getEString(), "values", null, 0, -1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(attributeDerivedEClass, AttributeDerived.class, "AttributeDerived", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAttributeDerived_AssociationEnd(), this.getAssociationEnd(), this.getAssociationEnd_DerivedAttribute(), "associationEnd", null, 0, 1, AttributeDerived.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAttributeDerived_Class(), this.getClass_(), this.getClass_AttributeDerived(), "class", null, 1, 1, AttributeDerived.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAttributeDerived_IdentifierPrimary(), this.getIdentifierPrimary(), this.getIdentifierPrimary_DerivedAttribute(), "identifierPrimary", null, 0, -1, AttributeDerived.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAttributeDerived_IdentifierNonPrimary(), this.getIdentifierNonPrimary(), this.getIdentifierNonPrimary_DerivedAttribute(), "identifierNonPrimary", null, 0, -1, AttributeDerived.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(attributeReferentialEClass, AttributeReferential.class, "AttributeReferential", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAttributeReferential_AssociationEnd(), this.getAssociationEnd(), this.getAssociationEnd_DerivedAttribute(), "associationEnd", null, 0, 1, AttributeReferential.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAttributeReferential_Class(), this.getClass_(), this.getClass_AttributeReferential(), "class", null, 1, 1, AttributeReferential.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAttributeReferential_IdentifierPrimary(), this.getIdentifierPrimary(), this.getIdentifierPrimary_AttributeReferential(), "identifierPrimary", null, 0, -1, AttributeReferential.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAttributeReferential_IdentifierNonPrimary(), this.getIdentifierNonPrimary(), this.getIdentifierNonPrimary_AttributeReferential(), "identifierNonPrimary", null, 0, -1, AttributeReferential.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(operationSignatureEClass, OperationSignature.class, "OperationSignature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOperationSignature_Parameter(), this.getParameter(), null, "parameter", null, 0, -1, OperationSignature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2377,14 +2377,14 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(identifierPrimaryEClass, IdentifierPrimary.class, "IdentifierPrimary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIdentifierPrimary_Attribute(), this.getAttribute(), this.getAttribute_IdentifierPrimary(), "attribute", null, 0, -1, IdentifierPrimary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getIdentifierPrimary_Attribute().getEKeys().add(this.getNamed_Name());
-		initEReference(getIdentifierPrimary_DerivedAttribute(), this.getAttributeDerived(), this.getAttributeDerived_IdentifierPrimary(), "derivedAttribute", null, 0, -1, IdentifierPrimary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		getIdentifierPrimary_DerivedAttribute().getEKeys().add(this.getNamed_Name());
+		initEReference(getIdentifierPrimary_AttributeReferential(), this.getAttributeReferential(), this.getAttributeReferential_IdentifierPrimary(), "attributeReferential", null, 0, -1, IdentifierPrimary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		getIdentifierPrimary_AttributeReferential().getEKeys().add(this.getNamed_Name());
 
 		initEClass(identifierNonPrimaryEClass, IdentifierNonPrimary.class, "IdentifierNonPrimary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIdentifierNonPrimary_Attribute(), this.getAttribute(), this.getAttribute_IdentifierNonPrimary(), "attribute", null, 0, -1, IdentifierNonPrimary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getIdentifierNonPrimary_Attribute().getEKeys().add(this.getNamed_Name());
-		initEReference(getIdentifierNonPrimary_DerivedAttribute(), this.getAttributeDerived(), this.getAttributeDerived_IdentifierNonPrimary(), "derivedAttribute", null, 0, -1, IdentifierNonPrimary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		getIdentifierNonPrimary_DerivedAttribute().getEKeys().add(this.getNamed_Name());
+		initEReference(getIdentifierNonPrimary_AttributeReferential(), this.getAttributeReferential(), this.getAttributeReferential_IdentifierNonPrimary(), "attributeReferential", null, 0, -1, IdentifierNonPrimary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		getIdentifierNonPrimary_AttributeReferential().getEKeys().add(this.getNamed_Name());
 
 		initEClass(identifierParticipantEClass, IdentifierParticipant.class, "IdentifierParticipant", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -2,14 +2,14 @@
  * <copyright>
  * </copyright>
  *
- * $Id: IdentifierNonPrimaryImpl.java,v 1.2 2008/05/23 05:15:17 dxm Exp $
+ * $Id$
  */
 package model.impl;
 
 import java.util.Collection;
 
 import model.Attribute;
-import model.AttributeDerived;
+import model.AttributeReferential;
 import model.IdentifierNonPrimary;
 import model.ModelPackage;
 
@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.IdentifierNonPrimaryImpl#getName <em>Name</em>}</li>
  *   <li>{@link model.impl.IdentifierNonPrimaryImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link model.impl.IdentifierNonPrimaryImpl#getAttribute <em>Attribute</em>}</li>
- *   <li>{@link model.impl.IdentifierNonPrimaryImpl#getDerivedAttribute <em>Derived Attribute</em>}</li>
+ *   <li>{@link model.impl.IdentifierNonPrimaryImpl#getAttributeReferential <em>Attribute Referential</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,14 +95,14 @@ public class IdentifierNonPrimaryImpl extends EObjectImpl implements IdentifierN
 	protected EList<Attribute> attribute;
 
 	/**
-	 * The cached value of the '{@link #getDerivedAttribute() <em>Derived Attribute</em>}' reference list.
+	 * The cached value of the '{@link #getAttributeReferential() <em>Attribute Referential</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDerivedAttribute()
+	 * @see #getAttributeReferential()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AttributeDerived> derivedAttribute;
+	protected EList<AttributeReferential> attributeReferential;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -182,11 +182,11 @@ public class IdentifierNonPrimaryImpl extends EObjectImpl implements IdentifierN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AttributeDerived> getDerivedAttribute() {
-		if (derivedAttribute == null) {
-			derivedAttribute = new EObjectWithInverseResolvingEList.ManyInverse<AttributeDerived>(AttributeDerived.class, this, ModelPackage.IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE, ModelPackage.ATTRIBUTE_DERIVED__IDENTIFIER_NON_PRIMARY);
+	public EList<AttributeReferential> getAttributeReferential() {
+		if (attributeReferential == null) {
+			attributeReferential = new EObjectWithInverseResolvingEList.ManyInverse<AttributeReferential>(AttributeReferential.class, this, ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL, ModelPackage.ATTRIBUTE_REFERENTIAL__IDENTIFIER_NON_PRIMARY);
 		}
-		return derivedAttribute;
+		return attributeReferential;
 	}
 
 	/**
@@ -200,8 +200,8 @@ public class IdentifierNonPrimaryImpl extends EObjectImpl implements IdentifierN
 		switch (featureID) {
 			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttribute()).basicAdd(otherEnd, msgs);
-			case ModelPackage.IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getDerivedAttribute()).basicAdd(otherEnd, msgs);
+			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttributeReferential()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -216,8 +216,8 @@ public class IdentifierNonPrimaryImpl extends EObjectImpl implements IdentifierN
 		switch (featureID) {
 			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE:
 				return ((InternalEList<?>)getAttribute()).basicRemove(otherEnd, msgs);
-			case ModelPackage.IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE:
-				return ((InternalEList<?>)getDerivedAttribute()).basicRemove(otherEnd, msgs);
+			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL:
+				return ((InternalEList<?>)getAttributeReferential()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -236,8 +236,8 @@ public class IdentifierNonPrimaryImpl extends EObjectImpl implements IdentifierN
 				return getDescription();
 			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE:
 				return getAttribute();
-			case ModelPackage.IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE:
-				return getDerivedAttribute();
+			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL:
+				return getAttributeReferential();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -261,9 +261,9 @@ public class IdentifierNonPrimaryImpl extends EObjectImpl implements IdentifierN
 				getAttribute().clear();
 				getAttribute().addAll((Collection<? extends Attribute>)newValue);
 				return;
-			case ModelPackage.IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE:
-				getDerivedAttribute().clear();
-				getDerivedAttribute().addAll((Collection<? extends AttributeDerived>)newValue);
+			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL:
+				getAttributeReferential().clear();
+				getAttributeReferential().addAll((Collection<? extends AttributeReferential>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -286,8 +286,8 @@ public class IdentifierNonPrimaryImpl extends EObjectImpl implements IdentifierN
 			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE:
 				getAttribute().clear();
 				return;
-			case ModelPackage.IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE:
-				getDerivedAttribute().clear();
+			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL:
+				getAttributeReferential().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -307,8 +307,8 @@ public class IdentifierNonPrimaryImpl extends EObjectImpl implements IdentifierN
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE:
 				return attribute != null && !attribute.isEmpty();
-			case ModelPackage.IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE:
-				return derivedAttribute != null && !derivedAttribute.isEmpty();
+			case ModelPackage.IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL:
+				return attributeReferential != null && !attributeReferential.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
