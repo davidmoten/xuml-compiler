@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Class.java,v 1.2 2008/05/23 05:15:11 dxm Exp $
+ * $Id$
  */
 package model;
 
@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link model.Class#getPackage <em>Package</em>}</li>
  *   <li>{@link model.Class#getAttribute <em>Attribute</em>}</li>
- *   <li>{@link model.Class#getAttributeDerived <em>Attribute Derived</em>}</li>
+ *   <li>{@link model.Class#getAttributeReferential <em>Attribute Referential</em>}</li>
  *   <li>{@link model.Class#getOperation <em>Operation</em>}</li>
  *   <li>{@link model.Class#getConstraints <em>Constraints</em>}</li>
  *   <li>{@link model.Class#getStateMachine <em>State Machine</em>}</li>
@@ -83,22 +83,22 @@ public interface Class extends Named {
 	EList<Attribute> getAttribute();
 
 	/**
-	 * Returns the value of the '<em><b>Attribute Derived</b></em>' containment reference list.
-	 * The list contents are of type {@link model.AttributeDerived}.
-	 * It is bidirectional and its opposite is '{@link model.AttributeDerived#getClass_ <em>Class</em>}'.
+	 * Returns the value of the '<em><b>Attribute Referential</b></em>' containment reference list.
+	 * The list contents are of type {@link model.AttributeReferential}.
+	 * It is bidirectional and its opposite is '{@link model.AttributeReferential#getClass_ <em>Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Attribute Derived</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Attribute Referential</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Attribute Derived</em>' containment reference list.
-	 * @see model.ModelPackage#getClass_AttributeDerived()
-	 * @see model.AttributeDerived#getClass_
+	 * @return the value of the '<em>Attribute Referential</em>' containment reference list.
+	 * @see model.ModelPackage#getClass_AttributeReferential()
+	 * @see model.AttributeReferential#getClass_
 	 * @model opposite="class" containment="true"
 	 * @generated
 	 */
-	EList<AttributeDerived> getAttributeDerived();
+	EList<AttributeReferential> getAttributeReferential();
 
 	/**
 	 * Returns the value of the '<em><b>Operation</b></em>' containment reference list.

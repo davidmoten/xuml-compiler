@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DomainChart.java,v 1.2 2008/05/23 05:15:20 dxm Exp $
+ * $Id$
  */
 package model.diagram;
 

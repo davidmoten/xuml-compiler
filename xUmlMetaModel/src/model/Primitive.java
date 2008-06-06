@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Primitive.java,v 1.2 2008/05/23 05:15:10 dxm Exp $
+ * $Id$
  */
 package model;
 

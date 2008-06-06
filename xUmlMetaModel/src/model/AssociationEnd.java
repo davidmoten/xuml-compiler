@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: AssociationEnd.java,v 1.2 2008/05/23 05:15:10 dxm Exp $
+ * $Id$
  */
 package model;
 
@@ -163,8 +163,8 @@ public interface AssociationEnd extends Named {
 
 	/**
 	 * Returns the value of the '<em><b>Derived Attribute</b></em>' reference list.
-	 * The list contents are of type {@link model.AttributeDerived}.
-	 * It is bidirectional and its opposite is '{@link model.AttributeDerived#getAssociationEnd <em>Association End</em>}'.
+	 * The list contents are of type {@link model.AttributeReferential}.
+	 * It is bidirectional and its opposite is '{@link model.AttributeReferential#getAssociationEnd <em>Association End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Derived Attribute</em>' reference list isn't clear,
@@ -173,11 +173,11 @@ public interface AssociationEnd extends Named {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Derived Attribute</em>' reference list.
 	 * @see model.ModelPackage#getAssociationEnd_DerivedAttribute()
-	 * @see model.AttributeDerived#getAssociationEnd
+	 * @see model.AttributeReferential#getAssociationEnd
 	 * @model opposite="associationEnd"
 	 * @generated
 	 */
-	EList<AttributeDerived> getDerivedAttribute();
+	EList<AttributeReferential> getDerivedAttribute();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence</b></em>' containment reference.

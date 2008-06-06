@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModelSwitch.java,v 1.2 2008/05/23 05:15:21 dxm Exp $
+ * $Id$
  */
 package model.util;
 
@@ -16,8 +16,8 @@ import model.AssociationEndPersistence;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
 import model.Attribute;
-import model.AttributeDerived;
 import model.AttributePersistence;
+import model.AttributeReferential;
 import model.CallEvent;
 import model.ChangeEvent;
 import model.ClassPersistence;
@@ -196,11 +196,11 @@ public class ModelSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackage.ATTRIBUTE_DERIVED: {
-				AttributeDerived attributeDerived = (AttributeDerived)theEObject;
-				T result = caseAttributeDerived(attributeDerived);
-				if (result == null) result = caseIdentifierParticipant(attributeDerived);
-				if (result == null) result = caseNamed(attributeDerived);
+			case ModelPackage.ATTRIBUTE_REFERENTIAL: {
+				AttributeReferential attributeReferential = (AttributeReferential)theEObject;
+				T result = caseAttributeReferential(attributeReferential);
+				if (result == null) result = caseIdentifierParticipant(attributeReferential);
+				if (result == null) result = caseNamed(attributeReferential);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -604,17 +604,17 @@ public class ModelSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Attribute Derived</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Attribute Referential</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Attribute Derived</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Attribute Referential</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAttributeDerived(AttributeDerived object) {
+	public T caseAttributeReferential(AttributeReferential object) {
 		return null;
 	}
 

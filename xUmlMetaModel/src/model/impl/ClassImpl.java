@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ClassImpl.java,v 1.2 2008/05/23 05:15:15 dxm Exp $
+ * $Id$
  */
 package model.impl;
 
@@ -11,7 +11,7 @@ import java.util.Collection;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
 import model.Attribute;
-import model.AttributeDerived;
+import model.AttributeReferential;
 import model.ClassPersistence;
 import model.IdentifierNonPrimary;
 import model.IdentifierPrimary;
@@ -49,7 +49,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.ClassImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link model.impl.ClassImpl#getPackage <em>Package</em>}</li>
  *   <li>{@link model.impl.ClassImpl#getAttribute <em>Attribute</em>}</li>
- *   <li>{@link model.impl.ClassImpl#getAttributeDerived <em>Attribute Derived</em>}</li>
+ *   <li>{@link model.impl.ClassImpl#getAttributeReferential <em>Attribute Referential</em>}</li>
  *   <li>{@link model.impl.ClassImpl#getOperation <em>Operation</em>}</li>
  *   <li>{@link model.impl.ClassImpl#getConstraints <em>Constraints</em>}</li>
  *   <li>{@link model.impl.ClassImpl#getStateMachine <em>State Machine</em>}</li>
@@ -116,14 +116,14 @@ public class ClassImpl extends EObjectImpl implements model.Class {
 	protected EList<Attribute> attribute;
 
 	/**
-	 * The cached value of the '{@link #getAttributeDerived() <em>Attribute Derived</em>}' containment reference list.
+	 * The cached value of the '{@link #getAttributeReferential() <em>Attribute Referential</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAttributeDerived()
+	 * @see #getAttributeReferential()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AttributeDerived> attributeDerived;
+	protected EList<AttributeReferential> attributeReferential;
 
 	/**
 	 * The cached value of the '{@link #getOperation() <em>Operation</em>}' containment reference list.
@@ -334,11 +334,11 @@ public class ClassImpl extends EObjectImpl implements model.Class {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AttributeDerived> getAttributeDerived() {
-		if (attributeDerived == null) {
-			attributeDerived = new EObjectContainmentWithInverseEList<AttributeDerived>(AttributeDerived.class, this, ModelPackage.CLASS__ATTRIBUTE_DERIVED, ModelPackage.ATTRIBUTE_DERIVED__CLASS);
+	public EList<AttributeReferential> getAttributeReferential() {
+		if (attributeReferential == null) {
+			attributeReferential = new EObjectContainmentWithInverseEList<AttributeReferential>(AttributeReferential.class, this, ModelPackage.CLASS__ATTRIBUTE_REFERENTIAL, ModelPackage.ATTRIBUTE_REFERENTIAL__CLASS);
 		}
-		return attributeDerived;
+		return attributeReferential;
 	}
 
 	/**
@@ -588,8 +588,8 @@ public class ClassImpl extends EObjectImpl implements model.Class {
 				return basicSetPackage((model.Package)otherEnd, msgs);
 			case ModelPackage.CLASS__ATTRIBUTE:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttribute()).basicAdd(otherEnd, msgs);
-			case ModelPackage.CLASS__ATTRIBUTE_DERIVED:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttributeDerived()).basicAdd(otherEnd, msgs);
+			case ModelPackage.CLASS__ATTRIBUTE_REFERENTIAL:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttributeReferential()).basicAdd(otherEnd, msgs);
 			case ModelPackage.CLASS__STATE_MACHINE:
 				if (stateMachine != null)
 					msgs = ((InternalEObject)stateMachine).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CLASS__STATE_MACHINE, null, msgs);
@@ -616,8 +616,8 @@ public class ClassImpl extends EObjectImpl implements model.Class {
 				return basicSetPackage(null, msgs);
 			case ModelPackage.CLASS__ATTRIBUTE:
 				return ((InternalEList<?>)getAttribute()).basicRemove(otherEnd, msgs);
-			case ModelPackage.CLASS__ATTRIBUTE_DERIVED:
-				return ((InternalEList<?>)getAttributeDerived()).basicRemove(otherEnd, msgs);
+			case ModelPackage.CLASS__ATTRIBUTE_REFERENTIAL:
+				return ((InternalEList<?>)getAttributeReferential()).basicRemove(otherEnd, msgs);
 			case ModelPackage.CLASS__OPERATION:
 				return ((InternalEList<?>)getOperation()).basicRemove(otherEnd, msgs);
 			case ModelPackage.CLASS__CONSTRAINTS:
@@ -670,8 +670,8 @@ public class ClassImpl extends EObjectImpl implements model.Class {
 				return getPackage();
 			case ModelPackage.CLASS__ATTRIBUTE:
 				return getAttribute();
-			case ModelPackage.CLASS__ATTRIBUTE_DERIVED:
-				return getAttributeDerived();
+			case ModelPackage.CLASS__ATTRIBUTE_REFERENTIAL:
+				return getAttributeReferential();
 			case ModelPackage.CLASS__OPERATION:
 				return getOperation();
 			case ModelPackage.CLASS__CONSTRAINTS:
@@ -716,9 +716,9 @@ public class ClassImpl extends EObjectImpl implements model.Class {
 				getAttribute().clear();
 				getAttribute().addAll((Collection<? extends Attribute>)newValue);
 				return;
-			case ModelPackage.CLASS__ATTRIBUTE_DERIVED:
-				getAttributeDerived().clear();
-				getAttributeDerived().addAll((Collection<? extends AttributeDerived>)newValue);
+			case ModelPackage.CLASS__ATTRIBUTE_REFERENTIAL:
+				getAttributeReferential().clear();
+				getAttributeReferential().addAll((Collection<? extends AttributeReferential>)newValue);
 				return;
 			case ModelPackage.CLASS__OPERATION:
 				getOperation().clear();
@@ -776,8 +776,8 @@ public class ClassImpl extends EObjectImpl implements model.Class {
 			case ModelPackage.CLASS__ATTRIBUTE:
 				getAttribute().clear();
 				return;
-			case ModelPackage.CLASS__ATTRIBUTE_DERIVED:
-				getAttributeDerived().clear();
+			case ModelPackage.CLASS__ATTRIBUTE_REFERENTIAL:
+				getAttributeReferential().clear();
 				return;
 			case ModelPackage.CLASS__OPERATION:
 				getOperation().clear();
@@ -826,8 +826,8 @@ public class ClassImpl extends EObjectImpl implements model.Class {
 				return getPackage() != null;
 			case ModelPackage.CLASS__ATTRIBUTE:
 				return attribute != null && !attribute.isEmpty();
-			case ModelPackage.CLASS__ATTRIBUTE_DERIVED:
-				return attributeDerived != null && !attributeDerived.isEmpty();
+			case ModelPackage.CLASS__ATTRIBUTE_REFERENTIAL:
+				return attributeReferential != null && !attributeReferential.isEmpty();
 			case ModelPackage.CLASS__OPERATION:
 				return operation != null && !operation.isEmpty();
 			case ModelPackage.CLASS__CONSTRAINTS:

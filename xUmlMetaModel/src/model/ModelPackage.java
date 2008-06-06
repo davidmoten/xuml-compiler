@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModelPackage.java,v 1.2 2008/05/23 05:15:09 dxm Exp $
+ * $Id$
  */
 package model;
 
@@ -371,13 +371,13 @@ public interface ModelPackage extends EPackage {
 	int CLASS__ATTRIBUTE = NAMED_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Attribute Derived</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attribute Referential</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__ATTRIBUTE_DERIVED = NAMED_FEATURE_COUNT + 2;
+	int CLASS__ATTRIBUTE_REFERENTIAL = NAMED_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Operation</b></em>' containment reference list.
@@ -916,13 +916,13 @@ public interface ModelPackage extends EPackage {
 	int ASSOCIATION_CLASS__ATTRIBUTE = CLASS__ATTRIBUTE;
 
 	/**
-	 * The feature id for the '<em><b>Attribute Derived</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attribute Referential</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSOCIATION_CLASS__ATTRIBUTE_DERIVED = CLASS__ATTRIBUTE_DERIVED;
+	int ASSOCIATION_CLASS__ATTRIBUTE_REFERENTIAL = CLASS__ATTRIBUTE_REFERENTIAL;
 
 	/**
 	 * The feature id for the '<em><b>Operation</b></em>' containment reference list.
@@ -1179,14 +1179,14 @@ public interface ModelPackage extends EPackage {
 	int ATTRIBUTE_FEATURE_COUNT = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 9;
 
 	/**
-	 * The meta object id for the '{@link model.impl.AttributeDerivedImpl <em>Attribute Derived</em>}' class.
+	 * The meta object id for the '{@link model.impl.AttributeReferentialImpl <em>Attribute Referential</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see model.impl.AttributeDerivedImpl
-	 * @see model.impl.ModelPackageImpl#getAttributeDerived()
+	 * @see model.impl.AttributeReferentialImpl
+	 * @see model.impl.ModelPackageImpl#getAttributeReferential()
 	 * @generated
 	 */
-	int ATTRIBUTE_DERIVED = 9;
+	int ATTRIBUTE_REFERENTIAL = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1195,7 +1195,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_DERIVED__NAME = IDENTIFIER_PARTICIPANT__NAME;
+	int ATTRIBUTE_REFERENTIAL__NAME = IDENTIFIER_PARTICIPANT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -1204,7 +1204,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_DERIVED__DESCRIPTION = IDENTIFIER_PARTICIPANT__DESCRIPTION;
+	int ATTRIBUTE_REFERENTIAL__DESCRIPTION = IDENTIFIER_PARTICIPANT__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Association End</b></em>' reference.
@@ -1213,7 +1213,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_DERIVED__ASSOCIATION_END = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 0;
+	int ATTRIBUTE_REFERENTIAL__ASSOCIATION_END = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Class</b></em>' container reference.
@@ -1222,7 +1222,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_DERIVED__CLASS = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 1;
+	int ATTRIBUTE_REFERENTIAL__CLASS = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Identifier Primary</b></em>' reference list.
@@ -1231,7 +1231,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_DERIVED__IDENTIFIER_PRIMARY = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 2;
+	int ATTRIBUTE_REFERENTIAL__IDENTIFIER_PRIMARY = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Identifier Non Primary</b></em>' reference list.
@@ -1240,16 +1240,16 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_DERIVED__IDENTIFIER_NON_PRIMARY = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 3;
+	int ATTRIBUTE_REFERENTIAL__IDENTIFIER_NON_PRIMARY = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the '<em>Attribute Derived</em>' class.
+	 * The number of structural features of the '<em>Attribute Referential</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_DERIVED_FEATURE_COUNT = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 4;
+	int ATTRIBUTE_REFERENTIAL_FEATURE_COUNT = IDENTIFIER_PARTICIPANT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link model.impl.OperationSignatureImpl <em>Operation Signature</em>}' class.
@@ -1711,13 +1711,13 @@ public interface ModelPackage extends EPackage {
 	int IDENTIFIER_PRIMARY__ATTRIBUTE = IDENTIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Derived Attribute</b></em>' reference list.
+	 * The feature id for the '<em><b>Attribute Referential</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTIFIER_PRIMARY__DERIVED_ATTRIBUTE = IDENTIFIER_FEATURE_COUNT + 1;
+	int IDENTIFIER_PRIMARY__ATTRIBUTE_REFERENTIAL = IDENTIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Identifier Primary</em>' class.
@@ -1766,13 +1766,13 @@ public interface ModelPackage extends EPackage {
 	int IDENTIFIER_NON_PRIMARY__ATTRIBUTE = IDENTIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Derived Attribute</b></em>' reference list.
+	 * The feature id for the '<em><b>Attribute Referential</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE = IDENTIFIER_FEATURE_COUNT + 1;
+	int IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL = IDENTIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Identifier Non Primary</em>' class.
@@ -3067,13 +3067,13 @@ public interface ModelPackage extends EPackage {
 	int SPECIALIZATION__ATTRIBUTE = CLASS__ATTRIBUTE;
 
 	/**
-	 * The feature id for the '<em><b>Attribute Derived</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attribute Referential</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SPECIALIZATION__ATTRIBUTE_DERIVED = CLASS__ATTRIBUTE_DERIVED;
+	int SPECIALIZATION__ATTRIBUTE_REFERENTIAL = CLASS__ATTRIBUTE_REFERENTIAL;
 
 	/**
 	 * The feature id for the '<em><b>Operation</b></em>' containment reference list.
@@ -3425,15 +3425,15 @@ public interface ModelPackage extends EPackage {
 	EReference getClass_Attribute();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link model.Class#getAttributeDerived <em>Attribute Derived</em>}'.
+	 * Returns the meta object for the containment reference list '{@link model.Class#getAttributeReferential <em>Attribute Referential</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Attribute Derived</em>'.
-	 * @see model.Class#getAttributeDerived()
+	 * @return the meta object for the containment reference list '<em>Attribute Referential</em>'.
+	 * @see model.Class#getAttributeReferential()
 	 * @see #getClass_()
 	 * @generated
 	 */
-	EReference getClass_AttributeDerived();
+	EReference getClass_AttributeReferential();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link model.Class#getOperation <em>Operation</em>}'.
@@ -3859,58 +3859,58 @@ public interface ModelPackage extends EPackage {
 	EAttribute getAttribute_Values();
 
 	/**
-	 * Returns the meta object for class '{@link model.AttributeDerived <em>Attribute Derived</em>}'.
+	 * Returns the meta object for class '{@link model.AttributeReferential <em>Attribute Referential</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Attribute Derived</em>'.
-	 * @see model.AttributeDerived
+	 * @return the meta object for class '<em>Attribute Referential</em>'.
+	 * @see model.AttributeReferential
 	 * @generated
 	 */
-	EClass getAttributeDerived();
+	EClass getAttributeReferential();
 
 	/**
-	 * Returns the meta object for the reference '{@link model.AttributeDerived#getAssociationEnd <em>Association End</em>}'.
+	 * Returns the meta object for the reference '{@link model.AttributeReferential#getAssociationEnd <em>Association End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Association End</em>'.
-	 * @see model.AttributeDerived#getAssociationEnd()
-	 * @see #getAttributeDerived()
+	 * @see model.AttributeReferential#getAssociationEnd()
+	 * @see #getAttributeReferential()
 	 * @generated
 	 */
-	EReference getAttributeDerived_AssociationEnd();
+	EReference getAttributeReferential_AssociationEnd();
 
 	/**
-	 * Returns the meta object for the container reference '{@link model.AttributeDerived#getClass_ <em>Class</em>}'.
+	 * Returns the meta object for the container reference '{@link model.AttributeReferential#getClass_ <em>Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the container reference '<em>Class</em>'.
-	 * @see model.AttributeDerived#getClass_()
-	 * @see #getAttributeDerived()
+	 * @see model.AttributeReferential#getClass_()
+	 * @see #getAttributeReferential()
 	 * @generated
 	 */
-	EReference getAttributeDerived_Class();
+	EReference getAttributeReferential_Class();
 
 	/**
-	 * Returns the meta object for the reference list '{@link model.AttributeDerived#getIdentifierPrimary <em>Identifier Primary</em>}'.
+	 * Returns the meta object for the reference list '{@link model.AttributeReferential#getIdentifierPrimary <em>Identifier Primary</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Identifier Primary</em>'.
-	 * @see model.AttributeDerived#getIdentifierPrimary()
-	 * @see #getAttributeDerived()
+	 * @see model.AttributeReferential#getIdentifierPrimary()
+	 * @see #getAttributeReferential()
 	 * @generated
 	 */
-	EReference getAttributeDerived_IdentifierPrimary();
+	EReference getAttributeReferential_IdentifierPrimary();
 
 	/**
-	 * Returns the meta object for the reference list '{@link model.AttributeDerived#getIdentifierNonPrimary <em>Identifier Non Primary</em>}'.
+	 * Returns the meta object for the reference list '{@link model.AttributeReferential#getIdentifierNonPrimary <em>Identifier Non Primary</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Identifier Non Primary</em>'.
-	 * @see model.AttributeDerived#getIdentifierNonPrimary()
-	 * @see #getAttributeDerived()
+	 * @see model.AttributeReferential#getIdentifierNonPrimary()
+	 * @see #getAttributeReferential()
 	 * @generated
 	 */
-	EReference getAttributeDerived_IdentifierNonPrimary();
+	EReference getAttributeReferential_IdentifierNonPrimary();
 
 	/**
 	 * Returns the meta object for class '{@link model.OperationSignature <em>Operation Signature</em>}'.
@@ -4167,15 +4167,15 @@ public interface ModelPackage extends EPackage {
 	EReference getIdentifierPrimary_Attribute();
 
 	/**
-	 * Returns the meta object for the reference list '{@link model.IdentifierPrimary#getDerivedAttribute <em>Derived Attribute</em>}'.
+	 * Returns the meta object for the reference list '{@link model.IdentifierPrimary#getAttributeReferential <em>Attribute Referential</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Derived Attribute</em>'.
-	 * @see model.IdentifierPrimary#getDerivedAttribute()
+	 * @return the meta object for the reference list '<em>Attribute Referential</em>'.
+	 * @see model.IdentifierPrimary#getAttributeReferential()
 	 * @see #getIdentifierPrimary()
 	 * @generated
 	 */
-	EReference getIdentifierPrimary_DerivedAttribute();
+	EReference getIdentifierPrimary_AttributeReferential();
 
 	/**
 	 * Returns the meta object for class '{@link model.IdentifierNonPrimary <em>Identifier Non Primary</em>}'.
@@ -4199,15 +4199,15 @@ public interface ModelPackage extends EPackage {
 	EReference getIdentifierNonPrimary_Attribute();
 
 	/**
-	 * Returns the meta object for the reference list '{@link model.IdentifierNonPrimary#getDerivedAttribute <em>Derived Attribute</em>}'.
+	 * Returns the meta object for the reference list '{@link model.IdentifierNonPrimary#getAttributeReferential <em>Attribute Referential</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Derived Attribute</em>'.
-	 * @see model.IdentifierNonPrimary#getDerivedAttribute()
+	 * @return the meta object for the reference list '<em>Attribute Referential</em>'.
+	 * @see model.IdentifierNonPrimary#getAttributeReferential()
 	 * @see #getIdentifierNonPrimary()
 	 * @generated
 	 */
-	EReference getIdentifierNonPrimary_DerivedAttribute();
+	EReference getIdentifierNonPrimary_AttributeReferential();
 
 	/**
 	 * Returns the meta object for class '{@link model.IdentifierParticipant <em>Identifier Participant</em>}'.
@@ -5104,12 +5104,12 @@ public interface ModelPackage extends EPackage {
 		EReference CLASS__ATTRIBUTE = eINSTANCE.getClass_Attribute();
 
 		/**
-		 * The meta object literal for the '<em><b>Attribute Derived</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Attribute Referential</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CLASS__ATTRIBUTE_DERIVED = eINSTANCE.getClass_AttributeDerived();
+		EReference CLASS__ATTRIBUTE_REFERENTIAL = eINSTANCE.getClass_AttributeReferential();
 
 		/**
 		 * The meta object literal for the '<em><b>Operation</b></em>' containment reference list feature.
@@ -5436,14 +5436,14 @@ public interface ModelPackage extends EPackage {
 		EAttribute ATTRIBUTE__VALUES = eINSTANCE.getAttribute_Values();
 
 		/**
-		 * The meta object literal for the '{@link model.impl.AttributeDerivedImpl <em>Attribute Derived</em>}' class.
+		 * The meta object literal for the '{@link model.impl.AttributeReferentialImpl <em>Attribute Referential</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see model.impl.AttributeDerivedImpl
-		 * @see model.impl.ModelPackageImpl#getAttributeDerived()
+		 * @see model.impl.AttributeReferentialImpl
+		 * @see model.impl.ModelPackageImpl#getAttributeReferential()
 		 * @generated
 		 */
-		EClass ATTRIBUTE_DERIVED = eINSTANCE.getAttributeDerived();
+		EClass ATTRIBUTE_REFERENTIAL = eINSTANCE.getAttributeReferential();
 
 		/**
 		 * The meta object literal for the '<em><b>Association End</b></em>' reference feature.
@@ -5451,7 +5451,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ATTRIBUTE_DERIVED__ASSOCIATION_END = eINSTANCE.getAttributeDerived_AssociationEnd();
+		EReference ATTRIBUTE_REFERENTIAL__ASSOCIATION_END = eINSTANCE.getAttributeReferential_AssociationEnd();
 
 		/**
 		 * The meta object literal for the '<em><b>Class</b></em>' container reference feature.
@@ -5459,7 +5459,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ATTRIBUTE_DERIVED__CLASS = eINSTANCE.getAttributeDerived_Class();
+		EReference ATTRIBUTE_REFERENTIAL__CLASS = eINSTANCE.getAttributeReferential_Class();
 
 		/**
 		 * The meta object literal for the '<em><b>Identifier Primary</b></em>' reference list feature.
@@ -5467,7 +5467,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ATTRIBUTE_DERIVED__IDENTIFIER_PRIMARY = eINSTANCE.getAttributeDerived_IdentifierPrimary();
+		EReference ATTRIBUTE_REFERENTIAL__IDENTIFIER_PRIMARY = eINSTANCE.getAttributeReferential_IdentifierPrimary();
 
 		/**
 		 * The meta object literal for the '<em><b>Identifier Non Primary</b></em>' reference list feature.
@@ -5475,7 +5475,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ATTRIBUTE_DERIVED__IDENTIFIER_NON_PRIMARY = eINSTANCE.getAttributeDerived_IdentifierNonPrimary();
+		EReference ATTRIBUTE_REFERENTIAL__IDENTIFIER_NON_PRIMARY = eINSTANCE.getAttributeReferential_IdentifierNonPrimary();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.OperationSignatureImpl <em>Operation Signature</em>}' class.
@@ -5690,12 +5690,12 @@ public interface ModelPackage extends EPackage {
 		EReference IDENTIFIER_PRIMARY__ATTRIBUTE = eINSTANCE.getIdentifierPrimary_Attribute();
 
 		/**
-		 * The meta object literal for the '<em><b>Derived Attribute</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Attribute Referential</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IDENTIFIER_PRIMARY__DERIVED_ATTRIBUTE = eINSTANCE.getIdentifierPrimary_DerivedAttribute();
+		EReference IDENTIFIER_PRIMARY__ATTRIBUTE_REFERENTIAL = eINSTANCE.getIdentifierPrimary_AttributeReferential();
 
 		/**
 		 * The meta object literal for the '{@link model.impl.IdentifierNonPrimaryImpl <em>Identifier Non Primary</em>}' class.
@@ -5716,12 +5716,12 @@ public interface ModelPackage extends EPackage {
 		EReference IDENTIFIER_NON_PRIMARY__ATTRIBUTE = eINSTANCE.getIdentifierNonPrimary_Attribute();
 
 		/**
-		 * The meta object literal for the '<em><b>Derived Attribute</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Attribute Referential</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IDENTIFIER_NON_PRIMARY__DERIVED_ATTRIBUTE = eINSTANCE.getIdentifierNonPrimary_DerivedAttribute();
+		EReference IDENTIFIER_NON_PRIMARY__ATTRIBUTE_REFERENTIAL = eINSTANCE.getIdentifierNonPrimary_AttributeReferential();
 
 		/**
 		 * The meta object literal for the '{@link model.IdentifierParticipant <em>Identifier Participant</em>}' class.

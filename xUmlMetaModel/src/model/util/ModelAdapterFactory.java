@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModelAdapterFactory.java,v 1.2 2008/05/23 05:15:21 dxm Exp $
+ * $Id$
  */
 package model.util;
 
@@ -14,8 +14,8 @@ import model.AssociationEndPersistence;
 import model.AssociationEndPrimary;
 import model.AssociationEndSecondary;
 import model.Attribute;
-import model.AttributeDerived;
 import model.AttributePersistence;
+import model.AttributeReferential;
 import model.CallEvent;
 import model.ChangeEvent;
 import model.ClassPersistence;
@@ -150,8 +150,8 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createAttributeAdapter();
 			}
 			@Override
-			public Adapter caseAttributeDerived(AttributeDerived object) {
-				return createAttributeDerivedAdapter();
+			public Adapter caseAttributeReferential(AttributeReferential object) {
+				return createAttributeReferentialAdapter();
 			}
 			@Override
 			public Adapter caseOperationSignature(OperationSignature object) {
@@ -440,16 +440,16 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link model.AttributeDerived <em>Attribute Derived</em>}'.
+	 * Creates a new adapter for an object of class '{@link model.AttributeReferential <em>Attribute Referential</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see model.AttributeDerived
+	 * @see model.AttributeReferential
 	 * @generated
 	 */
-	public Adapter createAttributeDerivedAdapter() {
+	public Adapter createAttributeReferentialAdapter() {
 		return null;
 	}
 

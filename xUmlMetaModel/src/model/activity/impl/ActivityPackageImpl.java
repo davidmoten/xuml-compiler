@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ActivityPackageImpl.java,v 1.2 2008/05/23 05:15:19 dxm Exp $
+ * $Id$
  */
 package model.activity.impl;
 
