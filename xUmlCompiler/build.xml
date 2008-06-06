@@ -13,6 +13,7 @@
 	<property name="generated.associations" value="${temp}/associations" />
 	<property name="generated.microwave" value="${temp}/microwave" />
 	<property name="generated.shop" value="${temp}/shop" />
+	<property name="generated.simple" value="${temp}/simple" />
 	<property name="deployment" value="${temp}/deployment" />
 	<property name="dependencies" value="${temp}/dependencies" />
 	<property name="use.proxy" value="true" />
@@ -81,6 +82,7 @@
 		<delete dir="${generated.associations}" />
 		<delete dir="${generated.microwave}" />
 		<delete dir="${generated.shop}" />
+		<delete dir="${generated.simple}" />
 		<delete dir="${deployment}" />
 
 		<mkdir dir="${temp}" />
@@ -91,6 +93,7 @@
 		<mkdir dir="${generated.associations}" />
 		<mkdir dir="${generated.microwave}" />
 		<mkdir dir="${generated.shop}" />
+		<mkdir dir="${generated.simple}" />
 		<mkdir dir="${deployment}" />
 
 	</target>
@@ -242,7 +245,9 @@
 		<xuml-generate outputDirectory="${generated.microwave}"
 		               codeGenerator="moten.david.uml.xuml.model.example.microwave.Microwave" />
 		<xuml-generate outputDirectory="${generated.shop}"
-		               codeGenerator="moten.david.uml.xuml.model.example.shop.Shop" />
+				               codeGenerator="moten.david.uml.xuml.model.example.shop.Shop" />
+		<xuml-generate outputDirectory="${generated.simple}"
+				               codeGenerator="moten.david.uml.xuml.model.example.simple.Simple" />
 
 		
 		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}"
@@ -252,6 +257,7 @@
 		       debuglevel="lines,vars,source"
 		       fork="true">
 			<exclude name="**/example/shop/**/*" />
+			<exclude name="**/example/simple/**/*" />
 		</javac>
 	</target>
 
@@ -283,6 +289,7 @@
 			<exclude name="zero_*/**/*" />
 			<exclude name="microwave/**/*" />
 			<exclude name="shop/**/*" />
+			<exclude name="simple/**/*"/>
 			<exclude name="META-INF/**/*" />
 			<exclude name="log4j.properties" />
 		</jar>
