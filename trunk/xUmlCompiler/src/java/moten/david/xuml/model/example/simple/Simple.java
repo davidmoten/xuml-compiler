@@ -9,7 +9,6 @@ import model.Primitive;
 import model.State;
 import moten.david.xuml.model.Multiplicity;
 import moten.david.xuml.model.util.SystemBase;
-import simple.Email;
 
 public class Simple extends SystemBase {
 
@@ -43,7 +42,7 @@ public class Simple extends SystemBase {
 		CallEvent activate = createCallEvent(customer, "activate");
 		CallEvent deactivate = createCallEvent(customer, "deactivate");
 		CallEvent addEmail = createCallEvent(customer, "addEmail");
-		createParameter(addEmail, "email", Email.class.getName());
+		createParameter(addEmail, "email", "simple.Email");
 		createTransition(inactive, active, activate);
 		createTransition(active, inactive, deactivate);
 		createTransition(active, active, addEmail);
