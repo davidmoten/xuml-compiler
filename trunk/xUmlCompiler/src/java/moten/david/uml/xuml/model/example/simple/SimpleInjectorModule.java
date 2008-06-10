@@ -1,4 +1,4 @@
-package moten.david.uml.xuml.model.example.simple;
+package moten.david.xuml.model.example.simple;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -14,5 +14,6 @@ public class SimpleInjectorModule extends AbstractModule {
 		bind(CustomerActions.class).to(CustomerBehaviour.class);
 		bind(EmailActions.class).to(EmailBehaviour.class);
 		bind(EntityManagerFactory.class).to(SimpleEntityManagerFactory.class);
+		bind(TestSimple.class);
 	}
 }

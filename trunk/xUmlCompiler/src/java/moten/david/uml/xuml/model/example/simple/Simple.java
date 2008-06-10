@@ -1,4 +1,4 @@
-package moten.david.uml.xuml.model.example.simple;
+package moten.david.xuml.model.example.simple;
 
 import java.io.IOException;
 
@@ -6,15 +6,18 @@ import model.CallEvent;
 import model.Class;
 import model.Package;
 import model.Primitive;
-import model.SignalEvent;
 import model.State;
-import moten.david.uml.xuml.model.Multiplicity;
-import moten.david.uml.xuml.model.util.SystemBase;
+import moten.david.xuml.model.Multiplicity;
+import moten.david.xuml.model.util.SystemBase;
+import simple.Email;
 
 public class Simple extends SystemBase {
 
 	public Simple() {
-		super("simple", "Simple");
+		// note that we pass a null schema name because hsqldb doesn't create
+		// schemas for us
+		// during hbm2ddl.SchemaExport and errors occur
+		super(null, "Simple");
 		initialize();
 	}
 
@@ -33,21 +36,21 @@ public class Simple extends SystemBase {
 	private Class createCustomer(Package pkg) {
 		Class customer = createClassWithArbitraryId(pkg, "Customer",
 				"a customer, possible contactable using multiple emails");
-		createAttribute(customer, "name");
+		createAttribute(customer, "name").setUnique(true);
 		createAttribute(customer, "active", Primitive.BOOLEAN);
 		State inactive = createState(customer, "Inactive");
 		State active = createState(customer, "Active");
-		CallEvent newCustomer = createCallEvent(customer, "newCustomer");
-		SignalEvent activate = createSignalEvent(customer, "activate");
-		SignalEvent deactivate = createSignalEvent(customer, "deactivate");
-		SignalEvent addEmail = createSignalEvent(customer, "addEmail");
-		createParameter(newCustomer, "name");
-		createParameter(addEmail, "email");
-		createTransition(customer.getStateMachine().getInitialState(),
-				inactive, newCustomer);
+		CallEvent activate = createCallEvent(customer, "activate");
+		CallEvent deactivate = createCallEvent(customer, "deactivate");
+		CallEvent addEmail = createCallEvent(customer, "addEmail");
+		createParameter(addEmail, "email", Email.class.getName());
 		createTransition(inactive, active, activate);
 		createTransition(active, inactive, deactivate);
 		createTransition(active, active, addEmail);
+		createTransition(customer.getStateMachine().getInitialState(), active,
+				activate);
+		createTransition(customer.getStateMachine().getInitialState(),
+				inactive, deactivate);
 		return customer;
 	}
 

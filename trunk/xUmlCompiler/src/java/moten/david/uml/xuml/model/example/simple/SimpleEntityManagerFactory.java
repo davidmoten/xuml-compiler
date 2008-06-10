@@ -1,4 +1,4 @@
-package moten.david.uml.xuml.model.example.simple;
+package moten.david.xuml.model.example.simple;
 
 import java.util.Map;
 
@@ -11,7 +11,7 @@ public class SimpleEntityManagerFactory implements EntityManagerFactory {
 	private EntityManagerFactory emf;
 
 	public SimpleEntityManagerFactory() {
-		Persistence.createEntityManagerFactory("simple");
+		emf = Persistence.createEntityManagerFactory("simple");
 	}
 
 	@Override
@@ -24,6 +24,7 @@ public class SimpleEntityManagerFactory implements EntityManagerFactory {
 		return emf.createEntityManager();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public EntityManager createEntityManager(Map arg0) {
 		return emf.createEntityManager(arg0);
