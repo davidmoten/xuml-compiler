@@ -10,6 +10,6 @@
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="moten.david.uml.xuml.model.example.mellor.Bookstore"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="moten.david.xuml.model.example.mellor.Bookstore"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="xUmlCompiler"/>
 </launchConfiguration>

@@ -8,8 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 
 import junit.framework.Assert;
-import moten.david.uml.xuml.model.compiler.runtime.InvalidRecordException;
 import moten.david.util.text.StringUtil;
+import moten.david.xuml.model.compiler.runtime.InvalidRecordException;
 
 import org.apache.log4j.Logger;
 
