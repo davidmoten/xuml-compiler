@@ -1,4 +1,4 @@
-package moten.david.uml.xuml.model.example.simple;
+package moten.david.xuml.model.example.simple;
 
 public class SimpleGenerator {
 	public static void main(String[] args) throws Exception {
