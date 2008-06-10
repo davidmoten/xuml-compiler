@@ -1,6 +1,4 @@
-<project name="xUmlCompiler"
-         default="build"
-         xmlns:artifact="urn:maven-artifact-ant">
+<project name="xUmlCompiler" default="build" xmlns:artifact="urn:maven-artifact-ant">
 
 	<property name="project.short.name" value="xuml-compiler" />
 	<property name="temp" value="${basedir}/temp" />
@@ -20,13 +18,11 @@
 	<property name="proxy.host" value="proxy" />
 	<property name="proxy.port" value="8080" />
 	<!-- use maven repository from a Maven project at the same level as this project if the Maven project exists -->
-	<condition property="maven.local.repository"
-	           value="${basedir}/../Maven/repository">
+	<condition property="maven.local.repository" value="${basedir}/../Maven/repository">
 		<available file="${basedir}/../Maven/repository" />
 	</condition>
 	<!-- otherwise use the default repository -->
-	<property name="maven.local.repository"
-	          value="${user.home}/main/maven/repository" />
+	<property name="maven.local.repository" value="${user.home}/main/maven/repository" />
 	<condition property="set.proxy">
 		<istrue value="${use.proxy}" />
 	</condition>
@@ -113,65 +109,38 @@
 
 	<!-- set proxy -->
 	<target name="set.proxy" if="set.proxy" depends="clean">
-		<echo message="setting proxy to ${proxy.host}:${proxy.port}"
-		      level="info" />
+		<echo message="setting proxy to ${proxy.host}:${proxy.port}" level="info" />
 		<setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}" />
 	</target>
 
 	<!-- get dependencies with Maven -->
 	<target name="get.dependencies" depends="set.proxy">
-		<path id="maven-ant-tasks.classpath"
-		      path="${lib}/maven/maven-ant-tasks-2.0.9.jar" />
-		<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
-		         uri="urn:maven-artifact-ant"
-		         classpathref="maven-ant-tasks.classpath" />
-		<echo message="maven repository: ${maven.local.repository}"
-		      level="info" />
+		<path id="maven-ant-tasks.classpath" path="${lib}/maven/maven-ant-tasks-2.0.9.jar" />
+		<typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant" classpathref="maven-ant-tasks.classpath" />
+		<echo message="maven repository: ${maven.local.repository}" level="info" />
 		<artifact:localRepository id="rep" path="${maven.local.repository}" />
-		<artifact:dependencies pathId="dependency.classpath"
-		                       filesetId="dependency.fileset">
+		<artifact:dependencies pathId="dependency.classpath" filesetId="dependency.fileset">
 			<artifact:localRepository refid="rep" />
 			<dependency groupId="log4j" artifactId="log4j" version="1.2.15">
 				<exclusion groupId="javax.jms" artifactId="jms" />
 				<exclusion groupId="com.sun.jmx" artifactId="jmxri" />
 				<exclusion groupId="com.sun.jdmk" artifactId="jmxtools" />
 			</dependency>
-			<dependency groupId="org.freemarker"
-			            artifactId="freemarker"
-			            version="2.3.12" />
-			<dependency groupId="org.apache.derby"
-			            artifactId="derby"
-			            version="10.4.1.3" />
-			<dependency groupId="com.google.code.guice"
-			            artifactId="guice"
-			            version="1.0" />
-			<dependency groupId="aopalliance"
-			            artifactId="aopalliance"
-			            version="1.0" />
-			<dependency groupId="org.apache.ant"
-			            artifactId="ant"
-			            version="1.7.0" />
+			<dependency groupId="org.freemarker" artifactId="freemarker" version="2.3.12" />
+			<dependency groupId="org.apache.derby" artifactId="derby" version="10.4.1.3" />
+			<dependency groupId="com.google.code.guice" artifactId="guice" version="1.0" />
+			<dependency groupId="aopalliance" artifactId="aopalliance" version="1.0" />
+			<dependency groupId="org.apache.ant" artifactId="ant" version="1.7.0" />
 			<dependency groupId="junit" artifactId="junit" version="4.4" />
-			<dependency groupId="org.hibernate"
-			            artifactId="hibernate"
-			            version="3.2.6.ga">
+			<dependency groupId="org.hibernate" artifactId="hibernate" version="3.2.6.ga">
 				<exclusion groupId="javax.transaction" artifactId="jta" />
 			</dependency>
-			<dependency groupId="org.hibernate"
-			            artifactId="hibernate-tools"
-			            version="3.2.0.ga" />
-			<dependency groupId="org.hibernate"
-			            artifactId="hibernate-entitymanager"
-			            version="3.3.1.ga" />
-			<dependency groupId="org.hibernate"
-			            artifactId="ejb3-persistence"
-			            version="1.0.2.GA" />
-			<dependency groupId="org.hibernate"
-			            artifactId="hibernate-annotations"
-			            version="3.3.1.GA" />
-			<dependency groupId="geronimo-spec"
-			            artifactId="geronimo-spec-jta"
-			            version="1.0.1B-rc4" />
+			<dependency groupId="org.hibernate" artifactId="hibernate-tools" version="3.2.0.ga" />
+			<dependency groupId="org.hibernate" artifactId="hibernate-entitymanager" version="3.3.1.ga" />
+			<dependency groupId="org.hibernate" artifactId="ejb3-persistence" version="1.0.2.GA" />
+			<dependency groupId="org.hibernate" artifactId="hibernate-annotations" version="3.3.1.GA" />
+			<dependency groupId="geronimo-spec" artifactId="geronimo-spec-jta" version="1.0.1B-rc4" />
+			<dependency groupId="hsqldb" artifactId="hsqldb" version="1.8.0.7" />
 			<!--
 			<dependency groupId="org.eclipse.emf"
 			            artifactId="ecore"
@@ -215,11 +184,7 @@
 
 	<!-- compile -->
 	<target name="compile" depends="generate,copy.resources">
-		<javac destdir="${bin}"
-		       classpathref="libraries"
-		       debug="true"
-		       debuglevel="lines,vars,source"
-		       fork="true">
+		<javac destdir="${bin}" classpathref="libraries" debug="true" debuglevel="lines,vars,source" fork="true">
 			<src path="${src}" />
 			<src path="${generated}" />
 			<exclude name="**/example/**/Test*.java" />
@@ -234,28 +199,16 @@
 	<!-- generate examples -->
 	<target name="generate.examples" depends="compile">
 
-		<taskdef name="xuml-generate"
-		         classname="moten.david.uml.xuml.model.compiler.ant.GenerateTask"
-		         classpathref="libraries" />
+		<taskdef name="xuml-generate" classname="moten.david.xuml.model.compiler.ant.GenerateTask" classpathref="libraries" />
 
-		<xuml-generate outputDirectory="${generated.bookstore}"
-		               codeGenerator="moten.david.uml.xuml.model.example.mellor.Bookstore" />
-		<xuml-generate outputDirectory="${generated.associations}"
-		               codeGenerator="moten.david.uml.xuml.model.example.associations.Associations" />
-		<xuml-generate outputDirectory="${generated.microwave}"
-		               codeGenerator="moten.david.uml.xuml.model.example.microwave.Microwave" />
-		<xuml-generate outputDirectory="${generated.shop}"
-				               codeGenerator="moten.david.uml.xuml.model.example.shop.Shop" />
-		<xuml-generate outputDirectory="${generated.simple}"
-				               codeGenerator="moten.david.uml.xuml.model.example.simple.Simple" />
+		<xuml-generate outputDirectory="${generated.bookstore}" codeGenerator="moten.david.xuml.model.example.mellor.Bookstore" />
+		<xuml-generate outputDirectory="${generated.associations}" codeGenerator="moten.david.xuml.model.example.associations.Associations" />
+		<xuml-generate outputDirectory="${generated.microwave}" codeGenerator="moten.david.xuml.model.example.microwave.Microwave" />
+		<xuml-generate outputDirectory="${generated.shop}" codeGenerator="moten.david.xuml.model.example.shop.Shop" />
+		<xuml-generate outputDirectory="${generated.simple}" codeGenerator="moten.david.xuml.model.example.simple.Simple" />
 
-		
-		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}"
-		       destdir="${bin}"
-		       classpathref="libraries"
-		       debug="true"
-		       debuglevel="lines,vars,source"
-		       fork="true">
+
+		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}" destdir="${bin}" classpathref="libraries" debug="true" debuglevel="lines,vars,source" fork="true">
 			<exclude name="**/example/shop/**/*" />
 			<exclude name="**/example/simple/**/*" />
 		</javac>
@@ -263,24 +216,19 @@
 
 	<!-- test -->
 	<target name="test" depends="generate.examples">
-		<junit showoutput="true"
-		       haltonfailure="true"
-		       dir="${basedir}"
-		       fork="true"
-		       printsummary="withOutAndErr">
+		<junit showoutput="true" haltonfailure="true" dir="${basedir}" fork="true" printsummary="withOutAndErr">
 			<formatter type="plain" usefile="false" />
 			<classpath refid="libraries" />
-			<test name="moten.david.uml.xuml.model.example.associations.Test" />
-			<test name="moten.david.uml.xuml.model.example.mellor.Test" />
-			<test name="moten.david.uml.xuml.model.example.microwave.Test" />
+			<test name="moten.david.xuml.model.example.associations.Test" />
+			<test name="moten.david.xuml.model.example.mellor.Test" />
+			<test name="moten.david.xuml.model.example.microwave.Test" />
 			<test name="moten.david.util.freemarker.Test" />
 		</junit>
 	</target>
 
 	<!-- jar -->
 	<target name="jar" depends="test">
-		<jar basedir="${bin}"
-		     destfile="${deployment}/${project.short.name}.jar">
+		<jar basedir="${bin}" destfile="${deployment}/${project.short.name}.jar">
 			<exclude name="**/example/**/*" />
 			<exclude name="bookstore/**/*" />
 			<exclude name="bookstore/**/*" />
@@ -289,7 +237,7 @@
 			<exclude name="zero_*/**/*" />
 			<exclude name="microwave/**/*" />
 			<exclude name="shop/**/*" />
-			<exclude name="simple/**/*"/>
+			<exclude name="simple/**/*" />
 			<exclude name="META-INF/**/*" />
 			<exclude name="log4j.properties" />
 		</jar>
@@ -297,10 +245,7 @@
 
 	<!-- ij -->
 	<target name="ij">
-		<java classname="org.apache.derby.tools.ij"
-		      classpathref="libraries"
-		      dir="${temp}"
-		      fork="true">
+		<java classname="org.apache.derby.tools.ij" classpathref="libraries" dir="${temp}" fork="true">
 		</java>
 	</target>
 
