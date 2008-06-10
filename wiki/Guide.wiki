@@ -111,7 +111,7 @@ Now we add in the state machine details to the Shop class:
 		createShipmentStateMachine(shipment);
 	}
 
-		public void createOrderStateMachine(Class order) {
+	public void createOrderStateMachine(Class order) {
 		State open = createState(order, "Open");
 		State delivered = createState(order, "Delivered");
 		State cancelled = createState(order, "Cancelled");
