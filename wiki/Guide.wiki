@@ -10,4 +10,6 @@ Include the jars below in your classpath:
   * xUmlCompiler/temp/deployment/xuml-compiler.jar
   * xUmlCompiler/temp/dependencies/`*`.jar
 
+==Create a system==
+To create a system, subclass [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/util/SystemBase.java SystemBase]
 [Example1Simple Simple Example]
