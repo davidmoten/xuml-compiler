@@ -1,5 +1,15 @@
 #summary Simple example xUmlCompiler system
 
+Consider a simple system with customers and their email addresses. 
+  * A customer can be contacted by email and the customer can have any number of emails (including none). 
+  * Any email in the system must be associated with one and only one customer.
+
+A customer can be in an inactive or an active state. An new email can only be associated with a customer when the customer is in the active state. A customer can be activated or deactivated and a new customer entity starts life as inactive.
+
+That's it!
+
+Here's how this system is defined and executed:
+
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java System definition class]
 
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java Customer actions implementation]
