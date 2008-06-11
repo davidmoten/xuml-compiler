@@ -1,9 +1,13 @@
 #summary One-sentence summary of this page.
 =Example 1 - Simple=
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java System definition class]
+
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java Customer actions implementation]
+
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/EmailBehaviour.java Email actions implementation]
+
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/TestSimple.java Test class]
+
 Results of the run of the test class:
 {{{
 2008-06-11 10:11:26,234 INFO  org.hibernate.cfg.annotations.Version - Hibernate Annotations 3.3.1.GA
