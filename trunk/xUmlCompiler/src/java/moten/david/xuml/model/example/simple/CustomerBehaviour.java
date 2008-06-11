@@ -17,22 +17,15 @@ public class CustomerBehaviour implements CustomerActions {
 
 	@Override
 	public void performOnEntryActive(EventActivate event) {
-		activate(true);
-	}
-
-	private void activate(boolean activate) {
-		customer.setActive(activate);
 	}
 
 	@Override
 	public void performOnEntryInactive(EventDeactivate event) {
-		activate(false);
 	}
 
 	@Override
 	public void performOnEntryActive(EventAddEmail event) {
 		event.getEmail().setCustomer(customer);
-		customer.getEmail().add(event.getEmail());
 	}
 
 }

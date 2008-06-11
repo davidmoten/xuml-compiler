@@ -5,7 +5,6 @@ import java.io.IOException;
 import model.CallEvent;
 import model.Class;
 import model.Package;
-import model.Primitive;
 import model.State;
 import moten.david.xuml.model.Multiplicity;
 import moten.david.xuml.model.util.SystemBase;
@@ -36,7 +35,6 @@ public class Simple extends SystemBase {
 		Class customer = createClassWithArbitraryId(pkg, "Customer",
 				"a customer, possible contactable using multiple emails");
 		createAttribute(customer, "name").setUnique(true);
-		createAttribute(customer, "active", Primitive.BOOLEAN);
 		State inactive = createState(customer, "Inactive");
 		State active = createState(customer, "Active");
 		CallEvent activate = createCallEvent(customer, "activate");
