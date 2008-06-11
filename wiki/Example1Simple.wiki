@@ -19,7 +19,7 @@ As a test we will
 
 _Figure 1:_
 
-||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple1.png||
+||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple2.png||
 
 Here's how this system is defined and executed:
 
