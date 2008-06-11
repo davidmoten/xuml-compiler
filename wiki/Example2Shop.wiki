@@ -6,7 +6,7 @@ _Figure 1:_
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class3.png
 
-This system is defined by [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/Shop.java Shop.java]
+This system is defined by the class [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/Shop.java Shop]
 
 ==View the system==
 Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be _src/viewer/Shop.ini_.
