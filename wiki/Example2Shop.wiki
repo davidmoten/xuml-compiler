@@ -4,192 +4,18 @@ Consider this class diagram:
 
 _Figure 1:_
 
-http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class1.png
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class3.png
 
-To define this system create the class [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/Shop.java Shop.java]
+This system is defined by [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/Shop.java Shop.java]
 
-{{{
-package moten.david.uml.xuml.model.example.shop;
-
-import java.io.IOException;
-
-import model.AssociationClass;
-import model.Class;
-import model.Primitive;
-import moten.david.uml.xuml.model.Multiplicity;
-import moten.david.uml.xuml.model.util.SystemBase;
-
-public class Shop extends SystemBase {
-
-	private static final String schema = "SHOP";
-	private static final String systemName = "Shop";
-
-	public Shop() {
-		super(schema, systemName);
-		initialize();
-	}
-
-	private void initialize() {
-		model.Package pkg = createRootPackage("shop", "shop system");
-		Class customer = createClassWithArbitraryId(pkg, "Customer",
-				"a shop customer, a potential or actual purchaser of products from the shop");
-		createAttribute(customer, "name");
-		createAttribute(customer, "billingName");
-		createAttribute(customer, "billingAddress");
-		createAttribute(customer, "shippingName");
-		createAttribute(customer, "shippingAddress");
-
-		Class order = createClassWithArbitraryId(pkg, "Order",
-				"an order of products made by a customer");
-		createAttribute(order, "timeCreated", Primitive.TIMESTAMP);
-
-		Class product = createClassWithArbitraryId(pkg, "Product", "products");
-		createAttribute(product, "numberInStock", Primitive.INTEGER);
-		createAttribute(product, "numberCommitted", Primitive.INTEGER);
-
-		AssociationClass orderProduct = createAssociationClassWithArbitraryId(
-				pkg, "OrderProduct", "products on an order");
-		createAttribute(orderProduct, "itemCount", Primitive.INTEGER);
-
-		Class shipment = createClassWithArbitraryId(pkg, "Shipment",
-				"shipment of an order");
-		createAttribute(shipment, "timePacked", Primitive.TIMESTAMP);
-		createAttribute(shipment, "timeSent", Primitive.TIMESTAMP);
-		createAttribute(shipment, "timeUnpacked", Primitive.TIMESTAMP);
-		createAttribute(shipment, "comment");
-
-		createAssociation("R1", createAssociationEndPrimary(customer,
-				Multiplicity.ONE, "is made by"), createAssociationEndSecondary(
-				order, Multiplicity.MANY, "makes"));
-		createAssociation("R2", createAssociationEndPrimary(order,
-				Multiplicity.ONE, "delivers"), createAssociationEndSecondary(
-				shipment, Multiplicity.ZERO_ONE, "is delivered by"));
-
-		createAssociation(
-				"R3",
-				createAssociationEndPrimary(order, Multiplicity.MANY,
-						"is included in"),
-				createAssociationEndSecondary(product, Multiplicity.MANY,
-						"includes")).setAssociationClass(orderProduct);
-
-	}
-
-	public static void main(String[] args) throws NumberFormatException,
-			IOException {
-		Shop shop = new Shop();
-		shop.view("src/viewer/Shop.ini");
-	}  
-}
-}}}
 ==View the system==
-Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be _src/viewer/Shop.ini_. Change it if you like.
+Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be _src/viewer/Shop.ini_.
 
-To view the system, run the above class (the main method calls the viewer). You will need to reposition the elements but when you close the viewer the positions will be saved automatically.
+To view the system, run the above class (the main method calls the viewer). You will need to reposition the elements if your settings file does not exist but when you close the viewer the positions will be saved automatically.
  
 You may want to change the name of the location of the settings file in the main method.
 
 When you run the viewer you will see a window with the image of Figure 1.
-
-==Add the State Machine==
-Now we add in the state machine details to the Shop class:
-
-{{{
-	private void initialize() {
-		...
-		createOrderStateMachine(order);
-		createShipmentStateMachine(shipment);
-	}
-
-	public void createOrderStateMachine(Class order) {
-		State open = createState(order, "Open");
-		State delivered = createState(order, "Delivered");
-		State cancelled = createState(order, "Cancelled");
-		State beingPreparedAndShipped = createState(order,
-				"Being Prepared and Shipped");
-		CallEvent createOrder = createCallEvent(order, "createOrder");
-		SignalEvent addProduct = createSignalEvent(order, "addProduct");
-		createParameter(addProduct, "product", "Product");
-		SignalEvent removeProduct = createSignalEvent(order, "removeProduct");
-		createParameter(addProduct, "product", "Product");
-		SignalEvent changeQuantity = createSignalEvent(order,
-				"changeProductQuantity");
-		createParameter(addProduct, "product", "Product");
-		createParameter(addProduct, "newQuantity", Primitive.INTEGER);
-		SignalEvent ship = createSignalEvent(order, "ship");
-		SignalEvent cancel = createSignalEvent(order, "cancel");
-		createParameter(addProduct, "newQuantity", Primitive.INTEGER);
-
-		createTransition(order.getStateMachine().getInitialState(), open,
-				createOrder);
-		createTransition(open, open, addProduct);
-		createTransition(open, open, changeQuantity);
-		createTransition(open, open, removeProduct);
-		createTransition(open, cancelled, cancel);
-		createTransition(beingPreparedAndShipped, cancelled, cancel);
-		createTransition(open, beingPreparedAndShipped, ship);
-		createTransition(beingPreparedAndShipped, cancelled, cancel);
-	}
-
-	private void createShipmentStateMachine(Class shipment) {
-		State beingPrepared = createState(shipment, "Being Prepared");
-		State beingShipped = createState(shipment, "Being Shipped");
-		State shippedState = createState(shipment, "Shipped");
-		State cancelled = createState(shipment, "Cancelled");
-		State deliveredState = createState(shipment, "Delivered");
-		State lostState = createState(shipment, "Lost");
-		State returnedState = createState(shipment, "Returned");
-		CallEvent ship = createCallEvent(shipment, "createShipment");
-		createParameter(ship, "order", "Order");
-		SignalEvent prepared = createSignalEvent(shipment, "prepared");
-		createParameter(ship, "time", Primitive.TIMESTAMP);
-		SignalEvent shipped = createSignalEvent(shipment, "shipped");
-		createParameter(shipped, "time", Primitive.TIMESTAMP);
-		SignalEvent delivered = createSignalEvent(shipment, "delivered");
-		createParameter(delivered, "time", Primitive.TIMESTAMP);
-		SignalEvent cancel = createSignalEvent(shipment, "cancel");
-		createParameter(cancel, "time", Primitive.TIMESTAMP);
-		SignalEvent lost = createSignalEvent(shipment, "lost");
-		createParameter(cancel, "time", Primitive.TIMESTAMP);
-		createParameter(cancel, "comment");
-		SignalEvent returned = createSignalEvent(shipment, "returned");
-		createParameter(cancel, "time", Primitive.TIMESTAMP);
-		createParameter(cancel, "comment");
-
-		createTransition(shipment.getStateMachine().getInitialState(),
-				beingPrepared, ship);
-		createTransition(beingPrepared, beingShipped, prepared);
-		createTransition(beingShipped, shippedState, shipped);
-		createTransition(beingPrepared, cancelled, cancel);
-		createTransition(beingShipped, cancelled, cancel);
-		createTransition(shippedState, deliveredState, delivered);
-		createTransition(shippedState, lostState, lost);
-		createTransition(shippedState, returnedState, returned);
-	}
-}}}
-
-Running the viewer now gives us:
-
-_Figure 2:_
-
-http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class2.png
-
-
-==Add methods to the classes==
-Let's add a method to the Customer class to send an email to notify the customer that their order has been shipped.
-
-Add this code to the end of the initialize() method: 
-
-{{{
-	createOperation(customer, "sendMessage",
-		"sends the customer a message, probably via email", null,
-		false, 
-		createParameter("subject","subject of message",	Primitive.STRING), 
-		createParameter("body","body of message", Primitive.STRING));
-}}}
-
-Run the viewer and we see the new operation on the Customer class.
-
-http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/class3.png
 
 ==Generate the classes==
 xUmlCompiler generates
@@ -200,21 +26,9 @@ xUmlCompiler generates
   * search classes based on identifier and index specifications 
   * value enumerations for static constants associated with attributes
 
-Paste in the following class:
-{{{
-package moten.david.uml.xuml.model.example.shop;
+The classes are generated by running the class [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/ShopGenerator.java ShopGenerator].
 
-public class ShopGenerator {
-
-    public static void main(String[] args) throws Exception {
-        Shop shop = new Shop();
-        shop.generate("temp/shop");
-    }
-}
-}}}
-All classes will be written to the directory temp/shop. Change it if you wish. Create the directory if it does not exist.
-
-Run the main method in the above class and classes will be generated as below:
+All classes are written to the directory temp/shop:
 
 _Figure 3:_
 
@@ -227,217 +41,18 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/guide/images/img
 ==Implement actions==
 All methods and state machine entry points should be implemented by your behaviour classes.
 
-Here's the actions implementation for the Customer class (the sendMessage operation):
-{{{
-package moten.david.uml.xuml.model.example.shop;
+[http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/CustomerBehaviour.java CustomerBehaviour] is the actions implementation for the Customer class (the sendMessage operation).
 
-import shop.Customer;
-import shop.actions.CustomerActions;
+[http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/OrderBehaviour.java OrderBehaviour] is the actions implementation for the Order class
 
-public class CustomerBehaviour implements CustomerActions {
-
-	private Customer customer;
-
-	@Override
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	@Override
-	public void sendMessage(String subject, String body) {
-		String destination = customer.getEmail();
-		sendEmail(subject, body, destination);
-	}
-
-	private void sendEmail(String subject, String body, String destination) {
-		// TODO
-	}
-}
-}}}
-Here's the actions implementation skeleton for the Order class:
-{{{
-package moten.david.uml.xuml.model.example.shop;
-
-import shop.Order;
-import shop.Order.EventAddProduct;
-import shop.Order.EventCancel;
-import shop.Order.EventChangeProductQuantity;
-import shop.Order.EventCreateOrder;
-import shop.Order.EventRemoveProduct;
-import shop.Order.EventShip;
-import shop.actions.OrderActions;
-
-public class OrderBehaviour implements OrderActions {
-
-	@Override
-	public void performOnEntryBeingPreparedAndShipped(EventShip event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void performOnEntryCancelled(EventCancel event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void performOnEntryOpen(EventCreateOrder event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void performOnEntryOpen(EventAddProduct event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void performOnEntryOpen(EventRemoveProduct event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void performOnEntryOpen(EventChangeProductQuantity event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setOrder(Order order) {
-		// TODO Auto-generated method stub
-		
-	}
-}
-}}}
-
-Here's the actions implementation for the Shipment class:
-{{{
-package moten.david.uml.xuml.model.example.shop;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
-import shop.Shipment;
-import shop.Shipment.EventCancel;
-import shop.Shipment.EventCreateShipment;
-import shop.Shipment.EventDelivered;
-import shop.Shipment.EventLost;
-import shop.Shipment.EventPrepared;
-import shop.Shipment.EventReturned;
-import shop.Shipment.EventShipped;
-import shop.actions.ShipmentActions;
-
-import com.google.inject.Inject;
-
-public class ShipmentBehaviour implements ShipmentActions {
-
-	private Shipment shipment;
-	private EntityManagerFactory entityManagerFactory;
-
-	public EntityManagerFactory getEntityManagerFactory() {
-		return entityManagerFactory;
-	}
-
-	@Inject
-	public void setEntityManagerFactory(
-			EntityManagerFactory entityManagerFactory) {
-		this.entityManagerFactory = entityManagerFactory;
-	}
-
-	@Override
-	public void setShipment(Shipment shipment) {
-		this.shipment = shipment;
-	}
-
-	@Override
-	public void performOnEntryBeingPrepared(EventCreateShipment event) {
-		EntityManager em = entityManagerFactory.createEntityManager();
-		em.getTransaction().begin();
-		// initialise shipment
-		shipment.setShippingName(event.getShippingName());
-		shipment.setShippingAddress(event.getShippingAddress());
-		shipment.setEmail(event.getEmail());
-
-		// establish R2
-		shipment.setOrder(event.getOrder());
-		em.persist(shipment);
-		em.getTransaction().commit();
-		em.close();
-	}
-
-	@Override
-	public void performOnEntryCancelled(EventCancel event) {
-
-	}
-
-	@Override
-	public void performOnEntryDelivered(EventDelivered event) {
-		shipment.setTimeDelivered(event.getTime());
-	}
-
-	@Override
-	public void performOnEntryLost(EventLost event) {
-		shipment.setTimeLost(event.getTime());
-	}
-
-	@Override
-	public void performOnEntryReadyForShipping(EventPrepared event) {
-
-	}
-
-	@Override
-	public void performOnEntryReturned(EventReturned event) {
-		shipment.setTimeReturned(event.getTime());
-	}
-
-	@Override
-	public void performOnEntryShipped(EventShipped event) {
-		shipment.setTimeShipped(event.getTime());
-	}
-
-}
-}}}
+[http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/ShipmentBehaviour.java ShipmentBehaviour] is the actions implementation for the Shipment class:
 
 ==Define an injector==
-{{{
-package moten.david.uml.xuml.model.example.shop;
+The implementations of action interfaces above are injected at runtime by the Guice framework. The injector is configured by [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/ShopInjectorModule.java ShopInjectorModule].
 
-import shop.actions.CustomerActions;
-import shop.actions.OrderActions;
-import shop.actions.ShipmentActions;
-
-import com.google.inject.AbstractModule;
-
-public class ShopInjectorModule extends AbstractModule {
-
-	@Override
-	protected void configure() {
-		bind(OrderActions.class).to(OrderBehaviour.class);
-		bind(ShipmentActions.class).to(ShipmentBehaviour.class);
-		bind(CustomerActions.class).to(CustomerBehaviour.class);
-	}
-
-}
-}}}
 ==Execute the system==
 To execute the system we must first ensure that the generated objects use the shop InjectorModule for late bound injection of behaviour:
 {{{
-package moten.david.uml.xuml.model.example.shop;
-
-import shop.ObjectInjector;
-
-import com.google.inject.Guice;
-
-public class ShopLauncher {
-
-    public static void main(String[] args) {
-        // enable injection of actions
         ObjectInjector.setInjector(Guice
                 .createInjector(new ShopInjectorModule()));
-    }
-
-}
 }}}
