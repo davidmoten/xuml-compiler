@@ -11,5 +11,20 @@ Include the jars below in your classpath:
   * xUmlCompiler/temp/dependencies/`*`.jar
 
 ==Create a system==
-To create a system, subclass [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/util/SystemBase.java SystemBase]
-[Example1Simple Simple Example]
+Here are the steps required to create a system:
+  # Define a system
+  # Generate the EJBs
+  # Include the generated EJBs in your runtime classpath
+  # Implement the Action interfaces for those entities that have actions.
+  # Create an injector module
+
+To run the system:
+  # Setup the injector
+  # Run your code
+
+To get stuck into a simple example go to [Example1Simple Simple Example].
+==Detailed steps==
+===1. Create a system===
+To create a system, subclass [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/util/SystemBase.java SystemBase].
+
+...
