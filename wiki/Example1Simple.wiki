@@ -12,6 +12,12 @@ Additionally
 
 That's it!
 
+As a test we will
+  * create a customer called Fred
+  * add an email for Fred
+  * activate Fred
+  * add the email for Fred again
+
 _Figure 1:_
 
 ||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple1.png||
