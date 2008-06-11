@@ -10,8 +10,6 @@ Additionally
   *  A customer can be activated or deactivated.
   * A new customer entity starts life as _inactive_.
 
-That's it!
-
 As a test we will
   * create a customer called Fred
   * add an email for Fred
