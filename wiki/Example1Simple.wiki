@@ -1,0 +1,63 @@
+#summary One-sentence summary of this page.
+=Example 1 - Simple=
+[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java System definition class]
+[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java Customer actions implementation]
+[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/EmailBehaviour.java Email actions implementation]
+[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/TestSimple.java Test class]
+Results of the run of the test class:
+{{{
+2008-06-11 10:11:26,234 INFO  org.hibernate.cfg.annotations.Version - Hibernate Annotations 3.3.1.GA
+2008-06-11 10:11:26,250 INFO  org.hibernate.cfg.Environment - Hibernate 3.2.6
+2008-06-11 10:11:26,265 INFO  org.hibernate.cfg.Environment - hibernate.properties not found
+2008-06-11 10:11:26,265 INFO  org.hibernate.cfg.Environment - Bytecode provider name : cglib
+2008-06-11 10:11:26,281 INFO  org.hibernate.cfg.Environment - using JDK 1.4 java.sql.Timestamp handling
+2008-06-11 10:11:26,406 INFO  org.hibernate.ejb.Version - Hibernate EntityManager 3.3.1.GA
+2008-06-11 10:11:26,828 INFO  org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: simple.impl.CustomerImpl
+2008-06-11 10:11:26,890 INFO  org.hibernate.cfg.annotations.EntityBinder - Bind entity simple.impl.CustomerImpl on table customer
+2008-06-11 10:11:27,062 INFO  org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: simple.impl.EmailImpl
+2008-06-11 10:11:27,062 INFO  org.hibernate.cfg.annotations.EntityBinder - Bind entity simple.impl.EmailImpl on table email
+2008-06-11 10:11:27,328 INFO  org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: simple.impl.CustomerImpl.email -> email
+2008-06-11 10:11:27,343 INFO  org.hibernate.validator.Version - Hibernate Validator 3.0.0.GA
+2008-06-11 10:11:27,437 INFO  org.hibernate.connection.DriverManagerConnectionProvider - Using Hibernate built-in connection pool (not for production use!)
+2008-06-11 10:11:27,437 INFO  org.hibernate.connection.DriverManagerConnectionProvider - Hibernate connection pool size: 1
+2008-06-11 10:11:27,437 INFO  org.hibernate.connection.DriverManagerConnectionProvider - autocommit mode: true
+2008-06-11 10:11:27,437 INFO  org.hibernate.connection.DriverManagerConnectionProvider - using driver: org.hsqldb.jdbcDriver at URL: jdbc:hsqldb:mem:simple
+2008-06-11 10:11:27,437 INFO  org.hibernate.connection.DriverManagerConnectionProvider - connection properties: {autocommit=true, release_mode=auto}
+2008-06-11 10:11:27,734 INFO  org.hibernate.cfg.SettingsFactory - RDBMS: HSQL Database Engine, version: 1.8.0
+2008-06-11 10:11:27,734 INFO  org.hibernate.cfg.SettingsFactory - JDBC driver: HSQL Database Engine Driver, version: 1.8.0
+2008-06-11 10:11:27,765 INFO  org.hibernate.dialect.Dialect - Using dialect: org.hibernate.dialect.HSQLDialect
+2008-06-11 10:11:27,781 INFO  org.hibernate.transaction.TransactionFactoryFactory - Transaction strategy: org.hibernate.transaction.JDBCTransactionFactory
+2008-06-11 10:11:27,781 INFO  org.hibernate.transaction.TransactionManagerLookupFactory - No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)
+2008-06-11 10:11:27,781 INFO  org.hibernate.cfg.SettingsFactory - Automatic flush during beforeCompletion(): disabled
+2008-06-11 10:11:27,781 INFO  org.hibernate.cfg.SettingsFactory - Automatic session close at end of transaction: disabled
+2008-06-11 10:11:27,781 INFO  org.hibernate.cfg.SettingsFactory - JDBC batch size: 15
+2008-06-11 10:11:27,781 INFO  org.hibernate.cfg.SettingsFactory - JDBC batch updates for versioned data: disabled
+2008-06-11 10:11:27,781 INFO  org.hibernate.cfg.SettingsFactory - Scrollable result sets: enabled
+2008-06-11 10:11:27,781 INFO  org.hibernate.cfg.SettingsFactory - JDBC3 getGeneratedKeys(): disabled
+2008-06-11 10:11:27,781 INFO  org.hibernate.cfg.SettingsFactory - Connection release mode: auto
+2008-06-11 10:11:27,781 INFO  org.hibernate.cfg.SettingsFactory - Default batch fetch size: 1
+2008-06-11 10:11:27,781 INFO  org.hibernate.cfg.SettingsFactory - Generate SQL with comments: disabled
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Order SQL updates by primary key: disabled
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Order SQL inserts for batching: disabled
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory
+2008-06-11 10:11:27,797 INFO  org.hibernate.hql.ast.ASTQueryTranslatorFactory - Using ASTQueryTranslatorFactory
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Query language substitutions: {}
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - JPA-QL strict compliance: enabled
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Second-level cache: enabled
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Query cache: disabled
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Cache provider: org.hibernate.cache.NoCacheProvider
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Optimize cache for minimal puts: disabled
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Structured second-level cache entries: disabled
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Statistics: disabled
+2008-06-11 10:11:27,797 INFO  org.hibernate.cfg.SettingsFactory - Deleted entity synthetic identifier rollback: disabled
+2008-06-11 10:11:27,812 INFO  org.hibernate.cfg.SettingsFactory - Default entity-mode: pojo
+2008-06-11 10:11:27,812 INFO  org.hibernate.cfg.SettingsFactory - Named query checking : enabled
+2008-06-11 10:11:27,875 INFO  org.hibernate.impl.SessionFactoryImpl - building session factory
+2008-06-11 10:11:28,343 INFO  org.hibernate.impl.SessionFactoryObjectFactory - Not binding factory to JNDI, no JNDI name configured
+2008-06-11 10:11:28,359 INFO  org.hibernate.tool.hbm2ddl.SchemaExport - Running hbm2ddl schema export
+2008-06-11 10:11:28,359 INFO  org.hibernate.tool.hbm2ddl.SchemaExport - exporting generated schema to database
+2008-06-11 10:11:28,375 INFO  org.hibernate.tool.hbm2ddl.SchemaExport - schema export complete
+2008-06-11 10:11:28,953 INFO  moten.david.xuml.model.example.simple.EmailBehaviour - sending an email to fred.smith@googlecode.com: Hi
+2008-06-11 10:11:28,953 INFO  moten.david.xuml.model.example.simple.EmailBehaviour - body: This is a test message
+2008-06-11 10:11:28,953 INFO  moten.david.xuml.model.example.simple.TestSimple - finished run
+}}}
