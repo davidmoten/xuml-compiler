@@ -21,7 +21,7 @@ Here are the steps required to create a system:
 
 To run the system:
   # Setup the injector
-  # Within the context of an EntityManager make persistent changes to the data and send events to entities.
+  # Within the context of an `EntityManager` transaction make persistent changes to the data and send events to entities.
 
 To get stuck into a simple example go to [Example1Simple Simple Example].
 ==Detailed steps==
