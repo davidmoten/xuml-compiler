@@ -10,6 +10,8 @@
 
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/META-INF/persistence.xml persistence.xml]
 
+[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleEntityManagerFactory.java  EntityManagerFactory]
+
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/TestSimple.java Test class]
 
 Results of the run of the test class:
