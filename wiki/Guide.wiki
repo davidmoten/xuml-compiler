@@ -16,7 +16,7 @@ Here are the steps required to create a system:
   # View/validate the system
   # Generate the EJBs
   # Include the generated EJBs in your runtime classpath
-  # Implement the Action interfaces for those entities that have actions.
+  # Implement the generated Action interfaces
   # Create an injector module
 
 To run the system:
