@@ -51,7 +51,7 @@ All methods and state machine entry points should be implemented by your behavio
 The implementations of action interfaces above are injected at runtime by the Guice framework. The injector is configured by [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/ShopInjectorModule.java ShopInjectorModule].
 
 ==Execute the system==
-To execute the system we must first ensure that the generated objects use the shop InjectorModule for late bound injection of behaviour:
+To execute the system we must first ensure that the generated objects use [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/uml/xuml/model/example/shop/ShopInjectorModule.java ShopInjectorModule] for late bound injection of behaviour:
 {{{
         ObjectInjector.setInjector(Guice
                 .createInjector(new ShopInjectorModule()));
