@@ -1,5 +1,5 @@
-#summary One-sentence summary of this page.
-=Example 1 - Simple=
+#summary Simple example xUmlCompiler system
+
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java System definition class]
 
 [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java Customer actions implementation]
