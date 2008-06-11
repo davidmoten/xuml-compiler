@@ -12,6 +12,11 @@ Additionally
 
 That's it!
 
+
+_Figure 1:_
+
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple1.png
+
 Here's how this system is defined and executed:
 
 ||Definition||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java System definition class]||
