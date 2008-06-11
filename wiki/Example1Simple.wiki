@@ -3,8 +3,12 @@
 Consider a simple system with customers and their email addresses. 
   * A customer can be contacted by email and the customer can have any number of emails (including none). 
   * Any email in the system must be associated with one and only one customer.
+Additionally
 
-A customer can be in an inactive or an active state. An new email can only be associated with a customer when the customer is in the active state. A customer can be activated or deactivated and a new customer entity starts life as inactive.
+  * A customer is either _active_ or _inactive_.
+  * A new email can only be associated with a customer when the customer is _active_
+  *  A customer can be activated or deactivated.
+  * A new customer entity starts life as _inactive_.
 
 That's it!
 
