@@ -6,7 +6,7 @@ This guide shows you how to define, view, generate and execute a system using xU
 ==Setup==
 Checkout the latest version and run the build.xml file with ant (works fine with 1.7). This creates the xuml-compiler.jar and dowloads its dependencies from Maven repositories.
 
-Include the jars below in your classpath:
+Once you have run the build include the jars below in your classpath:
   * xUmlCompiler/temp/deployment/xuml-compiler.jar
   * xUmlCompiler/temp/dependencies/`*`.jar
 
