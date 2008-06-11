@@ -17,6 +17,7 @@ As a test we will
   * add an email for Fred
   * activate Fred
   * add the email for Fred again
+  * send an email to Fred
 
 _Figure 1:_
 
