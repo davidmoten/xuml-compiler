@@ -13,6 +13,7 @@ Include the jars below in your classpath:
 ==Create a system==
 Here are the steps required to create a system:
   # Define a system
+  # View/validate the system
   # Generate the EJBs
   # Include the generated EJBs in your runtime classpath
   # Implement the Action interfaces for those entities that have actions.
