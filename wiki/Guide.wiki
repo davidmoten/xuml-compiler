@@ -3,7 +3,7 @@
 ==Introduction==
 This guide shows you how to define, view, generate and execute a system using xUmlCompiler.
 
-To get stuck into a simple example go to [Example1Simple Simple Example].
+For a quick start look at [Example1Simple Simple Example].
 
 ==Setup==
 Checkout the latest version and run the build.xml file with ant (works fine with 1.7). This creates the xuml-compiler.jar and dowloads its dependencies from Maven repositories.
