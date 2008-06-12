@@ -26,9 +26,3 @@ To run the system:
 To get stuck into a simple example go to [Example1Simple Simple Example].
 
 A more detailed example is [Example2Shop Shop Example].
-
-==Detailed steps==
-===1. Create a system===
-To create a system, subclass [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/util/SystemBase.java SystemBase].
-
-...
