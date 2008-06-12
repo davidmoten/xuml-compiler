@@ -1,0 +1,3 @@
+#summary Ecore System Editor
+
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/ecore1.png
