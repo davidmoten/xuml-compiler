@@ -1,5 +1,12 @@
 #summary Ecore System Editor
 
-Using the [Example1Simple Simple] system:
+Using the [Example1Simple Simple] system, this is how to save a java defined system in ecore format:
+
+{{{
+    Simple simple = new Simple();
+    simple.save("simple", new FileOutputStream("temp/simple.ecore"));
+}}}
+
+Opening the file temp/simple.ecore using Eclipse 3.3 or later gives:
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/ecore1.png
