@@ -10,7 +10,7 @@ Once you have run the build include the jars below in your classpath:
   * xUmlCompiler/temp/deployment/xuml-compiler.jar
   * xUmlCompiler/temp/dependencies/`*`.jar
 
-==Creation and Execution==
+==System==
 Here are the steps required to create a system:
   # Define a system
   # View/validate the system
