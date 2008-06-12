@@ -1,4 +1,5 @@
 #summary Ecore System Editor
 
 Using the [Example1Simple Simple] system:
+
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/ecore1.png
