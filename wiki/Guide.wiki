@@ -52,5 +52,19 @@ public Simple extends SystemBase {
         }
 }
 }}}
+===Validate===
+Validation is performed by a SystemBase method that throws a ValidationException:
+{{{
+    Simple simple = new Simple();
+    simple.validate();
+}}}
+===View===
+{{{
+    simple.view("src/viewer/Simple.ini");
+}}}
+===Generate===
+{{{
+    simple.generate("temp/simple");
+}}}
 
 A more detailed example is [Example2Shop Shop Example].
