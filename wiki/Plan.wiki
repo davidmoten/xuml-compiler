@@ -1,8 +1,8 @@
 #summary Project Plan
 
-  * rewrite saving and loading of Class Diagram Viewer .ini files (just to clean it up), perhaps use ecore defined data model
-  * create a State Viewer
+  * rewrite saving and loading of Class Diagram Viewer .ini files (needs a clean up), perhaps use ecore defined data model
+  * create a State Machine Viewer
   * use `ImportContext` in template files to collate the import declarations
-  * test Specialization
-  * more unit tests for multiplicity combinations
-  * automate validation (maven can probably pulll down all the necessary OSGi modules, just got to give it a go).
+  * junit tests for Specialization
+  * more junit tests for multiplicity combinations
+  ~~* automate validation (maven can probably pulll down all the necessary OSGi modules, just got to give it a go).~~
