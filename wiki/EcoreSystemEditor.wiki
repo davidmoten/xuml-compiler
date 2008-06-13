@@ -17,3 +17,10 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/ecore1.png
 Validation is performed in Eclipse like so:
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/ecore2.png
+
+or in code:
+
+{{{
+    Simple simple = new Simple();
+    simple.validate();
+}}}
