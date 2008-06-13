@@ -23,6 +23,10 @@ _Figure 1:_
 
 ||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple2.png||
 
+_Figure 2:_
+
+||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple-state.png||
+
 Here's how this system is defined and executed:
 
 ||Definition, Validation, Viewing||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java Simple.java]||
@@ -32,10 +36,6 @@ Here's how this system is defined and executed:
 ||Injection||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleInjectorModule.java InjectorModule.java]||
 ||Persistence||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/META-INF/persistence.xml persistence.xml]||
 ||Testing and Execution||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/TestSimple.java TestSimple.java]||
-
-_Figure 2:_
-
-||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple-state.png||
 
 Results of the run of the test class:
 {{{
