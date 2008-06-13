@@ -9,7 +9,8 @@ Additionally
   * A new email can only be associated with a customer when the customer is _active_
   *  A customer can be activated or deactivated.
   * A new customer entity starts life as _inactive_.
-  * A customer's name is unique
+  * A customer's name is unique.
+  * A customer can be removed from the system but only if _inactive_.
 
 As a test we will
   * create a customer called Fred
