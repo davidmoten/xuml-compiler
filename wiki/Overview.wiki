@@ -8,7 +8,8 @@ The data model (class diagram) and state machines
   * are defined in java classes using utility classes provided by *xUmlCompiler* 
   * or are defined using the Eclipse ecore editor 
 ===Validation===
-The utility classes which are used to define a model are built on ecore generated classes from an [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlMetaModel/model/uml.ecore ecore metamodel]. As such the model can be validated using the ecore model validator. I haven't figured out how to automate that yet (looks like it involves OSGi).
+The utility classes which are used to define a model are built on ecore generated classes from an [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlMetaModel/model/uml.ecore ecore metamodel]. As such the model can be validated using the ecore model validator.
+
 ===Output===
 *xUmlCompiler* 
   * generates EJB3 annotated java classes including interfaces, factories, search classes, and event processors.
