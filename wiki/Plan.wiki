@@ -5,3 +5,4 @@
   * use `ImportContext` in template files to collate the import declarations
   * test Specialization
   * more unit tests for multiplicity combinations
+  * automate validation (maven can probably pulll down all the necessary OSGi modules, just got to give it a go).
