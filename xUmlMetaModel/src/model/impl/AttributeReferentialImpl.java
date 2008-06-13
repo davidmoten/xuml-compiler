@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: AttributeReferentialImpl.java,v 1.2 2008/06/11 07:28:46 dxm Exp $
  */
 package model.impl;
 

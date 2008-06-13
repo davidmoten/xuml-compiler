@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: ActivityPackage.java,v 1.4 2008/06/11 07:28:43 dxm Exp $
  */
 package model.activity;
 

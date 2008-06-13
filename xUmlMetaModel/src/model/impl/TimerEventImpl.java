@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: TimerEventImpl.java,v 1.4 2008/06/11 07:28:44 dxm Exp $
  */
 package model.impl;
 

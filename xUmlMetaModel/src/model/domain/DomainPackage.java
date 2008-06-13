@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: DomainPackage.java,v 1.4 2008/06/11 07:28:49 dxm Exp $
  */
 package model.domain;
 

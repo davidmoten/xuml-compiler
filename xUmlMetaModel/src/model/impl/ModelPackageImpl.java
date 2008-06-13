@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: ModelPackageImpl.java,v 1.5 2008/06/13 05:09:21 dxm Exp $
  */
 package model.impl;
 
@@ -2290,7 +2290,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getClass_Operation(), this.getOperation(), null, "operation", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Constraints(), this.getObjectConstraintLanguage(), null, "constraints", null, 0, 1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_StateMachine(), this.getStateMachine(), this.getStateMachine_Class(), "stateMachine", null, 0, 1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClass_IdentifierPrimary(), this.getIdentifierPrimary(), null, "identifierPrimary", null, 1, 1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClass_IdentifierPrimary(), this.getIdentifierPrimary(), null, "identifierPrimary", null, 0, 1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_IdentifierNonPrimary(), this.getIdentifierNonPrimary(), null, "identifierNonPrimary", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getClass_IdentifierNonPrimary().getEKeys().add(this.getNamed_Name());
 		initEReference(getClass_AssociationEndPrimary(), this.getAssociationEndPrimary(), this.getAssociationEndPrimary_Class(), "associationEndPrimary", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

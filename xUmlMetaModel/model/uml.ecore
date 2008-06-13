@@ -58,8 +58,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="#//StateMachine"
         containment="true" eOpposite="#//StateMachine/class"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="identifierPrimary" lowerBound="1"
-        eType="#//IdentifierPrimary" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="identifierPrimary" eType="#//IdentifierPrimary"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="identifierNonPrimary" upperBound="-1"
         eType="#//IdentifierNonPrimary" containment="true" eKeys="#//Named/name"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="associationEndPrimary"

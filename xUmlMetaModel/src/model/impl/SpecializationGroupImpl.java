@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: SpecializationGroupImpl.java,v 1.3 2008/06/11 07:28:44 dxm Exp $
  */
 package model.impl;
 

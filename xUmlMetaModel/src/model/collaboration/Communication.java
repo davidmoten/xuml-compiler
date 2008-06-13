@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: Communication.java,v 1.4 2008/06/11 07:28:46 dxm Exp $
  */
 package model.collaboration;
 

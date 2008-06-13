@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: ConditionImpl.java,v 1.4 2008/06/11 07:28:47 dxm Exp $
  */
 package model.use.impl;
 
