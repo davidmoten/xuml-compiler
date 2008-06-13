@@ -3,3 +3,5 @@
   * rewrite saving and loading of Class Diagram Viewer .ini files (just to clean it up), perhaps use ecore defined data model
   * create a State Viewer
   * use `ImportContext` in template files to collate the import declarations
+  * test Specialization
+  * more unit tests for multiplicity combinations
