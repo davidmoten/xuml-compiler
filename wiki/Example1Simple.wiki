@@ -24,13 +24,13 @@ _Figure 1:_
 
 Here's how this system is defined and executed:
 
-||Definition, Validation, Viewing||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java System definition]||
-||EJB Generation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleGenerator.java Generator]||
-||Action Language||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java Customer actions implementation]||
-|| ||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/EmailBehaviour.java Email actions implementation]||
-||Injection||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleInjectorModule.java Injector module]||
+||Definition, Validation, Viewing||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java Simple.java]||
+||EJB Generation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleGenerator.java SimpleGenerator.java]||
+||Action Language||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java CustomerBehaviour.java]||
+|| ||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/EmailBehaviour.java EmailBehaviour.java]||
+||Injection||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleInjectorModule.java InjectorModule.java]||
 ||Persistence||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/META-INF/persistence.xml persistence.xml]||
-||Testing and Execution||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/TestSimple.java Test class]||
+||Testing and Execution||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/TestSimple.java TestSimple.java]||
 
 Results of the run of the test class:
 {{{
