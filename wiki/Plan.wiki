@@ -2,4 +2,4 @@
 
   * rewrite saving and loading of Class Diagram Viewer .ini files (just to clean it up), perhaps use ecore defined data model
   * create a State Viewer
-  * use _ImportContext_ in template files to collate the import declarations
+  * use `ImportContext` in template files to collate the import declarations
