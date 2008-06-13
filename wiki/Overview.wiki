@@ -1,0 +1,82 @@
+#summary Overview
+
+===Input===
+*xUmlCompiler* takes a user specified data model and associated state machines and produces an executable and testable system.
+
+The data model (class diagram) and state machines 
+  * have the semantics of a UML2 profile inspired by _Executable UML_ (Mellor & Balcer, 2002).
+  * are defined in java classes using utility classes provided by *xUmlCompiler* 
+  * or are defined using the Eclipse ecore editor 
+===Validation===
+The utility classes which are used to define a model are built on ecore generated classes from an [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlMetaModel/model/uml.ecore ecore metamodel]. As such the model can be validated using the ecore model validator. I haven't figured out how to automate that yet (looks like it involves OSGi).
+===Output===
+*xUmlCompiler* 
+  * generates EJB3 annotated java classes including interfaces, factories, search classes, and event processors.
+  * facilitates runtime injection of Action Language (state entry procedures and class operations). 
+
+===Action Language===
+The model can be executed once Action Language elements are specified (in java code).
+
+The action language elements are injected into the entities at runtime using a lightweight dependency injection framework (Guice).
+
+===Viewer===
+A simple Class Diagram Viewer (a Swing app) is provided.
+
+==What's good?==
+  * The system definition code is a hundred times briefer than hand coding all the ejb3 classes.
+  * The inclusion of verb clauses in the Class Diagram Viewer makes the system verifiable visually by a domain expert with some uml familiarity.
+  * The _Executable UML_ profile is a *small subset* of UML2, manageable to learn and to apply.
+  * The _Executable UML_ approach encourages separation of concerns. 
+  * Processing of synchronous and asynchronous events defined in state machines is handled by generated code. 
+  * Finder methods are provided for all groups of attributes that are part of identifiers or associations, or indexes (an architectural option)
+
+==Guide==
+Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
+
+==Features==
+||Attributes|| 
+|| ||Core Data Types||Yes||
+|| ||Name||Yes||
+|| ||Description||Yes||
+|| ||Referential||Yes||
+|| ||Derived|| ||
+||Domain Specific Data Type||
+|| ||Numeric Types|| ||
+|| ||String Types|| ||
+|| ||Enumerated Types|| ||
+||Class||
+|| ||Name||Yes||
+|| ||Description||Yes||
+|| ||Number|| ||
+|| ||Abbreviation|| ||
+|| ||Actions||Java||
+||Identifiers||
+|| ||Single Attribute||Yes||
+|| ||Multiple Attributes||Yes||
+|| ||Referential Attribute||Yes||
+|| ||Derived Attribute||||
+|| ||Derived Identifier||||
+||State||
+|| ||Call Event||Yes||
+|| ||Signal Event||Yes||
+|| ||Timer Event||Yes||
+|| ||Polymorphic Event|| ||
+|| ||Reclassification|| ||
+|| ||State Transition Table||||
+|| ||Signals to External Entities||||
+||Association|| 
+|| ||Name||Yes||
+|| ||Description||Yes||
+|| ||Role Name||Yes||
+|| ||Verb Phrase||Yes||
+|| ||Multiple||Yes||
+|| ||Reflexive||Yes||
+||Multiplicity||
+|| ||0..1||Yes||
+|| ||1||Yes||
+|| ||0..`*`||Yes||
+|| ||1..`*`||Yes||
+|| ||Mandatory Enforced||Yes||
+||Specialization|| ||Yes||
+|| ||Mutual Exclusion|| ||
+|| ||Compound||Yes||
