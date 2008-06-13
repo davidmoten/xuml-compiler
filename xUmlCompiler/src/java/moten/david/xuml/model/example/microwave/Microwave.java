@@ -59,6 +59,7 @@ public class Microwave extends SystemBase {
 		if (args.length > 0)
 			outputDirectoryFilename = args[0];
 		Microwave system = new Microwave();
+		system.view("src/viewer/Microwave.ini");
 		system.generate(outputDirectoryFilename);
 	}
 
