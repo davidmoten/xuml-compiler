@@ -65,6 +65,7 @@ public class Simple extends SystemBase {
 	public static void main(String[] args) throws NumberFormatException,
 			IOException {
 		Simple simple = new Simple();
+		simple.validate();
 		simple.view("src/viewer/Simple.ini");
 	}
 
