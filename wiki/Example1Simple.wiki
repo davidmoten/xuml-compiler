@@ -24,7 +24,7 @@ _Figure 1:_
 
 Here's how this system is defined and executed:
 
-||Definition||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java System definition]||
+||Definition, Validation, Viewing||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Simple.java System definition]||
 ||EJB Generation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleGenerator.java Generator]||
 ||Action Language||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java Customer actions implementation]||
 || ||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/EmailBehaviour.java Email actions implementation]||
