@@ -4,6 +4,7 @@ import simple.Customer;
 import simple.Customer.EventActivate;
 import simple.Customer.EventAddEmail;
 import simple.Customer.EventDeactivate;
+import simple.Customer.EventRemove;
 import simple.actions.CustomerActions;
 
 public class CustomerBehaviour implements CustomerActions {
@@ -26,6 +27,11 @@ public class CustomerBehaviour implements CustomerActions {
 	@Override
 	public void performOnEntryActive(EventAddEmail event) {
 		event.getEmail().setCustomer(customer);
+	}
+
+	@Override
+	public void performOnEntryFinalState(EventRemove event) {
+		//TODO remove an entity (will need to inject an entity manager)
 	}
 
 }
