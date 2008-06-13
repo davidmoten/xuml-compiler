@@ -33,6 +33,10 @@ Here's how this system is defined and executed:
 ||Persistence||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/META-INF/persistence.xml persistence.xml]||
 ||Testing and Execution||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/TestSimple.java TestSimple.java]||
 
+_Figure 2:_
+
+||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple-state.png||
+
 Results of the run of the test class:
 {{{
 2008-06-11 10:11:26,234 INFO  org.hibernate.cfg.annotations.Version - Hibernate Annotations 3.3.1.GA
