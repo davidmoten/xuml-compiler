@@ -1,6 +1,8 @@
 package moten.david.xuml.model.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -49,6 +51,15 @@ import moten.david.xuml.model.SqlReservedWords;
 import moten.david.xuml.model.compiler.Compiler;
 import moten.david.xuml.model.compiler.util.StringUtil;
 import moten.david.xuml.model.viewer.SystemViewer;
+
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class SystemBase implements CodeGenerator {
 
@@ -435,7 +446,8 @@ public class SystemBase implements CodeGenerator {
 
 	public void createTransition(FromState state1, ToState state2, Event event) {
 		Transition t = ModelFactory.eINSTANCE.createTransition();
-		t.setName(event.getName());
+		t.setName(state1.getName() + "_" + event.getName() + "_"
+				+ state2.getName());
 		t.setFromState(state1);
 		t.setToState(state2);
 		t.setEvent(event);
@@ -524,9 +536,13 @@ public class SystemBase implements CodeGenerator {
 	public Class createClassWithArbitraryId(Package pkg, String name,
 			String description) {
 		Class cls = createClass(pkg, name, description);
-		createPrimaryKey(createAttribute(cls, "id", Primitive.ARBITRARY_ID),
-				generator);
+		createArbitraryId(cls);
 		return cls;
+	}
+
+	public AttributePersistence createArbitraryId(Class cls) {
+		return createPrimaryKey(createAttribute(cls, "id",
+				Primitive.ARBITRARY_ID), generator);
 	}
 
 	public String getSchema() {
@@ -546,9 +562,92 @@ public class SystemBase implements CodeGenerator {
 
 	public void view(String settingsFilename) throws NumberFormatException,
 			IOException {
-		SystemViewer viewer = new SystemViewer(getSystem(),
-				"src/viewer/shop.ini");
+		SystemViewer viewer = new SystemViewer(getSystem(), settingsFilename);
 		viewer.showViewer();
 	}
 
+	public void save(String filename) {
+		try {
+			// Register the XMI resource factory for the extension
+			Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+			Map<String, Object> m = reg.getExtensionToFactoryMap();
+			m.put("ecore", new XMIResourceFactoryImpl());
+
+			// Obtain a new resource set
+			ResourceSet resSet = new ResourceSetImpl();
+
+			// set up save options
+			Map<String, Object> options = new HashMap<String, Object>();
+			options.put(XMIResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
+
+			// Create a resource
+			Resource resource = resSet.createResource(URI.createURI(filename));
+			resource.getContents().add(getSystem());
+			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+			resource.save(bytes, options);
+			String s = bytes.toString();
+			String xmlns = "xmlns:model=\"http://davidmoten.homeip.net/uml/executable/model\"";
+			String schemaLocation = "xsi:schemaLocation=\"http://davidmoten.homeip.net/uml/executable/model http://xuml-compiler.googlecode.com/svn/trunk/xUmlMetaModel/model/uml.ecore\"";
+			s = s.replace(xmlns, xmlns + " " + schemaLocation);
+			FileOutputStream fos = new FileOutputStream(filename);
+			fos.write(s.getBytes());
+			fos.close();
+		} catch (Exception e) {
+			throw new Error(e);
+		}
+	}
+
+	public static class ValidationException extends Exception {
+
+		private static final long serialVersionUID = -7935781336267397766L;
+		private Diagnostic diagnostic;
+
+		public ValidationException(Diagnostic diagnostic) {
+			this.diagnostic = diagnostic;
+		}
+
+		public Diagnostic getDiagnostic() {
+			return diagnostic;
+		}
+
+		public void setDiagnostic(Diagnostic diagnostic) {
+			this.diagnostic = diagnostic;
+		}
+
+		@Override
+		public String getMessage() {
+			StringBuffer s = new StringBuffer();
+			for (Diagnostic d : diagnostic.getChildren()) {
+				s.append(d.getMessage() + "\n");
+			}
+			return s.toString();
+		}
+
+	}
+
+	public void validate() throws ValidationException {
+		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(system);
+		if (diagnostic.getSeverity() == Diagnostic.ERROR)
+			throw new ValidationException(diagnostic);
+	}
+
+	public static System load(String filename) {
+		// TODO not working yet
+		try {
+			// Register the XMI resource factory for the extension
+			Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+			Map<String, Object> m = reg.getExtensionToFactoryMap();
+			m.put("ecore", new XMIResourceFactoryImpl());
+
+			// Obtain a new resource set
+			ResourceSet resSet = new ResourceSetImpl();
+
+			// Create a resource
+			Resource resource = resSet.createResource(URI.createURI(filename));
+			System system = (System) resource.getContents().get(0);
+			return system;
+		} catch (Exception e) {
+			throw new Error(e);
+		}
+	}
 }
