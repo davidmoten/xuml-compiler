@@ -9,6 +9,8 @@ import model.State;
 import moten.david.xuml.model.Multiplicity;
 import moten.david.xuml.model.util.SystemBase;
 
+import org.junit.Test;
+
 public class Simple extends SystemBase {
 
 	public Simple() {
@@ -48,6 +50,9 @@ public class Simple extends SystemBase {
 				activate);
 		createTransition(customer.getStateMachine().getInitialState(),
 				inactive, deactivate);
+		CallEvent remove = createCallEvent(customer, "remove");
+		createTransition(inactive, customer.getStateMachine().getFinalState(),
+				remove);
 		return customer;
 	}
 
@@ -62,9 +67,16 @@ public class Simple extends SystemBase {
 		return email;
 	}
 
+	@Override
+	@Test
+	public void validate() throws ValidationException {
+		super.validate();
+	}
+
 	public static void main(String[] args) throws NumberFormatException,
 			IOException, ValidationException {
 		Simple simple = new Simple();
+		simple.save("temp/simple.ecore");
 		simple.validate();
 		simple.view("src/viewer/Simple.ini");
 	}
