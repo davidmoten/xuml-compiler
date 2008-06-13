@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: Class.java,v 1.5 2008/06/13 05:09:20 dxm Exp $
  */
 package model;
 
@@ -181,7 +181,7 @@ public interface Class extends Named {
 	 * @return the value of the '<em>Identifier Primary</em>' containment reference.
 	 * @see #setIdentifierPrimary(IdentifierPrimary)
 	 * @see model.ModelPackage#getClass_IdentifierPrimary()
-	 * @model containment="true" required="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	IdentifierPrimary getIdentifierPrimary();

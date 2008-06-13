@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: AssociationEndPrimary.java,v 1.4 2008/06/11 07:28:40 dxm Exp $
  */
 package model;
 

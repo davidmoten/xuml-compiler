@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: DiagramPackageImpl.java,v 1.4 2008/06/11 07:28:41 dxm Exp $
  */
 package model.diagram.impl;
 

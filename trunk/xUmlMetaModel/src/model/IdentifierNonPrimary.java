@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: IdentifierNonPrimary.java,v 1.4 2008/06/11 07:28:39 dxm Exp $
  */
 package model;
 
