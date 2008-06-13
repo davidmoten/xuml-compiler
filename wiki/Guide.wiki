@@ -28,7 +28,7 @@ To run the system:
 To get stuck into a simple example go to [Example1Simple Simple Example].
 
 ===Define a system===
-Create a class that extends SystemBase. Create all the system bits in the constructor by using the utility classes that SystemBase offers. For example, from [Example1Simple Simple Example]:
+Create a class that extends [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/util/SystemBase.java SystemBase]. Create all the system bits in the constructor by using the utility classes that [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/util/SystemBase.java SystemBase] offers. For example, from [Example1Simple Simple Example]:
 {{{
 public Simple extends SystemBase {
         public Simple() {
