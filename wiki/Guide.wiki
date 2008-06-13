@@ -27,4 +27,30 @@ To run the system:
 
 To get stuck into a simple example go to [Example1Simple Simple Example].
 
+===Define a system===
+Create a class that extends SystemBase. Create all the system bits in the constructor by using the utility classes that SystemBase offers. For example, from [Example1Simple Simple Example]:
+{{{
+public Simple extends SystemBase {
+        public Simple() {
+                super(null, "Simple");
+                initialize();
+        }
+
+        private void initialize() {
+                model.Package pkg = createRootPackage("simple", "a simple system");
+                Class customer = createClassWithArbitraryId(pkg, "Customer",
+                                "a customer, possible contactable using multiple emails");
+                createAttribute(customer, "name").setUnique(true);
+                State inactive = createState(customer, "Inactive");
+                State active = createState(customer, "Active");
+                ...
+                ...
+                createAssociation("R1", createAssociationEndPrimary(customer,
+                                Multiplicity.ONE, "is used to contact"),
+                                createAssociationEndSecondary(email, Multiplicity.MANY,
+                                                "is contactable via"));
+        }
+}
+}}}
+
 A more detailed example is [Example2Shop Shop Example].
