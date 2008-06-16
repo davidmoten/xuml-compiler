@@ -85,6 +85,15 @@ public class Compiler {
 		for (model.Package pkg : system.getPackage()) {
 			compile(pkg);
 		}
+		compileDocumentation();
+	}
+
+	private void compileDocumentation() throws IOException, TemplateException {
+		SystemMap systemMap = new SystemMap(system);
+		FileOutputStream fos = new FileOutputStream(new File(outputDirectory,
+				system.getName() + "-documentation.html"));
+		write(systemMap.getMap(), "documentation.ftl", fos);
+		fos.close();
 	}
 
 	private List<Association> getImplicitAssociations(Association association) {
@@ -173,8 +182,8 @@ public class Compiler {
 		putPackage(map, pkg);
 		// no ObjectFactory or ObjectInjector unless the package has classes
 		if (pkg.getClass_().size() > 0) {
-			writeMap(map, pkg, "object-factory.ftl", null, "ObjectFactory");
-			writeMap(map, pkg, "object-factory-impl.ftl",
+			writeJavaMap(map, pkg, "object-factory.ftl", null, "ObjectFactory");
+			writeJavaMap(map, pkg, "object-factory-impl.ftl",
 					IMPLEMENTATION_PACKAGE_EXTENSION, "ObjectFactoryImpl");
 			compileInjector(pkg, map);
 		}
@@ -188,7 +197,7 @@ public class Compiler {
 
 	private void compileInjector(model.Package pkg, KeyMap map)
 			throws IOException, TemplateException {
-		writeMap(map, pkg, "injector.ftl", null, "ObjectInjector");
+		writeJavaMap(map, pkg, "injector.ftl", null, "ObjectInjector");
 	}
 
 	private void putPackage(KeyMap map, model.Package pkg) {
@@ -216,25 +225,25 @@ public class Compiler {
 		map.put(KEY_INTERFACE_PACKAGE_EXTENSION, interfacePackageExtension);
 		map.put(KEY_ACTIONS_PACKAGE_EXTENSION, actionsPackageExtension);
 
-		writeMap(map, cls.getPackage(), "class.ftl", classPackageExtension, cls
-				.getName()
-				+ "Impl");
-		writeMap(map, cls.getPackage(), "interface.ftl",
+		writeJavaMap(map, cls.getPackage(), "class.ftl", classPackageExtension,
+				cls.getName() + "Impl");
+		writeJavaMap(map, cls.getPackage(), "interface.ftl",
 				interfacePackageExtension, cls.getName());
-		writeMap(map, cls.getPackage(), "actions.ftl", actionsPackageExtension,
-				cls.getName() + "Actions");
+		writeJavaMap(map, cls.getPackage(), "actions.ftl",
+				actionsPackageExtension, cls.getName() + "Actions");
 	}
 
-	private void writeMap(KeyMap map, model.Package pkg, String templateName,
-			String packageExtension, String className) throws IOException,
-			TemplateException {
+	private void writeJavaMap(KeyMap map, model.Package pkg,
+			String templateName, String packageExtension, String className)
+			throws IOException, TemplateException {
 		String packagePath = Util.getFullPath(pkg, "/");
-		writeMap(map, packagePath, templateName, packageExtension, className);
+		writeMap(map, packagePath, templateName, packageExtension, className,
+				".java");
 	}
 
 	private void writeMap(KeyMap map, String packagePath, String templateName,
-			String packageExtension, String className) throws IOException,
-			TemplateException {
+			String packageExtension, String className, String classExtension)
+			throws IOException, TemplateException {
 		String extension = "";
 		if (packageExtension != null)
 			extension = Util.getFileSeparator() + packageExtension;
@@ -243,7 +252,7 @@ public class Compiler {
 		File folder = new File(folderPath);
 		if (!folder.exists() && !folder.mkdirs())
 			throw new Error("couldn't create " + folder.getAbsolutePath());
-		String filename = className + ".java";
+		String filename = className + classExtension;
 		File file = new File(folder, filename);
 		log.info("writing to " + file.getName());
 		FileOutputStream fos = new FileOutputStream(file);
