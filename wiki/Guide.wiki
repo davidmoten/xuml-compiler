@@ -51,7 +51,7 @@ public Simple extends SystemBase {
 }
 }}}
 ===Validate===
-Validation is performed by a SystemBase method that throws a ValidationException:
+Validation is performed by a [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/util/SystemBase.java SystemBase] method that throws a `ValidationException`:
 {{{
     Simple simple = new Simple();
     simple.validate();
