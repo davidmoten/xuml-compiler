@@ -5,4 +5,4 @@
   * use `ImportContext` in template files to collate the import declarations
   * junit tests for Specialization
   * more junit tests for multiplicity combinations
- 
+  * investigate @Asynchronous annotation in EJB 3.1
