@@ -24,6 +24,8 @@ The action language elements are injected into the entities at runtime using a l
 ===Viewer===
 A simple Class Diagram Viewer (a Swing app) is provided.
 
+||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/sampleViewer.png||
+
 ==What's good?==
   * The system definition code is a hundred times briefer than hand coding all the ejb3 classes.
   * The inclusion of verb clauses in the Class Diagram Viewer makes the system verifiable visually by a domain expert with some uml familiarity.
