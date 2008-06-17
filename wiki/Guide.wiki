@@ -25,8 +25,6 @@ To run the system:
   # Setup the injector
   # Within the context of an `EntityManager` transaction make persistent changes to the data and send events to entities.
 
-To get stuck into a simple example go to [Example1Simple Simple Example].
-
 ===Define a system===
 Create a class that extends [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/util/SystemBase.java SystemBase]. Create all the system bits in the constructor by using the utility classes that [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/util/SystemBase.java SystemBase] offers. For example, from [Example1Simple Simple Example]:
 {{{
@@ -66,5 +64,7 @@ Validation is performed by a SystemBase method that throws a ValidationException
 {{{
     simple.generate("temp/simple");
 }}}
+
+To get stuck into a simple example go to [Example1Simple Simple Example].
 
 A more detailed example is [Example2Shop Shop Example].
