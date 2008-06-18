@@ -6,8 +6,8 @@
 	<classpathentry kind="src" path="temp/microwave"/>
 	<classpathentry kind="src" path="temp/shop"/>
 	<classpathentry kind="src" path="temp/simple"/>
+	<classpathentry kind="src" path="src/viewer/model/generated"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/xUmlMetaModel"/>
 	<classpathentry kind="lib" path="lib/emf/org.eclipse.emf.ecore.xmi_2.4.0.v200804012208.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/activation-1.1.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/ant-1.7.0.jar"/>
@@ -43,5 +43,7 @@
 	<classpathentry kind="lib" path="temp/dependencies/org.eclipse.emf.ecore_2.4.0.v200804012208.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/persistence-api-1.0.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/hsqldb-1.8.0.7.jar"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/xUmlMetaModel"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -78,7 +78,7 @@ public class Simple extends SystemBase {
 		Simple simple = new Simple();
 		simple.save("temp/simple.ecore");
 		simple.validate();
-		simple.view("src/viewer/Simple.ini");
+		simple.view("src/viewer/Simple.ecore");
 	}
 
 }
