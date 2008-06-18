@@ -1,6 +1,5 @@
 #summary Project Plan
 
-  * rewrite saving and loading of Class Diagram Viewer .ini files (needs a clean up), perhaps use ecore defined data model
   * create a State Machine Viewer
   * use `ImportContext` in template files to collate the import declarations
   * junit tests for Specialization
