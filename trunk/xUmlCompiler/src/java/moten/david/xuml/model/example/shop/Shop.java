@@ -155,7 +155,7 @@ public class Shop extends SystemBase {
 	public static void main(String[] args) throws NumberFormatException,
 			IOException {
 		Shop shop = new Shop();
-		shop.view("src/viewer/Shop.ini");
+		shop.view("src/viewer/Shop.ecore");
 	}
 
 }

@@ -1,5 +1,5 @@
-<project name="xUmlCompiler" default="build" xmlns:artifact="urn:maven-artifact-ant">
-
+<project name="xUmlCompiler" default="build"  xmlns:artifact="urn:maven-artifact-ant">
+	
 	<property name="project.short.name" value="xuml-compiler" />
 	<property name="temp" value="${basedir}/temp" />
 	<property name="src" value="${basedir}/src/java" />
@@ -17,6 +17,7 @@
 	<property name="use.proxy" value="true" />
 	<property name="proxy.host" value="proxy" />
 	<property name="proxy.port" value="8080" />
+	<property name="generated.viewer" value="${basedir}/src/viewer/model/generated"/>
 	<!-- use maven repository from a Maven project at the same level as this project if the Maven project exists -->
 	<condition property="maven.local.repository" value="${basedir}/../Maven/repository">
 		<available file="${basedir}/../Maven/repository" />
@@ -187,6 +188,7 @@
 		<javac destdir="${bin}" classpathref="libraries" debug="true" debuglevel="lines,vars,source" fork="true">
 			<src path="${src}" />
 			<src path="${generated}" />
+			<src path="${generated.viewer}"/>
 			<exclude name="**/example/**/Test*.java" />
 			<exclude name="**/example/**/*Behaviour.java" />
 			<exclude name="**/example/**/*InjectorModule.java" />
@@ -208,7 +210,7 @@
 		<xuml-generate outputDirectory="${generated.simple}" codeGenerator="moten.david.xuml.model.example.simple.Simple" />
 
 
-		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}" destdir="${bin}" classpathref="libraries" debug="true" debuglevel="lines,vars,source" fork="true">
+		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}:${generated.viewer}" destdir="${bin}" classpathref="libraries" debug="true" debuglevel="lines,vars,source" fork="true">
 			<exclude name="**/example/shop/**/*" />
 			<exclude name="**/example/simple/**/*" />
 		</javac>

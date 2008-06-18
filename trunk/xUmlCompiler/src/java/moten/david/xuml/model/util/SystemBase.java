@@ -642,8 +642,9 @@ public class SystemBase implements CodeGenerator {
 			// Obtain a new resource set
 			ResourceSet resSet = new ResourceSetImpl();
 
-			// Create a resource
-			Resource resource = resSet.createResource(URI.createURI(filename));
+			// Get the resource
+			Resource resource = resSet.getResource(URI.createURI(filename),
+					true);
 			System system = (System) resource.getContents().get(0);
 			return system;
 		} catch (Exception e) {

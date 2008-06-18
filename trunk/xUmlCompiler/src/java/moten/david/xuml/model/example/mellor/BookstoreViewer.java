@@ -6,6 +6,6 @@ public class BookstoreViewer {
 	public static void main(String[] args) throws NumberFormatException,
 			IOException {
 		Bookstore bookstore = new Bookstore();
-		bookstore.view("src/viewer/Bookstore.ini");
+		bookstore.view("src/viewer/Bookstore.ecore");
 	}
 }
