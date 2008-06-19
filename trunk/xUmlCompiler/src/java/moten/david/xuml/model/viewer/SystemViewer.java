@@ -157,8 +157,8 @@ public class SystemViewer extends JPanel {
 
 			resource.save(bytes, options);
 			String s = bytes.toString();
-			String xmlns = "xmlns:model=\"http://davidmoten.homeip.net/uml/executable/model\"";
-			String schemaLocation = "xsi:schemaLocation=\"http://davidmoten.homeip.net/uml/executable/model http://xuml-compiler.googlecode.com/svn/trunk/xUmlMetaModel/model/uml.ecore\"";
+			String xmlns = "xmlns:view=\"http://davidmoten.homeip.net/uml/executable/view\"";
+			String schemaLocation = "xsi:schemaLocation=\"http://davidmoten.homeip.net/uml/executable/view http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore\"";
 			s = s.replace(xmlns, xmlns + " " + schemaLocation);
 			FileOutputStream fos = new FileOutputStream(filename);
 			fos.write(s.getBytes());
