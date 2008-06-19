@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view">
+<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/view http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore">
   <frame width="868" height="781" x="81" y="72"/>
   <viewport width="1" height="1"/>
   <element x="53" y="273" name="class.Book"/>
@@ -17,9 +17,9 @@
   <element x="140" y="153" name="label.Class Publisher Association R1 Multiplicity" fixedTo="//@element[name='class.Publisher']"/>
   <element x="224" y="460" name="class.Authorship"/>
   <element x="213" y="198" name="class.ProductSelection"/>
-  <element x="398" y="48" name="class.Shipment"/>
-  <element x="552" y="88" name="label.Class Shipment Association R6 Multiplicity" fixedTo="//@element[name='class.Shipment']"/>
-  <element x="552" y="68" name="label.Class Shipment Association R6 Verb Clause" fixedTo="//@element[name='class.Shipment']"/>
+  <element x="398" y="25" name="class.Shipment"/>
+  <element x="443" y="152" name="label.Class Shipment Association R6 Multiplicity" fixedTo="//@element[name='class.Shipment']"/>
+  <element x="476" y="152" name="label.Class Shipment Association R6 Verb Clause" fixedTo="//@element[name='class.Shipment']"/>
   <element x="398" y="272" name="class.Order"/>
   <element x="387" y="334" name="label.Class Order Association R4 Multiplicity" fixedTo="//@element[name='class.Order']"/>
   <element x="420" y="398" name="label.Class Order Association R7 Verb Clause" fixedTo="//@element[name='class.Order']"/>
