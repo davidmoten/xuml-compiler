@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
-<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view">
+<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/view http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore">
   <frame width="637" height="216" x="341" y="338"/>
   <viewport width="1" height="1"/>
   <element x="35" y="30" name="class.Customer"/>
-  <element x="146" y="50" name="label.Class Customer Association R1 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
   <element x="148" y="77" name="label.Class Customer Association R1 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
+  <element x="146" y="50" name="label.Class Customer Association R1 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
   <element x="362" y="50" name="class.Email"/>
-  <element x="350" y="78" name="label.Class Email Association R1 Multiplicity" fixedTo="//@element[name='class.Email']"/>
   <element x="273" y="49" name="label.Class Email Association R1 Verb Clause" fixedTo="//@element[name='class.Email']"/>
+  <element x="350" y="78" name="label.Class Email Association R1 Multiplicity" fixedTo="//@element[name='class.Email']"/>
 </view:View>
