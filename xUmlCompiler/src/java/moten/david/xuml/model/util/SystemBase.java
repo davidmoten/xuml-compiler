@@ -63,6 +63,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class SystemBase implements CodeGenerator {
 
+	public static final String SYSTEM_DEFINITION_EXTENSION = "xmi";
+
 	private final Map<model.Class, Integer> identifierNumbers = new HashMap<model.Class, Integer>();
 
 	private final String schema;
@@ -571,7 +573,7 @@ public class SystemBase implements CodeGenerator {
 			// Register the XMI resource factory for the extension
 			Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 			Map<String, Object> m = reg.getExtensionToFactoryMap();
-			m.put("ecore", new XMIResourceFactoryImpl());
+			m.put(SYSTEM_DEFINITION_EXTENSION, new XMIResourceFactoryImpl());
 
 			// Obtain a new resource set
 			ResourceSet resSet = new ResourceSetImpl();
@@ -632,15 +634,26 @@ public class SystemBase implements CodeGenerator {
 	}
 
 	public static System load(String filename) {
-		// TODO not working yet
 		try {
 			// Register the XMI resource factory for the extension
 			Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 			Map<String, Object> m = reg.getExtensionToFactoryMap();
-			m.put("ecore", new XMIResourceFactoryImpl());
+			m.put(SYSTEM_DEFINITION_EXTENSION, new XMIResourceFactoryImpl());
 
 			// Obtain a new resource set
 			ResourceSet resSet = new ResourceSetImpl();
+
+			{
+				// perform some trickery to get the ViewPackage to be loaded
+				// this is a workaround for an ecore problem with instantiation
+				// of ViewPackage
+				System temp = ModelFactory.eINSTANCE.createSystem();
+				Resource resource = new ResourceSetImpl().createResource(URI
+						.createURI("unused." + "."
+								+ SYSTEM_DEFINITION_EXTENSION));
+				resource.getContents().add(temp);
+				resource.getContents().remove(temp);
+			}
 
 			// Get the resource
 			Resource resource = resSet.getResource(URI.createURI(filename),
