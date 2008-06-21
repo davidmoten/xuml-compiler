@@ -1,5 +1,5 @@
-<project name="xUmlCompiler" default="build"  xmlns:artifact="urn:maven-artifact-ant">
-	
+<project name="xUmlCompiler" default="build" xmlns:artifact="urn:maven-artifact-ant">
+
 	<property name="project.short.name" value="xuml-compiler" />
 	<property name="temp" value="${basedir}/temp" />
 	<property name="src" value="${basedir}/src/java" />
@@ -17,13 +17,14 @@
 	<property name="use.proxy" value="true" />
 	<property name="proxy.host" value="proxy" />
 	<property name="proxy.port" value="8080" />
-	<property name="generated.viewer" value="${basedir}/src/viewer/model/generated"/>
+	<property name="generated.viewer" value="${basedir}/src/viewer/model/generated" />
 	<!-- use maven repository from a Maven project at the same level as this project if the Maven project exists -->
 	<condition property="maven.local.repository" value="${basedir}/../Maven/repository">
 		<available file="${basedir}/../Maven/repository" />
 	</condition>
 	<!-- otherwise use the default repository -->
-	<property name="maven.local.repository" value="${user.home}/main/maven/repository" />
+	<!--<property name="maven.local.repository" value="${user.home}/main/maven/repository" />-->
+	<property name="maven.local.repository" value="${user.home}/.m2/repository" />
 	<condition property="set.proxy">
 		<istrue value="${use.proxy}" />
 	</condition>
@@ -81,6 +82,7 @@
 		<delete dir="${generated.shop}" />
 		<delete dir="${generated.simple}" />
 		<delete dir="${deployment}" />
+		<delete dir="${dependencies}" />
 
 		<mkdir dir="${temp}" />
 		<mkdir dir="${bin}" />
@@ -92,6 +94,7 @@
 		<mkdir dir="${generated.shop}" />
 		<mkdir dir="${generated.simple}" />
 		<mkdir dir="${deployment}" />
+		<mkdir dir="${temp}/dependencies" />
 
 	</target>
 
@@ -114,8 +117,9 @@
 		<setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}" />
 	</target>
 
-	<!-- get dependencies with Maven -->
-	<target name="get.dependencies" depends="set.proxy">
+	<!-- get maven dependencies -->
+	<target name="get.maven.dependencies">
+		<echo message="getting dependencies with maven" level="info" />
 		<path id="maven-ant-tasks.classpath" path="${lib}/maven/maven-ant-tasks-2.0.9.jar" />
 		<typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant" classpathref="maven-ant-tasks.classpath" />
 		<echo message="maven repository: ${maven.local.repository}" level="info" />
@@ -154,11 +158,15 @@
 								            version="2.3.0-v200706262000" />
 								            -->
 		</artifact:dependencies>
-		<delete dir="${dependencies}" />
-		<mkdir dir="${temp}/dependencies" />
-		<copy todir="${temp}/dependencies" flatten="true">
+		<echo message="copying deps to ${dependencies}" level="info" />
+		<copy todir="${dependencies}" flatten="true">
 			<fileset refid="dependency.fileset" />
 		</copy>
+	</target>
+
+	<!-- get dependencies with Maven -->
+	<target name="get.dependencies" depends="set.proxy">
+		<antcall target="get.maven.dependencies" />
 	</target>
 
 	<!-- build dependencies -->
@@ -188,7 +196,7 @@
 		<javac destdir="${bin}" classpathref="libraries" debug="true" debuglevel="lines,vars,source" fork="true">
 			<src path="${src}" />
 			<src path="${generated}" />
-			<src path="${generated.viewer}"/>
+			<src path="${generated.viewer}" />
 			<exclude name="**/example/**/Test*.java" />
 			<exclude name="**/example/**/*Behaviour.java" />
 			<exclude name="**/example/**/*InjectorModule.java" />
@@ -230,18 +238,23 @@
 
 	<!-- jar -->
 	<target name="jar" depends="test">
-		<jar basedir="${bin}" destfile="${deployment}/${project.short.name}.jar">
-			<exclude name="**/example/**/*" />
-			<exclude name="bookstore/**/*" />
-			<exclude name="bookstore/**/*" />
-			<exclude name="many_to*/**/*" />
-			<exclude name="one_*/**/*" />
-			<exclude name="zero_*/**/*" />
-			<exclude name="microwave/**/*" />
-			<exclude name="shop/**/*" />
-			<exclude name="simple/**/*" />
-			<exclude name="META-INF/**/*" />
-			<exclude name="log4j.properties" />
+		<jar destfile="${deployment}/${project.short.name}.jar" manifest="${src}/META-INF/MANIFEST.MF">
+			<fileset dir="${basedir}">
+				<include name="build.xml" />
+			</fileset>
+			<fileset dir="${bin}">
+				<exclude name="**/example/**/*" />
+				<exclude name="bookstore/**/*" />
+				<exclude name="bookstore/**/*" />
+				<exclude name="many_to*/**/*" />
+				<exclude name="one_*/**/*" />
+				<exclude name="zero_*/**/*" />
+				<exclude name="microwave/**/*" />
+				<exclude name="shop/**/*" />
+				<exclude name="simple/**/*" />
+				<exclude name="META-INF/persistence.xml" />
+				<exclude name="log4j.properties" />
+			</fileset>
 		</jar>
 	</target>
 
