@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ViewImpl.java,v 1.1 2008/06/18 06:18:13 dxm Exp $
+ * $Id: ViewImpl.java,v 1.2 2008/06/23 06:17:50 dxm Exp $
  */
 package view.impl;
 
@@ -39,6 +39,7 @@ import view.Viewport;
  *   <li>{@link view.impl.ViewImpl#getViewport <em>Viewport</em>}</li>
  *   <li>{@link view.impl.ViewImpl#getElement <em>Element</em>}</li>
  *   <li>{@link view.impl.ViewImpl#getZoom <em>Zoom</em>}</li>
+ *   <li>{@link view.impl.ViewImpl#getTitle <em>Title</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,6 +95,26 @@ public class ViewImpl extends EObjectImpl implements View {
 	 * @ordered
 	 */
 	protected double zoom = ZOOM_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTitle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TITLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTitle()
+	 * @generated
+	 * @ordered
+	 */
+	protected String title = TITLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -238,6 +259,27 @@ public class ViewImpl extends EObjectImpl implements View {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTitle(String newTitle) {
+		String oldTitle = title;
+		title = newTitle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.VIEW__TITLE, oldTitle, title));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -267,6 +309,8 @@ public class ViewImpl extends EObjectImpl implements View {
 				return getElement();
 			case ViewPackage.VIEW__ZOOM:
 				return new Double(getZoom());
+			case ViewPackage.VIEW__TITLE:
+				return getTitle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -293,6 +337,9 @@ public class ViewImpl extends EObjectImpl implements View {
 			case ViewPackage.VIEW__ZOOM:
 				setZoom(((Double)newValue).doubleValue());
 				return;
+			case ViewPackage.VIEW__TITLE:
+				setTitle((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -317,6 +364,9 @@ public class ViewImpl extends EObjectImpl implements View {
 			case ViewPackage.VIEW__ZOOM:
 				setZoom(ZOOM_EDEFAULT);
 				return;
+			case ViewPackage.VIEW__TITLE:
+				setTitle(TITLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -337,6 +387,8 @@ public class ViewImpl extends EObjectImpl implements View {
 				return element != null && !element.isEmpty();
 			case ViewPackage.VIEW__ZOOM:
 				return zoom != ZOOM_EDEFAULT;
+			case ViewPackage.VIEW__TITLE:
+				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -353,6 +405,8 @@ public class ViewImpl extends EObjectImpl implements View {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (zoom: ");
 		result.append(zoom);
+		result.append(", title: ");
+		result.append(title);
 		result.append(')');
 		return result.toString();
 	}

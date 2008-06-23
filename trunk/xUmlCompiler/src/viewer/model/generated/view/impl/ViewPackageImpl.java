@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ViewPackageImpl.java,v 1.1 2008/06/18 06:18:13 dxm Exp $
+ * $Id: ViewPackageImpl.java,v 1.2 2008/06/23 06:17:50 dxm Exp $
  */
 package view.impl;
 
@@ -297,6 +297,15 @@ public class ViewPackageImpl extends EPackageImpl implements ViewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getView_Title() {
+		return (EAttribute)viewEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ViewFactory getViewFactory() {
 		return (ViewFactory)getEFactoryInstance();
 	}
@@ -342,6 +351,7 @@ public class ViewPackageImpl extends EPackageImpl implements ViewPackage {
 		createEReference(viewEClass, VIEW__VIEWPORT);
 		createEReference(viewEClass, VIEW__ELEMENT);
 		createEAttribute(viewEClass, VIEW__ZOOM);
+		createEAttribute(viewEClass, VIEW__TITLE);
 	}
 
 	/**
@@ -401,6 +411,7 @@ public class ViewPackageImpl extends EPackageImpl implements ViewPackage {
 		initEReference(getView_Element(), this.getElement(), null, "element", null, 0, -1, View.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getView_Element().getEKeys().add(this.getElement_Name());
 		initEAttribute(getView_Zoom(), ecorePackage.getEDouble(), "zoom", "1.0", 1, 1, View.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getView_Title(), ecorePackage.getEString(), "title", null, 0, 1, View.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
