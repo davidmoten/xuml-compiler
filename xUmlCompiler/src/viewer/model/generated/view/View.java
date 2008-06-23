@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: View.java,v 1.1 2008/06/18 06:18:12 dxm Exp $
+ * $Id: View.java,v 1.2 2008/06/23 06:17:50 dxm Exp $
  */
 package view;
 
@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link view.View#getViewport <em>Viewport</em>}</li>
  *   <li>{@link view.View#getElement <em>Element</em>}</li>
  *   <li>{@link view.View#getZoom <em>Zoom</em>}</li>
+ *   <li>{@link view.View#getTitle <em>Title</em>}</li>
  * </ul>
  * </p>
  *
@@ -124,5 +125,31 @@ public interface View extends EObject {
 	 * @generated
 	 */
 	void setZoom(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Title</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Title</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Title</em>' attribute.
+	 * @see #setTitle(String)
+	 * @see view.ViewPackage#getView_Title()
+	 * @model
+	 * @generated
+	 */
+	String getTitle();
+
+	/**
+	 * Sets the value of the '{@link view.View#getTitle <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Title</em>' attribute.
+	 * @see #getTitle()
+	 * @generated
+	 */
+	void setTitle(String value);
 
 } // View

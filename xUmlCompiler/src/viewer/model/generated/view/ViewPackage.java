@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ViewPackage.java,v 1.1 2008/06/18 06:18:12 dxm Exp $
+ * $Id: ViewPackage.java,v 1.2 2008/06/23 06:17:50 dxm Exp $
  */
 package view;
 
@@ -336,13 +336,22 @@ public interface ViewPackage extends EPackage {
 	int VIEW__ZOOM = 3;
 
 	/**
+	 * The feature id for the '<em><b>Title</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEW__TITLE = 4;
+
+	/**
 	 * The number of structural features of the '<em>View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIEW_FEATURE_COUNT = 4;
+	int VIEW_FEATURE_COUNT = 5;
 
 
 	/**
@@ -527,6 +536,17 @@ public interface ViewPackage extends EPackage {
 	EAttribute getView_Zoom();
 
 	/**
+	 * Returns the meta object for the attribute '{@link view.View#getTitle <em>Title</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Title</em>'.
+	 * @see view.View#getTitle()
+	 * @see #getView()
+	 * @generated
+	 */
+	EAttribute getView_Title();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -695,6 +715,14 @@ public interface ViewPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute VIEW__ZOOM = eINSTANCE.getView_Zoom();
+
+		/**
+		 * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VIEW__TITLE = eINSTANCE.getView_Title();
 
 	}
 

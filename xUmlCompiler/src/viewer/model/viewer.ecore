@@ -27,5 +27,6 @@
         eType="#//Element" containment="true" eKeys="#//Element/name"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="zoom" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
         defaultValueLiteral="1.0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>
