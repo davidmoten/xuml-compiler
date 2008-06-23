@@ -1,10 +1,6 @@
 package moten.david.xuml.model.viewer;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,9 +30,6 @@ public class ClassComponent extends Container {
 		super(Color.white, true, getLines(cls).toArray(new String[] {}));
 		this.cls = cls;
 		Movable.makeMovable(this);
-		MyMovable movable = new MyMovable();
-		addMouseListener(movable);
-		addMouseMotionListener(movable);
 		setDoubleBuffered(false);
 	}
 
@@ -181,65 +174,6 @@ public class ClassComponent extends Container {
 		label
 				.setLocation(getX() + getWidth() + 10, getY() + labels.size()
 						* 20);
-	}
-
-	private class MyMovable implements MouseMotionListener, MouseListener {
-
-		private int xAdjustment;
-		private int yAdjustment;
-
-		@Override
-		public void mouseDragged(MouseEvent e) {
-
-			int diffX = e.getX() - xAdjustment;
-			int diffY = e.getY() - yAdjustment;
-			for (Component c : getLabels()) {
-				c.setLocation(c.getLocation().x + diffX, c.getLocation().y
-						+ diffY);
-				c.repaint();
-			}
-
-		}
-
-		private Component getComponent(MouseEvent e) {
-			return (Component) e.getSource();
-		}
-
-		@Override
-		public void mouseMoved(MouseEvent e) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			xAdjustment = e.getX();
-			yAdjustment = e.getY();
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
 	}
 
 }
