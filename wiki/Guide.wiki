@@ -16,7 +16,7 @@ Once you have run the build include the jars below in your classpath:
 ===Or download the zip===
   # Go to [http://code.google.com/p/xuml-compiler/downloads/list Downloads] and download the latest zip. 
   # Unpack the zip file 
-  # To download all dependencies into the same directory as xuml-compiler.jar from the zip file:
+  # To download all dependencies (about 17MB from Maven repositories) into the same directory as xuml-compiler.jar from the zip file:
 {{{
 java -jar xuml-compiler.jar
 }}}
