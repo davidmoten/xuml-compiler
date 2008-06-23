@@ -23,11 +23,8 @@ java -jar xuml-compiler.jar
 
 To download the dependencies via a proxy server:
 {{{
-java -Dhttp.proxyHost -Dhttp.proxyPort -jar xuml-compiler-<put version here>.jar
+java -Dhttp.proxyHost -Dhttp.proxyPort -jar xuml-compiler.jar
 }}}
-
-
-
 
 ==System==
 Here are the steps required to create a system:
