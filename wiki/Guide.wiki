@@ -20,7 +20,7 @@ Once you have run the build include the jars below in your classpath:
 {{{
     java -jar xuml-compiler.jar
 
-or with a proxy server:
+or
 
     java -Dhttp.proxyHost -Dhttp.proxyPort -jar xuml-compiler.jar
 
