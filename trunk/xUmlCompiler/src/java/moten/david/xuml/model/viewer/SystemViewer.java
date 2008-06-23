@@ -53,6 +53,8 @@ import view.Viewport;
 
 public class SystemViewer extends JPanel {
 
+	private static final String URL_VIEWER_ECORE = "http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore";
+	private static final String VIEW_PACKAGE_NAMESPACE_URI = "http://davidmoten.homeip.net/uml/executable/view";
 	private static final String SETTINGS_EXTENSION = "ecore";
 	private static Logger log = Logger.getLogger(SystemViewer.class);
 	private static final String tab = "\t";
@@ -130,8 +132,6 @@ public class SystemViewer extends JPanel {
 		view.setFrame(f);
 		view.setViewport(v);
 		save(view);
-		// View view2 = load();
-		// log.info("saved, loaded");
 	}
 
 	private void save(View view) {
@@ -157,8 +157,10 @@ public class SystemViewer extends JPanel {
 
 			resource.save(bytes, options);
 			String s = bytes.toString();
-			String xmlns = "xmlns:view=\"http://davidmoten.homeip.net/uml/executable/view\"";
-			String schemaLocation = "xsi:schemaLocation=\"http://davidmoten.homeip.net/uml/executable/view http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore\"";
+			final String xmlns = "xmlns:view=\"http://davidmoten.homeip.net/uml/executable/view\"";
+			final String schemaLocation = "xsi:schemaLocation=\""
+					+ VIEW_PACKAGE_NAMESPACE_URI + " " + URL_VIEWER_ECORE
+					+ "\"";
 			s = s.replace(xmlns, xmlns + " " + schemaLocation);
 			FileOutputStream fos = new FileOutputStream(filename);
 			fos.write(s.getBytes());
@@ -299,93 +301,6 @@ public class SystemViewer extends JPanel {
 		return null;
 	}
 
-	// public void save(JFrame frame, String filename) throws IOException {
-	// FileOutputStream fos = new FileOutputStream(filename);
-	// PrintStream out = new PrintStream(fos);
-	// out.println("!frame" + tab + frame.getLocation().x + tab
-	// + frame.getLocation().y + tab + frame.getWidth() + tab
-	// + frame.getHeight());
-	// out.println("!viewer" + tab + this.getPreferredSize().width + tab
-	// + this.getPreferredSize().height);
-	// for (ClassComponent s : getClassComponents()) {
-	// out.println("!class" + tab + s.getClass_().getName() + tab
-	// + s.getX() + tab + s.getY());
-	// for (MyLabel c : s.getLabels()) {
-	// out.println("!label" + tab + c.getKey() + tab + c.getX() + tab
-	// + c.getY());
-	// }
-	// }
-	// if (zoomable != null)
-	// out.println("!zoom" + tab + zoomable.getZoomFactor());
-	// out.close();
-	// fos.close();
-	// save(frame);
-	// }
-
-	// public void loadFrame(JFrame frame, String filename)
-	// throws NumberFormatException, IOException {
-	// FileInputStream fis = new FileInputStream(filename);
-	// InputStreamReader isr = new InputStreamReader(fis);
-	// BufferedReader br = new BufferedReader(isr);
-	// String line;
-	// while ((line = br.readLine()) != null) {
-	// String[] items = line.split(tab);
-	// if (line.startsWith("!frame")) {
-	// frame.setLocation(Integer.parseInt(items[1]), Integer
-	// .parseInt(items[2]));
-	// frame.setSize(Integer.parseInt(items[3]), Integer
-	// .parseInt(items[4]));
-	// }
-	// if (line.startsWith("!viewer")) {
-	// setPreferredSize(new Dimension(Integer.parseInt(items[1]),
-	// Integer.parseInt(items[2])));
-	// }
-	// if (line.startsWith("!zoom")) {
-	// zoomable.setZoomFactor(Double.parseDouble(items[1]));
-	// }
-	// }
-	// }
-	//
-	// public void loadComponents(String filename) throws NumberFormatException,
-	// IOException {
-	// FileInputStream fis = new FileInputStream(filename);
-	// InputStreamReader isr = new InputStreamReader(fis);
-	// BufferedReader br = new BufferedReader(isr);
-	// String line;
-	// while ((line = br.readLine()) != null) {
-	// String[] items = line.split(tab);
-	// if (line.startsWith("!class")) {
-	// String name = items[1];
-	// int x = Integer.parseInt(items[2]);
-	// int y = Integer.parseInt(items[3]);
-	// for (ClassComponent s : getClassComponents()) {
-	// if (s.getClass_().getName().equals(name)) {
-	// s.setLocation(x, y);
-	// }
-	// }
-	// }
-	// }
-	// }
-	//
-	// public void loadAttached(String filename) throws IOException {
-	// FileInputStream fis = new FileInputStream(filename);
-	// InputStreamReader isr = new InputStreamReader(fis);
-	// BufferedReader br = new BufferedReader(isr);
-	// String line;
-	// while ((line = br.readLine()) != null) {
-	// String[] items = line.split(tab);
-	// if (line.startsWith("!label")) {
-	// for (ClassComponent component : components)
-	// for (MyLabel label : component.getLabels()) {
-	// if (label.getKey().equals(items[1])) {
-	// label.setLocation(Integer.parseInt(items[2]),
-	// Integer.parseInt(items[3]));
-	// }
-	// }
-	// }
-	// }
-	// }
-
 	@Override
 	public void paint(Graphics g) {
 
@@ -421,17 +336,8 @@ public class SystemViewer extends JPanel {
 							add(label);
 							setComponentZOrder(label, 0);
 						}
-					// if (!new File(settingsFilename + ".ecore").exists()) {
-					// if (new File(settingsFilename).exists()) {
-					// loadFrame(frame, settingsFilename);
-					// loadComponents(settingsFilename);
-					// }
-					// if (new File(settingsFilename).exists())
-					// loadAttached(settingsFilename);
-					// } else {
 					View view2 = load();
 					applyView(view2, frame);
-					// }
 					repaint();
 					frame.addWindowListener(new WindowAdapter() {
 						@Override
@@ -515,19 +421,19 @@ public class SystemViewer extends JPanel {
 		pj.print();
 	}
 
-	public static void main(String[] args) throws NumberFormatException,
-			IOException {
-		SystemViewer viewer = new SystemViewer(new Bookstore().getSystem(),
-				"src/viewer/Bookstore.ini");
-		viewer.showViewer();
-	}
-
 	public Zoomable getZoomable() {
 		return zoomable;
 	}
 
 	public void setZoomable(Zoomable zoomable) {
 		this.zoomable = zoomable;
+	}
+
+	public static void main(String[] args) throws NumberFormatException,
+			IOException {
+		SystemViewer viewer = new SystemViewer(new Bookstore().getSystem(),
+				"src/viewer/Bookstore.ini");
+		viewer.showViewer();
 	}
 
 }
