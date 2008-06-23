@@ -13,7 +13,7 @@ Two options:
 Once you have run the build include the jars below in your classpath:
   * xUmlCompiler/temp/deployment/xuml-compiler.jar
   * xUmlCompiler/temp/dependencies/`*`.jar
-===Download the zip===
+===Or download the zip===
   # Go to [http://code.google.com/p/xuml-compiler/downloads/list Downloads] and download the latest zip. 
   # Unpack the zip file 
   # To download all dependencies into the same directory as xuml-compiler.jar from the zip file:
