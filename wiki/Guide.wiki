@@ -18,7 +18,7 @@ Once you have run the build include the jars below in your classpath:
   # Unpack the zip file 
   # To download all dependencies into the same directory as xuml-compiler.jar from the zip file:
 {{{
-java -jar xuml-compiler-<put version here>.jar
+java -jar xuml-compiler.jar
 }}}
 
 To download the dependencies via a proxy server:
