@@ -26,6 +26,7 @@ public class CustomerBehaviour implements CustomerActions {
 
 	@Override
 	public void performOnEntryActive(EventAddEmail event) {
+		//establish R1
 		event.getEmail().setCustomer(customer);
 	}
 
