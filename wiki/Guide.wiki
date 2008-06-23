@@ -6,11 +6,28 @@ This guide shows you how to define, view, generate and execute a system using xU
 For a quick start look at [Example1Simple Simple Example].
 
 ==Setup==
+Two options:
+===Get the latest build with Subversion===
 [http://code.google.com/p/xuml-compiler/source/checkout Checkout the head using svn] and run the build.xml file with ant (works best with 1.7 or later). This creates the xuml-compiler.jar and dowloads its dependencies from Maven repositories.
 
 Once you have run the build include the jars below in your classpath:
   * xUmlCompiler/temp/deployment/xuml-compiler.jar
   * xUmlCompiler/temp/dependencies/`*`.jar
+===Download the zip===
+  # Go to [http://code.google.com/p/xuml-compiler/downloads/list Downloads] and download the latest zip. 
+  # Unpack the zip file 
+  # To download all dependencies into the same directory as xuml-compiler.jar from the zip file:
+{{{
+java -jar xuml-compiler-<put version here>.jar
+}}}
+
+To download the dependencies via a proxy server:
+{{{
+java -Dhttp.proxyHost -Dhttp.proxyPort -jar xuml-compiler-<put version here>.jar
+}}}
+
+
+
 
 ==System==
 Here are the steps required to create a system:
