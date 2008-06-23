@@ -25,7 +25,7 @@ or
     java -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -jar xuml-compiler.jar
 
 }}}
-  # Include all the jars in the directory that contains xuml-compiler.jar in your classpath
+  # Add all the jars in the directory that contains xuml-compiler.jar to your classpath
 
 ==System==
 Here are the steps required to create a system:
