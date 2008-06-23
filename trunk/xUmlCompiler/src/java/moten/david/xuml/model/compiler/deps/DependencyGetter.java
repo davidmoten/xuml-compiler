@@ -12,6 +12,9 @@ import moten.david.net.Download;
 
 public class DependencyGetter {
 
+	private static final String URL_EMF_ECORE_COMMON = "http://repo1.maven.org/maven2/org/eclipse/emf/common/2.3.0-v200706262000/common-2.3.0-v200706262000.jar";
+	private static final String URL_ECORE_XMI = "http://repo1.maven.org/maven2/org/eclipse/emf/ecore/xmi/2.3.0-v200706262000/xmi-2.3.0-v200706262000.jar";
+	private static final String URL_EMF_ECORE = "http://repo1.maven.org/maven2/org/eclipse/emf/ecore/2.3.0-v200706262000/ecore-2.3.0-v200706262000.jar";
 	private String directoryName;
 
 	public DependencyGetter(String directoryName) {
@@ -39,20 +42,18 @@ public class DependencyGetter {
 	}// end method
 
 	public void getDependencies() throws MalformedURLException, IOException {
-		File antJar = new File(directoryName, "ant-1.7.0.jar");
-		File antLauncherJar = new File(directoryName, "ant-launcher-1.7.0.jar");
-		File mavenAntTasksJar = new File(directoryName,
-				"maven-ant-tasks-2.0.9.jar");
-		System.out.println("getting ant-1.7.0.jar");
-		Download.get(new URL(URL_ANT_JAR), antJar);
-		System.out.println("getting ant-launcher-1.7.0.jar");
-		Download.get(new URL(URL_ANT_LAUNCHER_JAR), antLauncherJar);
-		System.out.println("getting maven-ant-tasks-2.0.9.jar");
-		Download.get(new URL(URL_MAVEN_ANT_TASKS_JAR), mavenAntTasksJar);
+		String[] deps = { URL_ANT_JAR, URL_ANT_LAUNCHER_JAR,
+				URL_MAVEN_ANT_TASKS_JAR };
 
-		addUrlToClasspath(antJar.toURI().toURL());
-		addUrlToClasspath(antLauncherJar.toURI().toURL());
-		addUrlToClasspath(mavenAntTasksJar.toURI().toURL());
+		for (String urlString : deps) {
+			URL url = new URL(urlString);
+			String name = url.getFile();
+			name = name.substring(name.lastIndexOf("/") + 1);
+			File file = new File(directoryName, name);
+			System.out.println("getting " + name);
+			Download.get(url, file);
+			addUrlToClasspath(file.toURI().toURL());
+		}
 
 		System.out.println("writing build.xml");
 		File buildXml = new File(directoryName, "build.xml");
