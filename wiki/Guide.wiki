@@ -18,13 +18,14 @@ Once you have run the build include the jars below in your classpath:
   # Unpack the zip file 
   # To download all dependencies (about 17MB from Maven repositories) into the same directory as xuml-compiler.jar from the zip file:
 {{{
-java -jar xuml-compiler.jar
-}}}
+    java -jar xuml-compiler.jar
 
-To download the dependencies via a proxy server:
-{{{
-java -Dhttp.proxyHost -Dhttp.proxyPort -jar xuml-compiler.jar
+or with a proxy server:
+
+    java -Dhttp.proxyHost -Dhttp.proxyPort -jar xuml-compiler.jar
+
 }}}
+  # include all the jars in the directory that contains xuml-compiler.jar in your classpath
 
 ==System==
 Here are the steps required to create a system:
