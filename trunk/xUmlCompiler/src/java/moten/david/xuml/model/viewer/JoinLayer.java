@@ -102,7 +102,6 @@ public class JoinLayer extends JPanel {
 		p.addPoint(p1.x, p1.y);
 		p.addPoint(top.x, top.y);
 		g2d.drawPolygon(p);
-
 	}
 
 	private Point getBestJoin(Set<Point> usedPoints, Component component,

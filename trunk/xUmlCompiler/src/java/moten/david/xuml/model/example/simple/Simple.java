@@ -76,7 +76,7 @@ public class Simple extends SystemBase {
 	public static void main(String[] args) throws NumberFormatException,
 			IOException, ValidationException {
 		Simple simple = new Simple();
-		simple.save("temp/simple.ecore");
+		// simple.save("temp/simple.ecore");
 		simple.validate();
 		simple.view("src/viewer/Simple.ecore");
 	}
