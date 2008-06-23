@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="view"
+    nsURI="http://davidmoten.homeip.net/uml/executable/view" nsPrefix="view">
+  <eClassifiers xsi:type="ecore:EClass" name="Element" eSuperTypes="#//Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fixedTo" eType="#//Location"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dimension" eType="#//Dimension"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Dimension">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Frame" eSuperTypes="#//Dimension #//Location"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Viewport" eSuperTypes="#//Dimension"/>
+  <eClassifiers xsi:type="ecore:EClass" name="View">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="frame" lowerBound="1" eType="#//Frame"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="viewport" lowerBound="1"
+        eType="#//Viewport" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" upperBound="-1"
+        eType="#//Element" containment="true" eKeys="#//Element/name"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="zoom" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="1.0"/>
+  </eClassifiers>
+</ecore:EPackage>

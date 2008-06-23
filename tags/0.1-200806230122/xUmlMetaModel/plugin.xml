@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id: plugin.xml,v 1.1 2008/05/19 01:08:20 dxm Exp $
+-->
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "http://davidmoten.homeip.net/uml/executable/model"
+       class = "model.ModelPackage"
+       genModel = "model/uml.genmodel" />
+  </extension>
+
+<!--
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "http://davidmoten.homeip.net/uml/executable/model/class"
+       class = "model.class_.ClassPackage"
+       genModel = "model/uml.genmodel" />
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "http://davidmoten.homeip.net/uml/executable/model/state"
+       class = "model.state.StatePackage"
+       genModel = "model/uml.genmodel" />
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "http://davidmoten.homeip.net/uml/executable/model/collaboration"
+       class = "model.collaboration.CollaborationPackage"
+       genModel = "model/uml.genmodel" />
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "http://davidmoten.homeip.net/uml/executable/model/domain"
+       class = "model.domain.DomainPackage"
+       genModel = "model/uml.genmodel" />
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "http://davidmoten.homeip.net/uml/executable/model/diagram"
+       class = "model.diagram.DiagramPackage"
+       genModel = "model/uml.genmodel" />
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "http://davidmoten.homeip.net/model/use"
+       class = "model.use.UsePackage"
+       genModel = "model/uml.genmodel" />
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "http://davidmoten.homeip.net/model/activity"
+       class = "model.activity.ActivityPackage"
+       genModel = "model/uml.genmodel" />
+  </extension>
+-->
+</plugin>
