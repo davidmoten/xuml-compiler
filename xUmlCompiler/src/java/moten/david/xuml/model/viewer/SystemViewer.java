@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -33,8 +34,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 
 import model.Package;
+import model.State;
+import model.Stately;
 import moten.david.xuml.model.example.mellor.Bookstore;
 
 import org.apache.log4j.Logger;
@@ -51,33 +55,46 @@ import view.View;
 import view.ViewFactory;
 import view.Viewport;
 
-public class SystemViewer extends JPanel {
+public class SystemViewer {
 
 	private static final String URL_VIEWER_ECORE = "http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore";
 	private static final String VIEW_PACKAGE_NAMESPACE_URI = "http://davidmoten.homeip.net/uml/executable/view";
 	private static final String SETTINGS_EXTENSION = "ecore";
 	private static Logger log = Logger.getLogger(SystemViewer.class);
-	private static final String tab = "\t";
 	private static final long serialVersionUID = 4180699653224602583L;
 	private final List<ClassComponent> components = new ArrayList<ClassComponent>();
 
 	private Zoomable zoomable;
 	private final String settingsFilename;
+	private final JPanel systemPanel = new SystemPanel();
+	private final Map<model.Class, JPanel> stateMachinePanels = new HashMap<model.Class, JPanel>();
+	private final Map<Stately, StateComponent> statelyComponents = new HashMap<Stately, StateComponent>();
+
+	private enum DiagramType {
+		CLASS_DIAGRAM, STATE_MACHINE_DIAGRAM
+	}
 
 	public SystemViewer(model.System system, String settingsFilename) {
-
+		systemPanel.setLayout(null);
+		systemPanel.setBackground(Color.white);
 		this.settingsFilename = settingsFilename;
-		setLayout(null);
-		setBackground(Color.white);
-		for (Package pkg : system.getPackage()) {
-			addClasses(pkg);
-		}
-
+		createComponents(system);
 		Component joinLayer = new JoinLayer(this);
 		joinLayer.setLocation(0, 0);
 		joinLayer.setSize(10000, 10000);
-		add(joinLayer);
+		systemPanel.add(joinLayer);
 		createMenu();
+	}
+
+	private void createComponents(model.System system) {
+		for (Package pkg : system.getPackage()) {
+			addClasses(pkg);
+		}
+		for (ClassComponent component : components)
+			for (Component label : component.getLabels()) {
+				systemPanel.add(label);
+				systemPanel.setComponentZOrder(label, 0);
+			}
 	}
 
 	private Element getElement(View view, ClassComponent c) {
@@ -127,8 +144,8 @@ public class SystemViewer extends JPanel {
 		f.setHeight(frame.getHeight());
 		f.setWidth(frame.getWidth());
 		Viewport v = ViewFactory.eINSTANCE.createViewport();
-		v.setHeight(getPreferredSize().height);
-		v.setWidth(getPreferredSize().width);
+		v.setHeight(systemPanel.getPreferredSize().height);
+		v.setWidth(systemPanel.getPreferredSize().width);
 		view.setFrame(f);
 		view.setViewport(v);
 		save(view);
@@ -183,7 +200,7 @@ public class SystemViewer extends JPanel {
 
 			{
 				// perform some trickery to get the ViewPackage to be loaded
-				// this is a workaround for an ecore problem
+				// this is a workaround for an ecore instantiation problem
 				View temp = ViewFactory.eINSTANCE.createView();
 				Resource resource = new ResourceSetImpl().createResource(URI
 						.createURI("unused." + SETTINGS_EXTENSION));
@@ -200,6 +217,7 @@ public class SystemViewer extends JPanel {
 					URI.createURI(filename), true);
 
 			View view = (View) resource.getContents().get(0);
+
 			return view;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -213,6 +231,9 @@ public class SystemViewer extends JPanel {
 	}
 
 	private void applyView(View view, JFrame frame) {
+		for (StateComponent c : statelyComponents.values()) {
+			locateRandomly(c);
+		}
 		for (ClassComponent c : components) {
 			Element element = getElement(view, c);
 			if (element == null)
@@ -232,8 +253,8 @@ public class SystemViewer extends JPanel {
 		frame.setLocation(view.getFrame().getX(), view.getFrame().getY());
 		frame.setSize(new Dimension(view.getFrame().getWidth(), view.getFrame()
 				.getHeight()));
-		setPreferredSize(new Dimension(view.getViewport().getWidth(), view
-				.getViewport().getHeight()));
+		systemPanel.setPreferredSize(new Dimension(view.getViewport()
+				.getWidth(), view.getViewport().getHeight()));
 	}
 
 	private void createMenu() {
@@ -244,7 +265,7 @@ public class SystemViewer extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					print();
+					print(systemPanel);
 				} catch (PrinterException e1) {
 					e1.printStackTrace();
 				}
@@ -258,7 +279,7 @@ public class SystemViewer extends JPanel {
 
 			}
 		});
-		addMouseListener(new MouseAdapter() {
+		systemPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON3) {
@@ -271,12 +292,36 @@ public class SystemViewer extends JPanel {
 	private void addClasses(Package pkg) {
 		for (model.Class cls : pkg.getClass_()) {
 			ClassComponent component = new ClassComponent(cls);
-			add(component);
+			systemPanel.add(component);
 			components.add(component);
+			if (cls.getStateMachine() != null) {
+				JPanel panel = new JPanel();
+				// panel.setBackground(Color.white);
+				panel.setLayout(null);
+				for (State state : cls.getStateMachine().getState())
+					createStatelyComponent(state, panel);
+				createStatelyComponent(cls.getStateMachine().getInitialState(),
+						panel);
+				createStatelyComponent(cls.getStateMachine().getFinalState(),
+						panel);
+				stateMachinePanels.put(cls, panel);
+				Component transitions = new TransitionLayer(this, cls);
+				transitions.setLocation(0, 0);
+				transitions.setSize(10000, 10000);
+				panel.add(transitions);
+			}
 		}
 		for (Package p : pkg.getSubPackage()) {
 			addClasses(p);
 		}
+	}
+
+	private void createStatelyComponent(Stately state, JPanel panel) {
+		if (state == null)
+			return;
+		StateComponent c = new StateComponent(state);
+		panel.add(c);
+		statelyComponents.put(state, c);
 	}
 
 	public List<ClassComponent> getClassComponents() {
@@ -301,17 +346,21 @@ public class SystemViewer extends JPanel {
 		return null;
 	}
 
-	@Override
-	public void paint(Graphics g) {
+	public class SystemPanel extends JPanel {
 
-		Graphics2D g2d = (Graphics2D) g;
-		if (zoomable != null)
-			g2d.scale(zoomable.getZoomFactor(), zoomable.getZoomFactor());
-		super.paint(g);
+		private static final long serialVersionUID = -2781923961274800777L;
+
+		@Override
+		public void paint(Graphics g) {
+
+			Graphics2D g2d = (Graphics2D) g;
+			if (zoomable != null)
+				g2d.scale(zoomable.getZoomFactor(), zoomable.getZoomFactor());
+			super.paint(g);
+		}
 	}
 
 	public void showViewer() throws NumberFormatException, IOException {
-		final Component thisComponent = this;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -319,43 +368,46 @@ public class SystemViewer extends JPanel {
 					frame.setTitle("Class Diagram");
 					frame.setSize(500, 500);
 					frame.getContentPane().setLayout(new GridLayout(1, 1));
-					JScrollPane scroll = new JScrollPane(thisComponent);
+					JTabbedPane tabs = new JTabbedPane();
+					JScrollPane scroll = new JScrollPane(systemPanel);
 					scroll.setWheelScrollingEnabled(true);
-					// setPreferredSize(new Dimension(2000, 2000));
-					frame.getContentPane().add(scroll);
+					tabs.add("Class Diagram", scroll);
+					for (model.Class cls : stateMachinePanels.keySet()) {
+						tabs.add(cls.getName(), new JScrollPane(
+								stateMachinePanels.get(cls)));
+					}
 
+					// setPreferredSize(new Dimension(2000, 2000));
+					frame.getContentPane().add(tabs);
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 					ZoomPane glassPane = new ZoomPane(frame.getContentPane());
 					// frame.setGlassPane(glassPane);
 					zoomable = glassPane;
 					glassPane.setVisible(true);
+
 					frame.addKeyListener(createKeyListener());
-
-					for (ClassComponent component : components)
-						for (Component label : component.getLabels()) {
-							add(label);
-							setComponentZOrder(label, 0);
-						}
-					View view2 = load();
-					applyView(view2, frame);
-					repaint();
-					frame.addWindowListener(new WindowAdapter() {
-						@Override
-						public void windowClosing(WindowEvent e) {
-							try {
-								save(frame);
-							} catch (Exception e1) {
-								e1.printStackTrace();
-							}
-						}
-					});
-
+					View view = load();
+					applyView(view, frame);
+					frame.addWindowListener(createWindowListener(frame));
 					frame.setVisible(true);
-
-					repaint();
+					frame.repaint();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
+
+			private WindowListener createWindowListener(final JFrame frame) {
+				return new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						try {
+							save(frame);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+				};
 			}
 		});
 	}
@@ -371,22 +423,23 @@ public class SystemViewer extends JPanel {
 					factorChange = 1 / 1.1;
 				zoomable.setZoomFactor(zoomable.getZoomFactor() * factorChange);
 				log.info(e.getKeyChar());
-				Dimension d = getPreferredSize();
+				Dimension d = systemPanel.getPreferredSize();
 				d = new Dimension((int) (d.width * factorChange),
 						(int) (d.height * factorChange));
 				// setPreferredSize(d);
 				// frame.getContentPane().validate();
-				repaint();
+				systemPanel.repaint();
 			}
 		};
 	}
 
-	private void print() throws PrinterException {
+	private void print(final JPanel panel) throws PrinterException {
 		PrinterJob pj = PrinterJob.getPrinterJob();
 		pj.setJobName("SystemViewer");
 		pj.setCopies(1);
 		PageFormat format = pj.defaultPage();
-		if (getPreferredSize().getWidth() > getPreferredSize().getHeight())
+		if (panel.getPreferredSize().getWidth() > panel.getPreferredSize()
+				.getHeight())
 			format.setOrientation(PageFormat.LANDSCAPE);
 		else
 			format.setOrientation(PageFormat.PORTRAIT);
@@ -400,19 +453,19 @@ public class SystemViewer extends JPanel {
 
 				g2.translate(pf.getImageableX(), pf.getImageableY());
 				double scale;
-				if (getPreferredSize().getHeight() * 1.0
-						/ getPreferredSize().getWidth() > pf.getPaper()
+				if (panel.getPreferredSize().getHeight() * 1.0
+						/ panel.getPreferredSize().getWidth() > pf.getPaper()
 						.getImageableHeight()
 						* 1.0 / pf.getPaper().getImageableWidth())
 					scale = pf.getPaper().getImageableHeight() * 1.0
-							/ getPreferredSize().getHeight();
+							/ panel.getPreferredSize().getHeight();
 				else
 					scale = pf.getPaper().getImageableWidth() * 1.0
-							/ getPreferredSize().getWidth();
+							/ systemPanel.getPreferredSize().getWidth();
 				g2.scale(scale, scale);
-				setDoubleBuffered(false);
-				paint(g2);
-				setDoubleBuffered(true);
+				systemPanel.setDoubleBuffered(false);
+				systemPanel.paint(g2);
+				systemPanel.setDoubleBuffered(true);
 				return Printable.PAGE_EXISTS;
 			}
 		});
@@ -432,8 +485,12 @@ public class SystemViewer extends JPanel {
 	public static void main(String[] args) throws NumberFormatException,
 			IOException {
 		SystemViewer viewer = new SystemViewer(new Bookstore().getSystem(),
-				"src/viewer/Bookstore.ini");
+				"src/viewer/Bookstore.ecore");
 		viewer.showViewer();
+	}
+
+	public Map<Stately, StateComponent> getStatelyComponents() {
+		return statelyComponents;
 	}
 
 }
