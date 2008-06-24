@@ -21,6 +21,9 @@ The model can be executed once Action Language elements are specified (in java c
 
 The action language elements are injected into the entities at runtime using a lightweight dependency injection framework (Guice).
 
+===Round Tripping===
+Dependency injection of Action Language classes is used instead of round tripping (editing of generated code).
+
 ===Viewer===
 A simple Class Diagram Viewer (a Swing app) is provided.
 
