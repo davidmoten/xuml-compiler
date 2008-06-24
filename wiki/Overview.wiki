@@ -41,47 +41,47 @@ Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
 ==Features==
 ||Attributes|| 
 || ||Core Data Types||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
-|| ||Name||Yes||
-|| ||Description||Yes||
-|| ||Referential||Yes||
+|| ||Name||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Description||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Referential||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Derived|| ||
 ||Domain Specific Data Type||
 || ||Numeric Types|| ||
 || ||String Types|| ||
 || ||Enumerated Types|| ||
 ||Class||
-|| ||Name||Yes||
-|| ||Description||Yes||
+|| ||Name||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Description||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Number|| ||
 || ||Abbreviation|| ||
 || ||Actions||Java||
 ||Identifiers||
-|| ||Single Attribute||Yes||
-|| ||Multiple Attributes||Yes||
-|| ||Referential Attribute||Yes||
+|| ||Single Attribute||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Multiple Attributes||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Referential Attribute||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Derived Attribute||||
 || ||Derived Identifier||||
 ||State||
-|| ||Call Event||Yes||
-|| ||Signal Event||Yes||
-|| ||Timer Event||Yes||
+|| ||Call Event||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Signal Event||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Timer Event||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Polymorphic Event|| ||
 || ||Reclassification|| ||
 || ||State Transition Table||||
 || ||Signals to External Entities||||
 ||Association|| 
-|| ||Name||Yes||
-|| ||Description||Yes||
-|| ||Role Name||Yes||
-|| ||Verb Phrase||Yes||
-|| ||Multiple||Yes||
-|| ||Reflexive||Yes||
+|| ||Name||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Description||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Role Name||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Verb Phrase||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Multiple||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Reflexive||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 ||Multiplicity||
-|| ||0..1||Yes||
-|| ||1||Yes||
-|| ||0..`*`||Yes||
-|| ||1..`*`||Yes||
-|| ||Mandatory Enforced||Yes||
-||Specialization|| ||Yes||
+|| ||0..1||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||1||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||0..`*`||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||1..`*`||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Mandatory Enforced||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+||Specialization|| ||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Mutual Exclusion|| ||
-|| ||Compound||Yes||
+|| ||Compound||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
