@@ -4,7 +4,7 @@
 *xUmlCompiler* takes a user specified data model and associated state machines and produces an executable and testable system.
 
 The data model (class diagram) and state machines 
-  * have the semantics of a UML2 profile inspired by _Executable UML_ (Mellor & Balcer, 2002).
+  * have the semantics of a UML profile inspired by _Executable UML_ (Mellor & Balcer, 2002).
   * are defined in java classes using utility classes provided by *xUmlCompiler* 
   * or are defined using the Eclipse ecore editor 
 ===Validation===
