@@ -40,7 +40,7 @@ Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
 
 ==Features==
 ||Attributes|| 
-|| ||Core Data Types||Yes||
+|| ||Core Data Types||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Name||Yes||
 || ||Description||Yes||
 || ||Referential||Yes||
