@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DiagramAdapterFactory.java,v 1.5 2008/06/13 05:09:21 dxm Exp $
+ * $Id: DiagramAdapterFactory.java,v 1.6 2008/06/25 06:33:25 dxm Exp $
  */
 package model.diagram.util;
 
@@ -66,7 +66,7 @@ public class DiagramAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch that delegates to the <code>createXXX</code> methods.
+	 * The switch the delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

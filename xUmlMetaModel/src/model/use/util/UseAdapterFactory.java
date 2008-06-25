@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: UseAdapterFactory.java,v 1.5 2008/06/13 05:09:22 dxm Exp $
+ * $Id: UseAdapterFactory.java,v 1.6 2008/06/25 06:33:26 dxm Exp $
  */
 package model.use.util;
 
@@ -68,7 +68,7 @@ public class UseAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch that delegates to the <code>createXXX</code> methods.
+	 * The switch the delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: FinalStateImpl.java,v 1.4 2008/06/11 07:28:44 dxm Exp $
+ * $Id: FinalStateImpl.java,v 1.5 2008/06/25 06:33:24 dxm Exp $
  */
 package model.impl;
 
@@ -11,6 +11,7 @@ import java.util.Collection;
 import model.Event;
 import model.FinalState;
 import model.ModelPackage;
+import model.StateMachine;
 import model.Transition;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -26,6 +27,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -39,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link model.impl.FinalStateImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link model.impl.FinalStateImpl#getTransitionFrom <em>Transition From</em>}</li>
  *   <li>{@link model.impl.FinalStateImpl#getEvent <em>Event</em>}</li>
+ *   <li>{@link model.impl.FinalStateImpl#getStateMachine <em>State Machine</em>}</li>
  * </ul>
  * </p>
  *
@@ -195,12 +198,57 @@ public class FinalStateImpl extends EObjectImpl implements FinalState {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public StateMachine getStateMachine() {
+		if (eContainerFeatureID != ModelPackage.FINAL_STATE__STATE_MACHINE) return null;
+		return (StateMachine)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetStateMachine(StateMachine newStateMachine, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newStateMachine, ModelPackage.FINAL_STATE__STATE_MACHINE, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStateMachine(StateMachine newStateMachine) {
+		if (newStateMachine != eInternalContainer() || (eContainerFeatureID != ModelPackage.FINAL_STATE__STATE_MACHINE && newStateMachine != null)) {
+			if (EcoreUtil.isAncestor(this, newStateMachine))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newStateMachine != null)
+				msgs = ((InternalEObject)newStateMachine).eInverseAdd(this, ModelPackage.STATE_MACHINE__FINAL_STATE, StateMachine.class, msgs);
+			msgs = basicSetStateMachine(newStateMachine, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FINAL_STATE__STATE_MACHINE, newStateMachine, newStateMachine));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelPackage.FINAL_STATE__TRANSITION_FROM:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTransitionFrom()).basicAdd(otherEnd, msgs);
+			case ModelPackage.FINAL_STATE__STATE_MACHINE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetStateMachine((StateMachine)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -215,8 +263,24 @@ public class FinalStateImpl extends EObjectImpl implements FinalState {
 		switch (featureID) {
 			case ModelPackage.FINAL_STATE__TRANSITION_FROM:
 				return ((InternalEList<?>)getTransitionFrom()).basicRemove(otherEnd, msgs);
+			case ModelPackage.FINAL_STATE__STATE_MACHINE:
+				return basicSetStateMachine(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case ModelPackage.FINAL_STATE__STATE_MACHINE:
+				return eInternalContainer().eInverseRemove(this, ModelPackage.STATE_MACHINE__FINAL_STATE, StateMachine.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -235,6 +299,8 @@ public class FinalStateImpl extends EObjectImpl implements FinalState {
 				return getTransitionFrom();
 			case ModelPackage.FINAL_STATE__EVENT:
 				return getEvent();
+			case ModelPackage.FINAL_STATE__STATE_MACHINE:
+				return getStateMachine();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -262,6 +328,9 @@ public class FinalStateImpl extends EObjectImpl implements FinalState {
 				getEvent().clear();
 				getEvent().addAll((Collection<? extends Event>)newValue);
 				return;
+			case ModelPackage.FINAL_STATE__STATE_MACHINE:
+				setStateMachine((StateMachine)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -286,6 +355,9 @@ public class FinalStateImpl extends EObjectImpl implements FinalState {
 			case ModelPackage.FINAL_STATE__EVENT:
 				getEvent().clear();
 				return;
+			case ModelPackage.FINAL_STATE__STATE_MACHINE:
+				setStateMachine((StateMachine)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -306,6 +378,8 @@ public class FinalStateImpl extends EObjectImpl implements FinalState {
 				return transitionFrom != null && !transitionFrom.isEmpty();
 			case ModelPackage.FINAL_STATE__EVENT:
 				return event != null && !event.isEmpty();
+			case ModelPackage.FINAL_STATE__STATE_MACHINE:
+				return getStateMachine() != null;
 		}
 		return super.eIsSet(featureID);
 	}

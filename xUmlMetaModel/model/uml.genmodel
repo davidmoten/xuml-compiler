@@ -157,6 +157,7 @@
     </genClasses>
     <genClasses ecoreClass="uml.ecore#//State">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//State/entryProcedure"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//State/stateMachine"/>
     </genClasses>
     <genClasses ecoreClass="uml.ecore#//Transition">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//Transition/event"/>
@@ -166,8 +167,12 @@
     <genClasses ecoreClass="uml.ecore#//Procedure">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Procedure/action"/>
     </genClasses>
-    <genClasses ecoreClass="uml.ecore#//InitialState"/>
-    <genClasses ecoreClass="uml.ecore#//FinalState"/>
+    <genClasses ecoreClass="uml.ecore#//InitialState">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//InitialState/stateMachine"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//FinalState">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//FinalState/stateMachine"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="uml.ecore#//Stately"/>
     <genClasses ecoreClass="uml.ecore#//StateMachine">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//StateMachine/class"/>

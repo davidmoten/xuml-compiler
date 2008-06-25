@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: StateMachine.java,v 1.4 2008/06/11 07:28:40 dxm Exp $
+ * $Id: StateMachine.java,v 1.5 2008/06/25 06:33:24 dxm Exp $
  */
 package model;
 
@@ -61,6 +61,7 @@ public interface StateMachine extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Initial State</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link model.InitialState#getStateMachine <em>State Machine</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Initial State</em>' containment reference isn't clear,
@@ -70,7 +71,8 @@ public interface StateMachine extends EObject {
 	 * @return the value of the '<em>Initial State</em>' containment reference.
 	 * @see #setInitialState(InitialState)
 	 * @see model.ModelPackage#getStateMachine_InitialState()
-	 * @model containment="true" required="true"
+	 * @see model.InitialState#getStateMachine
+	 * @model opposite="stateMachine" containment="true" required="true"
 	 * @generated
 	 */
 	InitialState getInitialState();
@@ -88,6 +90,7 @@ public interface StateMachine extends EObject {
 	/**
 	 * Returns the value of the '<em><b>State</b></em>' containment reference list.
 	 * The list contents are of type {@link model.State}.
+	 * It is bidirectional and its opposite is '{@link model.State#getStateMachine <em>State Machine</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>State</em>' containment reference list isn't clear,
@@ -96,13 +99,15 @@ public interface StateMachine extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>State</em>' containment reference list.
 	 * @see model.ModelPackage#getStateMachine_State()
-	 * @model containment="true"
+	 * @see model.State#getStateMachine
+	 * @model opposite="stateMachine" containment="true"
 	 * @generated
 	 */
 	EList<State> getState();
 
 	/**
 	 * Returns the value of the '<em><b>Final State</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link model.FinalState#getStateMachine <em>State Machine</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Final State</em>' containment reference isn't clear,
@@ -112,7 +117,8 @@ public interface StateMachine extends EObject {
 	 * @return the value of the '<em>Final State</em>' containment reference.
 	 * @see #setFinalState(FinalState)
 	 * @see model.ModelPackage#getStateMachine_FinalState()
-	 * @model containment="true"
+	 * @see model.FinalState#getStateMachine
+	 * @model opposite="stateMachine" containment="true"
 	 * @generated
 	 */
 	FinalState getFinalState();
