@@ -35,4 +35,9 @@
   <element x="391" y="537" name="class.CreditCardCharge"/>
   <element x="400" y="502" name="label.Class CreditCardCharge Association R7 Verb Clause" fixedTo="//@element[name='class.CreditCardCharge']"/>
   <element x="479" y="503" name="label.Class CreditCardCharge Association R7 Multiplicity" fixedTo="//@element[name='class.CreditCardCharge']"/>
+  <element x="207" y="78" name="class.Order.state.FinalState"/>
+  <element x="44" y="67" name="class.Order.state.cancelled"/>
+  <element x="127" y="209" name="class.Order.state.open"/>
+  <element x="248" y="180" name="class.Order.state.InitialState"/>
+  <element x="213" y="323" name="class.Order.state.delivered"/>
 </view:View>
