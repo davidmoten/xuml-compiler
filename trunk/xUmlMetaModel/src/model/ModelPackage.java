@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModelPackage.java,v 1.4 2008/06/11 07:28:38 dxm Exp $
+ * $Id: ModelPackage.java,v 1.5 2008/06/25 06:33:24 dxm Exp $
  */
 package model;
 
@@ -2379,13 +2379,22 @@ public interface ModelPackage extends EPackage {
 	int STATE__ENTRY_PROCEDURE = TO_STATE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>State Machine</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE__STATE_MACHINE = TO_STATE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>State</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_FEATURE_COUNT = TO_STATE_FEATURE_COUNT + 2;
+	int STATE_FEATURE_COUNT = TO_STATE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link model.impl.TransitionImpl <em>Transition</em>}' class.
@@ -2581,13 +2590,22 @@ public interface ModelPackage extends EPackage {
 	int INITIAL_STATE__TRANSITION_TO = FROM_STATE__TRANSITION_TO;
 
 	/**
+	 * The feature id for the '<em><b>State Machine</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INITIAL_STATE__STATE_MACHINE = FROM_STATE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Initial State</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INITIAL_STATE_FEATURE_COUNT = FROM_STATE_FEATURE_COUNT + 0;
+	int INITIAL_STATE_FEATURE_COUNT = FROM_STATE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link model.impl.FinalStateImpl <em>Final State</em>}' class.
@@ -2636,13 +2654,22 @@ public interface ModelPackage extends EPackage {
 	int FINAL_STATE__EVENT = TO_STATE__EVENT;
 
 	/**
+	 * The feature id for the '<em><b>State Machine</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FINAL_STATE__STATE_MACHINE = TO_STATE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Final State</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FINAL_STATE_FEATURE_COUNT = TO_STATE_FEATURE_COUNT + 0;
+	int FINAL_STATE_FEATURE_COUNT = TO_STATE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link model.impl.StateMachineImpl <em>State Machine</em>}' class.
@@ -4421,6 +4448,17 @@ public interface ModelPackage extends EPackage {
 	EReference getState_EntryProcedure();
 
 	/**
+	 * Returns the meta object for the container reference '{@link model.State#getStateMachine <em>State Machine</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>State Machine</em>'.
+	 * @see model.State#getStateMachine()
+	 * @see #getState()
+	 * @generated
+	 */
+	EReference getState_StateMachine();
+
+	/**
 	 * Returns the meta object for class '{@link model.Transition <em>Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4495,6 +4533,17 @@ public interface ModelPackage extends EPackage {
 	EClass getInitialState();
 
 	/**
+	 * Returns the meta object for the container reference '{@link model.InitialState#getStateMachine <em>State Machine</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>State Machine</em>'.
+	 * @see model.InitialState#getStateMachine()
+	 * @see #getInitialState()
+	 * @generated
+	 */
+	EReference getInitialState_StateMachine();
+
+	/**
 	 * Returns the meta object for class '{@link model.FinalState <em>Final State</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4503,6 +4552,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFinalState();
+
+	/**
+	 * Returns the meta object for the container reference '{@link model.FinalState#getStateMachine <em>State Machine</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>State Machine</em>'.
+	 * @see model.FinalState#getStateMachine()
+	 * @see #getFinalState()
+	 * @generated
+	 */
+	EReference getFinalState_StateMachine();
 
 	/**
 	 * Returns the meta object for class '{@link model.Stately <em>Stately</em>}'.
@@ -5902,6 +5962,14 @@ public interface ModelPackage extends EPackage {
 		EReference STATE__ENTRY_PROCEDURE = eINSTANCE.getState_EntryProcedure();
 
 		/**
+		 * The meta object literal for the '<em><b>State Machine</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE__STATE_MACHINE = eINSTANCE.getState_StateMachine();
+
+		/**
 		 * The meta object literal for the '{@link model.impl.TransitionImpl <em>Transition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5964,6 +6032,14 @@ public interface ModelPackage extends EPackage {
 		EClass INITIAL_STATE = eINSTANCE.getInitialState();
 
 		/**
+		 * The meta object literal for the '<em><b>State Machine</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INITIAL_STATE__STATE_MACHINE = eINSTANCE.getInitialState_StateMachine();
+
+		/**
 		 * The meta object literal for the '{@link model.impl.FinalStateImpl <em>Final State</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5972,6 +6048,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FINAL_STATE = eINSTANCE.getFinalState();
+
+		/**
+		 * The meta object literal for the '<em><b>State Machine</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FINAL_STATE__STATE_MACHINE = eINSTANCE.getFinalState_StateMachine();
 
 		/**
 		 * The meta object literal for the '{@link model.Stately <em>Stately</em>}' class.

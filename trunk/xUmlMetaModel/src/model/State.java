@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: State.java,v 1.4 2008/06/11 07:28:40 dxm Exp $
+ * $Id: State.java,v 1.5 2008/06/25 06:33:24 dxm Exp $
  */
 package model;
 
@@ -16,6 +16,7 @@ package model;
  * The following features are supported:
  * <ul>
  *   <li>{@link model.State#getEntryProcedure <em>Entry Procedure</em>}</li>
+ *   <li>{@link model.State#getStateMachine <em>State Machine</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,5 +50,33 @@ public interface State extends ToState, FromState {
 	 * @generated
 	 */
 	void setEntryProcedure(Procedure value);
+
+	/**
+	 * Returns the value of the '<em><b>State Machine</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link model.StateMachine#getState <em>State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>State Machine</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>State Machine</em>' container reference.
+	 * @see #setStateMachine(StateMachine)
+	 * @see model.ModelPackage#getState_StateMachine()
+	 * @see model.StateMachine#getState
+	 * @model opposite="state" required="true" transient="false"
+	 * @generated
+	 */
+	StateMachine getStateMachine();
+
+	/**
+	 * Sets the value of the '{@link model.State#getStateMachine <em>State Machine</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>State Machine</em>' container reference.
+	 * @see #getStateMachine()
+	 * @generated
+	 */
+	void setStateMachine(StateMachine value);
 
 } // State

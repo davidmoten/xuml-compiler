@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: StateMachineImpl.java,v 1.4 2008/06/11 07:28:45 dxm Exp $
+ * $Id: StateMachineImpl.java,v 1.5 2008/06/25 06:33:24 dxm Exp $
  */
 package model.impl;
 
@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -181,9 +182,9 @@ public class StateMachineImpl extends EObjectImpl implements StateMachine {
 		if (newInitialState != initialState) {
 			NotificationChain msgs = null;
 			if (initialState != null)
-				msgs = ((InternalEObject)initialState).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STATE_MACHINE__INITIAL_STATE, null, msgs);
+				msgs = ((InternalEObject)initialState).eInverseRemove(this, ModelPackage.INITIAL_STATE__STATE_MACHINE, InitialState.class, msgs);
 			if (newInitialState != null)
-				msgs = ((InternalEObject)newInitialState).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STATE_MACHINE__INITIAL_STATE, null, msgs);
+				msgs = ((InternalEObject)newInitialState).eInverseAdd(this, ModelPackage.INITIAL_STATE__STATE_MACHINE, InitialState.class, msgs);
 			msgs = basicSetInitialState(newInitialState, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -198,7 +199,7 @@ public class StateMachineImpl extends EObjectImpl implements StateMachine {
 	 */
 	public EList<State> getState() {
 		if (state == null) {
-			state = new EObjectContainmentEList<State>(State.class, this, ModelPackage.STATE_MACHINE__STATE);
+			state = new EObjectContainmentWithInverseEList<State>(State.class, this, ModelPackage.STATE_MACHINE__STATE, ModelPackage.STATE__STATE_MACHINE);
 		}
 		return state;
 	}
@@ -236,9 +237,9 @@ public class StateMachineImpl extends EObjectImpl implements StateMachine {
 		if (newFinalState != finalState) {
 			NotificationChain msgs = null;
 			if (finalState != null)
-				msgs = ((InternalEObject)finalState).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STATE_MACHINE__FINAL_STATE, null, msgs);
+				msgs = ((InternalEObject)finalState).eInverseRemove(this, ModelPackage.FINAL_STATE__STATE_MACHINE, FinalState.class, msgs);
 			if (newFinalState != null)
-				msgs = ((InternalEObject)newFinalState).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STATE_MACHINE__FINAL_STATE, null, msgs);
+				msgs = ((InternalEObject)newFinalState).eInverseAdd(this, ModelPackage.FINAL_STATE__STATE_MACHINE, FinalState.class, msgs);
 			msgs = basicSetFinalState(newFinalState, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -263,6 +264,7 @@ public class StateMachineImpl extends EObjectImpl implements StateMachine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -270,6 +272,16 @@ public class StateMachineImpl extends EObjectImpl implements StateMachine {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetClass((model.Class)otherEnd, msgs);
+			case ModelPackage.STATE_MACHINE__INITIAL_STATE:
+				if (initialState != null)
+					msgs = ((InternalEObject)initialState).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STATE_MACHINE__INITIAL_STATE, null, msgs);
+				return basicSetInitialState((InitialState)otherEnd, msgs);
+			case ModelPackage.STATE_MACHINE__STATE:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getState()).basicAdd(otherEnd, msgs);
+			case ModelPackage.STATE_MACHINE__FINAL_STATE:
+				if (finalState != null)
+					msgs = ((InternalEObject)finalState).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.STATE_MACHINE__FINAL_STATE, null, msgs);
+				return basicSetFinalState((FinalState)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}

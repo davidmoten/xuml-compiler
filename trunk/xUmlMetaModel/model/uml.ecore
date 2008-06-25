@@ -253,6 +253,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="State" eSuperTypes="#//ToState #//FromState">
     <eStructuralFeatures xsi:type="ecore:EReference" name="entryProcedure" eType="#//Procedure"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" lowerBound="1"
+        eType="#//StateMachine" eOpposite="#//StateMachine/state"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//Named">
     <eStructuralFeatures xsi:type="ecore:EReference" name="event" lowerBound="1" eType="#//Event"
@@ -266,19 +268,25 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="action" lowerBound="1"
         eType="#//ActionLanguage" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InitialState" eSuperTypes="#//FromState"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FinalState" eSuperTypes="#//ToState"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InitialState" eSuperTypes="#//FromState">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" lowerBound="1"
+        eType="#//StateMachine" eOpposite="#//StateMachine/initialState"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FinalState" eSuperTypes="#//ToState">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" lowerBound="1"
+        eType="#//StateMachine" eOpposite="#//StateMachine/finalState"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Stately" abstract="true" interface="true"
       eSuperTypes="#//Named"/>
   <eClassifiers xsi:type="ecore:EClass" name="StateMachine">
     <eStructuralFeatures xsi:type="ecore:EReference" name="class" lowerBound="1" eType="#//Class"
         eOpposite="#//Class/stateMachine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialState" lowerBound="1"
-        eType="#//InitialState" containment="true"/>
+        eType="#//InitialState" containment="true" eOpposite="#//InitialState/stateMachine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" upperBound="-1"
-        eType="#//State" containment="true"/>
+        eType="#//State" containment="true" eOpposite="#//State/stateMachine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="finalState" eType="#//FinalState"
-        containment="true"/>
+        containment="true" eOpposite="#//FinalState/stateMachine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="event" upperBound="-1"
         eType="#//Event" containment="true"/>
   </eClassifiers>
