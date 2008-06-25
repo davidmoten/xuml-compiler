@@ -4,7 +4,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 
@@ -17,6 +19,7 @@ public class TransitionLayer extends JPanel {
 
 	private SystemViewer systemViewer;
 	private Class cls;
+	private Map<Point, List<String>> pointStrings = new HashMap<Point, List<String>>();
 
 	public TransitionLayer(SystemViewer systemViewer, Class cls) {
 		this.systemViewer = systemViewer;
@@ -26,10 +29,20 @@ public class TransitionLayer extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
+		pointStrings.clear();
+		g.setFont(g.getFont().deriveFont(10f));
 		for (Stately stately : cls.getStateMachine().getState()) {
 			paintTransitionsTo(g, stately);
 		}
 		paintTransitionsTo(g, cls.getStateMachine().getFinalState());
+		for (Point p : pointStrings.keySet()) {
+			int i = 0;
+			for (String line : pointStrings.get(p)) {
+				g.drawString(line, p.x + 5, p.y + i
+						* g.getFontMetrics().getHeight());
+				i++;
+			}
+		}
 	}
 
 	private void paintTransitionsTo(Graphics g, Stately stately) {
@@ -42,7 +55,9 @@ public class TransitionLayer extends JPanel {
 					stately).getBounds());
 			g.drawLine(p1.x, p1.y, p2.x, p2.y);
 			Point centre = getCentre(p1, p2);
-			g.drawString(transition.getName(), centre.x, centre.y);
+			if (pointStrings.get(centre) == null)
+				pointStrings.put(centre, new ArrayList<String>());
+			pointStrings.get(centre).add(transition.getEvent().getName());
 		}
 	}
 

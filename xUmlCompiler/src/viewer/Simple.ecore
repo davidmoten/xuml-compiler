@@ -8,4 +8,8 @@
   <element x="362" y="50" name="class.Email"/>
   <element x="273" y="49" name="label.Class Email Association R1 Verb Clause" fixedTo="//@element[name='class.Email']"/>
   <element x="350" y="78" name="label.Class Email Association R1 Multiplicity" fixedTo="//@element[name='class.Email']"/>
+  <element x="114" y="210" name="class.Customer.state.FinalState"/>
+  <element x="101" y="17" name="class.Customer.state.InitialState"/>
+  <element x="31" y="124" name="class.Customer.state.Inactive"/>
+  <element x="225" y="124" name="class.Customer.state.Active"/>
 </view:View>

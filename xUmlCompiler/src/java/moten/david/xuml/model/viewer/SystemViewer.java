@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -36,6 +37,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import model.FinalState;
+import model.InitialState;
 import model.Package;
 import model.State;
 import model.Stately;
@@ -113,12 +116,35 @@ public class SystemViewer {
 		return null;
 	}
 
+	private Element getElement(View view, StateComponent c) {
+		for (Element e : view.getElement()) {
+			if (getElementName(c).equals(e.getName()))
+				return e;
+		}
+		return null;
+	}
+
 	private String getElementName(ClassComponent c) {
 		return "class." + c.getClass_().getName();
 	}
 
 	private String getElementName(MyLabel label) {
 		return "label." + label.getKey();
+	}
+
+	private String getElementName(StateComponent c) {
+		String className = null;
+		if (c.getStately() instanceof InitialState)
+			className = ((InitialState) c.getStately()).getStateMachine()
+					.getClass_().getName();
+		else if (c.getStately() instanceof FinalState)
+			className = ((FinalState) c.getStately()).getStateMachine()
+					.getClass_().getName();
+		else if (c.getStately() instanceof State)
+			className = ((State) c.getStately()).getStateMachine().getClass_()
+					.getName();
+
+		return "class." + className + ".state." + c.getStately().getName();
 	}
 
 	public void save(JFrame frame) {
@@ -138,6 +164,16 @@ public class SystemViewer {
 				view.getElement().add(e);
 			}
 		}
+
+		for (Stately stately : statelyComponents.keySet()) {
+			Element element = ViewFactory.eINSTANCE.createElement();
+			StateComponent c = statelyComponents.get(stately);
+			element.setX(c.getX());
+			element.setY(c.getY());
+			element.setName(getElementName(c));
+			view.getElement().add(element);
+		}
+
 		Frame f = ViewFactory.eINSTANCE.createFrame();
 		f.setX(frame.getX());
 		f.setY(frame.getY());
@@ -248,6 +284,15 @@ public class SystemViewer {
 						label.setLocation(e.getX(), e.getY());
 					}
 				}
+			}
+		}
+		for (Stately stately : statelyComponents.keySet()) {
+			StateComponent c = statelyComponents.get(stately);
+			Element element = getElement(view, c);
+			if (element == null)
+				locateRandomly(c);
+			else {
+				c.setLocation(element.getX(), element.getY());
 			}
 		}
 		frame.setLocation(view.getFrame().getX(), view.getFrame().getY());
@@ -365,9 +410,11 @@ public class SystemViewer {
 			public void run() {
 				try {
 					final JFrame frame = new JFrame();
-					frame.setTitle("Class Diagram");
+					frame.setTitle("xUmlCompiler");
 					frame.setSize(500, 500);
 					frame.getContentPane().setLayout(new GridLayout(1, 1));
+					frame.setIconImage(new ImageIcon(SystemViewer.class
+							.getResource("viewer.gif")).getImage());
 					JTabbedPane tabs = new JTabbedPane();
 					JScrollPane scroll = new JScrollPane(systemPanel);
 					scroll.setWheelScrollingEnabled(true);
@@ -482,15 +529,15 @@ public class SystemViewer {
 		this.zoomable = zoomable;
 	}
 
+	public Map<Stately, StateComponent> getStatelyComponents() {
+		return statelyComponents;
+	}
+
 	public static void main(String[] args) throws NumberFormatException,
 			IOException {
 		SystemViewer viewer = new SystemViewer(new Bookstore().getSystem(),
 				"src/viewer/Bookstore.ecore");
 		viewer.showViewer();
-	}
-
-	public Map<Stately, StateComponent> getStatelyComponents() {
-		return statelyComponents;
 	}
 
 }
