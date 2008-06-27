@@ -33,6 +33,7 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/sampleViewe
   * The _Executable UML_ approach encourages separation of concerns. 
   * Processing of synchronous and asynchronous events defined in state machines is handled by generated code. 
   * Finder methods are provided for all groups of attributes that are part of identifiers or associations, or indexes (an architectural option)
+  * automatically generated system documentation (in the style of _Executable UML_)
 
 ==Guide==
 Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
