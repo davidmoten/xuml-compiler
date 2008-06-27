@@ -5,4 +5,4 @@
   * junit tests for Specialization
   * more junit tests for multiplicity combinations
   * investigate @Asynchronous annotation in EJB 3.1
-  * some architectural elements are specified in the model at the moment such as schema names, table names, column names, indexes. Refactor the architectural elements out.
+  * some architectural elements are specified in the model at the moment such as schema names, table names, column names, role names, indexes. Refactor the architectural elements out.
