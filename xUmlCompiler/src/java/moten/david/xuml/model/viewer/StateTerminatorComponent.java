@@ -10,6 +10,7 @@ import model.Stately;
 
 public class StateTerminatorComponent extends StateComponent {
 
+	private static final long serialVersionUID = -371185281464336368L;
 	private static int baseSize = 14;
 	private static int gap = 3;
 	private static int ringWidth = 1;
