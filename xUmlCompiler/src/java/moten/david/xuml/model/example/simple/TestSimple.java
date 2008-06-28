@@ -14,6 +14,7 @@ import simple.ObjectFactory;
 import simple.ObjectInjector;
 import simple.Customer.EventActivate;
 import simple.Customer.EventAddEmail;
+import simple.Customer.EventNewCustomer;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -47,7 +48,9 @@ public class TestSimple {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		em.getTransaction().begin();
 		Customer c = ObjectFactory.instance.createCustomer();
-		c.setName("Fred");
+		EventNewCustomer newCustomer = new EventNewCustomer();
+		newCustomer.setName("Fred");
+		c.processEvent(newCustomer);
 		em.persist(c);
 		em.getTransaction().commit();
 		em.close();

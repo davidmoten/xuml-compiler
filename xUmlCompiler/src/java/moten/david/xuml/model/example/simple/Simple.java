@@ -39,6 +39,8 @@ public class Simple extends SystemBase {
 		createAttribute(customer, "name").setUnique(true);
 		State inactive = createState(customer, "Inactive");
 		State active = createState(customer, "Active");
+		CallEvent newCustomer = createCallEvent(customer, "newCustomer");
+		createParameter(newCustomer, "name");
 		CallEvent activate = createCallEvent(customer, "activate");
 		CallEvent deactivate = createCallEvent(customer, "deactivate");
 		CallEvent addEmail = createCallEvent(customer, "addEmail");
@@ -46,10 +48,8 @@ public class Simple extends SystemBase {
 		createTransition(inactive, active, activate);
 		createTransition(active, inactive, deactivate);
 		createTransition(active, active, addEmail);
-		createTransition(customer.getStateMachine().getInitialState(), active,
-				activate);
 		createTransition(customer.getStateMachine().getInitialState(),
-				inactive, deactivate);
+				inactive, newCustomer);
 		CallEvent remove = createCallEvent(customer, "remove");
 		createTransition(inactive, customer.getStateMachine().getFinalState(),
 				remove);
