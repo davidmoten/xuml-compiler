@@ -231,6 +231,17 @@ public class Compiler {
 				interfacePackageExtension, cls.getName());
 		writeJavaMap(map, cls.getPackage(), "actions.ftl",
 				actionsPackageExtension, cls.getName() + "Actions");
+		File wwwDirectory = new File(outputDirectory, "www");
+		if (!wwwDirectory.exists())
+			wwwDirectory.mkdir();
+		FileOutputStream fos = new FileOutputStream(new File(wwwDirectory,
+				"update" + cls.getName() + ".jsp"));
+		write(map, "jsp-update.ftl", fos);
+		fos.close();
+		fos = new FileOutputStream(new File(wwwDirectory, "list"
+				+ cls.getName() + ".jsp"));
+		write(map, "jsp-list.ftl", fos);
+		fos.close();
 	}
 
 	private void writeJavaMap(KeyMap map, model.Package pkg,
