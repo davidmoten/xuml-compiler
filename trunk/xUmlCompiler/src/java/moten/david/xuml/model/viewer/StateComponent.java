@@ -4,13 +4,17 @@ import java.awt.Color;
 
 import model.Stately;
 
-public class StateComponent extends Container {
+public class StateComponent extends ContainerComponent {
+
+	private static final long serialVersionUID = -5653976830392378975L;
 
 	private Stately stately;
 
 	public StateComponent(Stately stately) {
-		super(Color.white, true, new String[] { stately.getName()
-				+ Container.BOLD + Container.CENTRE });
+		super(Color.white, true, new String[] {
+				" ",
+				stately.getName() + ContainerComponent.BOLD
+						+ ContainerComponent.CENTRE, "" });
 		this.stately = stately;
 		Movable.makeMovable(this);
 	}

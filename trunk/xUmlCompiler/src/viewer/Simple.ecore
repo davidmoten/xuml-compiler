@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/view http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore">
-  <frame width="637" height="382" x="388" y="260"/>
+  <frame width="637" height="409" x="388" y="260"/>
   <viewport width="1" height="1"/>
   <element x="35" y="30" name="class.Customer"/>
-  <element x="148" y="77" name="label.Class Customer Association R1 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
-  <element x="146" y="50" name="label.Class Customer Association R1 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
-  <element x="362" y="50" name="class.Email"/>
-  <element x="273" y="49" name="label.Class Email Association R1 Verb Clause" fixedTo="//@element[name='class.Email']"/>
-  <element x="350" y="78" name="label.Class Email Association R1 Multiplicity" fixedTo="//@element[name='class.Email']"/>
-  <element x="114" y="210" name="class.Customer.state.FinalState"/>
-  <element x="101" y="17" name="class.Customer.state.InitialState"/>
+  <element x="148" y="84" name="label.Class Customer Association R1 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
+  <element x="144" y="56" name="label.Class Customer Association R1 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
+  <element x="361" y="57" name="class.Email"/>
+  <element x="349" y="81" name="label.Class Email Association R1 Multiplicity" fixedTo="//@element[name='class.Email']"/>
+  <element x="273" y="55" name="label.Class Email Association R1 Verb Clause" fixedTo="//@element[name='class.Email']"/>
+  <element x="174" y="21" name="class.Customer.state.InitialState"/>
+  <element x="159" y="254" name="class.Customer.state.FinalState"/>
+  <element x="238" y="124" name="class.Customer.state.Active"/>
   <element x="31" y="124" name="class.Customer.state.Inactive"/>
-  <element x="225" y="124" name="class.Customer.state.Active"/>
 </view:View>

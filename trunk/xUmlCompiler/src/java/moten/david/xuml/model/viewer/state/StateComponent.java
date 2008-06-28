@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.State;
-import moten.david.xuml.model.viewer.Container;
+import moten.david.xuml.model.viewer.ContainerComponent;
 import moten.david.xuml.model.viewer.Movable;
 
-public class StateComponent extends Container {
+public class StateComponent extends ContainerComponent {
 
 	private static final long serialVersionUID = -1185107452366560789L;
 	private final State state;
