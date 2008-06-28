@@ -7,7 +7,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +16,7 @@ import javax.swing.JPanel;
 import model.AssociationEndPrimary;
 import model.Specialization;
 import model.SpecializationGroup;
+import moten.david.util.swing.ComponentUtil;
 
 public class JoinLayer extends JPanel {
 
@@ -61,10 +61,10 @@ public class JoinLayer extends JPanel {
 	private void joinComponents(Graphics g, Set<Point> usedPoints,
 			SystemViewer viewer, SpecializationGroup group,
 			ClassComponent superComponent) {
-		Point[] points = getBestJoin(usedPoints, superComponent, viewer
-				.getClassComponent(group.getSpecialization().get(0)));
+		Point[] points = ComponentUtil.getBestJoin(usedPoints, superComponent,
+				viewer.getClassComponent(group.getSpecialization().get(0)));
 		Point p1 = points[0];
-		Point p2 = points[1];
+		// Point p2 = points[1];
 		Graphics2D g2d = (Graphics2D) g;
 
 		Point joinPoint;
@@ -85,7 +85,7 @@ public class JoinLayer extends JPanel {
 		}
 		int arrowDepth = 10;
 		int arrowSide = 6;
-		double length = getDistance(p1, joinPoint);
+		double length = ComponentUtil.getDistance(p1, joinPoint);
 		double xFactor = (joinPoint.x - p1.x) / length;
 		double yFactor = (joinPoint.y - p1.y) / length;
 		double theta = Math.atan2(joinPoint.x - p1.x, joinPoint.y - p1.y);
@@ -107,13 +107,13 @@ public class JoinLayer extends JPanel {
 	private Point getBestJoin(Set<Point> usedPoints, Component component,
 			Point p) {
 		Double shortestDistance = null;
-		Point[] points = getPoints(component);
-		Point centre = getCentre(component.getBounds());
+		Point[] points = ComponentUtil.getPoints(component);
+		Point centre = ComponentUtil.getCentre(component.getBounds());
 		Point bestPoint = null;
 		for (Point point : points) {
 			if (!usedPoints.contains(point)) {
-				double distance = getDistance(point, p)
-						+ getDistance(point, centre);
+				double distance = ComponentUtil.getDistance(point, p)
+						+ ComponentUtil.getDistance(point, centre);
 				if (shortestDistance == null || distance < shortestDistance) {
 					shortestDistance = distance;
 					bestPoint = point;
@@ -124,66 +124,17 @@ public class JoinLayer extends JPanel {
 		return bestPoint;
 	}
 
-	private Point[] getBestJoin(Set<Point> usedPoints, Component aComponent,
-			Component bComponent) {
-
-		Point[] aPoints = getPoints(aComponent);
-		Point[] bPoints = getPoints(bComponent);
-		Double shortestDistance = null;
-		Point centreA = getCentre(aComponent.getBounds());
-		Point centreB = getCentre(bComponent.getBounds());
-		Point bestA = null;
-		Point bestB = null;
-		for (Point a : aPoints) {
-			for (Point b : bPoints) {
-				if (!usedPoints.contains(a) && !usedPoints.contains(b)
-						&& !a.equals(b)) {
-					double distance = getDistance(a, b)
-							+ getDistance(a, centreA) + getDistance(b, centreB);
-					if (shortestDistance == null || distance < shortestDistance) {
-						shortestDistance = distance;
-						bestA = a;
-						bestB = b;
-					}
-				}
-			}
-		}
-		usedPoints.add(bestA);
-		usedPoints.add(bestB);
-		return new Point[] { bestA, bestB };
-	}
-
-	private static double getDistance(Point a, Point b) {
-		return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
-	}
-
-	private Point[] getPoints(Component c) {
-		int numPoints = 4;
-		Point[] points = new Point[4 * numPoints];
-		for (int i = 0; i < numPoints; i++) {
-			points[i] = new Point(c.getX() + i * c.getWidth() / numPoints, c
-					.getY());
-			points[numPoints + i] = new Point(c.getX() + i * c.getWidth()
-					/ numPoints, c.getY() + c.getHeight());
-			points[2 * numPoints + i] = new Point(c.getX(), c.getY() + i
-					* c.getHeight() / numPoints);
-			points[3 * numPoints + i] = new Point(c.getX() + c.getWidth(), c
-					.getY()
-					+ i * c.getHeight() / numPoints);
-		}
-		return points;
-	}
-
 	private void joinComponents(Graphics g, Set<Point> usedPoints,
 			ClassComponent superComponent, ClassComponent subComponent) {
-		Point[] points = getBestJoin(usedPoints, superComponent, subComponent);
+		Point[] points = ComponentUtil.getBestJoin(usedPoints, superComponent,
+				subComponent);
 		Point p1 = points[0];
 		Point p2 = points[1];
 		Graphics2D g2d = (Graphics2D) g;
 
 		int arrowDepth = 10;
 		int arrowSide = 6;
-		double length = getDistance(p1, p2);
+		double length = ComponentUtil.getDistance(p1, p2);
 		double xFactor = (p2.x - p1.x) / length;
 		double yFactor = (p2.y - p1.y) / length;
 		double theta = Math.atan2(p2.x - p1.x, p2.y - p1.y);
@@ -206,28 +157,28 @@ public class JoinLayer extends JPanel {
 	private void joinComponents(Graphics g, Set<Point> usedPoints,
 			ClassComponent c1, ClassComponent c2, String label,
 			ClassComponent joinToCentre) {
-		Point p1 = getCentre(c1.getBounds());
-		Point p2 = getCentre(c2.getBounds());
-		Point[] points = getBestJoin(usedPoints, c1, c2);
+		Point p1 = ComponentUtil.getCentre(c1.getBounds());
+		Point p2 = ComponentUtil.getCentre(c2.getBounds());
+		Point[] points = ComponentUtil.getBestJoin(usedPoints, c1, c2);
 		p1 = points[0];
 		p2 = points[1];
 		Graphics2D g2d = (Graphics2D) g;
 		if (c1 == c2) {
-			Point centre = getCentre(p1, p2);
-			double dist = getDistance(centre, p1);
+			Point centre = ComponentUtil.getCentre(p1, p2);
+			double dist = ComponentUtil.getDistance(centre, p1);
 			g2d.drawOval(centre.x - (int) dist * 3 / 2, centre.y - (int) dist
 					* 3 / 2, 3 * (int) dist, 3 * (int) dist);
 		} else
 			g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
 		if (joinToCentre != null) {
-			Point centre = getCentre(p1, p2);
-			Point other = getCentre(joinToCentre.getBounds());
+			Point centre = ComponentUtil.getCentre(p1, p2);
+			Point other = ComponentUtil.getCentre(joinToCentre.getBounds());
 			Stroke stroke = g2d.getStroke();
 			g2d.setStroke(STROKE_THIN_DASHED);
 			g2d.drawLine(centre.x, centre.y, other.x, other.y);
 			g2d.setStroke(stroke);
 		}
-		Point p3 = getCentre(p1, p2);
+		Point p3 = ComponentUtil.getCentre(p1, p2);
 		g2d.setFont(g.getFont().deriveFont(10f));
 
 		int width = g2d.getFontMetrics().stringWidth(label);
@@ -262,17 +213,5 @@ public class JoinLayer extends JPanel {
 	// private static Point getCentre(Component c) {
 	// return getCentre(c.getBounds());
 	// }
-
-	private static Point getCentre(Rectangle r) {
-		Point p = new Point();
-		p.x = r.x + r.width / 2;
-		p.y = r.y + r.height / 2;
-		return p;
-	}
-
-	private static Point getCentre(Point p1, Point p2) {
-		Point p = new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
-		return p;
-	}
 
 }

@@ -20,7 +20,7 @@ import moten.david.xuml.model.Multiplicity;
 import moten.david.xuml.model.compiler.util.StringUtil;
 import moten.david.xuml.model.util.ModelUtil;
 
-public class ClassComponent extends Container {
+public class ClassComponent extends ContainerComponent {
 
 	private static final long serialVersionUID = -1185107452366560789L;
 	private final model.Class cls;
@@ -36,10 +36,10 @@ public class ClassComponent extends Container {
 	public static List<String> getLines(model.Class cls) {
 		List<String> lines = new ArrayList<String>();
 		if (cls.getPersistence() == null) {
-			lines.add("<<DataType>>" + Container.CENTRE);
+			lines.add("<<DataType>>" + ContainerComponent.CENTRE);
 		}
-		lines.add(cls.getName() + Container.BOLD + Container.CENTRE);
-		lines.add(Container.SEPARATOR);
+		lines.add(cls.getName() + ContainerComponent.BOLD + ContainerComponent.CENTRE);
+		lines.add(ContainerComponent.SEPARATOR);
 		for (Attribute a : cls.getAttribute()) {
 			String line = "  " + a.getName() + ":  " + a.getType().getName()
 					+ " ";
@@ -74,7 +74,7 @@ public class ClassComponent extends Container {
 			lines.add(line);
 		}
 		if (cls.getOperation().size() > 0)
-			lines.add(Container.SEPARATOR);
+			lines.add(ContainerComponent.SEPARATOR);
 		for (Operation o : cls.getOperation()) {
 			StringBuffer s = new StringBuffer();
 			s.append(o.getName() + "(");
@@ -101,9 +101,9 @@ public class ClassComponent extends Container {
 		}
 		if (cls.getStateMachine() != null) {
 			if (cls.getStateMachine().getEvent().size() > 0)
-				lines.add(Container.SEPARATOR);
+				lines.add(ContainerComponent.SEPARATOR);
 			for (Event event : cls.getStateMachine().getEvent()) {
-				lines.add("  " + event.getName() + Container.ITALIC);
+				lines.add("  " + event.getName() + ContainerComponent.ITALIC);
 			}
 		}
 		return lines;

@@ -73,10 +73,6 @@ public class SystemViewer {
 	private final Map<model.Class, JPanel> stateMachinePanels = new HashMap<model.Class, JPanel>();
 	private final Map<Stately, StateComponent> statelyComponents = new HashMap<Stately, StateComponent>();
 
-	private enum DiagramType {
-		CLASS_DIAGRAM, STATE_MACHINE_DIAGRAM
-	}
-
 	public SystemViewer(model.System system, String settingsFilename) {
 		systemPanel.setLayout(null);
 		systemPanel.setBackground(Color.white);
@@ -345,10 +341,10 @@ public class SystemViewer {
 				panel.setLayout(null);
 				for (State state : cls.getStateMachine().getState())
 					createStatelyComponent(state, panel);
-				createStatelyComponent(cls.getStateMachine().getInitialState(),
-						panel);
-				createStatelyComponent(cls.getStateMachine().getFinalState(),
-						panel);
+				createInitialStatelyComponent(cls.getStateMachine()
+						.getInitialState(), panel);
+				createFinalStatelyComponent(cls.getStateMachine()
+						.getFinalState(), panel);
 				stateMachinePanels.put(cls, panel);
 				Component transitions = new TransitionLayer(this, cls);
 				transitions.setLocation(0, 0);
@@ -365,6 +361,22 @@ public class SystemViewer {
 		if (state == null)
 			return;
 		StateComponent c = new StateComponent(state);
+		panel.add(c);
+		statelyComponents.put(state, c);
+	}
+
+	private void createInitialStatelyComponent(InitialState state, JPanel panel) {
+		if (state == null)
+			return;
+		StateTerminatorComponent c = new StateTerminatorComponent(state, true);
+		panel.add(c);
+		statelyComponents.put(state, c);
+	}
+
+	private void createFinalStatelyComponent(FinalState state, JPanel panel) {
+		if (state == null)
+			return;
+		StateTerminatorComponent c = new StateTerminatorComponent(state, false);
 		panel.add(c);
 		statelyComponents.put(state, c);
 	}
