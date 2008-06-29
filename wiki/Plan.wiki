@@ -1,6 +1,6 @@
 #summary Project Plan
 
-  * create a State Machine Viewer
+  * create a State Machine Viewer (done 29 June 2008).
   * use `ImportContext` in template files to collate the import declarations
   * junit tests for Specialization
   * more junit tests for multiplicity combinations
