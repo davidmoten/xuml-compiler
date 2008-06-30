@@ -61,6 +61,7 @@ Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
 || ||Referential Attribute||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Derived Attribute||||
 || ||Derived Identifier||||
+|| ||Diagram||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 ||State||
 || ||Call Event||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Signal Event||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
@@ -69,6 +70,7 @@ Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
 || ||Reclassification|| ||
 || ||State Transition Table||||
 || ||Signals to External Entities||||
+|| ||Diagram||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 ||Association|| 
 || ||Name||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Description||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
