@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,6 +37,9 @@ public class JoinLayer extends JPanel {
 
 	@Override
 	public void paint(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		super.paint(g);
 		Set<Point> usedPoints = new HashSet<Point>();
 		for (ClassComponent cc : viewer.getClassComponents()) {
