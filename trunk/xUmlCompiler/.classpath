@@ -43,6 +43,9 @@
 	<classpathentry kind="lib" path="temp/dependencies/org.eclipse.emf.ecore_2.4.0.v200804012208.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/persistence-api-1.0.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/hsqldb-1.8.0.7.jar"/>
+	<classpathentry kind="lib" path="temp/dependencies/filters-2.0.235.jar"/>
+	<classpathentry kind="lib" path="temp/dependencies/swing-worker-1.1.jar"/>
+	<classpathentry kind="lib" path="temp/dependencies/swingx-0.9.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/xUmlMetaModel"/>
 	<classpathentry kind="output" path="bin"/>
