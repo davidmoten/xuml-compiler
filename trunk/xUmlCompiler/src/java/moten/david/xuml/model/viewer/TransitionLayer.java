@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -33,8 +34,11 @@ public class TransitionLayer extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		Set<Point> usedPoints = new HashSet<Point>();
-		g.setFont(g.getFont().deriveFont(10f));
+		g2.setFont(g.getFont().deriveFont(10f));
 		for (Stately stately : cls.getStateMachine().getState()) {
 			paintTransitionsTo(g, usedPoints, stately);
 		}
@@ -99,7 +103,7 @@ public class TransitionLayer extends JPanel {
 							+ descent);
 					g.setColor(foreground);
 				}
-				g.drawString(label, labelX, labelY);
+				g2d.drawString(label, labelX, labelY);
 			}
 		}
 	}

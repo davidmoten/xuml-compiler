@@ -179,7 +179,9 @@
 			<dependency groupId="hsqldb"
 			            artifactId="hsqldb"
 			            version="1.8.0.7" />
-
+			<dependency groupId="org.swinglabs"
+						artifactId="swingx"
+						version="0.9.2"/>
 			<!-- perform a bit of trickery here as maven and osgi versions
 			 are ordered differently, consequently we have to override 
 			 some of the dependencies -->

@@ -10,8 +10,8 @@ public class StateComponent extends ContainerComponent {
 
 	private Stately stately;
 
-	public StateComponent(Stately stately) {
-		super(Color.white, true, new String[] {
+	public StateComponent(Stately stately, Color backgroundColor) {
+		super(backgroundColor, true, new String[] {
 				" ",
 				stately.getName() + ContainerComponent.BOLD
 						+ ContainerComponent.CENTRE, "" });

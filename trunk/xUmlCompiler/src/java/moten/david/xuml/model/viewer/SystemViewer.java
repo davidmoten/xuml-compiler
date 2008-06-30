@@ -22,6 +22,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,20 +66,22 @@ public class SystemViewer {
 	private static final String SETTINGS_EXTENSION = "ecore";
 	private static Logger log = Logger.getLogger(SystemViewer.class);
 	private static final long serialVersionUID = 4180699653224602583L;
+	public static Color backgroundColor = Color.white;
 	private final List<ClassComponent> components = new ArrayList<ClassComponent>();
 
 	private Zoomable zoomable;
 	private final String settingsFilename;
-	private final JPanel systemPanel = new SystemPanel();
+	private final JPanel systemPanel;
 	private final Map<model.Class, JPanel> stateMachinePanels = new HashMap<model.Class, JPanel>();
 	private final Map<Stately, StateComponent> statelyComponents = new HashMap<Stately, StateComponent>();
 
 	public SystemViewer(model.System system, String settingsFilename) {
+		systemPanel = new JPanel();
 		systemPanel.setLayout(null);
-		systemPanel.setBackground(Color.white);
 		this.settingsFilename = settingsFilename;
 		createComponents(system);
 		Component joinLayer = new JoinLayer(this);
+		joinLayer.setBackground(backgroundColor);
 		joinLayer.setLocation(0, 0);
 		joinLayer.setSize(10000, 10000);
 		systemPanel.add(joinLayer);
@@ -97,10 +100,11 @@ public class SystemViewer {
 	}
 
 	private Element getElement(View view, ClassComponent c) {
-		for (Element e : view.getElement()) {
-			if (getElementName(c).equals(e.getName()))
-				return e;
-		}
+		if (view != null && view.getElement() != null)
+			for (Element e : view.getElement()) {
+				if (getElementName(c).equals(e.getName()))
+					return e;
+			}
 		return null;
 	}
 
@@ -222,6 +226,8 @@ public class SystemViewer {
 	public View load() {
 		try {
 			String filename = settingsFilename;
+			if (!new File(filename).exists())
+				return null;
 			// Register the XMI resource factory for the extension
 			Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 			Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -291,11 +297,17 @@ public class SystemViewer {
 				c.setLocation(element.getX(), element.getY());
 			}
 		}
-		frame.setLocation(view.getFrame().getX(), view.getFrame().getY());
-		frame.setSize(new Dimension(view.getFrame().getWidth(), view.getFrame()
-				.getHeight()));
-		systemPanel.setPreferredSize(new Dimension(view.getViewport()
-				.getWidth(), view.getViewport().getHeight()));
+		if (view == null) {
+			frame.setSize(new Dimension(800, 600));
+			systemPanel.setPreferredSize(new Dimension(750, 550));
+
+		} else {
+			frame.setLocation(view.getFrame().getX(), view.getFrame().getY());
+			frame.setSize(new Dimension(view.getFrame().getWidth(), view
+					.getFrame().getHeight()));
+			systemPanel.setPreferredSize(new Dimension(view.getViewport()
+					.getWidth(), view.getViewport().getHeight()));
+		}
 	}
 
 	private void createMenu() {
@@ -332,7 +344,8 @@ public class SystemViewer {
 
 	private void addClasses(Package pkg) {
 		for (model.Class cls : pkg.getClass_()) {
-			ClassComponent component = new ClassComponent(cls);
+			ClassComponent component = new ClassComponent(new Color(253, 255,
+					240), cls);
 			systemPanel.add(component);
 			components.add(component);
 			if (cls.getStateMachine() != null) {
@@ -349,6 +362,7 @@ public class SystemViewer {
 				Component transitions = new TransitionLayer(this, cls);
 				transitions.setLocation(0, 0);
 				transitions.setSize(10000, 10000);
+				transitions.setBackground(backgroundColor);
 				panel.add(transitions);
 			}
 		}
@@ -360,7 +374,7 @@ public class SystemViewer {
 	private void createStatelyComponent(Stately state, JPanel panel) {
 		if (state == null)
 			return;
-		StateComponent c = new StateComponent(state);
+		StateComponent c = new StateComponent(state, new Color(255, 235, 235));
 		panel.add(c);
 		statelyComponents.put(state, c);
 	}
@@ -368,7 +382,8 @@ public class SystemViewer {
 	private void createInitialStatelyComponent(InitialState state, JPanel panel) {
 		if (state == null)
 			return;
-		StateTerminatorComponent c = new StateTerminatorComponent(state, true);
+		StateTerminatorComponent c = new StateTerminatorComponent(state, true,
+				backgroundColor);
 		panel.add(c);
 		statelyComponents.put(state, c);
 	}
@@ -376,7 +391,8 @@ public class SystemViewer {
 	private void createFinalStatelyComponent(FinalState state, JPanel panel) {
 		if (state == null)
 			return;
-		StateTerminatorComponent c = new StateTerminatorComponent(state, false);
+		StateTerminatorComponent c = new StateTerminatorComponent(state, false,
+				backgroundColor);
 		panel.add(c);
 		statelyComponents.put(state, c);
 	}

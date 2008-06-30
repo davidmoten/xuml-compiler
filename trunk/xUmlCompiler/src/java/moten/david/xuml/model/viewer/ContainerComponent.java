@@ -5,11 +5,15 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+
+import org.jdesktop.swingx.border.DropShadowBorder;
 
 public class ContainerComponent extends JPanel {
 
@@ -23,6 +27,7 @@ public class ContainerComponent extends JPanel {
 	private static final int FONT_SIZE = 10;
 	private static int xOffset = 50;
 	private static int minHeight = 0;
+	private int borderSize = 7;
 
 	public ContainerComponent(Color backgroundColor, boolean hasBorder,
 			String... lines) {
@@ -85,9 +90,28 @@ public class ContainerComponent extends JPanel {
 		}
 		setLocation(xOffset, 20);
 
-		setSize(width + 4 * margin, Math.max(height + 2 * margin, minHeight));
+		setSize(width + 4 * margin + borderSize, Math.max(height + 2 * margin,
+				minHeight)
+				+ borderSize);
 		xOffset += 10;
-		if (hasBorder)
-			setBorder(BorderFactory.createLineBorder(Color.black));
+
+		// if (hasBorder)
+		// setBorder(BorderFactory.createLineBorder(Color.black));
+		if (hasBorder) {
+			DropShadowBorder border = new DropShadowBorder(Color.BLACK,
+					borderSize, 0.5f, borderSize, false, true, true, true);
+			setBorder(border);
+		}
 	}
+
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		if (getBorder() != null) {
+			Insets insets = getBorder().getBorderInsets(this);
+			g.drawRect(insets.left, insets.top, getWidth() - 2 * insets.right,
+					getHeight() - insets.bottom);
+		}
+	}
+
 }
