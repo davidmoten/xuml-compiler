@@ -6,7 +6,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <html>
 <% 
-	EntityManagerFactory emf = CtsInjector.getInjector().getInstance(EntityManagerFactory.class);
+	EntityManagerFactory emf = request.getAttribute("entityManagerFactory");
+	// CtsInjector.getInjector().getInstance(EntityManagerFactory.class);
 	EntityManager em = emf.createEntityManager();
 	int id = Integer.parseInt(request.getParameter("id"));
 	boolean update = "true".equals(request.getParameter("update"));
