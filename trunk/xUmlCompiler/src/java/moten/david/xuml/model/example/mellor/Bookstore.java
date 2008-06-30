@@ -110,9 +110,9 @@ public class Bookstore extends SystemBase {
 		createAttribute(order, "recipient");
 		createAttribute(order, "deliveryAddress");
 		createAttribute(order, "contactPhone");
-		State open = createState(order, "open");
-		State delivered = createState(order, "delivered");
-		State cancelled = createState(order, "cancelled");
+		State open = createState(order, "Open");
+		State delivered = createState(order, "Delivered");
+		State cancelled = createState(order, "Cancelled");
 		SignalEvent orderDelivered = createSignalEvent(order, "orderDelivered");
 		CallEvent orderCancelled = createCallEvent(order, "orderCancelled");
 		createParameter(orderCancelled, "reason");
