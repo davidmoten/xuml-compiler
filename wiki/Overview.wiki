@@ -55,13 +55,13 @@ Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
 || ||Number|| ||
 || ||Abbreviation|| ||
 || ||Actions||Java||
+|| ||Diagram||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 ||Identifiers||
 || ||Single Attribute||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Multiple Attributes||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Referential Attribute||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Derived Attribute||||
 || ||Derived Identifier||||
-|| ||Diagram||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 ||State||
 || ||Call Event||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Signal Event||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
