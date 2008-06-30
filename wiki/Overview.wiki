@@ -21,7 +21,7 @@ The model can be executed once Action Language elements are specified (in java c
 The action language elements are injected into the entities at runtime using a lightweight dependency injection framework (Guice).
 
 ===Viewer===
-A simple Class Diagram Viewer (a Swing app) is provided.
+A simple Class and State Diagram Viewer (a Swing app) is provided. Printing is enabled.
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/sampleViewer.png
 
