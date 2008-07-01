@@ -27,7 +27,7 @@ http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/sampleViewe
 
 ==What's good?==
   * The system definition code is a hundred times briefer than hand coding all the ejb3 classes.
-  * Using java to define the system gives you java editing power (autocompletion, refactoring) and object oriented coding.
+  * Using java to define the system gives you java editing power (syntax checking, autocompletion, refactoring) and object oriented coding.
   * The inclusion of verb clauses in the Class Diagram Viewer makes the system verifiable visually by a domain expert with some uml familiarity.
   * The _Executable UML_ profile is a *small subset* of UML2, manageable to learn and to apply.
   * The _Executable UML_ approach encourages separation of concerns. 
