@@ -86,5 +86,6 @@ Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
 || ||Mandatory Enforced||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 ||Specialization|| ||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Generalizations are abstract||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
+|| ||Multiple Generalization|| ||
 || ||Mutual Exclusion|| ||
 || ||Compound||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
