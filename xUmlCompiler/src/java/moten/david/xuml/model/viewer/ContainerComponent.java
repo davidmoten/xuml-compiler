@@ -21,6 +21,7 @@ public class ContainerComponent extends JPanel {
 	public static final String CENTRE = "<centre/>";
 	public static final String ITALIC = "<italic/>";
 	public static final String BOLD = "<bold/>";
+	public static final String ROUNDED_BORDER = "<rounded-border/>";
 	private static final long serialVersionUID = -7386517478910415174L;
 	private static final String FONT_NAME = "monospace";
 	private static final int margin = 5;
@@ -28,6 +29,9 @@ public class ContainerComponent extends JPanel {
 	private static int xOffset = 50;
 	private static int minHeight = 0;
 	private int borderSize = 7;
+	private boolean roundedBorder = false;
+	private int arcSize = 30;
+	private boolean hasBorder;
 
 	public ContainerComponent(Color backgroundColor, boolean hasBorder,
 			String... lines) {
@@ -40,6 +44,9 @@ public class ContainerComponent extends JPanel {
 		int height = 0;
 		for (String line : lines) {
 			int style = Font.PLAIN;
+			if (line.contains(ROUNDED_BORDER))
+				roundedBorder = true;
+			line = line.replace(ROUNDED_BORDER, "");
 			boolean isBold = line.contains(BOLD);
 			line = line.replace(BOLD, "");
 			if (isBold)
@@ -95,9 +102,8 @@ public class ContainerComponent extends JPanel {
 				+ borderSize);
 		xOffset += 10;
 
-		// if (hasBorder)
-		// setBorder(BorderFactory.createLineBorder(Color.black));
-		if (hasBorder) {
+		this.hasBorder = hasBorder;
+		if (hasBorder && !roundedBorder) {
 			DropShadowBorder border = new DropShadowBorder(Color.BLACK,
 					borderSize, 0.5f, borderSize, false, true, true, true);
 			setBorder(border);
@@ -107,10 +113,18 @@ public class ContainerComponent extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		if (getBorder() != null) {
-			Insets insets = getBorder().getBorderInsets(this);
-			g.drawRect(insets.left, insets.top, getWidth() - 2 * insets.right,
-					getHeight() - insets.bottom);
+		Insets insets = new Insets(0, 0, 0, 0);
+		if (getBorder() != null)
+			insets = getBorder().getBorderInsets(this);
+		if (hasBorder) {
+			if (roundedBorder)
+				g.drawRoundRect(insets.left, insets.top, getWidth()
+						- insets.left - insets.right - 1, getHeight()
+						- insets.bottom - insets.top - 1, arcSize, arcSize);
+			else
+				g.drawRect(insets.left, insets.top, getWidth() - insets.left
+						- insets.right, getHeight() - insets.bottom
+						- insets.top);
 		}
 	}
 

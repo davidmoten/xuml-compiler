@@ -9,9 +9,15 @@ import java.util.Set;
 public class ComponentUtil {
 	public static Point[] getBestJoin(Set<Point> usedPoints,
 			Component aComponent, Component bComponent) {
+		return getBestJoin(usedPoints, aComponent.getBounds(), bComponent
+				.getBounds());
+	}
 
-		Point[] aPoints = getPoints(aComponent);
-		Point[] bPoints = getPoints(bComponent);
+	public static Point[] getBestJoin(Set<Point> usedPoints,
+			Rectangle aComponent, Rectangle bComponent) {
+		int numPoints = 4;
+		Point[] aPoints = getPoints(aComponent, numPoints);
+		Point[] bPoints = getPoints(bComponent, numPoints);
 		Double shortestDistance = null;
 		Point centreA = getCentre(aComponent.getBounds());
 		Point centreB = getCentre(bComponent.getBounds());
@@ -40,19 +46,23 @@ public class ComponentUtil {
 		return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 	}
 
-	public static Point[] getPoints(Component c) {
-		int numPoints = 4;
+	public static Point[] getPoints(Component c, int numPoints) {
+		return getPoints(c.getBounds(), numPoints);
+	}
+
+	public static Point[] getPoints(Rectangle c, int numPoints) {
 		Point[] points = new Point[4 * numPoints];
 		for (int i = 0; i < numPoints; i++) {
-			points[i] = new Point(c.getX() + i * c.getWidth() / numPoints, c
-					.getY());
-			points[numPoints + i] = new Point(c.getX() + i * c.getWidth()
-					/ numPoints, c.getY() + c.getHeight());
-			points[2 * numPoints + i] = new Point(c.getX(), c.getY() + i
-					* c.getHeight() / numPoints);
-			points[3 * numPoints + i] = new Point(c.getX() + c.getWidth(), c
-					.getY()
-					+ i * c.getHeight() / numPoints);
+			points[i] = new Point((int) Math.round(c.getX() + i * c.getWidth()
+					/ numPoints), (int) Math.round(c.getY()));
+			points[numPoints + i] = new Point((int) Math.round(c.getX() + i
+					* c.getWidth() / numPoints), (int) Math.round(c.getY()
+					+ c.getHeight()));
+			points[2 * numPoints + i] = new Point((int) Math.round(c.getX()),
+					(int) Math.round(c.getY() + i * c.getHeight() / numPoints));
+			points[3 * numPoints + i] = new Point((int) Math.round(c.getX()
+					+ c.getWidth()), (int) Math.round(c.getY() + i
+					* c.getHeight() / numPoints));
 		}
 		return points;
 	}

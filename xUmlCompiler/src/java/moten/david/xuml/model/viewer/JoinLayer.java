@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.util.HashSet;
@@ -22,6 +23,13 @@ import moten.david.util.swing.ComponentUtil;
 public class JoinLayer extends JPanel {
 
 	private static final long serialVersionUID = -7071675681715201402L;
+
+	private static final float FONT_SIZE = 10f;
+	private static final int POINTS_PER_SIDE = 4;
+	private static final int ARROW_SIDE = 6;
+	private static final int ARROW_DEPTH = 10;
+	private static final int SPECIALIZATION_JOIN_LENTH = 60;
+
 	private final SystemViewer viewer;
 
 	private static Stroke STROKE_THIN_DASHED = new BasicStroke(1.0f, // line
@@ -37,6 +45,7 @@ public class JoinLayer extends JPanel {
 
 	@Override
 	public void paint(Graphics g) {
+		// super.paint(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
@@ -65,14 +74,25 @@ public class JoinLayer extends JPanel {
 	private void joinComponents(Graphics g, Set<Point> usedPoints,
 			SystemViewer viewer, SpecializationGroup group,
 			ClassComponent superComponent) {
-		Point[] points = ComponentUtil.getBestJoin(usedPoints, superComponent,
-				viewer.getClassComponent(group.getSpecialization().get(0)));
+		Point centreOfSpecializations = new Point(0, 0);
+		for (Specialization sp : group.getSpecialization()) {
+			Component c = viewer.getClassComponent(sp);
+			Point centre = ComponentUtil.getCentre(c.getBounds());
+			centreOfSpecializations.x += centre.x;
+			centreOfSpecializations.y += centre.y;
+		}
+		centreOfSpecializations.x /= group.getSpecialization().size();
+		centreOfSpecializations.y /= group.getSpecialization().size();
+		Rectangle r = new Rectangle(centreOfSpecializations);
+
+		Point[] points = ComponentUtil.getBestJoin(usedPoints, superComponent
+				.getBounds(), r);
+
 		Point p1 = points[0];
-		// Point p2 = points[1];
 		Graphics2D g2d = (Graphics2D) g;
 
 		Point joinPoint;
-		final int joinLength = 50;
+		final int joinLength = SPECIALIZATION_JOIN_LENTH;
 		if (p1.x == superComponent.getBounds().x)
 			joinPoint = new Point(p1.x - joinLength, p1.y);
 		else if (p1.x == superComponent.getBounds().x
@@ -87,8 +107,8 @@ public class JoinLayer extends JPanel {
 					joinPoint);
 			g2d.drawLine(p.x, p.y, joinPoint.x, joinPoint.y);
 		}
-		int arrowDepth = 10;
-		int arrowSide = 6;
+		int arrowDepth = ARROW_DEPTH;
+		int arrowSide = ARROW_SIDE;
 		double length = ComponentUtil.getDistance(p1, joinPoint);
 		double xFactor = (joinPoint.x - p1.x) / length;
 		double yFactor = (joinPoint.y - p1.y) / length;
@@ -99,19 +119,38 @@ public class JoinLayer extends JPanel {
 				(int) (mark.y + arrowSide * Math.sin(-theta)));
 		Point top = new Point((int) (mark.x - arrowSide * Math.cos(-theta)),
 				(int) (mark.y - arrowSide * Math.sin(-theta)));
+
 		g2d.drawLine(joinPoint.x, joinPoint.y, mark.x, mark.y);
+
+		// draw the arrow head
 		Polygon p = new Polygon();
 		p.addPoint(mark.x, mark.y);
 		p.addPoint(bottom.x, bottom.y);
 		p.addPoint(p1.x, p1.y);
 		p.addPoint(top.x, top.y);
 		g2d.drawPolygon(p);
+
+		// draw the specialization group label
+		Point lineCentre = ComponentUtil.getCentre(joinPoint, mark);
+		String label = group.getName();
+		drawCentredString(g2d, label, lineCentre, getBackground());
+	}
+
+	private void drawCentredString(Graphics2D g2d, String label, Point centre,
+			Color background) {
+		int width = g2d.getFontMetrics().stringWidth(label);
+		int ascent = g2d.getFontMetrics().getMaxAscent();
+		int descent = g2d.getFontMetrics().getMaxDescent();
+		g2d.setBackground(background);
+		g2d.clearRect(centre.x - width / 2 - 1, centre.y - ascent / 2,
+				width + 2, ascent + descent);
+		g2d.drawString(label, centre.x - width / 2, centre.y + ascent / 2);
 	}
 
 	private Point getBestJoin(Set<Point> usedPoints, Component component,
 			Point p) {
 		Double shortestDistance = null;
-		Point[] points = ComponentUtil.getPoints(component);
+		Point[] points = ComponentUtil.getPoints(component, POINTS_PER_SIDE);
 		Point centre = ComponentUtil.getCentre(component.getBounds());
 		Point bestPoint = null;
 		for (Point point : points) {
@@ -126,36 +165,6 @@ public class JoinLayer extends JPanel {
 		}
 		usedPoints.add(bestPoint);
 		return bestPoint;
-	}
-
-	private void joinComponents(Graphics g, Set<Point> usedPoints,
-			ClassComponent superComponent, ClassComponent subComponent) {
-		Point[] points = ComponentUtil.getBestJoin(usedPoints, superComponent,
-				subComponent);
-		Point p1 = points[0];
-		Point p2 = points[1];
-		Graphics2D g2d = (Graphics2D) g;
-
-		int arrowDepth = 10;
-		int arrowSide = 6;
-		double length = ComponentUtil.getDistance(p1, p2);
-		double xFactor = (p2.x - p1.x) / length;
-		double yFactor = (p2.y - p1.y) / length;
-		double theta = Math.atan2(p2.x - p1.x, p2.y - p1.y);
-		Point mark = new Point((int) (xFactor * arrowDepth + p1.x),
-				(int) (yFactor * arrowDepth + p1.y));
-		Point bottom = new Point((int) (mark.x + arrowSide * Math.cos(-theta)),
-				(int) (mark.y + arrowSide * Math.sin(-theta)));
-		Point top = new Point((int) (mark.x - arrowSide * Math.cos(-theta)),
-				(int) (mark.y - arrowSide * Math.sin(-theta)));
-		g2d.drawLine(p2.x, p2.y, mark.x, mark.y);
-		Polygon p = new Polygon();
-		p.addPoint(mark.x, mark.y);
-		p.addPoint(bottom.x, bottom.y);
-		p.addPoint(p1.x, p1.y);
-		p.addPoint(top.x, top.y);
-		g2d.drawPolygon(p);
-
 	}
 
 	private void joinComponents(Graphics g, Set<Point> usedPoints,
@@ -183,7 +192,7 @@ public class JoinLayer extends JPanel {
 			g2d.setStroke(stroke);
 		}
 		Point p3 = ComponentUtil.getCentre(p1, p2);
-		g2d.setFont(g.getFont().deriveFont(10f));
+		g2d.setFont(g.getFont().deriveFont(FONT_SIZE));
 
 		int width = g2d.getFontMetrics().stringWidth(label);
 		int ascent = g2d.getFontMetrics().getMaxAscent();
@@ -213,9 +222,5 @@ public class JoinLayer extends JPanel {
 		}
 		g2d.drawString(label, labelX, labelY);
 	}
-
-	// private static Point getCentre(Component c) {
-	// return getCentre(c.getBounds());
-	// }
 
 }

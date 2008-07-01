@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -17,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -30,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -37,6 +41,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JWindow;
 
 import model.FinalState;
 import model.InitialState;
@@ -268,7 +273,7 @@ public class SystemViewer {
 				.round(100 * Math.random()));
 	}
 
-	private void applyView(View view, JFrame frame) {
+	private void applyView(View view, JPanel panel) {
 		for (StateComponent c : statelyComponents.values()) {
 			locateRandomly(c);
 		}
@@ -278,13 +283,18 @@ public class SystemViewer {
 				locateRandomly(c);
 			else {
 				c.setLocation(element.getX(), element.getY());
+				int count = 0;
 				for (MyLabel label : c.getLabels()) {
 					Element e = getElement(view, label);
-					if (e == null)
-						locateRandomly(label);
-					else {
+					if (e == null) {
+						count++;
+						label.setLocation(c.getLocation().x + 150, c
+								.getLocation().y
+								+ (count - 1) * 11);
+					} else {
 						label.setLocation(e.getX(), e.getY());
 					}
+
 				}
 			}
 		}
@@ -297,6 +307,17 @@ public class SystemViewer {
 				c.setLocation(element.getX(), element.getY());
 			}
 		}
+		if (view == null) {
+			systemPanel.setPreferredSize(new Dimension(750, 550));
+		} else {
+			systemPanel.setPreferredSize(new Dimension(view.getViewport()
+					.getWidth(), view.getViewport().getHeight()));
+		}
+
+	}
+
+	private void applyView(View view, JFrame frame) {
+		applyView(view, systemPanel);
 		if (view == null) {
 			frame.setSize(new Dimension(800, 600));
 			systemPanel.setPreferredSize(new Dimension(750, 550));
@@ -433,6 +454,32 @@ public class SystemViewer {
 		}
 	}
 
+	public void saveImage(String filename) throws IOException {
+		saveImage(filename, "jpg");
+	}
+
+	public void saveImage(String filename, String imageType) throws IOException {
+		Toolkit.getDefaultToolkit().createImage(new byte[] { (byte) 10 });
+		View view = load();
+		applyView(view, systemPanel);
+		Dimension size = systemPanel.getPreferredSize();
+		JWindow window = new JWindow();
+		window.setSize(new Dimension(0, 0));
+		window.setLayout(new FlowLayout());
+		window.add(systemPanel);
+		window.setVisible(true);
+		BufferedImage bufferedImage = new BufferedImage(size.width,
+				size.height, BufferedImage.TYPE_INT_RGB);
+		Graphics g = bufferedImage.getGraphics();
+		systemPanel.paint(g);
+		g.dispose();
+		FileOutputStream fos = new FileOutputStream(filename);
+		ImageIO.write(bufferedImage, imageType, fos);
+		fos.close();
+		window.setVisible(false);
+		window.dispose();
+	}
+
 	public void showViewer() throws NumberFormatException, IOException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -452,7 +499,6 @@ public class SystemViewer {
 								stateMachinePanels.get(cls)));
 					}
 
-					// setPreferredSize(new Dimension(2000, 2000));
 					frame.getContentPane().add(tabs);
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -565,7 +611,8 @@ public class SystemViewer {
 			IOException {
 		SystemViewer viewer = new SystemViewer(new Bookstore().getSystem(),
 				"src/viewer/Bookstore.ecore");
-		viewer.showViewer();
+		// viewer.showViewer();
+		viewer.saveImage("temp/system.jpg");
 	}
 
 }

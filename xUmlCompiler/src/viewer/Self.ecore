@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ASCII"?>
+<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/view http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore">
+  <frame width="864" height="979" x="63" y="1"/>
+  <viewport width="800" height="979"/>
+  <element x="629" y="284" name="class.Package"/>
+  <element x="580" y="315" name="label.Class Package Association R13 Verb Clause" fixedTo="//@element[name='class.Package']"/>
+  <element x="659" y="239" name="label.Class Package Association R14 Multiplicity Primary" fixedTo="//@element[name='class.Package']"/>
+  <element x="726" y="243" name="label.Class Package Association R14 Multiplicity Secondary" fixedTo="//@element[name='class.Package']"/>
+  <element x="622" y="254" name="label.Class Package Association R14 Verb Clause Primary" fixedTo="//@element[name='class.Package']"/>
+  <element x="730" y="253" name="label.Class Package Association R14 Verb Clause Secondary" fixedTo="//@element[name='class.Package']"/>
+  <element x="660" y="318" name="label.Class Package Association R13 Multiplicity" fixedTo="//@element[name='class.Package']"/>
+  <element x="348" y="457" name="class.Class"/>
+  <element x="413" y="429" name="label.Class Class Association R11 Multiplicity" fixedTo="//@element[name='class.Class']"/>
+  <element x="460" y="437" name="label.Class Class Association R1 Verb Clause" fixedTo="//@element[name='class.Class']"/>
+  <element x="286" y="464" name="label.Class Class Association R3 Verb Clause" fixedTo="//@element[name='class.Class']"/>
+  <element x="389" y="534" name="label.Class Class Association R2 Multiplicity" fixedTo="//@element[name='class.Class']"/>
+  <element x="340" y="487" name="label.Class Class Association R3 Multiplicity" fixedTo="//@element[name='class.Class']"/>
+  <element x="503" y="408" name="label.Class Class Association R13 Multiplicity" fixedTo="//@element[name='class.Class']"/>
+  <element x="452" y="496" name="label.Class Class Association R4 Verb Clause" fixedTo="//@element[name='class.Class']"/>
+  <element x="474" y="396" name="label.Class Class Association R13 Verb Clause" fixedTo="//@element[name='class.Class']"/>
+  <element x="460" y="456" name="label.Class Class Association R1 Multiplicity" fixedTo="//@element[name='class.Class']"/>
+  <element x="418" y="495" name="label.Class Class Association R4 Multiplicity" fixedTo="//@element[name='class.Class']"/>
+  <element x="270" y="414" name="label.Class Class Association R7 Verb Clause" fixedTo="//@element[name='class.Class']"/>
+  <element x="340" y="429" name="label.Class Class Association R7 Multiplicity" fixedTo="//@element[name='class.Class']"/>
+  <element x="381" y="428" name="label.Class Class Association R11 Verb Clause" fixedTo="//@element[name='class.Class']"/>
+  <element x="286" y="535" name="label.Class Class Association R2 Verb Clause" fixedTo="//@element[name='class.Class']"/>
+  <element x="342" y="34" name="class.Association"/>
+  <element x="460" y="51" name="label.Class Association Association R9 Multiplicity" fixedTo="//@element[name='class.Association']"/>
+  <element x="451" y="-287" name="label.Class Association Association R8 Verb Clause" fixedTo="//@element[name='class.Association']"/>
+  <element x="369" y="80" name="label.Class Association Association R10 Multiplicity" fixedTo="//@element[name='class.Association']"/>
+  <element x="419" y="72" name="label.Class Association Association R8 Multiplicity" fixedTo="//@element[name='class.Association']"/>
+  <element x="307" y="70" name="label.Class Association Association R10 Verb Clause" fixedTo="//@element[name='class.Association']"/>
+  <element x="454" y="23" name="label.Class Association Association R9 Verb Clause" fixedTo="//@element[name='class.Association']"/>
+  <element x="350" y="296" name="class.AssociationEnd"/>
+  <element x="323" y="328" name="label.Class AssociationEnd Association R11 Verb Clause" fixedTo="//@element[name='class.AssociationEnd']"/>
+  <element x="414" y="331" name="label.Class AssociationEnd Association R11 Multiplicity" fixedTo="//@element[name='class.AssociationEnd']"/>
+  <element x="452" y="208" name="class.AssociationEndPrimary"/>
+  <element x="436" y="174" name="label.Class AssociationEndPrimary Association R9 Verb Clause" fixedTo="//@element[name='class.AssociationEndPrimary']"/>
+  <element x="531" y="175" name="label.Class AssociationEndPrimary Association R9 Multiplicity" fixedTo="//@element[name='class.AssociationEndPrimary']"/>
+  <element x="182" y="210" name="class.AssociationEndSecondary"/>
+  <element x="188" y="175" name="label.Class AssociationEndSecondary Association R10 Verb Clause" fixedTo="//@element[name='class.AssociationEndSecondary']"/>
+  <element x="282" y="176" name="label.Class AssociationEndSecondary Association R10 Multiplicity" fixedTo="//@element[name='class.AssociationEndSecondary']"/>
+  <element x="591" y="457" name="class.Attribute"/>
+  <element x="602" y="491" name="label.Class Attribute Association R12 Multiplicity" fixedTo="//@element[name='class.Attribute']"/>
+  <element x="577" y="474" name="label.Class Attribute Association R1 Multiplicity" fixedTo="//@element[name='class.Attribute']"/>
+  <element x="566" y="448" name="label.Class Attribute Association R1 Verb Clause" fixedTo="//@element[name='class.Attribute']"/>
+  <element x="629" y="488" name="label.Class Attribute Association R12 Verb Clause" fixedTo="//@element[name='class.Attribute']"/>
+  <element x="711" y="396" name="class.AttributeNormal"/>
+  <element x="700" y="528" name="class.AttributeReferential"/>
+  <element x="48" y="472" name="class.Operation"/>
+  <element x="116" y="507" name="label.Class Operation Association R15 Multiplicity" fixedTo="//@element[name='class.Operation']"/>
+  <element x="162" y="484" name="label.Class Operation Association R3 Verb Clause" fixedTo="//@element[name='class.Operation']"/>
+  <element x="162" y="465" name="label.Class Operation Association R3 Multiplicity" fixedTo="//@element[name='class.Operation']"/>
+  <element x="52" y="505" name="label.Class Operation Association R15 Verb Clause" fixedTo="//@element[name='class.Operation']"/>
+  <element x="466" y="619" name="class.Identifier"/>
+  <element x="531" y="586" name="label.Class Identifier Association R12 Verb Clause" fixedTo="//@element[name='class.Identifier']"/>
+  <element x="389" y="596" name="label.Class Identifier Association R4 Verb Clause" fixedTo="//@element[name='class.Identifier']"/>
+  <element x="569" y="587" name="label.Class Identifier Association R12 Multiplicity" fixedTo="//@element[name='class.Identifier']"/>
+  <element x="496" y="588" name="label.Class Identifier Association R4 Multiplicity" fixedTo="//@element[name='class.Identifier']"/>
+  <element x="249" y="744" name="class.IdentifierPrimary"/>
+  <element x="323" y="710" name="label.Class IdentifierPrimary Association R2 Multiplicity" fixedTo="//@element[name='class.IdentifierPrimary']"/>
+  <element x="238" y="701" name="label.Class IdentifierPrimary Association R2 Verb Clause" fixedTo="//@element[name='class.IdentifierPrimary']"/>
+  <element x="372" y="802" name="class.IdentifierNonPrimary"/>
+  <element x="15" y="365" name="class.SpecializationGroup"/>
+  <element x="144" y="393" name="label.Class SpecializationGroup Association R7 Multiplicity" fixedTo="//@element[name='class.SpecializationGroup']"/>
+  <element x="144" y="367" name="label.Class SpecializationGroup Association R7 Verb Clause" fixedTo="//@element[name='class.SpecializationGroup']"/>
+  <element x="669" y="34" name="class.AssociationClass"/>
+  <element x="639" y="46" name="label.Class AssociationClass Association R8 Multiplicity" fixedTo="//@element[name='class.AssociationClass']"/>
+  <element x="592" y="22" name="label.Class AssociationClass Association R8 Verb Clause" fixedTo="//@element[name='class.AssociationClass']"/>
+  <element x="43" y="609" name="class.OperationSignature"/>
+  <element x="122" y="646" name="label.Class OperationSignature Association R16 Multiplicity" fixedTo="//@element[name='class.OperationSignature']"/>
+  <element x="29" y="575" name="label.Class OperationSignature Association R15 Verb Clause" fixedTo="//@element[name='class.OperationSignature']"/>
+  <element x="115" y="575" name="label.Class OperationSignature Association R15 Multiplicity" fixedTo="//@element[name='class.OperationSignature']"/>
+  <element x="30" y="645" name="label.Class OperationSignature Association R16 Verb Clause" fixedTo="//@element[name='class.OperationSignature']"/>
+  <element x="48" y="847" name="class.Type"/>
+  <element x="25" y="818" name="label.Class Type Association R17 Verb Clause" fixedTo="//@element[name='class.Type']"/>
+  <element x="121" y="817" name="label.Class Type Association R17 Multiplicity" fixedTo="//@element[name='class.Type']"/>
+  <element x="48" y="741" name="class.Parameter"/>
+  <element x="113" y="770" name="label.Class Parameter Association R17 Multiplicity" fixedTo="//@element[name='class.Parameter']"/>
+  <element x="49" y="770" name="label.Class Parameter Association R17 Verb Clause" fixedTo="//@element[name='class.Parameter']"/>
+  <element x="77" y="708" name="label.Class Parameter Association R16 Verb Clause" fixedTo="//@element[name='class.Parameter']"/>
+  <element x="118" y="711" name="label.Class Parameter Association R16 Multiplicity" fixedTo="//@element[name='class.Parameter']"/>
+  <element x="205" y="904" name="class.FreeType"/>
+  <element x="203" y="814" name="class.PrimitiveType"/>
+</view:View>
