@@ -35,6 +35,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -347,12 +348,34 @@ public class SystemViewer {
 				}
 			}
 		});
-		m = new JMenuItem("Size...");
+		m = new JMenuItem("Save image as PNG...");
 		menu.add(m);
 		m.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				JFileChooser fc = new JFileChooser();
+				fc.addChoosableFileFilter(new ImageFilter());
+				int returnVal = fc.showSaveDialog(systemPanel);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File file = fc.getSelectedFile();
+					BufferedImage bi = new BufferedImage(systemPanel
+							.getPreferredSize().width, systemPanel
+							.getPreferredSize().height,
+							BufferedImage.TYPE_INT_RGB);
+					Graphics2D g2 = bi.createGraphics();
+					systemPanel.setDoubleBuffered(false);
+					systemPanel.paint(g2);
+					systemPanel.setDoubleBuffered(true);
+					g2.dispose();
+					try {
+						if (!file.getName().toUpperCase().endsWith(".PNG")) {
+							file = new File(file.getAbsolutePath() + ".PNG");
+						}
+						ImageIO.write(bi, "png", file);
+					} catch (IOException e1) {
+						throw new Error(e1);
+					}
+				}
 			}
 		});
 		systemPanel.addMouseListener(new MouseAdapter() {
