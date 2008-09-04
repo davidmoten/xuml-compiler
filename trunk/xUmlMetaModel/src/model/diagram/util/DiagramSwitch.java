@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DiagramSwitch.java,v 1.4 2008/06/11 07:28:48 dxm Exp $
+ * $Id$
  */
 package model.diagram.util;
 

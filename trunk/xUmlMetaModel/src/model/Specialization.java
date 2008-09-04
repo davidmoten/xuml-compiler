@@ -2,10 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Specialization.java,v 1.3 2008/06/11 07:28:40 dxm Exp $
+ * $Id$
  */
 package model;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,31 +26,21 @@ package model;
  */
 public interface Specialization extends model.Class {
 	/**
-	 * Returns the value of the '<em><b>Group</b></em>' reference.
+	 * Returns the value of the '<em><b>Group</b></em>' reference list.
+	 * The list contents are of type {@link model.SpecializationGroup}.
 	 * It is bidirectional and its opposite is '{@link model.SpecializationGroup#getSpecialization <em>Specialization</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Group</em>' reference isn't clear,
+	 * If the meaning of the '<em>Group</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Group</em>' reference.
-	 * @see #setGroup(SpecializationGroup)
+	 * @return the value of the '<em>Group</em>' reference list.
 	 * @see model.ModelPackage#getSpecialization_Group()
 	 * @see model.SpecializationGroup#getSpecialization
 	 * @model opposite="specialization" required="true"
 	 * @generated
 	 */
-	SpecializationGroup getGroup();
-
-	/**
-	 * Sets the value of the '{@link model.Specialization#getGroup <em>Group</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Group</em>' reference.
-	 * @see #getGroup()
-	 * @generated
-	 */
-	void setGroup(SpecializationGroup value);
+	EList<SpecializationGroup> getGroup();
 
 } // Specialization

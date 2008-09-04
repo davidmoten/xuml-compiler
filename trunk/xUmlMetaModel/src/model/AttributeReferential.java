@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: AttributeReferential.java,v 1.2 2008/06/11 07:28:38 dxm Exp $
+ * $Id$
  */
 package model;
 

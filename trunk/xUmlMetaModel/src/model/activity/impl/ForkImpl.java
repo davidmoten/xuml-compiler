@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ForkImpl.java,v 1.4 2008/06/11 07:28:46 dxm Exp $
+ * $Id$
  */
 package model.activity.impl;
 

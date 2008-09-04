@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModelPackage.java,v 1.5 2008/06/25 06:33:24 dxm Exp $
+ * $Id$
  */
 package model;
 
@@ -3021,13 +3021,13 @@ public interface ModelPackage extends EPackage {
 	int SPECIALIZATION_GROUP__DESCRIPTION = NAMED__DESCRIPTION;
 
 	/**
-	 * The feature id for the '<em><b>Super Class</b></em>' container reference.
+	 * The feature id for the '<em><b>Generalization</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SPECIALIZATION_GROUP__SUPER_CLASS = NAMED_FEATURE_COUNT + 0;
+	int SPECIALIZATION_GROUP__GENERALIZATION = NAMED_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Specialization</b></em>' reference list.
@@ -3184,7 +3184,7 @@ public interface ModelPackage extends EPackage {
 	int SPECIALIZATION__SPECIALIZATION_GROUP = CLASS__SPECIALIZATION_GROUP;
 
 	/**
-	 * The feature id for the '<em><b>Group</b></em>' reference.
+	 * The feature id for the '<em><b>Group</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4907,15 +4907,15 @@ public interface ModelPackage extends EPackage {
 	EClass getSpecializationGroup();
 
 	/**
-	 * Returns the meta object for the container reference '{@link model.SpecializationGroup#getSuperClass <em>Super Class</em>}'.
+	 * Returns the meta object for the container reference '{@link model.SpecializationGroup#getGeneralization <em>Generalization</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Super Class</em>'.
-	 * @see model.SpecializationGroup#getSuperClass()
+	 * @return the meta object for the container reference '<em>Generalization</em>'.
+	 * @see model.SpecializationGroup#getGeneralization()
 	 * @see #getSpecializationGroup()
 	 * @generated
 	 */
-	EReference getSpecializationGroup_SuperClass();
+	EReference getSpecializationGroup_Generalization();
 
 	/**
 	 * Returns the meta object for the reference list '{@link model.SpecializationGroup#getSpecialization <em>Specialization</em>}'.
@@ -4939,10 +4939,10 @@ public interface ModelPackage extends EPackage {
 	EClass getSpecialization();
 
 	/**
-	 * Returns the meta object for the reference '{@link model.Specialization#getGroup <em>Group</em>}'.
+	 * Returns the meta object for the reference list '{@link model.Specialization#getGroup <em>Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Group</em>'.
+	 * @return the meta object for the reference list '<em>Group</em>'.
 	 * @see model.Specialization#getGroup()
 	 * @see #getSpecialization()
 	 * @generated
@@ -6334,12 +6334,12 @@ public interface ModelPackage extends EPackage {
 		EClass SPECIALIZATION_GROUP = eINSTANCE.getSpecializationGroup();
 
 		/**
-		 * The meta object literal for the '<em><b>Super Class</b></em>' container reference feature.
+		 * The meta object literal for the '<em><b>Generalization</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SPECIALIZATION_GROUP__SUPER_CLASS = eINSTANCE.getSpecializationGroup_SuperClass();
+		EReference SPECIALIZATION_GROUP__GENERALIZATION = eINSTANCE.getSpecializationGroup_Generalization();
 
 		/**
 		 * The meta object literal for the '<em><b>Specialization</b></em>' reference list feature.
@@ -6360,7 +6360,7 @@ public interface ModelPackage extends EPackage {
 		EClass SPECIALIZATION = eINSTANCE.getSpecialization();
 
 		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Group</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

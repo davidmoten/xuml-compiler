@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: StateMachineImpl.java,v 1.5 2008/06/25 06:33:24 dxm Exp $
+ * $Id$
  */
 package model.impl;
 

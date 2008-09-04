@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Class.java,v 1.5 2008/06/13 05:09:20 dxm Exp $
+ * $Id$
  */
 package model;
 
@@ -277,7 +277,7 @@ public interface Class extends Named {
 	/**
 	 * Returns the value of the '<em><b>Specialization Group</b></em>' containment reference list.
 	 * The list contents are of type {@link model.SpecializationGroup}.
-	 * It is bidirectional and its opposite is '{@link model.SpecializationGroup#getSuperClass <em>Super Class</em>}'.
+	 * It is bidirectional and its opposite is '{@link model.SpecializationGroup#getGeneralization <em>Generalization</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Specialization Group</em>' containment reference list isn't clear,
@@ -286,8 +286,8 @@ public interface Class extends Named {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Specialization Group</em>' containment reference list.
 	 * @see model.ModelPackage#getClass_SpecializationGroup()
-	 * @see model.SpecializationGroup#getSuperClass
-	 * @model opposite="superClass" containment="true" keys="name"
+	 * @see model.SpecializationGroup#getGeneralization
+	 * @model opposite="generalization" containment="true" keys="name"
 	 * @generated
 	 */
 	EList<SpecializationGroup> getSpecializationGroup();
