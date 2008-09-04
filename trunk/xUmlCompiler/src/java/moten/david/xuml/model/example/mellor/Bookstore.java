@@ -69,15 +69,6 @@ public class Bookstore extends SystemBase {
 				createAssociationEndSecondary(book, Multiplicity.MANY, "wrote"))
 				.setAssociationClass(authorship);
 
-		SpecializationGroup r20 = createSpecializationGroup(book, "R20",
-				"specialization group R20");
-		createSpecialization(r20, pkg, "Fiction", "fictional book");
-		createSpecialization(r20, pkg, "NonFiction", "non-fictional book");
-
-		// createAssociation("R3", createAssociationEndPrimary(authorship,
-		// "precedingAuthor", Multiplicity.ZERO_ONE, "precedes"),
-		// createAssociationEndSecondary(authorship, "nextAuthor",
-		// Multiplicity.ZERO_ONE, "follows"));
 	}
 
 	private Class createCreditCardCharge(Package pkg) {

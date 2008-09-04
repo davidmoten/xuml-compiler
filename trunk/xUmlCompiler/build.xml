@@ -290,8 +290,8 @@
 		               codeGenerator="moten.david.xuml.model.example.shop.Shop" />
 		<xuml-generate outputDirectory="${generated.simple}"
 		               codeGenerator="moten.david.xuml.model.example.simple.Simple" />
-		<xuml-generate outputDirectory="${generated.tv}"
-		               codeGenerator="moten.david.xuml.model.example.tv.Tv" />
+		<!--<xuml-generate outputDirectory="${generated.tv}"
+		               codeGenerator="moten.david.xuml.model.example.tv.Tv" />-->
 		<xuml-generate outputDirectory="${generated.self}"
 		               codeGenerator="moten.david.xuml.model.example.self.Self" />
 
