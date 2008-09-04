@@ -11,8 +11,8 @@ import moten.david.xuml.model.util.SystemBase;
 
 public class Self extends SystemBase {
 
-	private Package pkg;
-	private Class cls;
+	private Package rootPackage;
+	private Class clazz;
 	private Class association;
 	private Class associationEnd;
 	private Specialization associationEndPrimary;
@@ -21,15 +21,21 @@ public class Self extends SystemBase {
 	private Class attributeReferential;
 	private Class operation;
 	private Class identifier;
-	private Specialization identifierPrimary;
-	private Specialization identifierNonPrimary;
 	private Class specializationGroup;
-	private Class associationClass;
 	private Class attribute;
-	private Class packageClass;
+	private Class pkg;
 	private Class operationSignature;
-	private Class type;
+	private Class dataType;
 	private Class parameter;
+	private Class state;
+	private Class stateMachine;
+	private Class initialState;
+	private Specialization fromState;
+	private Specialization terminatingState;
+	private Specialization abstractClass;
+	private Specialization concreteClass;
+	private Class transition;
+	private Class event;
 
 	public Self() {
 		super("self", "Self");
@@ -37,66 +43,85 @@ public class Self extends SystemBase {
 	}
 
 	private void initialize() {
-		pkg = createRootPackage("self", "xUmlCompiler metamodel");
-		packageClass = createClassWithArbitraryId(pkg, "Package", "");
-		cls = createClassWithArbitraryId(pkg, "Class", "");
-		association = createClassWithArbitraryId(pkg, "Association", "");
-		associationEnd = createClassWithArbitraryId(pkg, "AssociationEnd", "");
+		rootPackage = createRootPackage("self", "xUmlCompiler metamodel");
+		pkg = createClassWithArbitraryId(rootPackage, "Pkg", "");
+		clazz = createClassWithArbitraryId(rootPackage, "Clazz", "");
+		SpecializationGroup classSp = createSpecializationGroup(clazz, "R26",
+				"");
+		abstractClass = createSpecialization(classSp, rootPackage,
+				"AbstractClass", "");
+		concreteClass = createSpecialization(classSp, rootPackage,
+				"ConcreteClass", "");
+		association = createClassWithArbitraryId(rootPackage, "Association", "");
+		associationEnd = createClassWithArbitraryId(rootPackage,
+				"AssociationEnd", "");
 		SpecializationGroup group1 = createSpecializationGroup(associationEnd,
 				"R18", "");
-		associationEndPrimary = createSpecialization(group1, pkg,
+		associationEndPrimary = createSpecialization(group1, rootPackage,
 				"AssociationEndPrimary", "");
-		associationEndSecondary = createSpecialization(group1, pkg,
+		associationEndSecondary = createSpecialization(group1, rootPackage,
 				"AssociationEndSecondary", "");
 
-		attribute = createClassWithArbitraryId(pkg, "Attribute", "");
+		attribute = createClassWithArbitraryId(rootPackage, "Attribute", "");
 		SpecializationGroup group3 = createSpecializationGroup(attribute,
 				"R19", "");
-		attributeNormal = createSpecialization(group3, pkg, "AttributeNormal",
-				"");
-		attributeReferential = createSpecialization(group3, pkg,
+		attributeNormal = createSpecialization(group3, rootPackage,
+				"AttributeNormal", "");
+		attributeReferential = createSpecialization(group3, rootPackage,
 				"AttributeReferential", "");
 
-		operation = createClassWithArbitraryId(pkg, "Operation", "");
-		identifier = createClassWithArbitraryId(pkg, "Identifier", "");
-		SpecializationGroup group2 = createSpecializationGroup(identifier,
-				"R20", "");
-		identifierPrimary = createSpecialization(group2, pkg,
-				"IdentifierPrimary", "");
-		identifierNonPrimary = createSpecialization(group2, pkg,
-				"IdentifierNonPrimary", "");
-		specializationGroup = createClassWithArbitraryId(pkg,
+		operation = createClassWithArbitraryId(rootPackage, "Operation", "");
+		identifier = createClassWithArbitraryId(rootPackage, "Identifier", "");
+		specializationGroup = createClassWithArbitraryId(rootPackage,
 				"SpecializationGroup", "");
-		associationClass = createClassWithArbitraryId(pkg, "AssociationClass",
-				"");
-		operationSignature = createClassWithArbitraryId(pkg,
+		SpecializationGroup assClassGroup = createSpecializationGroup(clazz,
+				"R28", "");
+		Specialization associationClass = createSpecialization(assClassGroup,
+				rootPackage, "AssociationClass", "");
+		operationSignature = createClassWithArbitraryId(rootPackage,
 				"OperationSignature", "");
-		type = createClassWithArbitraryId(pkg, "Type", "");
-		parameter = createClassWithArbitraryId(pkg, "Parameter", "");
+		dataType = createClassWithArbitraryId(rootPackage, "DataType", "");
+		parameter = createClassWithArbitraryId(rootPackage, "Parameter", "");
+		stateMachine = createClassWithArbitraryId(rootPackage, "StateMachine",
+				"");
+		state = createClassWithArbitraryId(rootPackage, "State", "");
+		SpecializationGroup group5 = createSpecializationGroup(state, "R24", "");
+		fromState = createSpecialization(group5, rootPackage, "FromState", "");
+		terminatingState = createSpecialization(group5, rootPackage,
+				"TerminatingState", "");
+		SpecializationGroup group6 = createSpecializationGroup(fromState,
+				"R26", "");
+		initialState = createSpecialization(group6, rootPackage,
+				"InitialState", "");
 
-		SpecializationGroup group4 = createSpecializationGroup(type, "R21", "");
-		createSpecialization(group4, pkg, "FreeType", "");
-		createSpecialization(group4, pkg, "PrimitiveType", "");
+		SpecializationGroup group4 = createSpecializationGroup(dataType, "R21",
+				"");
+		createSpecialization(group4, rootPackage, "FreeType", "");
+		createSpecialization(group4, rootPackage, "PrimitiveType", "");
+		transition = createClassWithArbitraryId(rootPackage, "Transition", "");
 
-		createAssociation("R1", createAssociationEndPrimary(cls,
+		event = createClassWithArbitraryId(rootPackage, "Event", "");
+		SpecializationGroup group7 = createSpecializationGroup(event, "R34", "");
+		createSpecialization(group7, rootPackage, "CallEvent", "");
+		createSpecialization(group7, rootPackage, "TimerEvent", "");
+		createSpecialization(group7, rootPackage, "SignalEvent", "");
+		createSpecialization(group7, rootPackage, "ChangeEvent", "");
+
+		createAssociation("R1", createAssociationEndPrimary(clazz,
 				Multiplicity.ONE, "is in"), createAssociationEndSecondary(
 				attribute, Multiplicity.MANY, "has"));
-		createAssociation("R3", createAssociationEndPrimary(cls,
+		createAssociation("R3", createAssociationEndPrimary(clazz,
 				Multiplicity.ONE, "operates on"),
 				createAssociationEndSecondary(operation, Multiplicity.MANY,
 						"is operated on by"));
-		createAssociation("R4", createAssociationEndPrimary(cls,
+		createAssociation("R4", createAssociationEndPrimary(clazz,
 				Multiplicity.ONE, "identifies uniquely an instance of"),
 				createAssociationEndSecondary(identifier, Multiplicity.ONE,
 						"instance is uniquely referenced by"));
-		createAssociation("R2", createAssociationEndPrimary(cls,
-				Multiplicity.ONE, "is the primary id for"),
-				createAssociationEndSecondary(identifierPrimary,
-						Multiplicity.ONE, "is primarily identified by"));
-		createAssociation("R7", createAssociationEndPrimary(cls,
+		createAssociation("R7", createAssociationEndPrimary(abstractClass,
 				Multiplicity.ONE, "is specialization of"),
 				createAssociationEndSecondary(specializationGroup,
-						Multiplicity.MANY, "is generalization of"));
+						Multiplicity.ONE_MANY, "is generalization of"));
 		createAssociation("R8", createAssociationEndPrimary(association,
 				Multiplicity.ONE, "describes"), createAssociationEndSecondary(
 				associationClass, Multiplicity.ZERO_ONE, "is described by"));
@@ -108,18 +133,19 @@ public class Self extends SystemBase {
 				Multiplicity.ONE, "describes"), createAssociationEndSecondary(
 				associationEndSecondary, Multiplicity.ZERO_ONE,
 				"is described by"));
-		createAssociation("R11", createAssociationEndPrimary(cls,
+		createAssociation("R11", createAssociationEndPrimary(clazz,
 				Multiplicity.ONE, "has"), createAssociationEndSecondary(
 				associationEnd, Multiplicity.MANY, "participates via"));
 		createAssociation("R12", createAssociationEndPrimary(identifier,
 				Multiplicity.ONE, "has"), createAssociationEndSecondary(
 				attribute, Multiplicity.MANY, "participates via"));
-		createAssociation("R13", createAssociationEndPrimary(cls,
-				Multiplicity.MANY, "has"), createAssociationEndSecondary(
-				packageClass, Multiplicity.ONE, "belongs to"));
-		createAssociation("R14", createAssociationEndPrimary(packageClass,
-				Multiplicity.ONE, "has parent"), createAssociationEndSecondary(
-				packageClass, Multiplicity.MANY, "has child"));
+		createAssociation("R13", createAssociationEndPrimary(clazz,
+				Multiplicity.MANY, "has"), createAssociationEndSecondary(pkg,
+				Multiplicity.ONE, "belongs to"));
+		createAssociation("R14", createAssociationEndPrimary(pkg,
+				"parentPackage", Multiplicity.ONE, "has parent"),
+				createAssociationEndSecondary(pkg, "childPackage",
+						Multiplicity.MANY, "has child"));
 		createAssociation("R15", createAssociationEndPrimary(operation,
 				Multiplicity.ZERO_ONE, "describes"),
 				createAssociationEndSecondary(operationSignature,
@@ -130,8 +156,48 @@ public class Self extends SystemBase {
 						"has"));
 		createAssociation("R17", createAssociationEndPrimary(parameter,
 				Multiplicity.ZERO_ONE, "classifies"),
-				createAssociationEndSecondary(type, Multiplicity.ONE,
+				createAssociationEndSecondary(dataType, Multiplicity.ONE,
 						"is classified by"));
+		createAssociation("R22", createAssociationEndPrimary(attribute,
+				Multiplicity.MANY, "classifies"),
+				createAssociationEndSecondary(dataType, Multiplicity.ONE,
+						"is classified by"));
+		createAssociation("R23", createAssociationEndPrimary(clazz,
+				Multiplicity.ONE, "describes state-dependent behaviour of"),
+				createAssociationEndSecondary(stateMachine,
+						Multiplicity.ZERO_ONE, "has state-dependent behaviour"));
+		createAssociation("R25", createAssociationEndPrimary(stateMachine,
+				Multiplicity.ONE, "starts"), createAssociationEndSecondary(
+				initialState, Multiplicity.ONE, "is initially at"));
+		createAssociation("R27", createAssociationEndPrimary(stateMachine,
+				Multiplicity.ONE, "finalizes"), createAssociationEndSecondary(
+				terminatingState, Multiplicity.ZERO_ONE, "is finalized by"));
+		createAssociation("R29", createAssociationEndPrimary(
+				specializationGroup, Multiplicity.MANY,
+				"is a specialization in"), createAssociationEndSecondary(clazz,
+				Multiplicity.ONE_MANY, "has specialization"));
+		createAssociation("R30", createAssociationEndPrimary(
+				attributeReferential, Multiplicity.MANY, "is referred to by"),
+				createAssociationEndSecondary(attributeNormal,
+						Multiplicity.ONE, "refers to"));
+		createAssociation("R31", createAssociationEndPrimary(stateMachine,
+				Multiplicity.ONE, "belongs to"), createAssociationEndSecondary(
+				transition, Multiplicity.MANY, "has"));
+		createAssociation("R32", createAssociationEndPrimary(transition,
+				Multiplicity.ONE_MANY, "transits via"),
+				createAssociationEndSecondary(fromState, Multiplicity.ONE,
+						"starts at"));
+		createAssociation("R33", createAssociationEndPrimary(transition,
+				Multiplicity.ONE_MANY, "is arrived at via"),
+				createAssociationEndSecondary(state, Multiplicity.ONE,
+						"transits to"));
+		createAssociation("R35", createAssociationEndPrimary(transition,
+				Multiplicity.MANY, "initiates"), createAssociationEndSecondary(
+				event, Multiplicity.ONE, "is initiated by"));
+		createAssociation("R36", createAssociationEndPrimary(event,
+				Multiplicity.MANY, "parameterizes"),
+				createAssociationEndSecondary(parameter, Multiplicity.MANY,
+						"has"));
 	}
 
 	public static void main(String[] args) throws NumberFormatException,
