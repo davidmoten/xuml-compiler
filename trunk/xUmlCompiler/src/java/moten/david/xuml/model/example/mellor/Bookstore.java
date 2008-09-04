@@ -8,6 +8,7 @@ import model.Class;
 import model.Package;
 import model.Primitive;
 import model.SignalEvent;
+import model.SpecializationGroup;
 import model.State;
 import model.TimerEvent;
 import moten.david.xuml.model.Generator;
@@ -67,6 +68,11 @@ public class Bookstore extends SystemBase {
 						"is written by"),
 				createAssociationEndSecondary(book, Multiplicity.MANY, "wrote"))
 				.setAssociationClass(authorship);
+
+		SpecializationGroup r20 = createSpecializationGroup(book, "R20",
+				"specialization group R20");
+		createSpecialization(r20, pkg, "Fiction", "fictional book");
+		createSpecialization(r20, pkg, "NonFiction", "non-fictional book");
 
 		// createAssociation("R3", createAssociationEndPrimary(authorship,
 		// "precedingAuthor", Multiplicity.ZERO_ONE, "precedes"),
