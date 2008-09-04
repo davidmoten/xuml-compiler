@@ -31,7 +31,7 @@ public class Test {
 	}
 
 	public static Book createBook(String title) {
-		Book book = ObjectFactory.instance.createBook();
+		Book book = ObjectFactory.instance.createFiction();
 		book.setTitle(title);
 		return book;
 	}
