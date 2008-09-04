@@ -16,6 +16,8 @@ import model.AssociationEndSecondary;
 import model.AttributeReferential;
 import model.IdentifierNonPrimary;
 import model.ModelFactory;
+import model.Specialization;
+import model.SpecializationGroup;
 import model.System;
 import moten.david.xuml.model.compiler.templates.ResourceLocator;
 import moten.david.xuml.model.compiler.util.KeyMap;
@@ -210,6 +212,18 @@ public class Compiler {
 		for (model.Class cls : pkg.getClass_()) {
 			KeyMap map2 = new KeyMap();
 			map2.put("name", cls.getName());
+			map2.put("isGeneralization",
+					cls.getSpecializationGroup().size() > 0);
+			if (cls instanceof Specialization) {
+				Specialization sp = (Specialization) cls;
+				List<KeyMap> list2 = new ArrayList<KeyMap>();
+				map2.put("generalizations", list2);
+				for (SpecializationGroup group : sp.getGroup()) {
+					KeyMap map3 = new KeyMap();
+					map3.put("class", group.getGeneralization().getName());
+					list2.add(map3);
+				}
+			}
 			list.add(map2);
 		}
 	}
