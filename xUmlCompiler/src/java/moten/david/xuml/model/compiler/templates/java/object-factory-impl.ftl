@@ -24,6 +24,11 @@ public class ObjectFactoryImpl implements ObjectFactory {
 	public ${class.name} create${class.name}() {
 		${class.name} ${class.name?uncap_first} =  new ${class.name}Impl();
 		injectMembers(${class.name?uncap_first});
+		<#if class.generalizations?exists>
+		<#list class.generalizations as g>
+			${class.name?uncap_first}.set${g.class}(create${g.class}());
+		</#list>
+		</#if>
 		return ${class.name?uncap_first};
 	}
 </#list>

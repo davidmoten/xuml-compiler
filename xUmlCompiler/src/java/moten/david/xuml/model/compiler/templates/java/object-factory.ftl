@@ -10,11 +10,12 @@ public interface ObjectFactory {
 	 */
 	public ObjectFactory instance = ObjectFactoryImpl.getInstance();
 <#list classes as class>
-
+	<#if !class.isGeneralization>
 	/**
 	 * Returns a new object of class '<em>${class.name}</em>'.
 	 */
 	public ${class.name} create${class.name}();
+	</#if>
 </#list>
 
 	/** 

@@ -25,7 +25,7 @@ import ${package}.actions.*;
 </#compress>
 
 /**
-* ${description!""}
+* <#if description?exists>${description}</#if> 
 *
 * @generated
 * @generatedBy xUML
@@ -33,9 +33,11 @@ import ${package}.actions.*;
 <#if persistence?exists>
 <#assign persistenceTable><#if (persistence.table)?exists>${persistence.table}<#else><@underscore>${name}</@underscore></#if></#assign>
 @Entity(name="${name}")
-	<#if hasSubClasses>
+<#--
+	<#if isGeneralization>
 @Inheritance(strategy=InheritanceType.JOINED)<#rt/>
 	</#if>
+-->
 @Table(name="${persistenceTable}"<#rt/>
 		<#if (persistence.schema)?exists>, schema="${persistence.schema}"</#if><#lt/><#if identifiers?size gt 0>, 
 	uniqueConstraints={<#list identifiers as identifier><#if identifier_index gt 0>,</#if>
@@ -50,7 +52,7 @@ import ${package}.actions.*;
 			name="${index.name}", 
 			columnNames={<#list index.attributes as att><#if att_index gt 0>, </#if>"${att.name}"</#list>})</#list>})
 </#if>
-public class ${name}Impl <#if superClass?exists>extends ${superClass}Impl </#if>implements ${name} {
+public class ${name}Impl implements ${name} {
 
 	/**
 	* static logger
@@ -225,7 +227,7 @@ public class ${name}Impl <#if superClass?exists>extends ${superClass}Impl </#if>
 </#list>
 <#list operations as operation>
 <#assign opReturns><#if operation.returns?exists><#if operation.returnsMultiple>${"java.util.List\l"}${operation.returns}${"\g"}<#else>${operation.returns}</#if><#else>void</#if></#assign>
-<#assign parametersDeclaration><#list operation.parameters as param><#if param_index!=0>, </#if>${param.type} ${param.name}</#list></#assign>
+<#assign parametersDeclaration><#list operation.parameters as param><#if param_index!=0>, </#if>${param.type}<#if param.multiple>[]</#if> ${param.name}</#list></#assign>
 <#assign parametersList><#list operation.parameters as param><#if param_index!=0>, </#if>${param.name}</#list></#assign>
 
 	@Transient
