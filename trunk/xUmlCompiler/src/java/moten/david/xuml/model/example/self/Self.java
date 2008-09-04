@@ -45,7 +45,11 @@ public class Self extends SystemBase {
 	private void initialize() {
 		rootPackage = createRootPackage("self", "xUmlCompiler metamodel");
 		pkg = createClassWithArbitraryId(rootPackage, "Pkg", "");
+		createAttribute(pkg, "name");
+		createAttribute(pkg, "description");
 		clazz = createClassWithArbitraryId(rootPackage, "Clazz", "");
+		createAttribute(clazz, "name");
+		createAttribute(clazz, "description");
 		SpecializationGroup classSp = createSpecializationGroup(clazz, "R26",
 				"");
 		abstractClass = createSpecialization(classSp, rootPackage,
