@@ -52,7 +52,7 @@ Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
 ||Class||
 || ||Name||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Description||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
-|| ||Number|| ||
+|| ||Number|| Why? ||
 || ||Abbreviation|| ||
 || ||Actions||Java||
 || ||Diagram||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
