@@ -6,5 +6,5 @@
   * more junit tests for multiplicity combinations
   * investigate @Asynchronous annotation in EJB 3.1
   * some architectural elements are specified in the model at the moment such as schema names, table names, column names, role names, indexes. Refactor the architectural elements out.
-  * Specialization needs work to ensure a superclass is abstract and to allow multiple superclasses for one class
+  * Specialization needs work to ensure a superclass is abstract and to allow multiple superclasses for one class (done 4 Sept 2008).
   * consider generating a new xUmlCompiler using generated classes from the Self example model (xUmlCompiler generates an improved version of itself). Validation would then be performed not by Ecore libraries but by the persistent data store (standard relational database integrity checking plus mandatory association ends checking provided by xUmlCompiler generated entity classes).
