@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SpecializationGroupImpl.java,v 1.3 2008/06/11 07:28:44 dxm Exp $
+ * $Id$
  */
 package model.impl;
 
@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link model.impl.SpecializationGroupImpl#getName <em>Name</em>}</li>
  *   <li>{@link model.impl.SpecializationGroupImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link model.impl.SpecializationGroupImpl#getSuperClass <em>Super Class</em>}</li>
+ *   <li>{@link model.impl.SpecializationGroupImpl#getGeneralization <em>Generalization</em>}</li>
  *   <li>{@link model.impl.SpecializationGroupImpl#getSpecialization <em>Specialization</em>}</li>
  * </ul>
  * </p>
@@ -160,8 +160,8 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public model.Class getSuperClass() {
-		if (eContainerFeatureID != ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS) return null;
+	public model.Class getGeneralization() {
+		if (eContainerFeatureID != ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION) return null;
 		return (model.Class)eContainer();
 	}
 
@@ -170,8 +170,8 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSuperClass(model.Class newSuperClass, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newSuperClass, ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS, msgs);
+	public NotificationChain basicSetGeneralization(model.Class newGeneralization, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newGeneralization, ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION, msgs);
 		return msgs;
 	}
 
@@ -180,20 +180,20 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSuperClass(model.Class newSuperClass) {
-		if (newSuperClass != eInternalContainer() || (eContainerFeatureID != ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS && newSuperClass != null)) {
-			if (EcoreUtil.isAncestor(this, newSuperClass))
+	public void setGeneralization(model.Class newGeneralization) {
+		if (newGeneralization != eInternalContainer() || (eContainerFeatureID != ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION && newGeneralization != null)) {
+			if (EcoreUtil.isAncestor(this, newGeneralization))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
-			if (newSuperClass != null)
-				msgs = ((InternalEObject)newSuperClass).eInverseAdd(this, ModelPackage.CLASS__SPECIALIZATION_GROUP, model.Class.class, msgs);
-			msgs = basicSetSuperClass(newSuperClass, msgs);
+			if (newGeneralization != null)
+				msgs = ((InternalEObject)newGeneralization).eInverseAdd(this, ModelPackage.CLASS__SPECIALIZATION_GROUP, model.Class.class, msgs);
+			msgs = basicSetGeneralization(newGeneralization, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS, newSuperClass, newSuperClass));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION, newGeneralization, newGeneralization));
 	}
 
 	/**
@@ -203,7 +203,7 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 	 */
 	public EList<Specialization> getSpecialization() {
 		if (specialization == null) {
-			specialization = new EObjectWithInverseResolvingEList<Specialization>(Specialization.class, this, ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION, ModelPackage.SPECIALIZATION__GROUP);
+			specialization = new EObjectWithInverseResolvingEList.ManyInverse<Specialization>(Specialization.class, this, ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION, ModelPackage.SPECIALIZATION__GROUP);
 		}
 		return specialization;
 	}
@@ -217,10 +217,10 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS:
+			case ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetSuperClass((model.Class)otherEnd, msgs);
+				return basicSetGeneralization((model.Class)otherEnd, msgs);
 			case ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSpecialization()).basicAdd(otherEnd, msgs);
 		}
@@ -235,8 +235,8 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS:
-				return basicSetSuperClass(null, msgs);
+			case ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION:
+				return basicSetGeneralization(null, msgs);
 			case ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION:
 				return ((InternalEList<?>)getSpecialization()).basicRemove(otherEnd, msgs);
 		}
@@ -251,7 +251,7 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
-			case ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS:
+			case ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION:
 				return eInternalContainer().eInverseRemove(this, ModelPackage.CLASS__SPECIALIZATION_GROUP, model.Class.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
@@ -269,8 +269,8 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 				return getName();
 			case ModelPackage.SPECIALIZATION_GROUP__DESCRIPTION:
 				return getDescription();
-			case ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS:
-				return getSuperClass();
+			case ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION:
+				return getGeneralization();
 			case ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION:
 				return getSpecialization();
 		}
@@ -292,8 +292,8 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 			case ModelPackage.SPECIALIZATION_GROUP__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
-			case ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS:
-				setSuperClass((model.Class)newValue);
+			case ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION:
+				setGeneralization((model.Class)newValue);
 				return;
 			case ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION:
 				getSpecialization().clear();
@@ -317,8 +317,8 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 			case ModelPackage.SPECIALIZATION_GROUP__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
-			case ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS:
-				setSuperClass((model.Class)null);
+			case ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION:
+				setGeneralization((model.Class)null);
 				return;
 			case ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION:
 				getSpecialization().clear();
@@ -339,8 +339,8 @@ public class SpecializationGroupImpl extends EObjectImpl implements Specializati
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ModelPackage.SPECIALIZATION_GROUP__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS:
-				return getSuperClass() != null;
+			case ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION:
+				return getGeneralization() != null;
 			case ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION:
 				return specialization != null && !specialization.isEmpty();
 		}

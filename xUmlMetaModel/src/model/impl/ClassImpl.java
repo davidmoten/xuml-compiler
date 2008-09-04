@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ClassImpl.java,v 1.4 2008/06/11 07:28:43 dxm Exp $
+ * $Id$
  */
 package model.impl;
 
@@ -568,7 +568,7 @@ public class ClassImpl extends EObjectImpl implements model.Class {
 	 */
 	public EList<SpecializationGroup> getSpecializationGroup() {
 		if (specializationGroup == null) {
-			specializationGroup = new EObjectContainmentWithInverseEList<SpecializationGroup>(SpecializationGroup.class, this, ModelPackage.CLASS__SPECIALIZATION_GROUP, ModelPackage.SPECIALIZATION_GROUP__SUPER_CLASS);
+			specializationGroup = new EObjectContainmentWithInverseEList<SpecializationGroup>(SpecializationGroup.class, this, ModelPackage.CLASS__SPECIALIZATION_GROUP, ModelPackage.SPECIALIZATION_GROUP__GENERALIZATION);
 		}
 		return specializationGroup;
 	}

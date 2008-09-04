@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: UseCaseDiagramImpl.java,v 1.4 2008/06/11 07:28:41 dxm Exp $
+ * $Id$
  */
 package model.diagram.impl;
 

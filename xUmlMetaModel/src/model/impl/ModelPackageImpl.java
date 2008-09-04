@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ModelPackageImpl.java,v 1.6 2008/06/25 06:33:24 dxm Exp $
+ * $Id$
  */
 package model.impl;
 
@@ -1922,7 +1922,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSpecializationGroup_SuperClass() {
+	public EReference getSpecializationGroup_Generalization() {
 		return (EReference)specializationGroupEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2191,7 +2191,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(dataTypeEClass, DATA_TYPE__PACKAGE);
 
 		specializationGroupEClass = createEClass(SPECIALIZATION_GROUP);
-		createEReference(specializationGroupEClass, SPECIALIZATION_GROUP__SUPER_CLASS);
+		createEReference(specializationGroupEClass, SPECIALIZATION_GROUP__GENERALIZATION);
 		createEReference(specializationGroupEClass, SPECIALIZATION_GROUP__SPECIALIZATION);
 
 		specializationEClass = createEClass(SPECIALIZATION);
@@ -2326,7 +2326,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getClass_AssociationEndPrimary(), this.getAssociationEndPrimary(), this.getAssociationEndPrimary_Class(), "associationEndPrimary", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_AssociationEndSecondary(), this.getAssociationEndSecondary(), this.getAssociationEndSecondary_Class(), "associationEndSecondary", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Persistence(), this.getClassPersistence(), null, "persistence", null, 0, 1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClass_SpecializationGroup(), this.getSpecializationGroup(), this.getSpecializationGroup_SuperClass(), "specializationGroup", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClass_SpecializationGroup(), this.getSpecializationGroup(), this.getSpecializationGroup_Generalization(), "specializationGroup", null, 0, -1, model.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getClass_SpecializationGroup().getEKeys().add(this.getNamed_Name());
 
 		initEClass(associationEClass, Association.class, "Association", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2507,11 +2507,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getDataType_Package(), this.getPackage(), this.getPackage_DataType(), "package", null, 1, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(specializationGroupEClass, SpecializationGroup.class, "SpecializationGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSpecializationGroup_SuperClass(), this.getClass_(), this.getClass_SpecializationGroup(), "superClass", null, 1, 1, SpecializationGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSpecializationGroup_Generalization(), this.getClass_(), this.getClass_SpecializationGroup(), "generalization", null, 1, 1, SpecializationGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSpecializationGroup_Specialization(), this.getSpecialization(), this.getSpecialization_Group(), "specialization", null, 1, -1, SpecializationGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(specializationEClass, Specialization.class, "Specialization", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSpecialization_Group(), this.getSpecializationGroup(), this.getSpecializationGroup_Specialization(), "group", null, 1, 1, Specialization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSpecialization_Group(), this.getSpecializationGroup(), this.getSpecializationGroup_Specialization(), "group", null, 1, -1, Specialization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(primitiveEEnum, Primitive.class, "Primitive");

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: UseAdapterFactory.java,v 1.6 2008/06/25 06:33:26 dxm Exp $
+ * $Id$
  */
 package model.use.util;
 

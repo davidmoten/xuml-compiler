@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: FinalState.java,v 1.5 2008/06/25 06:33:24 dxm Exp $
+ * $Id$
  */
 package model;
 
@@ -24,7 +24,6 @@ package model;
  * @generated
  */
 public interface FinalState extends ToState {
-
 	/**
 	 * Returns the value of the '<em><b>State Machine</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link model.StateMachine#getFinalState <em>Final State</em>}'.
@@ -52,4 +51,5 @@ public interface FinalState extends ToState {
 	 * @generated
 	 */
 	void setStateMachine(StateMachine value);
+
 } // FinalState

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ChangeEventImpl.java,v 1.4 2008/06/11 07:28:43 dxm Exp $
+ * $Id$
  */
 package model.impl;
 

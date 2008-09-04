@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: InitialState.java,v 1.5 2008/06/25 06:33:24 dxm Exp $
+ * $Id$
  */
 package model;
 
@@ -24,7 +24,6 @@ package model;
  * @generated
  */
 public interface InitialState extends FromState {
-
 	/**
 	 * Returns the value of the '<em><b>State Machine</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link model.StateMachine#getInitialState <em>Initial State</em>}'.
@@ -52,4 +51,5 @@ public interface InitialState extends FromState {
 	 * @generated
 	 */
 	void setStateMachine(StateMachine value);
+
 } // InitialState

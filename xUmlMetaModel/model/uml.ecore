@@ -69,7 +69,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="persistence" eType="#//ClassPersistence"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specializationGroup" upperBound="-1"
-        eType="#//SpecializationGroup" containment="true" eOpposite="#//SpecializationGroup/superClass"
+        eType="#//SpecializationGroup" containment="true" eOpposite="#//SpecializationGroup/generalization"
         eKeys="#//Named/name"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Association" eSuperTypes="#//Named">
@@ -335,14 +335,14 @@
         eType="#//Package" eOpposite="#//Package/dataType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SpecializationGroup" eSuperTypes="#//Named">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="superClass" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="generalization" lowerBound="1"
         eType="#//Class" eOpposite="#//Class/specializationGroup"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specialization" lowerBound="1"
         upperBound="-1" eType="#//Specialization" eOpposite="#//Specialization/group"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Specialization" eSuperTypes="#//Class">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="group" lowerBound="1" eType="#//SpecializationGroup"
-        eOpposite="#//SpecializationGroup/specialization"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="group" lowerBound="1" upperBound="-1"
+        eType="#//SpecializationGroup" eOpposite="#//SpecializationGroup/specialization"/>
   </eClassifiers>
   <eSubpackages name="collaboration" nsURI="http://davidmoten.homeip.net/uml/executable/model/collaboration"
       nsPrefix="model.collaboration">

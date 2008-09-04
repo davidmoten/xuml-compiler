@@ -2,21 +2,25 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SpecializationImpl.java,v 1.3 2008/06/11 07:28:45 dxm Exp $
+ * $Id$
  */
 package model.impl;
+
+import java.util.Collection;
 
 import model.ModelPackage;
 import model.Specialization;
 import model.SpecializationGroup;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,14 +37,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class SpecializationImpl extends ClassImpl implements Specialization {
 	/**
-	 * The cached value of the '{@link #getGroup() <em>Group</em>}' reference.
+	 * The cached value of the '{@link #getGroup() <em>Group</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getGroup()
 	 * @generated
 	 * @ordered
 	 */
-	protected SpecializationGroup group;
+	protected EList<SpecializationGroup> group;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -66,14 +70,9 @@ public class SpecializationImpl extends ClassImpl implements Specialization {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SpecializationGroup getGroup() {
-		if (group != null && group.eIsProxy()) {
-			InternalEObject oldGroup = (InternalEObject)group;
-			group = (SpecializationGroup)eResolveProxy(oldGroup);
-			if (group != oldGroup) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.SPECIALIZATION__GROUP, oldGroup, group));
-			}
+	public EList<SpecializationGroup> getGroup() {
+		if (group == null) {
+			group = new EObjectWithInverseResolvingEList.ManyInverse<SpecializationGroup>(SpecializationGroup.class, this, ModelPackage.SPECIALIZATION__GROUP, ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION);
 		}
 		return group;
 	}
@@ -83,56 +82,12 @@ public class SpecializationImpl extends ClassImpl implements Specialization {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SpecializationGroup basicGetGroup() {
-		return group;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetGroup(SpecializationGroup newGroup, NotificationChain msgs) {
-		SpecializationGroup oldGroup = group;
-		group = newGroup;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.SPECIALIZATION__GROUP, oldGroup, newGroup);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setGroup(SpecializationGroup newGroup) {
-		if (newGroup != group) {
-			NotificationChain msgs = null;
-			if (group != null)
-				msgs = ((InternalEObject)group).eInverseRemove(this, ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION, SpecializationGroup.class, msgs);
-			if (newGroup != null)
-				msgs = ((InternalEObject)newGroup).eInverseAdd(this, ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION, SpecializationGroup.class, msgs);
-			msgs = basicSetGroup(newGroup, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SPECIALIZATION__GROUP, newGroup, newGroup));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelPackage.SPECIALIZATION__GROUP:
-				if (group != null)
-					msgs = ((InternalEObject)group).eInverseRemove(this, ModelPackage.SPECIALIZATION_GROUP__SPECIALIZATION, SpecializationGroup.class, msgs);
-				return basicSetGroup((SpecializationGroup)otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getGroup()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -146,7 +101,7 @@ public class SpecializationImpl extends ClassImpl implements Specialization {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelPackage.SPECIALIZATION__GROUP:
-				return basicSetGroup(null, msgs);
+				return ((InternalEList<?>)getGroup()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -160,8 +115,7 @@ public class SpecializationImpl extends ClassImpl implements Specialization {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackage.SPECIALIZATION__GROUP:
-				if (resolve) return getGroup();
-				return basicGetGroup();
+				return getGroup();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -171,11 +125,13 @@ public class SpecializationImpl extends ClassImpl implements Specialization {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.SPECIALIZATION__GROUP:
-				setGroup((SpecializationGroup)newValue);
+				getGroup().clear();
+				getGroup().addAll((Collection<? extends SpecializationGroup>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -190,7 +146,7 @@ public class SpecializationImpl extends ClassImpl implements Specialization {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ModelPackage.SPECIALIZATION__GROUP:
-				setGroup((SpecializationGroup)null);
+				getGroup().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -205,7 +161,7 @@ public class SpecializationImpl extends ClassImpl implements Specialization {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ModelPackage.SPECIALIZATION__GROUP:
-				return group != null;
+				return group != null && !group.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
