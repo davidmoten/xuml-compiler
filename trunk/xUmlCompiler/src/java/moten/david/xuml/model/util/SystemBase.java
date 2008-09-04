@@ -512,7 +512,7 @@ public class SystemBase implements CodeGenerator {
 				.createSpecializationGroup();
 		group.setName(name);
 		group.setDescription(description);
-		group.setSuperClass(cls);
+		group.setGeneralization(cls);
 		return group;
 	}
 
@@ -522,7 +522,7 @@ public class SystemBase implements CodeGenerator {
 		s.setName(name);
 		s.setDescription(description);
 		s.setPackage(pkg);
-		s.setGroup(group);
+		s.getGroup().add(group);
 		createPersistence(s, null);
 		return s;
 	}
