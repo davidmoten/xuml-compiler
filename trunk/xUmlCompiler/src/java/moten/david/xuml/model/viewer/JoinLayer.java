@@ -81,6 +81,9 @@ public class JoinLayer extends JPanel {
 			centreOfSpecializations.x += centre.x;
 			centreOfSpecializations.y += centre.y;
 		}
+		if (group.getSpecialization().size() == 0)
+			throw new Error("specialization group " + group.getName()
+					+ " has no members!");
 		centreOfSpecializations.x /= group.getSpecialization().size();
 		centreOfSpecializations.y /= group.getSpecialization().size();
 		Rectangle r = new Rectangle(centreOfSpecializations);

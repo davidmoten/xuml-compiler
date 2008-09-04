@@ -185,8 +185,10 @@ public class SystemViewer {
 		f.setHeight(frame.getHeight());
 		f.setWidth(frame.getWidth());
 		Viewport v = ViewFactory.eINSTANCE.createViewport();
-		v.setHeight(systemPanel.getPreferredSize().height);
-		v.setWidth(systemPanel.getPreferredSize().width);
+		v.setHeight(Math.max(systemPanel.getPreferredSize().height, systemPanel
+				.getHeight()));
+		v.setWidth(Math.max(systemPanel.getPreferredSize().width, systemPanel
+				.getWidth()));
 		view.setFrame(f);
 		view.setViewport(v);
 		save(view);
@@ -571,22 +573,16 @@ public class SystemViewer {
 					return Printable.NO_SUCH_PAGE;
 				}
 				Graphics2D g2 = (Graphics2D) pg;
-
+				double scalex = pf.getPaper().getImageableWidth()
+						/ panel.getPreferredSize().getWidth();
+				double scaley = pf.getPaper().getImageableHeight()
+						/ panel.getPreferredSize().getHeight();
+				double scale = Math.min(scalex, scaley);
 				g2.translate(pf.getImageableX(), pf.getImageableY());
-				double scale;
-				if (panel.getPreferredSize().getHeight() * 1.0
-						/ panel.getPreferredSize().getWidth() > pf.getPaper()
-						.getImageableHeight()
-						* 1.0 / pf.getPaper().getImageableWidth())
-					scale = pf.getPaper().getImageableHeight() * 1.0
-							/ panel.getPreferredSize().getHeight();
-				else
-					scale = pf.getPaper().getImageableWidth() * 1.0
-							/ systemPanel.getPreferredSize().getWidth();
 				g2.scale(scale, scale);
-				systemPanel.setDoubleBuffered(false);
-				systemPanel.paint(g2);
-				systemPanel.setDoubleBuffered(true);
+				panel.setDoubleBuffered(false);
+				panel.paint(g2);
+				panel.setDoubleBuffered(true);
 				return Printable.PAGE_EXISTS;
 			}
 		});
