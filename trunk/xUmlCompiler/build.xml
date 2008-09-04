@@ -14,6 +14,8 @@
 	<property name="generated.microwave" value="${temp}/microwave" />
 	<property name="generated.shop" value="${temp}/shop" />
 	<property name="generated.simple" value="${temp}/simple" />
+	<property name="generated.tv" value="${temp}/tv" />
+	<property name="generated.self" value="${temp}/self" />
 	<property name="deployment" value="${temp}/deployment" />
 	<property name="dependencies" value="${temp}/dependencies" />
 	<property name="use.proxy" value="true" />
@@ -28,7 +30,8 @@
 	</condition>
 	<!-- otherwise use the default repository -->
 	<!--<property name="maven.local.repository" value="${user.home}/main/maven/repository" />-->
-	<property name="maven.local.repository" value="${user.home}/.m2/repository" />
+	<property name="maven.local.repository"
+	          value="${user.home}/.m2/repository" />
 	<condition property="set.proxy">
 		<istrue value="${use.proxy}" />
 	</condition>
@@ -85,6 +88,7 @@
 		<delete dir="${generated.microwave}" />
 		<delete dir="${generated.shop}" />
 		<delete dir="${generated.simple}" />
+		<delete dir="${generated.tv}" />
 		<delete dir="${deployment}" />
 		<delete dir="${dependencies}" />
 
@@ -97,6 +101,7 @@
 		<mkdir dir="${generated.microwave}" />
 		<mkdir dir="${generated.shop}" />
 		<mkdir dir="${generated.simple}" />
+		<mkdir dir="${generated.tv}" />
 		<mkdir dir="${deployment}" />
 		<mkdir dir="${temp}/dependencies" />
 
@@ -135,6 +140,11 @@
 		<artifact:dependencies pathId="dependency.classpath"
 		                       filesetId="dependency.fileset">
 			<artifact:localRepository refid="rep" />
+			<artifact:remoteRepository id="remote.repository"
+			                           url="http://repo1.maven.org/maven2">
+				<releases enabled="false" updatePolicy="never" />
+				<snapshots enabled="false" updatePolicy="never" />
+			</artifact:remoteRepository>
 			<dependency groupId="log4j" artifactId="log4j" version="1.2.15">
 				<exclusion groupId="javax.jms" artifactId="jms" />
 				<exclusion groupId="com.sun.jmx" artifactId="jmxri" />
@@ -180,8 +190,8 @@
 			            artifactId="hsqldb"
 			            version="1.8.0.7" />
 			<dependency groupId="org.swinglabs"
-						artifactId="swingx"
-						version="0.9.2"/>
+			            artifactId="swingx"
+			            version="0.9.2" />
 			<!-- perform a bit of trickery here as maven and osgi versions
 			 are ordered differently, consequently we have to override 
 			 some of the dependencies -->
@@ -200,10 +210,16 @@
 				<exclusion groupId="org.eclipse.equinox" artifactId="app" />
 				<exclusion groupId="org.eclipse.emf" artifactId="common" />
 				<exclusion groupId="org.eclipse.emf" artifactId="ecore" />
+				<exclusion groupId="org.eclipse.core" artifactId="runtime" />
 			</dependency>
 			<dependency groupId="org.eclipse.emf"
 			            artifactId="common"
 			            version="2.3.0-v200706262000" />
+			<dependency groupId="org.eclipse.core"
+			            artifactId="runtime"
+			            version="3.3.100-v20070530">
+				<exclusion groupId="org.eclipse.equinox" artifactId="app" />
+			</dependency>
 		</artifact:dependencies>
 		<echo message="copying deps to ${dependencies}" level="info" />
 		<copy todir="${dependencies}" flatten="true">
@@ -274,7 +290,10 @@
 		               codeGenerator="moten.david.xuml.model.example.shop.Shop" />
 		<xuml-generate outputDirectory="${generated.simple}"
 		               codeGenerator="moten.david.xuml.model.example.simple.Simple" />
-
+		<xuml-generate outputDirectory="${generated.tv}"
+		               codeGenerator="moten.david.xuml.model.example.tv.Tv" />
+		<xuml-generate outputDirectory="${generated.self}"
+		               codeGenerator="moten.david.xuml.model.example.self.Self" />
 
 		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}:${generated.viewer}"
 		       destdir="${bin}"
@@ -284,6 +303,8 @@
 		       fork="true">
 			<exclude name="**/example/shop/**/*" />
 			<exclude name="**/example/simple/**/*" />
+			<exclude name="**/example/tv/**/*" />
+			<exclude name="**/example/self/**/*" />
 		</javac>
 	</target>
 
@@ -306,7 +327,9 @@
 	<!-- jar -->
 	<target name="jar" depends="test">
 		<tstamp>
-			<format pattern="yyyyMMddHHmm" property="timestamp" timezone="GMT" />
+			<format pattern="yyyyMMddHHmm"
+			        property="timestamp"
+			        timezone="GMT" />
 		</tstamp>
 		<property name="version" value="0.1-${timestamp}" />
 		<echo file="${temp}/version.properties" message="version=${version}" />
