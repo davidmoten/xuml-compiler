@@ -87,5 +87,5 @@ Check out the [http://code.google.com/p/xuml-compiler/wiki/Guide Guide].
 ||Specialization|| ||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Generalizations are abstract||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Multiple Generalization||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif ||
-|| ||Disjoint Enforced|| ||
+|| ||Disjoint Enforced||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
 || ||Compound||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/tick.gif||
