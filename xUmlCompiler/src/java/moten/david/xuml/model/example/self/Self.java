@@ -82,6 +82,8 @@ public class Self extends SystemBase {
 				"R28", "");
 		Specialization associationClass = createSpecialization(assClassGroup,
 				rootPackage, "AssociationClass", "");
+		createSpecialization(assClassGroup, rootPackage, "NonAssociationClass",
+				"");
 		operationSignature = createClassWithArbitraryId(rootPackage,
 				"OperationSignature", "");
 		dataType = createClassWithArbitraryId(rootPackage, "DataType", "");
