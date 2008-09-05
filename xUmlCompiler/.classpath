@@ -25,8 +25,6 @@
 	<classpathentry kind="lib" path="temp/dependencies/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/ehcache-1.2.3.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/ejb3-persistence-1.0.2.GA.jar"/>
-	<classpathentry kind="lib" path="temp/dependencies/freemarker-2.3.12.jar"/>
-	<classpathentry kind="lib" path="temp/dependencies/freemarker-2.3.8.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/geronimo-spec-jta-1.0.1B-rc4.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/guice-1.0.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/hibernate-3.2.6.ga.jar"/>
@@ -48,6 +46,7 @@
 	<classpathentry kind="lib" path="temp/dependencies/filters-2.0.235.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/swing-worker-1.1.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/swingx-0.9.2.jar"/>
+	<classpathentry kind="lib" path="temp/dependencies/freemarker-2.3.12.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/xUmlMetaModel"/>
 	<classpathentry kind="output" path="bin"/>

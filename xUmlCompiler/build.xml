@@ -173,7 +173,9 @@
 			</dependency>
 			<dependency groupId="org.hibernate"
 			            artifactId="hibernate-tools"
-			            version="3.2.0.ga" />
+			            version="3.2.0.ga">
+				<exclusion groupId="freemarker" artifactId="freemarker" />
+			</dependency>
 			<dependency groupId="org.hibernate"
 			            artifactId="hibernate-entitymanager"
 			            version="3.3.1.ga" />
@@ -269,6 +271,7 @@
 			<exclude name="**/example/**/*InjectorModule.java" />
 			<exclude name="**/example/**/*Launcher.java" />
 			<exclude name="**/example/**/*Viewer.java" />
+			<exclude name="**/example/self/compiler/**/*" />
 		</javac>
 
 	</target>
@@ -290,8 +293,8 @@
 		               codeGenerator="moten.david.xuml.model.example.shop.Shop" />
 		<xuml-generate outputDirectory="${generated.simple}"
 		               codeGenerator="moten.david.xuml.model.example.simple.Simple" />
-		<!--<xuml-generate outputDirectory="${generated.tv}"
-		               codeGenerator="moten.david.xuml.model.example.tv.Tv" />-->
+		<xuml-generate outputDirectory="${generated.tv}"
+		               codeGenerator="moten.david.xuml.model.example.tv.Tv" />
 		<xuml-generate outputDirectory="${generated.self}"
 		               codeGenerator="moten.david.xuml.model.example.self.Self" />
 
@@ -378,5 +381,19 @@
 
 	<!-- build -->
 	<target name="build" depends="jar" />
+
+	<target name="update.local">
+		<defaultexcludes echo="true" />
+		<copy todir="G:\work\source2\xuml-compiler.googlecode.com"
+		      preservelastmodified="true"
+		      includeemptydirs="false">
+			<fileset dir=".." defaultexcludes="true">
+				<include name="xUmlCompiler/**/*" />
+				<include name="xUmlMetaModel/**/*" />
+				<exclude name="*/temp/**/*" />
+				<exclude name="*/bin/**/*" />
+			</fileset>
+		</copy>
+	</target>
 
 </project>
