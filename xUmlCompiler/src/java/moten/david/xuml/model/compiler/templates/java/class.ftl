@@ -701,6 +701,32 @@ public class ${name}Impl implements ${name} {
 </#list>
 	}
 </#list>
+</#if>
+
+<#list specializationGroups as specializationGroup>
+	private void checkValidSpecializationGroup${specializationGroup.name?cap_first}(){
+		int count=0;
+		List<String> list = new ArrayList<String>();
+		<#list specializationGroup.specializations as specialization>
+		if (get${specialization.class?cap_first}()!=null){
+			count++;
+			list.add("${specialization.class}");
+		}
+		</#list>
+		if (count==0)
+			throw new InvalidRecordException("class is abstract, one specialization must be set");
+		else if (count>1) 
+			throw new InvalidRecordException("only one specialization can be set. Currently set are " + list);
+	}
+	
+</#list>
+<#assign prePersist>
+${prePersist!""}
+<#list specializationGroups as specializationGroup>
+		checkValidSpecializationGroup${specializationGroup.name?cap_first}();
+</#list>
+</#assign>
+
 <#if prePersist?exists>
 
 	@PreUpdate
@@ -709,7 +735,7 @@ public class ${name}Impl implements ${name} {
 ${prePersist}
 	}
 </#if>
-</#if>
+
 }
 
 <#if isCompositeId>
