@@ -27,6 +27,8 @@ A simple Class and State Diagram Viewer (a Swing app) is provided. Printing is e
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/sampleViewer.png
 
+http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/self2.png
+
 ==What's good?==
   * The system definition code is a hundred times briefer than hand coding all the ejb3 classes.
   * Using java to define the system gives you java editing power (syntax checking, autocompletion, refactoring) and object oriented coding.
