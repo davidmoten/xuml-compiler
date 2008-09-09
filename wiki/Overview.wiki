@@ -27,6 +27,7 @@ A simple Class and State Diagram Viewer (a Swing app) is provided. Printing is e
 
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/sampleViewer.png
 
+A draft class diagram for the Self system:
 http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/self2.png
 
 ==What's good?==
