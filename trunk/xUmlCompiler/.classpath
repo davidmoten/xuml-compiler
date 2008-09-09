@@ -9,6 +9,7 @@
 	<classpathentry kind="src" path="src/viewer/model/generated"/>
 	<classpathentry kind="src" path="temp/tv"/>
 	<classpathentry kind="src" path="temp/self"/>
+	<classpathentry kind="src" path="temp/specialize"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/emf/org.eclipse.emf.ecore.xmi_2.4.0.v200804012208.jar"/>
 	<classpathentry kind="lib" path="temp/dependencies/activation-1.1.jar"/>
