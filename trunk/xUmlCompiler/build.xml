@@ -340,7 +340,7 @@
 			        property="timestamp"
 			        timezone="GMT" />
 		</tstamp>
-		<property name="version" value="0.1-${timestamp}" />
+		<property name="version" value="0.2-${timestamp}" />
 		<echo file="${temp}/version.properties" message="version=${version}" />
 		<property name="jar" value="${deployment}/${project.short.name}.jar" />
 		<jar destfile="${jar}" manifest="${src}/META-INF/MANIFEST.MF">
