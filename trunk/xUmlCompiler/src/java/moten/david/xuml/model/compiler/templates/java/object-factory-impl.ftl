@@ -26,7 +26,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
 		injectMembers(${class.name?uncap_first});
 		<#if class.generalizations?exists>
 		<#list class.generalizations as g>
-			${class.name?uncap_first}.set${g.class}(create${g.class}());
+		${class.name?uncap_first}.set${g.class}(create${g.class}());
 		</#list>
 		</#if>
 		return ${class.name?uncap_first};

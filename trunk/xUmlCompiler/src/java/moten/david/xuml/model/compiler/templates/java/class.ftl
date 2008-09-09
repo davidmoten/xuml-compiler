@@ -272,7 +272,7 @@ public class ${name}Impl implements ${name} {
     /**
     * 0..1 to 1 (association "${association.name}")
     */
-	@OneToOne(targetEntity=${association.other.classImpl}.class)
+	@OneToOne(targetEntity=${association.other.classImpl}.class<#if generalizations?exists>,cascade=CascadeType.ALL</#if>)
 	@JoinColumn(name = "${otherColumn}",nullable = false)
 <#-- 1 to 1 primary -->
 <#elseif !association.this.multiple
