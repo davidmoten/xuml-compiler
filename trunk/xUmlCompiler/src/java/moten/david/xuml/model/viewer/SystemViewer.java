@@ -95,9 +95,8 @@ public class SystemViewer {
 	}
 
 	private void createComponents(model.System system) {
-		for (Package pkg : system.getPackage()) {
+		for (Package pkg : system.getPackage())
 			addClasses(pkg);
-		}
 		for (ClassComponent component : components)
 			for (Component label : component.getLabels()) {
 				systemPanel.add(label);
@@ -107,26 +106,23 @@ public class SystemViewer {
 
 	private Element getElement(View view, ClassComponent c) {
 		if (view != null && view.getElement() != null)
-			for (Element e : view.getElement()) {
+			for (Element e : view.getElement())
 				if (getElementName(c).equals(e.getName()))
 					return e;
-			}
 		return null;
 	}
 
 	private Element getElement(View view, MyLabel label) {
-		for (Element e : view.getElement()) {
+		for (Element e : view.getElement())
 			if (getElementName(label).equals(e.getName()))
 				return e;
-		}
 		return null;
 	}
 
 	private Element getElement(View view, StateComponent c) {
-		for (Element e : view.getElement()) {
+		for (Element e : view.getElement())
 			if (getElementName(c).equals(e.getName()))
 				return e;
-		}
 		return null;
 	}
 
@@ -277,9 +273,8 @@ public class SystemViewer {
 	}
 
 	private void applyView(View view, JPanel panel) {
-		for (StateComponent c : statelyComponents.values()) {
+		for (StateComponent c : statelyComponents.values())
 			locateRandomly(c);
-		}
 		for (ClassComponent c : components) {
 			Element element = getElement(view, c);
 			if (element == null)
@@ -294,9 +289,8 @@ public class SystemViewer {
 						label.setLocation(c.getLocation().x + 150, c
 								.getLocation().y
 								+ (count - 1) * 11);
-					} else {
+					} else
 						label.setLocation(e.getX(), e.getY());
-					}
 
 				}
 			}
@@ -306,26 +300,24 @@ public class SystemViewer {
 			Element element = getElement(view, c);
 			if (element == null)
 				locateRandomly(c);
-			else {
+			else
 				c.setLocation(element.getX(), element.getY());
-			}
 		}
-		if (view == null) {
+		if (view == null)
 			systemPanel.setPreferredSize(new Dimension(750, 550));
-		} else {
+		else
 			systemPanel.setPreferredSize(new Dimension(view.getViewport()
 					.getWidth(), view.getViewport().getHeight()));
-		}
 
 	}
 
 	private void applyView(View view, JFrame frame) {
-		applyView(view, systemPanel);
+
 		if (view == null) {
 			frame.setSize(new Dimension(800, 600));
 			systemPanel.setPreferredSize(new Dimension(750, 550));
-
 		} else {
+			applyView(view, systemPanel);
 			frame.setLocation(view.getFrame().getX(), view.getFrame().getY());
 			frame.setSize(new Dimension(view.getFrame().getWidth(), view
 					.getFrame().getHeight()));
@@ -368,9 +360,8 @@ public class SystemViewer {
 					systemPanel.setDoubleBuffered(true);
 					g2.dispose();
 					try {
-						if (!file.getName().toUpperCase().endsWith(".PNG")) {
+						if (!file.getName().toUpperCase().endsWith(".PNG"))
 							file = new File(file.getAbsolutePath() + ".PNG");
-						}
 						ImageIO.write(bi, "png", file);
 					} catch (IOException e1) {
 						throw new Error(e1);
@@ -381,9 +372,8 @@ public class SystemViewer {
 		systemPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON3) {
+				if (e.getButton() == MouseEvent.BUTTON3)
 					menu.show((Component) e.getSource(), e.getX(), e.getY());
-				}
 			}
 		});
 	}
@@ -412,9 +402,8 @@ public class SystemViewer {
 				panel.add(transitions);
 			}
 		}
-		for (Package p : pkg.getSubPackage()) {
+		for (Package p : pkg.getSubPackage())
 			addClasses(p);
-		}
 	}
 
 	private void createStatelyComponent(Stately state, JPanel panel) {
@@ -448,20 +437,16 @@ public class SystemViewer {
 	}
 
 	public ClassComponent getClassComponent(model.Class cls) {
-		for (ClassComponent s : getClassComponents()) {
-			if (s.getClass_().equals(cls)) {
+		for (ClassComponent s : getClassComponents())
+			if (s.getClass_().equals(cls))
 				return s;
-			}
-		}
 		return null;
 	}
 
 	public ClassComponent getClassComponent(String name) {
-		for (ClassComponent s : getClassComponents()) {
-			if (s.getClass_().getName().equals(name)) {
+		for (ClassComponent s : getClassComponents())
+			if (s.getClass_().getName().equals(name))
 				return s;
-			}
-		}
 		return null;
 	}
 
@@ -519,10 +504,9 @@ public class SystemViewer {
 					JScrollPane scroll = new JScrollPane(systemPanel);
 					scroll.setWheelScrollingEnabled(true);
 					tabs.add("Class Diagram", scroll);
-					for (model.Class cls : stateMachinePanels.keySet()) {
+					for (model.Class cls : stateMachinePanels.keySet())
 						tabs.add(cls.getName(), new JScrollPane(
 								stateMachinePanels.get(cls)));
-					}
 
 					frame.getContentPane().add(tabs);
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -592,9 +576,8 @@ public class SystemViewer {
 
 		pj.setPrintable(new Printable() {
 			public int print(Graphics pg, PageFormat pf, int pageNum) {
-				if (pageNum > 0) {
+				if (pageNum > 0)
 					return Printable.NO_SUCH_PAGE;
-				}
 				Graphics2D g2 = (Graphics2D) pg;
 				double scalex = pf.getPaper().getImageableWidth()
 						/ panel.getPreferredSize().getWidth();
