@@ -15,6 +15,7 @@
 	<property name="generated.shop" value="${temp}/shop" />
 	<property name="generated.simple" value="${temp}/simple" />
 	<property name="generated.tv" value="${temp}/tv" />
+	<property name="generated.specialize" value="${temp}/specialize" />
 	<property name="generated.self" value="${temp}/self" />
 	<property name="deployment" value="${temp}/deployment" />
 	<property name="dependencies" value="${temp}/dependencies" />
@@ -89,6 +90,7 @@
 		<delete dir="${generated.shop}" />
 		<delete dir="${generated.simple}" />
 		<delete dir="${generated.tv}" />
+		<delete dir="${generated.specialize}" />
 		<delete dir="${deployment}" />
 		<delete dir="${dependencies}" />
 
@@ -102,6 +104,7 @@
 		<mkdir dir="${generated.shop}" />
 		<mkdir dir="${generated.simple}" />
 		<mkdir dir="${generated.tv}" />
+		<mkdir dir="${generated.specialize}" />
 		<mkdir dir="${deployment}" />
 		<mkdir dir="${temp}/dependencies" />
 
@@ -295,10 +298,12 @@
 		               codeGenerator="moten.david.xuml.model.example.simple.Simple" />
 		<xuml-generate outputDirectory="${generated.tv}"
 		               codeGenerator="moten.david.xuml.model.example.tv.Tv" />
+		<xuml-generate outputDirectory="${generated.specialize}"
+		               codeGenerator="moten.david.xuml.model.example.specialize.Specialize" />
 		<xuml-generate outputDirectory="${generated.self}"
 		               codeGenerator="moten.david.xuml.model.example.self.Self" />
 
-		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}:${generated.viewer}"
+		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}:${generated.viewer}:${generated.specialize}"
 		       destdir="${bin}"
 		       classpathref="libraries"
 		       debug="true"
@@ -324,6 +329,7 @@
 			<test name="moten.david.xuml.model.example.mellor.Test" />
 			<test name="moten.david.xuml.model.example.microwave.Test" />
 			<test name="moten.david.util.freemarker.Test" />
+			<test name="moten.david.xuml.model.example.specialize.Test" />
 		</junit>
 	</target>
 
@@ -383,7 +389,6 @@
 	<target name="build" depends="jar" />
 
 	<target name="update.local">
-		<defaultexcludes echo="true" />
 		<copy todir="G:\work\source2\xuml-compiler.googlecode.com"
 		      preservelastmodified="true"
 		      includeemptydirs="false">
