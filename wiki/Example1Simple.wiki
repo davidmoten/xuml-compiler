@@ -35,7 +35,7 @@ Here's how this system is defined and executed:
 || ||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/EmailBehaviour.java EmailBehaviour.java]||
 ||Injection||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleInjectorModule.java InjectorModule.java]||
 ||Persistence||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/META-INF/persistence.xml persistence.xml]||
-||Testing and Execution||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/TestSimple.java TestSimple.java]||
+||Testing and Execution||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Test.java Test.java]||
 
 Results of the run of the test class:
 {{{
