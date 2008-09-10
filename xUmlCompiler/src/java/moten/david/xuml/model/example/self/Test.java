@@ -5,17 +5,16 @@ import javax.persistence.EntityManagerFactory;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Test;
 
-import simple.ObjectInjector;
+import self.ObjectInjector;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class TestSelf {
+public class Test {
 
-	private Logger log = Logger.getLogger(TestSelf.class);
+	private Logger log = Logger.getLogger(Test.class);
 
 	private static Injector injector = Guice
 			.createInjector(new SelfInjectorModule());
@@ -37,7 +36,7 @@ public class TestSelf {
 		injector.injectMembers(this);
 	}
 
-	@Test
+	@org.junit.Test
 	public void test() {
 		log.info("starting");
 		ObjectInjector.setInjector(injector);

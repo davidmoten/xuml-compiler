@@ -1,5 +1,7 @@
 package moten.david.xuml.model.example.microwave;
 
+import javax.persistence.EntityManagerFactory;
+
 import microwave.Microwave;
 import microwave.ObjectFactory;
 import microwave.ObjectInjector;
@@ -7,8 +9,13 @@ import microwave.ObjectInjector;
 import org.junit.Assert;
 
 import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class Test {
+
+	private static Injector injector = Guice
+			.createInjector(new MicrowaveInjectorModule());
+	private EntityManagerFactory emf;
 
 	@org.junit.Test
 	public void test() throws InterruptedException {
@@ -67,5 +74,10 @@ public class Test {
 		Assert.assertTrue(microwave.getLightOn());
 		Assert.assertTrue(microwave.getPowerTubeOn());
 
+	}
+
+	@org.junit.Before
+	public void prepare() {
+		this.emf = injector.getInstance(EntityManagerFactory.class);
 	}
 }
