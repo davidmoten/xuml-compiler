@@ -51,6 +51,8 @@ public class Compiler {
 
 	private final Configuration templateConfiguration;
 
+	private List<String> classNames;
+
 	public Compiler(System system, File outputDirectory,
 			Configuration templateConfiguration) {
 		super();
@@ -77,17 +79,22 @@ public class Compiler {
 	}
 
 	public void compile() throws IOException, TemplateException {
+		classNames = new ArrayList<String>();
 		// Add implicit associations from associations with Association Classes
 		List<Association> implicitAssociations = new ArrayList<Association>();
 
-		for (Association association : system.getAssociation()) {
+		for (Association association : system.getAssociation())
 			implicitAssociations.addAll(getImplicitAssociations(association));
-		}
 		system.getAssociation().addAll(implicitAssociations);
-		for (model.Package pkg : system.getPackage()) {
+		for (model.Package pkg : system.getPackage())
 			compile(pkg);
-		}
 		compileDocumentation();
+		printClassNames();
+	}
+
+	private void printClassNames() {
+		for (String name : classNames)
+			java.lang.System.out.println("<class>" + name + "</class>");
 	}
 
 	private void compileDocumentation() throws IOException, TemplateException {
@@ -189,12 +196,10 @@ public class Compiler {
 					IMPLEMENTATION_PACKAGE_EXTENSION, "ObjectFactoryImpl");
 			compileInjector(pkg, map);
 		}
-		for (model.Class cls : pkg.getClass_()) {
+		for (model.Class cls : pkg.getClass_())
 			compile(cls);
-		}
-		for (model.Package p : pkg.getSubPackage()) {
+		for (model.Package p : pkg.getSubPackage())
 			compile(p);
-		}
 	}
 
 	private void compileInjector(model.Package pkg, KeyMap map)
@@ -238,6 +243,13 @@ public class Compiler {
 		map.put(KEY_CLASS_PACKAGE_EXTENSION, classPackageExtension);
 		map.put(KEY_INTERFACE_PACKAGE_EXTENSION, interfacePackageExtension);
 		map.put(KEY_ACTIONS_PACKAGE_EXTENSION, actionsPackageExtension);
+
+		// get the fully qualified class name and record it
+		String classQualifiedName = Util.getFullPath(cls.getPackage(), ".");
+		if (classPackageExtension != null)
+			classQualifiedName += "." + classPackageExtension;
+		classQualifiedName += "." + cls.getName() + "Impl";
+		classNames.add(classQualifiedName);
 
 		writeJavaMap(map, cls.getPackage(), "class.ftl", classPackageExtension,
 				cls.getName() + "Impl");

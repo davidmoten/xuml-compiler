@@ -1,16 +1,15 @@
-package moten.david.xuml.model.example.self;
+package moten.david.xuml.model.example.associations;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import com.google.inject.AbstractModule;
 
-public class SelfInjectorModule extends AbstractModule {
+public class AssociationsInjectorModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
 		bind(EntityManagerFactory.class).toInstance(
-				Persistence.createEntityManagerFactory("self"));
-		bind(Test.class);
+				Persistence.createEntityManagerFactory("associations"));
 	}
 }

@@ -16,6 +16,6 @@ public class SimpleInjectorModule extends AbstractModule {
 		bind(EmailActions.class).to(EmailBehaviour.class);
 		bind(EntityManagerFactory.class).toInstance(
 				Persistence.createEntityManagerFactory("simple"));
-		bind(TestSimple.class);
+		bind(Test.class);
 	}
 }

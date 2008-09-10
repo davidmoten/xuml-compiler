@@ -2,6 +2,7 @@ package moten.david.xuml.model.example.mellor;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javax.persistence.EntityManager;
@@ -21,8 +22,13 @@ import bookstore.Book;
 import bookstore.ObjectFactory;
 import bookstore.Publisher;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 public class Test {
 	private static Logger log = Logger.getLogger(Test.class);
+	private static Injector injector = Guice
+			.createInjector(new BookstoreInjectorModule());
 
 	public static Author createAuthor(String name) {
 		Author author = ObjectFactory.instance.createAuthor();
@@ -44,6 +50,8 @@ public class Test {
 		authorship.setBook(book);
 		return authorship;
 	}
+
+	private EntityManagerFactory emf;
 
 	public void test() throws Exception {
 
@@ -89,13 +97,18 @@ public class Test {
 		return publisher;
 	}
 
+	@org.junit.Before
+	public void createDatabase() {
+		this.emf = injector.getInstance(EntityManagerFactory.class);
+	}
+
 	@org.junit.Test
 	public void testTables() throws SQLException, IOException,
 			ClassNotFoundException {
 
-		// Database.createNew();
 		// now connect to the created database with jdbc
-		Connection con = Database.getConnection();
+		Connection con = DriverManager
+				.getConnection("jdbc:derby:temp/db-bookstore");
 		try {
 			String schema = "BOOKSTORE";
 			DatabaseUtil db = new DatabaseUtil(con);
@@ -106,7 +119,7 @@ public class Test {
 		} finally {
 			con.close();
 		}
-		Database.shutdown();
+		// Database.shutdown();
 
 	}
 }

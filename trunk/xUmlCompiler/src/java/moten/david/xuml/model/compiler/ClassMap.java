@@ -185,9 +185,8 @@ public class ClassMap {
 	private List<KeyMap> getIdentifiersNonPrimaryList(
 			EList<IdentifierNonPrimary> identifierNonPrimary) {
 		List<KeyMap> list = new ArrayList<KeyMap>();
-		for (IdentifierNonPrimary identifier : identifierNonPrimary) {
+		for (IdentifierNonPrimary identifier : identifierNonPrimary)
 			list.add(getIdentifierNonPrimaryMap(identifier));
-		}
 		return list;
 	}
 
@@ -202,12 +201,10 @@ public class ClassMap {
 	private List<KeyMap> getAttributesList(EList<Attribute> attributes,
 			EList<AttributeReferential> derivedAttributes) {
 		List<KeyMap> list = new ArrayList<KeyMap>();
-		for (Attribute a : attributes) {
+		for (Attribute a : attributes)
 			list.add(getAttributeMap(a));
-		}
-		for (AttributeReferential a : derivedAttributes) {
+		for (AttributeReferential a : derivedAttributes)
 			list.add(getAttributeReferentialMap(a));
-		}
 		return list;
 	}
 
@@ -224,11 +221,9 @@ public class ClassMap {
 	}
 
 	private String getIdProperty(Class cls) {
-		for (Attribute a : cls.getAttribute()) {
-			if (cls.getIdentifierPrimary().getAttribute().contains(a)) {
+		for (Attribute a : cls.getAttribute())
+			if (cls.getIdentifierPrimary().getAttribute().contains(a))
 				return a.getName();
-			}
-		}
 		return null;
 	}
 
@@ -299,20 +294,16 @@ public class ClassMap {
 
 	private List<KeyMap> getAssociationsList(model.Class cls) {
 		List<KeyMap> list = new ArrayList<KeyMap>();
-		for (AssociationEndPrimary ae : cls.getAssociationEndPrimary()) {
+		for (AssociationEndPrimary ae : cls.getAssociationEndPrimary())
 			if (includeAssociation(ae.getAssociation()))
 				list.add(getAssociationEndsMap(ae.getAssociation(), "this",
 						"other"));
-		}
-		for (AssociationEndSecondary ae : cls.getAssociationEndSecondary()) {
+		for (AssociationEndSecondary ae : cls.getAssociationEndSecondary())
 			if (includeAssociation(ae.getAssociation()))
 				list.add(getAssociationEndsMap(ae.getAssociation(), "other",
 						"this"));
-		}
 		// handle generalization
-		log.info(cls.getName() + ":" + cls.getSpecializationGroup().size()
-				+ " specialization groups");
-		for (SpecializationGroup group : cls.getSpecializationGroup()) {
+		for (SpecializationGroup group : cls.getSpecializationGroup())
 			for (Specialization sp : group.getSpecialization()) {
 				Association a = ModelFactory.eINSTANCE.createAssociation();
 				a.setName(group.getName() + " generalization of "
@@ -341,7 +332,6 @@ public class ClassMap {
 				ae2.setAssociation(a);
 				list.add(getAssociationEndsMap(a, "this", "other"));
 			}
-		}
 		return list;
 	}
 
@@ -445,16 +435,13 @@ public class ClassMap {
 
 	private List<KeyMap> getAttributesList(model.Class cls) {
 		List<KeyMap> list = new ArrayList<KeyMap>();
-		for (Attribute a : cls.getAttribute()) {
+		for (Attribute a : cls.getAttribute())
 			list.add(getAttributeMap(a));
-		}
 
 		Set<String> derivedAttributeNames = new HashSet<String>();
-		for (IdentifierNonPrimary identifier : cls.getIdentifierNonPrimary()) {
-			for (AttributeReferential da : identifier.getAttributeReferential()) {
+		for (IdentifierNonPrimary identifier : cls.getIdentifierNonPrimary())
+			for (AttributeReferential da : identifier.getAttributeReferential())
 				derivedAttributeNames.add(da.getAssociationEnd().getRole());
-			}
-		}
 		for (String name : derivedAttributeNames) {
 			KeyMap map = new KeyMap();
 			map.put("name", name);
@@ -466,9 +453,8 @@ public class ClassMap {
 
 	private List<KeyMap> getOperationsList(EList<Operation> operations) {
 		List<KeyMap> list = new ArrayList<KeyMap>();
-		for (OperationSignature o : operations) {
+		for (OperationSignature o : operations)
 			list.add(getOperationSignatureMap(o));
-		}
 		return list;
 	}
 
@@ -488,9 +474,8 @@ public class ClassMap {
 		if (indexes.size() == 0)
 			return null;
 		List<KeyMap> list = new ArrayList<KeyMap>();
-		for (Index index : indexes) {
+		for (Index index : indexes)
 			list.add(getIndexMap(index));
-		}
 		return list;
 	}
 
@@ -595,9 +580,8 @@ public class ClassMap {
 		map2.put("name", className);
 		map2.put("abbreviatedName", abbreviation);
 		List<KeyMap> list = (List<KeyMap>) map.get("imports");
-		if (!list.contains(map2)) {
+		if (!list.contains(map2))
 			list.add(map2);
-		}
 		return abbreviation;
 	}
 }

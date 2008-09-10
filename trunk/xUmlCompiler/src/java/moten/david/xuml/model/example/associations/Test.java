@@ -1,33 +1,46 @@
 package moten.david.xuml.model.example.associations;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import javax.persistence.EntityManagerFactory;
 
 import moten.david.util.jdbc.DatabaseUtil;
 import moten.david.util.jdbc.MetaDataReporter;
 import moten.david.xuml.model.Multiplicity;
-import moten.david.xuml.model.compiler.util.Database;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 public class Test {
 
 	private static Logger log = Logger.getLogger(Test.class);
+	private static Injector injector = Guice
+			.createInjector(new AssociationsInjectorModule());
+	private EntityManagerFactory emf;
+
+	@org.junit.Before
+	public void createDatabase() {
+		this.emf = injector.getInstance(EntityManagerFactory.class);
+		emf.close();
+	}
 
 	@org.junit.Test
 	public void test() throws Exception {
-		Database.createNew();
-		Connection con = Database.getConnection();
+		Connection con = DriverManager
+				.getConnection("jdbc:derby:temp/db-associations");
 		MetaDataReporter reporter = new MetaDataReporter(con.getMetaData());
 		log.info("metadata:\n" + reporter.getReport("BOOKSTORE"));
-		for (Multiplicity m1 : Multiplicity.values()) {
+		for (Multiplicity m1 : Multiplicity.values())
 			for (Multiplicity m2 : Multiplicity.values()) {
 				String schema = m1 + "_TO_" + m2;
 				log.info(schema);
 				log.info("metadata:\n" + reporter.getReport(schema));
 			}
-		}
 
 		DatabaseUtil db = new DatabaseUtil(con);
 		int counter = 0;
@@ -53,7 +66,6 @@ public class Test {
 		checkTables(db, schema, ++counter, 1, 2, false, false);
 
 		con.close();
-		Database.shutdown();
 	}
 
 	private void checkTables(DatabaseUtil db, String schema, int counter,
