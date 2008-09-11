@@ -3,22 +3,22 @@
   <frame width="941" height="641" x="82" y="183"/>
   <viewport width="925" height="570"/>
   <element x="32" y="220" name="class.Customer"/>
-  <element x="254" y="259" name="label.Class Customer Association R1 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
-  <element x="253" y="281" name="label.Class Customer Association R1 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
+  <element x="254" y="274" name="label.Class Customer Association R1 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
+  <element x="254" y="294" name="label.Class Customer Association R1 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
   <element x="367" y="221" name="class.Order"/>
-  <element x="524" y="281" name="label.Class Order Association R2 Multiplicity" fixedTo="//@element[name='class.Order']"/>
-  <element x="372" y="188" name="label.Class Order Association R3 Verb Clause" fixedTo="//@element[name='class.Order']"/>
-  <element x="449" y="191" name="label.Class Order Association R3 Multiplicity" fixedTo="//@element[name='class.Order']"/>
-  <element x="334" y="257" name="label.Class Order Association R1 Verb Clause" fixedTo="//@element[name='class.Order']"/>
-  <element x="355" y="281" name="label.Class Order Association R1 Multiplicity" fixedTo="//@element[name='class.Order']"/>
-  <element x="523" y="258" name="label.Class Order Association R2 Verb Clause" fixedTo="//@element[name='class.Order']"/>
+  <element x="524" y="297" name="label.Class Order Association R2 Multiplicity" fixedTo="//@element[name='class.Order']"/>
+  <element x="523" y="272" name="label.Class Order Association R2 Verb Clause" fixedTo="//@element[name='class.Order']"/>
+  <element x="334" y="274" name="label.Class Order Association R1 Verb Clause" fixedTo="//@element[name='class.Order']"/>
+  <element x="356" y="296" name="label.Class Order Association R1 Multiplicity" fixedTo="//@element[name='class.Order']"/>
+  <element x="377" y="201" name="label.Class Order Association R3 Verb Clause" fixedTo="//@element[name='class.Order']"/>
+  <element x="453" y="202" name="label.Class Order Association R3 Multiplicity" fixedTo="//@element[name='class.Order']"/>
   <element x="361" y="29" name="class.Product"/>
-  <element x="393" y="89" name="label.Class Product Association R3 Verb Clause" fixedTo="//@element[name='class.Product']"/>
-  <element x="450" y="91" name="label.Class Product Association R3 Multiplicity" fixedTo="//@element[name='class.Product']"/>
+  <element x="393" y="100" name="label.Class Product Association R3 Verb Clause" fixedTo="//@element[name='class.Product']"/>
+  <element x="450" y="101" name="label.Class Product Association R3 Multiplicity" fixedTo="//@element[name='class.Product']"/>
   <element x="230" y="110" name="class.OrderProduct"/>
   <element x="699" y="152" name="class.Shipment"/>
-  <element x="626" y="254" name="label.Class Shipment Association R2 Verb Clause" fixedTo="//@element[name='class.Shipment']"/>
-  <element x="674" y="283" name="label.Class Shipment Association R2 Multiplicity" fixedTo="//@element[name='class.Shipment']"/>
+  <element x="674" y="297" name="label.Class Shipment Association R2 Multiplicity" fixedTo="//@element[name='class.Shipment']"/>
+  <element x="626" y="272" name="label.Class Shipment Association R2 Verb Clause" fixedTo="//@element[name='class.Shipment']"/>
   <element x="572" y="187" name="class.Shipment.state.Cancelled"/>
   <element x="342" y="472" name="class.Shipment.state.Delivered"/>
   <element x="330" y="130" name="class.Shipment.state.BeingPrepared"/>
