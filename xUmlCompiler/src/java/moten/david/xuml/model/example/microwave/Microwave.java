@@ -60,7 +60,7 @@ public class Microwave extends SystemBase {
 			outputDirectoryFilename = args[0];
 		Microwave system = new Microwave();
 		system.view("src/viewer/Microwave.ecore");
-		system.generate(outputDirectoryFilename);
+		// system.generate(outputDirectoryFilename);
 	}
 
 }
