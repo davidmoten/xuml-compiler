@@ -89,12 +89,25 @@ public class Compiler {
 		for (model.Package pkg : system.getPackage())
 			compile(pkg);
 		compileDocumentation();
-		printClassNames();
+		compilePersistenceXml();
 	}
 
-	private void printClassNames() {
-		for (String name : classNames)
-			java.lang.System.out.println("<class>" + name + "</class>");
+	private void compilePersistenceXml() throws IOException, TemplateException {
+		KeyMap map = new KeyMap();
+		map.put("name", system.getName());
+		List<KeyMap> list = new ArrayList<KeyMap>();
+		map.put("classes", list);
+		for (String className : classNames) {
+			KeyMap map2 = new KeyMap();
+			map2.put("name", className);
+			list.add(map2);
+		}
+		File metaInf = new File(outputDirectory, "src/META-INF");
+		metaInf.mkdirs();
+		File persistenceXml = new File(metaInf, "persistence.xml");
+		FileOutputStream fos = new FileOutputStream(persistenceXml);
+		write(map, "persistence.ftl", fos);
+		fos.close();
 	}
 
 	private void compileDocumentation() throws IOException, TemplateException {
