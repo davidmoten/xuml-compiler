@@ -306,6 +306,15 @@ public class ViewPackageImpl extends EPackageImpl implements ViewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getView_File() {
+		return (EAttribute)viewEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ViewFactory getViewFactory() {
 		return (ViewFactory)getEFactoryInstance();
 	}
@@ -352,6 +361,7 @@ public class ViewPackageImpl extends EPackageImpl implements ViewPackage {
 		createEReference(viewEClass, VIEW__ELEMENT);
 		createEAttribute(viewEClass, VIEW__ZOOM);
 		createEAttribute(viewEClass, VIEW__TITLE);
+		createEAttribute(viewEClass, VIEW__FILE);
 	}
 
 	/**
@@ -412,6 +422,7 @@ public class ViewPackageImpl extends EPackageImpl implements ViewPackage {
 		getView_Element().getEKeys().add(this.getElement_Name());
 		initEAttribute(getView_Zoom(), ecorePackage.getEDouble(), "zoom", "1.0", 1, 1, View.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getView_Title(), ecorePackage.getEString(), "title", null, 0, 1, View.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getView_File(), ecorePackage.getEString(), "file", null, 0, 1, View.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

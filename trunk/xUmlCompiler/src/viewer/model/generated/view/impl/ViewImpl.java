@@ -40,6 +40,7 @@ import view.Viewport;
  *   <li>{@link view.impl.ViewImpl#getElement <em>Element</em>}</li>
  *   <li>{@link view.impl.ViewImpl#getZoom <em>Zoom</em>}</li>
  *   <li>{@link view.impl.ViewImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link view.impl.ViewImpl#getFile <em>File</em>}</li>
  * </ul>
  * </p>
  *
@@ -115,6 +116,26 @@ public class ViewImpl extends EObjectImpl implements View {
 	 * @ordered
 	 */
 	protected String title = TITLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String FILE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFile() <em>File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected String file = FILE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -280,6 +301,27 @@ public class ViewImpl extends EObjectImpl implements View {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getFile() {
+		return file;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFile(String newFile) {
+		String oldFile = file;
+		file = newFile;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.VIEW__FILE, oldFile, file));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -311,6 +353,8 @@ public class ViewImpl extends EObjectImpl implements View {
 				return new Double(getZoom());
 			case ViewPackage.VIEW__TITLE:
 				return getTitle();
+			case ViewPackage.VIEW__FILE:
+				return getFile();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -340,6 +384,9 @@ public class ViewImpl extends EObjectImpl implements View {
 			case ViewPackage.VIEW__TITLE:
 				setTitle((String)newValue);
 				return;
+			case ViewPackage.VIEW__FILE:
+				setFile((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -367,6 +414,9 @@ public class ViewImpl extends EObjectImpl implements View {
 			case ViewPackage.VIEW__TITLE:
 				setTitle(TITLE_EDEFAULT);
 				return;
+			case ViewPackage.VIEW__FILE:
+				setFile(FILE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -389,6 +439,8 @@ public class ViewImpl extends EObjectImpl implements View {
 				return zoom != ZOOM_EDEFAULT;
 			case ViewPackage.VIEW__TITLE:
 				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+			case ViewPackage.VIEW__FILE:
+				return FILE_EDEFAULT == null ? file != null : !FILE_EDEFAULT.equals(file);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -407,6 +459,8 @@ public class ViewImpl extends EObjectImpl implements View {
 		result.append(zoom);
 		result.append(", title: ");
 		result.append(title);
+		result.append(", file: ");
+		result.append(file);
 		result.append(')');
 		return result.toString();
 	}
