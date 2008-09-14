@@ -345,13 +345,22 @@ public interface ViewPackage extends EPackage {
 	int VIEW__TITLE = 4;
 
 	/**
+	 * The feature id for the '<em><b>File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEW__FILE = 5;
+
+	/**
 	 * The number of structural features of the '<em>View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIEW_FEATURE_COUNT = 5;
+	int VIEW_FEATURE_COUNT = 6;
 
 
 	/**
@@ -547,6 +556,17 @@ public interface ViewPackage extends EPackage {
 	EAttribute getView_Title();
 
 	/**
+	 * Returns the meta object for the attribute '{@link view.View#getFile <em>File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>File</em>'.
+	 * @see view.View#getFile()
+	 * @see #getView()
+	 * @generated
+	 */
+	EAttribute getView_File();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -723,6 +743,14 @@ public interface ViewPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute VIEW__TITLE = eINSTANCE.getView_Title();
+
+		/**
+		 * The meta object literal for the '<em><b>File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VIEW__FILE = eINSTANCE.getView_File();
 
 	}
 
