@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link view.View#getElement <em>Element</em>}</li>
  *   <li>{@link view.View#getZoom <em>Zoom</em>}</li>
  *   <li>{@link view.View#getTitle <em>Title</em>}</li>
+ *   <li>{@link view.View#getFile <em>File</em>}</li>
  * </ul>
  * </p>
  *
@@ -151,5 +152,31 @@ public interface View extends EObject {
 	 * @generated
 	 */
 	void setTitle(String value);
+
+	/**
+	 * Returns the value of the '<em><b>File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>File</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>File</em>' attribute.
+	 * @see #setFile(String)
+	 * @see view.ViewPackage#getView_File()
+	 * @model
+	 * @generated
+	 */
+	String getFile();
+
+	/**
+	 * Sets the value of the '{@link view.View#getFile <em>File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>File</em>' attribute.
+	 * @see #getFile()
+	 * @generated
+	 */
+	void setFile(String value);
 
 } // View
