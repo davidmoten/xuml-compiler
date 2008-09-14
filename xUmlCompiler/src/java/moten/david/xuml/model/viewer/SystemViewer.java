@@ -50,6 +50,7 @@ import model.Package;
 import model.State;
 import model.Stately;
 import moten.david.xuml.model.example.mellor.Bookstore;
+import moten.david.xuml.model.util.SystemBase;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
@@ -607,6 +608,12 @@ public class SystemViewer {
 
 	public Map<Stately, StateComponent> getStatelyComponents() {
 		return statelyComponents;
+	}
+
+	public static void view(String systemFile, String viewFile)
+			throws NumberFormatException, IOException {
+		model.System system = SystemBase.load(systemFile);
+		new SystemViewer(system, viewFile).showViewer();
 	}
 
 	public static void main(String[] args) throws NumberFormatException,
