@@ -6,6 +6,7 @@ import model.Primitive;
 import model.State;
 import moten.david.xuml.model.Generator;
 import moten.david.xuml.model.util.SystemBase;
+import moten.david.xuml.model.viewer.SystemViewer;
 
 public class Microwave extends SystemBase {
 
@@ -59,8 +60,11 @@ public class Microwave extends SystemBase {
 		if (args.length > 0)
 			outputDirectoryFilename = args[0];
 		Microwave system = new Microwave();
-		system.view("src/viewer/Microwave.ecore");
-		// system.generate(outputDirectoryFilename);
+		system.save("src/viewer/Microwave.xmi");
+		// system.view("src/viewer/Microwave.ecore");
+		SystemViewer.view("src/viewer/Microwave.xmi",
+				"src/viewer/Microwave.ecore");
+		system.generate(outputDirectoryFilename);
 	}
 
 }
