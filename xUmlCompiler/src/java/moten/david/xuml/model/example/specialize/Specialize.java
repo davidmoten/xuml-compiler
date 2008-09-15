@@ -1,7 +1,5 @@
 package moten.david.xuml.model.example.specialize;
 
-import java.io.IOException;
-
 import model.Class;
 import model.Package;
 import model.Specialization;
@@ -51,12 +49,6 @@ public class Specialize extends SystemBase {
 		Specialization text = createSpecialization(group3, pkg,
 				"ElectronicText", "");
 		createArbitraryId(text);
-	}
-
-	public static void main(String[] args) throws NumberFormatException,
-			IOException {
-		Specialize specialize = new Specialize();
-		specialize.view("src/viewer/Specialize.ecore");
 	}
 
 }

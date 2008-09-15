@@ -1,11 +1,9 @@
 package moten.david.xuml.model.example.mellor;
 
-import java.io.IOException;
+import moten.david.xuml.model.viewer.ViewerUtil;
 
 public class BookstoreViewer {
-	public static void main(String[] args) throws NumberFormatException,
-			IOException {
-		Bookstore bookstore = new Bookstore();
-		bookstore.view("src/viewer/Bookstore.ecore");
+	public static void main(String[] args) throws Exception {
+		ViewerUtil.view("src/viewer", Bookstore.class);
 	}
 }

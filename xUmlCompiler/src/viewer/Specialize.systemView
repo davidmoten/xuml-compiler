@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/view http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore">
+<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" file="Specialize.systemDefinition">
   <frame width="750" height="519" x="157" y="232"/>
   <viewport width="750" height="550"/>
   <element x="222" y="110" name="class.Writing"/>

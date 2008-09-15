@@ -1,7 +1,5 @@
 package moten.david.xuml.model.example.shop;
 
-import java.io.IOException;
-
 import model.AssociationClass;
 import model.CallEvent;
 import model.Class;
@@ -150,12 +148,6 @@ public class Shop extends SystemBase {
 		createTransition(shippedState, deliveredState, delivered);
 		createTransition(shippedState, lostState, lost);
 		createTransition(shippedState, returnedState, returned);
-	}
-
-	public static void main(String[] args) throws NumberFormatException,
-			IOException {
-		Shop shop = new Shop();
-		shop.view("src/viewer/Shop.ecore");
 	}
 
 }

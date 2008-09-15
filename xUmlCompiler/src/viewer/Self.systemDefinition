@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://davidmoten.homeip.net/uml/executable/model" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/model http://xuml-compiler.googlecode.com/svn/trunk/xUmlMetaModel/model/uml.ecore" name="Self">
+  <package name="self" description="xUmlCompiler metamodel">
+    <class name="Pkg" description="" associationEndPrimary="//@association.10/@primary" associationEndSecondary="//@association.9/@secondary //@association.10/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.0/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="name" type="//@primitiveType[name='String']"/>
+      <attribute name="description" type="//@primitiveType[name='String']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
+      <persistence schema="self"/>
+    </class>
+    <class name="Clazz" description="" associationEndPrimary="//@association.0/@primary //@association.1/@primary //@association.2/@primary //@association.7/@primary //@association.9/@primary //@association.15/@primary" associationEndSecondary="//@association.18/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.1/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="name" type="//@primitiveType[name='String']"/>
+      <attribute name="description" type="//@primitiveType[name='String']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.1/@attribute.0"/>
+      <persistence schema="self"/>
+      <specializationGroup name="R26" description="" specialization="//@package.0/@class.2 //@package.0/@class.3"/>
+      <specializationGroup name="R28" description="" specialization="//@package.0/@class.14 //@package.0/@class.15"/>
+    </class>
+    <class xsi:type="model:Specialization" name="AbstractClass" description="" associationEndPrimary="//@association.3/@primary" group="//@package.0/@class.1/@specializationGroup[name='R26']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="ConcreteClass" description="" group="//@package.0/@class.1/@specializationGroup[name='R26']">
+      <persistence schema="self"/>
+    </class>
+    <class name="Association" description="" associationEndPrimary="//@association.4/@primary //@association.5/@primary //@association.6/@primary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.4/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.4/@attribute.0"/>
+      <persistence schema="self"/>
+    </class>
+    <class name="AssociationEnd" description="" associationEndSecondary="//@association.7/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.5/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.5/@attribute.0"/>
+      <persistence schema="self"/>
+      <specializationGroup name="R18" description="" specialization="//@package.0/@class.6 //@package.0/@class.7"/>
+    </class>
+    <class xsi:type="model:Specialization" name="AssociationEndPrimary" description="" associationEndSecondary="//@association.5/@secondary" group="//@package.0/@class.5/@specializationGroup[name='R18']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="AssociationEndSecondary" description="" associationEndSecondary="//@association.6/@secondary" group="//@package.0/@class.5/@specializationGroup[name='R18']">
+      <persistence schema="self"/>
+    </class>
+    <class name="Attribute" description="" associationEndPrimary="//@association.14/@primary" associationEndSecondary="//@association.0/@secondary //@association.8/@secondary //@association.19/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.8/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.8/@attribute.0"/>
+      <persistence schema="self"/>
+      <specializationGroup name="R19" description="" specialization="//@package.0/@class.9 //@package.0/@class.10"/>
+    </class>
+    <class xsi:type="model:Specialization" name="AttributeNormal" description="" group="//@package.0/@class.8/@specializationGroup[name='R19']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="AttributeReferential" description="" associationEndPrimary="//@association.19/@primary" group="//@package.0/@class.8/@specializationGroup[name='R19']">
+      <persistence schema="self"/>
+    </class>
+    <class name="Operation" description="" associationEndPrimary="//@association.11/@primary" associationEndSecondary="//@association.1/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.11/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.11/@attribute.0"/>
+      <persistence schema="self"/>
+    </class>
+    <class name="Identifier" description="" associationEndPrimary="//@association.8/@primary" associationEndSecondary="//@association.2/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.12/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.12/@attribute.0"/>
+      <persistence schema="self"/>
+    </class>
+    <class name="SpecializationGroup" description="" associationEndPrimary="//@association.18/@primary" associationEndSecondary="//@association.3/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.13/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.13/@attribute.0"/>
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="AssociationClass" description="" associationEndSecondary="//@association.4/@secondary" group="//@package.0/@class.1/@specializationGroup[name='R28']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="NonAssociationClass" description="" group="//@package.0/@class.1/@specializationGroup[name='R28']">
+      <persistence schema="self"/>
+    </class>
+    <class name="OperationSignature" description="" associationEndPrimary="//@association.12/@primary" associationEndSecondary="//@association.11/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.16/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.16/@attribute.0"/>
+      <persistence schema="self"/>
+    </class>
+    <class name="DataType" description="" associationEndSecondary="//@association.13/@secondary //@association.14/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.17/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.17/@attribute.0"/>
+      <persistence schema="self"/>
+      <specializationGroup name="R21" description="" specialization="//@package.0/@class.24 //@package.0/@class.25"/>
+    </class>
+    <class name="Parameter" description="" associationEndPrimary="//@association.13/@primary" associationEndSecondary="//@association.12/@secondary //@association.24/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.18/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.18/@attribute.0"/>
+      <persistence schema="self"/>
+    </class>
+    <class name="StateMachine" description="" associationEndPrimary="//@association.16/@primary //@association.17/@primary //@association.20/@primary" associationEndSecondary="//@association.15/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.19/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.19/@attribute.0"/>
+      <persistence schema="self"/>
+    </class>
+    <class name="State" description="" associationEndSecondary="//@association.22/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.20/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.20/@attribute.0"/>
+      <persistence schema="self"/>
+      <specializationGroup name="R24" description="" specialization="//@package.0/@class.21 //@package.0/@class.22"/>
+    </class>
+    <class xsi:type="model:Specialization" name="FromState" description="" associationEndSecondary="//@association.21/@secondary" group="//@package.0/@class.20/@specializationGroup[name='R24']">
+      <persistence schema="self"/>
+      <specializationGroup name="R26" description="" specialization="//@package.0/@class.23"/>
+    </class>
+    <class xsi:type="model:Specialization" name="TerminatingState" description="" associationEndSecondary="//@association.17/@secondary" group="//@package.0/@class.20/@specializationGroup[name='R24']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="InitialState" description="" associationEndSecondary="//@association.16/@secondary" group="//@package.0/@class.21/@specializationGroup[name='R26']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="FreeType" description="" group="//@package.0/@class.17/@specializationGroup[name='R21']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="PrimitiveType" description="" group="//@package.0/@class.17/@specializationGroup[name='R21']">
+      <persistence schema="self"/>
+    </class>
+    <class name="Transition" description="" associationEndPrimary="//@association.21/@primary //@association.22/@primary //@association.23/@primary" associationEndSecondary="//@association.20/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.26/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.26/@attribute.0"/>
+      <persistence schema="self"/>
+    </class>
+    <class name="Event" description="" associationEndPrimary="//@association.24/@primary" associationEndSecondary="//@association.23/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.27/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.27/@attribute.0"/>
+      <persistence schema="self"/>
+      <specializationGroup name="R34" description="" specialization="//@package.0/@class.28 //@package.0/@class.29 //@package.0/@class.30 //@package.0/@class.31"/>
+    </class>
+    <class xsi:type="model:Specialization" name="CallEvent" description="" group="//@package.0/@class.27/@specializationGroup[name='R34']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="TimerEvent" description="" group="//@package.0/@class.27/@specializationGroup[name='R34']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="SignalEvent" description="" group="//@package.0/@class.27/@specializationGroup[name='R34']">
+      <persistence schema="self"/>
+    </class>
+    <class xsi:type="model:Specialization" name="ChangeEvent" description="" group="//@package.0/@class.27/@specializationGroup[name='R34']">
+      <persistence schema="self"/>
+    </class>
+  </package>
+  <association name="R1">
+    <primary name="Clazz clazz" mandatory="true" verbClause="is in" role="clazz" class="//@package.0/@class.1"/>
+    <secondary name="Attribute attribute" multiple="true" verbClause="has" role="attribute" class="//@package.0/@class.8"/>
+  </association>
+  <association name="R3">
+    <primary name="Clazz clazz" mandatory="true" verbClause="operates on" role="clazz" class="//@package.0/@class.1"/>
+    <secondary name="Operation operation" multiple="true" verbClause="is operated on by" role="operation" class="//@package.0/@class.11"/>
+  </association>
+  <association name="R4">
+    <primary name="Clazz clazz" mandatory="true" verbClause="identifies uniquely an instance of" role="clazz" class="//@package.0/@class.1"/>
+    <secondary name="Identifier identifier" mandatory="true" verbClause="instance is uniquely referenced by" role="identifier" class="//@package.0/@class.12"/>
+  </association>
+  <association name="R7">
+    <primary name="AbstractClass abstractClass" mandatory="true" verbClause="is specialization of" role="abstractClass" class="//@package.0/@class.2"/>
+    <secondary name="SpecializationGroup specializationGroup" mandatory="true" multiple="true" verbClause="is generalization of" role="specializationGroup" class="//@package.0/@class.13"/>
+  </association>
+  <association name="R8">
+    <primary name="Association association" mandatory="true" verbClause="describes" role="association" class="//@package.0/@class.4"/>
+    <secondary name="AssociationClass associationClass" verbClause="is described by" role="associationClass" class="//@package.0/@class.14"/>
+  </association>
+  <association name="R9">
+    <primary name="Association association" mandatory="true" verbClause="describes" role="association" class="//@package.0/@class.4"/>
+    <secondary name="AssociationEndPrimary associationEndPrimary" verbClause="is described by" role="associationEndPrimary" class="//@package.0/@class.6"/>
+  </association>
+  <association name="R10">
+    <primary name="Association association" mandatory="true" verbClause="describes" role="association" class="//@package.0/@class.4"/>
+    <secondary name="AssociationEndSecondary associationEndSecondary" verbClause="is described by" role="associationEndSecondary" class="//@package.0/@class.7"/>
+  </association>
+  <association name="R11">
+    <primary name="Clazz clazz" mandatory="true" verbClause="has" role="clazz" class="//@package.0/@class.1"/>
+    <secondary name="AssociationEnd associationEnd" multiple="true" verbClause="participates via" role="associationEnd" class="//@package.0/@class.5"/>
+  </association>
+  <association name="R12">
+    <primary name="Identifier identifier" mandatory="true" verbClause="has" role="identifier" class="//@package.0/@class.12"/>
+    <secondary name="Attribute attribute" multiple="true" verbClause="participates via" role="attribute" class="//@package.0/@class.8"/>
+  </association>
+  <association name="R13">
+    <primary name="Clazz clazz" multiple="true" verbClause="has" role="clazz" class="//@package.0/@class.1"/>
+    <secondary name="Pkg pkg" mandatory="true" verbClause="belongs to" role="pkg" class="//@package.0/@class.0"/>
+  </association>
+  <association name="R14">
+    <primary name="Pkg parentPackage" mandatory="true" verbClause="has parent" role="parentPackage" class="//@package.0/@class.0"/>
+    <secondary name="Pkg childPackage" multiple="true" verbClause="has child" role="childPackage" class="//@package.0/@class.0"/>
+  </association>
+  <association name="R15">
+    <primary name="Operation operation" verbClause="describes" role="operation" class="//@package.0/@class.11"/>
+    <secondary name="OperationSignature operationSignature" mandatory="true" verbClause="is described by" role="operationSignature" class="//@package.0/@class.16"/>
+  </association>
+  <association name="R16">
+    <primary name="OperationSignature operationSignature" verbClause="parameterizes" role="operationSignature" class="//@package.0/@class.16"/>
+    <secondary name="Parameter parameter" multiple="true" verbClause="has" role="parameter" class="//@package.0/@class.18"/>
+  </association>
+  <association name="R17">
+    <primary name="Parameter parameter" verbClause="classifies" role="parameter" class="//@package.0/@class.18"/>
+    <secondary name="DataType dataType" mandatory="true" verbClause="is classified by" role="dataType" class="//@package.0/@class.17"/>
+  </association>
+  <association name="R22">
+    <primary name="Attribute attribute" multiple="true" verbClause="classifies" role="attribute" class="//@package.0/@class.8"/>
+    <secondary name="DataType dataType" mandatory="true" verbClause="is classified by" role="dataType" class="//@package.0/@class.17"/>
+  </association>
+  <association name="R23">
+    <primary name="Clazz clazz" mandatory="true" verbClause="describes state-dependent behaviour of" role="clazz" class="//@package.0/@class.1"/>
+    <secondary name="StateMachine stateMachine" verbClause="has state-dependent behaviour" role="stateMachine" class="//@package.0/@class.19"/>
+  </association>
+  <association name="R25">
+    <primary name="StateMachine stateMachine" mandatory="true" verbClause="starts" role="stateMachine" class="//@package.0/@class.19"/>
+    <secondary name="InitialState initialState" mandatory="true" verbClause="is initially at" role="initialState" class="//@package.0/@class.23"/>
+  </association>
+  <association name="R27">
+    <primary name="StateMachine stateMachine" mandatory="true" verbClause="finalizes" role="stateMachine" class="//@package.0/@class.19"/>
+    <secondary name="TerminatingState terminatingState" verbClause="is finalized by" role="terminatingState" class="//@package.0/@class.22"/>
+  </association>
+  <association name="R29">
+    <primary name="SpecializationGroup specializationGroup" multiple="true" verbClause="is a specialization in" role="specializationGroup" class="//@package.0/@class.13"/>
+    <secondary name="Clazz clazz" mandatory="true" multiple="true" verbClause="has specialization" role="clazz" class="//@package.0/@class.1"/>
+  </association>
+  <association name="R30">
+    <primary name="AttributeReferential referredBy" multiple="true" verbClause="is referred to by" role="referredBy" class="//@package.0/@class.10"/>
+    <secondary name="Attribute refersTo" mandatory="true" verbClause="refers to" role="refersTo" class="//@package.0/@class.8"/>
+  </association>
+  <association name="R31">
+    <primary name="StateMachine stateMachine" mandatory="true" verbClause="belongs to" role="stateMachine" class="//@package.0/@class.19"/>
+    <secondary name="Transition transition" multiple="true" verbClause="has" role="transition" class="//@package.0/@class.26"/>
+  </association>
+  <association name="R32">
+    <primary name="Transition transition" mandatory="true" multiple="true" verbClause="transits via" role="transition" class="//@package.0/@class.26"/>
+    <secondary name="FromState fromState" mandatory="true" verbClause="starts at" role="fromState" class="//@package.0/@class.21"/>
+  </association>
+  <association name="R33">
+    <primary name="Transition transition" mandatory="true" multiple="true" verbClause="is arrived at via" role="transition" class="//@package.0/@class.26"/>
+    <secondary name="State state" mandatory="true" verbClause="transits to" role="state" class="//@package.0/@class.20"/>
+  </association>
+  <association name="R35">
+    <primary name="Transition transition" multiple="true" verbClause="initiates" role="transition" class="//@package.0/@class.26"/>
+    <secondary name="Event event" mandatory="true" verbClause="is initiated by" role="event" class="//@package.0/@class.27"/>
+  </association>
+  <association name="R36">
+    <primary name="Event event" multiple="true" verbClause="parameterizes" role="event" class="//@package.0/@class.27"/>
+    <secondary name="Parameter parameter" multiple="true" verbClause="has" role="parameter" class="//@package.0/@class.18"/>
+  </association>
+  <primitiveType name="ArbitraryId" description="Primitive type enclosure for primitive ArbitraryId" primitive="ArbitraryId"/>
+  <primitiveType name="String" description="Primitive type enclosure for primitive String" primitive="String"/>
+</model:System>

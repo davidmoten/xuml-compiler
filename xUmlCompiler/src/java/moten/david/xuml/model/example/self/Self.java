@@ -1,7 +1,5 @@
 package moten.david.xuml.model.example.self;
 
-import java.io.IOException;
-
 import model.Class;
 import model.Package;
 import model.Specialization;
@@ -17,7 +15,6 @@ public class Self extends SystemBase {
 	private Class associationEnd;
 	private Specialization associationEndPrimary;
 	private Specialization associationEndSecondary;
-	private Class attributeNormal;
 	private Class attributeReferential;
 	private Class operation;
 	private Class identifier;
@@ -69,8 +66,7 @@ public class Self extends SystemBase {
 		attribute = createClassWithArbitraryId(rootPackage, "Attribute", "");
 		SpecializationGroup group3 = createSpecializationGroup(attribute,
 				"R19", "");
-		attributeNormal = createSpecialization(group3, rootPackage,
-				"AttributeNormal", "");
+		createSpecialization(group3, rootPackage, "AttributeNormal", "");
 		attributeReferential = createSpecialization(group3, rootPackage,
 				"AttributeReferential", "");
 
@@ -183,9 +179,9 @@ public class Self extends SystemBase {
 				"is a specialization in"), createAssociationEndSecondary(clazz,
 				Multiplicity.ONE_MANY, "has specialization"));
 		createAssociation("R30", createAssociationEndPrimary(
-				attributeReferential, Multiplicity.MANY, "is referred to by"),
-				createAssociationEndSecondary(attributeNormal,
-						Multiplicity.ONE, "refers to"));
+				attributeReferential, "referredBy", Multiplicity.MANY,
+				"is referred to by"), createAssociationEndSecondary(attribute,
+				"refersTo", Multiplicity.ONE, "refers to"));
 		createAssociation("R31", createAssociationEndPrimary(stateMachine,
 				Multiplicity.ONE, "belongs to"), createAssociationEndSecondary(
 				transition, Multiplicity.MANY, "has"));
@@ -206,9 +202,4 @@ public class Self extends SystemBase {
 						"has"));
 	}
 
-	public static void main(String[] args) throws NumberFormatException,
-			IOException {
-		Self system = new Self();
-		system.view("src/viewer/Self.ecore");
-	}
 }
