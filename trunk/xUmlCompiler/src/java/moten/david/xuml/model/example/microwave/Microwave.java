@@ -6,7 +6,6 @@ import model.Primitive;
 import model.State;
 import moten.david.xuml.model.Generator;
 import moten.david.xuml.model.util.SystemBase;
-import moten.david.xuml.model.viewer.SystemViewer;
 
 public class Microwave extends SystemBase {
 
@@ -53,18 +52,6 @@ public class Microwave extends SystemBase {
 		createTransition(cookingExtended, cookingExtended, buttonPressed);
 		createTransition(cookingExtended, cookingComplete, timerTimesOut);
 		createTransition(cookingExtended, cookingInterrupted, doorOpened);
-	}
-
-	public static void main(String[] args) throws Exception {
-		String outputDirectoryFilename = "temp/microwave";
-		if (args.length > 0)
-			outputDirectoryFilename = args[0];
-		Microwave system = new Microwave();
-		system.save("src/viewer/Microwave.xmi");
-		// system.view("src/viewer/Microwave.ecore");
-		SystemViewer.view("src/viewer/Microwave.xmi",
-				"src/viewer/Microwave.ecore");
-		system.generate(outputDirectoryFilename);
 	}
 
 }

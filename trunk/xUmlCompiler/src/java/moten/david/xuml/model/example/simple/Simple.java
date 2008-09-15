@@ -1,7 +1,5 @@
 package moten.david.xuml.model.example.simple;
 
-import java.io.IOException;
-
 import model.CallEvent;
 import model.Class;
 import model.Package;
@@ -71,14 +69,6 @@ public class Simple extends SystemBase {
 	@Test
 	public void validate() throws ValidationException {
 		super.validate();
-	}
-
-	public static void main(String[] args) throws NumberFormatException,
-			IOException, ValidationException {
-		Simple simple = new Simple();
-		// simple.save("temp/simple.ecore");
-		simple.validate();
-		simple.view("src/viewer/Simple.ecore");
 	}
 
 }

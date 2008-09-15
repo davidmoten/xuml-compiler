@@ -8,7 +8,6 @@ import model.Class;
 import model.Package;
 import model.Primitive;
 import model.SignalEvent;
-import model.SpecializationGroup;
 import model.State;
 import model.TimerEvent;
 import moten.david.xuml.model.Generator;
@@ -69,6 +68,10 @@ public class Bookstore extends SystemBase {
 				createAssociationEndSecondary(book, Multiplicity.MANY, "wrote"))
 				.setAssociationClass(authorship);
 
+		// createAssociation("R3", createAssociationEndPrimary(authorship,
+		// "precedingAuthor", Multiplicity.ZERO_ONE, "precedes"),
+		// createAssociationEndSecondary(authorship, "nextAuthor",
+		// Multiplicity.ZERO_ONE, "follows"));
 	}
 
 	private Class createCreditCardCharge(Package pkg) {
@@ -200,14 +203,6 @@ public class Bookstore extends SystemBase {
 		outputDirectory.mkdirs();
 		Compiler compiler = new Compiler(getSystem(), outputDirectory);
 		compiler.compile();
-	}
-
-	public static void main(String[] args) throws Exception {
-		String outputDirectoryFilename = "temp/bookstore";
-		if (args.length > 0)
-			outputDirectoryFilename = args[0];
-		Bookstore system = new Bookstore();
-		system.generate(outputDirectoryFilename);
 	}
 
 }

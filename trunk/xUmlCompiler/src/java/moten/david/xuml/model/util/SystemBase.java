@@ -63,7 +63,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class SystemBase implements CodeGenerator {
 
-	public static final String SYSTEM_DEFINITION_EXTENSION = "xmi";
+	public static final String SYSTEM_DEFINITION_EXTENSION = "systemDefinition";
 
 	private final Map<model.Class, Integer> identifierNumbers = new HashMap<model.Class, Integer>();
 
@@ -102,10 +102,9 @@ public class SystemBase implements CodeGenerator {
 	private PrimitiveType getPrimitiveType(Primitive primitive) {
 		if (primitive == null)
 			return null;
-		for (PrimitiveType pt : system.getPrimitiveType()) {
+		for (PrimitiveType pt : system.getPrimitiveType())
 			if (pt.getPrimitive().equals(primitive))
 				return pt;
-		}
 		PrimitiveType t = ModelFactory.eINSTANCE.createPrimitiveType();
 		t.setName(primitive.getName());
 		t.setDescription("Primitive type enclosure for primitive "
@@ -118,10 +117,9 @@ public class SystemBase implements CodeGenerator {
 	private FreeType getFreeType(String typeName) {
 		if (typeName == null)
 			return null;
-		for (FreeType ft : system.getFreeType()) {
+		for (FreeType ft : system.getFreeType())
 			if (ft.getType().equals(typeName))
 				return ft;
-		}
 		FreeType t = ModelFactory.eINSTANCE.createFreeType();
 		t.setName(typeName);
 		t.setDescription("FreeType enclosure for type " + typeName);
@@ -136,9 +134,8 @@ public class SystemBase implements CodeGenerator {
 		attribute.setName(name);
 		attribute.setType(getPrimitiveType(type));
 		if (values != null)
-			for (String value : values) {
+			for (String value : values)
 				attribute.getValues().add(value);
-			}
 		cls.getAttribute().add(attribute);
 		return attribute;
 	}
@@ -216,9 +213,8 @@ public class SystemBase implements CodeGenerator {
 				.createIdentifierNonPrimary();
 		id.setName(getNextIdentifierName(cls));
 		cls.getIdentifierNonPrimary().add(id);
-		for (Attribute attribute : attributes) {
+		for (Attribute attribute : attributes)
 			id.getAttribute().add(attribute);
-		}
 		return id;
 	}
 
@@ -231,9 +227,8 @@ public class SystemBase implements CodeGenerator {
 	}
 
 	private String getNextIdentifierName(model.Class cls) {
-		if (identifierNumbers.get(cls) == null) {
+		if (identifierNumbers.get(cls) == null)
 			identifierNumbers.put(cls, 0);
-		}
 		identifierNumbers.put(cls, identifierNumbers.get(cls) + 1);
 		return "I" + identifierNumbers.get(cls);
 	}
@@ -246,13 +241,12 @@ public class SystemBase implements CodeGenerator {
 		ClassPersistence persistence = ModelFactory.eINSTANCE
 				.createClassPersistence();
 		cls.setPersistence(persistence);
-		if (tableName != null) {
+		if (tableName != null)
 			persistence.setTable(tableName);
-		} else if (SqlReservedWords.getInstance().isReservedWord(cls.getName())) {
+		else if (SqlReservedWords.getInstance().isReservedWord(cls.getName()))
 			persistence.setTable(UnderscoreFilterWriter.underscore(cls
 					.getName()
 					+ "Table"));
-		}
 		persistence.setSchema(schema);
 		return persistence;
 	}
@@ -284,13 +278,11 @@ public class SystemBase implements CodeGenerator {
 		IdentifierPrimary identifierPrimary = ModelFactory.eINSTANCE
 				.createIdentifierPrimary();
 		identifierPrimary.setName(name);
-		if (attributes != null) {
+		if (attributes != null)
 			identifierPrimary.getAttribute().addAll(Arrays.asList(attributes));
-		}
-		if (derivedAttributes != null) {
+		if (derivedAttributes != null)
 			identifierPrimary.getAttributeReferential().addAll(
 					Arrays.asList(derivedAttributes));
-		}
 		cls.setIdentifierPrimary(identifierPrimary);
 		return identifierPrimary;
 	}
@@ -301,14 +293,12 @@ public class SystemBase implements CodeGenerator {
 		IdentifierNonPrimary identifierNonPrimary = ModelFactory.eINSTANCE
 				.createIdentifierNonPrimary();
 		identifierNonPrimary.setName(name);
-		if (attributes != null) {
+		if (attributes != null)
 			identifierNonPrimary.getAttribute().addAll(
 					Arrays.asList(attributes));
-		}
-		if (derivedAttributes != null) {
+		if (derivedAttributes != null)
 			identifierNonPrimary.getAttributeReferential().addAll(
 					Arrays.asList(derivedAttributes));
-		}
 		cls.getIdentifierNonPrimary().add(identifierNonPrimary);
 		return identifierNonPrimary;
 	}
@@ -478,9 +468,8 @@ public class SystemBase implements CodeGenerator {
 			Attribute... attributes) {
 		AssociationEndPersistence aspect = ModelFactory.eINSTANCE
 				.createAssociationEndPersistence();
-		for (Attribute a : attributes) {
+		for (Attribute a : attributes)
 			aspect.getOrderBy().add(a);
-		}
 		ae.setPersistence(aspect);
 		return aspect;
 
@@ -619,9 +608,8 @@ public class SystemBase implements CodeGenerator {
 		@Override
 		public String getMessage() {
 			StringBuffer s = new StringBuffer();
-			for (Diagnostic d : diagnostic.getChildren()) {
+			for (Diagnostic d : diagnostic.getChildren())
 				s.append(d.getMessage() + "\n");
-			}
 			return s.toString();
 		}
 

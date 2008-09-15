@@ -142,7 +142,7 @@
 		<artifact:localRepository id="rep" path="${maven.local.repository}" />
 		<artifact:dependencies pathId="dependency.classpath"
 		                       filesetId="dependency.fileset">
-			<artifact:localRepository refid="rep" />
+			<!--<artifact:localRepository refid="rep" />-->
 			<artifact:remoteRepository id="remote.repository"
 			                           url="http://repo1.maven.org/maven2">
 				<releases enabled="false" updatePolicy="never" />
@@ -303,16 +303,16 @@
 		<xuml-generate outputDirectory="${generated.self}"
 		               codeGenerator="moten.david.xuml.model.example.self.Self" />
 
-		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}:${generated.viewer}:${generated.specialize}"
+		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}:${generated.viewer}:${generated.specialize}:${generated.shop}:${generated.simple}:${generated.tv}:${generated.self}"
 		       destdir="${bin}"
 		       classpathref="libraries"
 		       debug="true"
 		       debuglevel="lines,vars,source"
 		       fork="true">
-			<exclude name="**/example/shop/**/*" />
+			<!--<exclude name="**/example/shop/**/*" />
 			<exclude name="**/example/simple/**/*" />
 			<exclude name="**/example/tv/**/*" />
-			<exclude name="**/example/self/**/*" />
+			<exclude name="**/example/self/**/*" />-->
 		</javac>
 	</target>
 
@@ -328,9 +328,12 @@
 			<test name="moten.david.xuml.model.example.associations.Test" />
 			<test name="moten.david.xuml.model.example.mellor.Test" />
 			<test name="moten.david.xuml.model.example.microwave.Test" />
-			<test name="moten.david.util.freemarker.Test" />
+			<test name="moten.david.xuml.model.example.tv.Test" />
+			<test name="moten.david.xuml.model.example.simple.Test" />
 			<test name="moten.david.xuml.model.example.specialize.Test" />
+			<test name="moten.david.util.freemarker.Test" />
 		</junit>
+		<delete file="${basedir}/derby.log"/>
 	</target>
 
 	<!-- jar -->
@@ -357,6 +360,9 @@
 				<exclude name="microwave/**/*" />
 				<exclude name="shop/**/*" />
 				<exclude name="simple/**/*" />
+				<exclude name="tv/**/*" />
+				<exclude name="self/**/*"/>
+				<exclude name="specialize/**/*" />
 				<exclude name="META-INF/persistence.xml" />
 				<exclude name="log4j.properties" />
 			</fileset>
@@ -386,7 +392,9 @@
 	</target>
 
 	<!-- build -->
-	<target name="build" depends="jar" />
+	<target name="build" depends="jar" >
+		<copy file="${jar}" todir="../xUmlCompilerPlugin/temp" failonerror="false"/>
+	</target>
 
 	<target name="update.local">
 		<copy todir="G:\work\source2\xuml-compiler.googlecode.com"

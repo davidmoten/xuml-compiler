@@ -43,6 +43,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JWindow;
+import javax.swing.UIManager;
 
 import model.FinalState;
 import model.InitialState;
@@ -70,22 +71,39 @@ public class SystemViewer {
 
 	private static final String URL_VIEWER_ECORE = "http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore";
 	private static final String VIEW_PACKAGE_NAMESPACE_URI = "http://davidmoten.homeip.net/uml/executable/view";
-	private static final String SETTINGS_EXTENSION = "ecore";
+	private static final String SETTINGS_EXTENSION = "systemView";
 	private static Logger log = Logger.getLogger(SystemViewer.class);
 	private static final long serialVersionUID = 4180699653224602583L;
 	public static Color backgroundColor = Color.white;
 	private final List<ClassComponent> components = new ArrayList<ClassComponent>();
 
 	private Zoomable zoomable;
-	private final String settingsFilename;
 	private final JPanel systemPanel;
 	private final Map<model.Class, JPanel> stateMachinePanels = new HashMap<model.Class, JPanel>();
 	private final Map<Stately, StateComponent> statelyComponents = new HashMap<Stately, StateComponent>();
+	private final View view;
+	private List<SaveListener> saveListeners = new ArrayList<SaveListener>();
+
+	public void addListener(SaveListener listener) {
+		saveListeners.add(listener);
+	}
+
+	public void removeListener(SaveListener listener) {
+		saveListeners.remove(listener);
+	}
 
 	public SystemViewer(model.System system, String settingsFilename) {
+		this(system, load(settingsFilename));
+	}
+
+	/**
+	 * @param system
+	 * @param view
+	 */
+	public SystemViewer(model.System system, View view) {
+		this.view = view;
 		systemPanel = new JPanel();
 		systemPanel.setLayout(null);
-		this.settingsFilename = settingsFilename;
 		createComponents(system);
 		Component joinLayer = new JoinLayer(this);
 		joinLayer.setBackground(backgroundColor);
@@ -150,7 +168,7 @@ public class SystemViewer {
 		return "class." + className + ".state." + c.getStately().getName();
 	}
 
-	public void save(JFrame frame) {
+	private View createView(JFrame frame) {
 		View view = ViewFactory.eINSTANCE.createView();
 		for (ClassComponent c : components) {
 			Element element = ViewFactory.eINSTANCE.createElement();
@@ -189,10 +207,24 @@ public class SystemViewer {
 				.getWidth()));
 		view.setFrame(f);
 		view.setViewport(v);
-		save(view);
+		view.setFile(this.view.getFile());
+		return view;
 	}
 
-	private void save(View view) {
+	public void save(JFrame frame, String settingsFilename) {
+		View view = createView(frame);
+		byte[] bytes = getViewBytes(view, settingsFilename);
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(settingsFilename);
+			fos.write(bytes);
+			fos.close();
+		} catch (IOException e) {
+			throw new Error(e);
+		}
+	}
+
+	public static byte[] getViewBytes(View view, String settingsFilename) {
 		try {
 			String filename = settingsFilename;
 			// Register the XMI resource factory for the extension
@@ -220,15 +252,13 @@ public class SystemViewer {
 					+ VIEW_PACKAGE_NAMESPACE_URI + " " + URL_VIEWER_ECORE
 					+ "\"";
 			s = s.replace(xmlns, xmlns + " " + schemaLocation);
-			FileOutputStream fos = new FileOutputStream(filename);
-			fos.write(s.getBytes());
-			fos.close();
+			return bytes.toByteArray();
 		} catch (Exception e) {
 			throw new Error(e);
 		}
 	}
 
-	public View load() {
+	public static View load(String settingsFilename) {
 		try {
 			String filename = settingsFilename;
 			if (!new File(filename).exists())
@@ -273,7 +303,7 @@ public class SystemViewer {
 				.round(100 * Math.random()));
 	}
 
-	private void applyView(View view, JPanel panel) {
+	public void applyView(View view, JPanel panel) {
 		for (StateComponent c : statelyComponents.values())
 			locateRandomly(c);
 		for (ClassComponent c : components) {
@@ -466,12 +496,12 @@ public class SystemViewer {
 	}
 
 	public void saveImage(String filename) throws IOException {
-		saveImage(filename, "jpg");
+		saveImage(filename, "jpg", view);
 	}
 
-	public void saveImage(String filename, String imageType) throws IOException {
+	public void saveImage(String filename, String imageType, View view)
+			throws IOException {
 		Toolkit.getDefaultToolkit().createImage(new byte[] { (byte) 10 });
-		View view = load();
 		applyView(view, systemPanel);
 		Dimension size = systemPanel.getPreferredSize();
 		JWindow window = new JWindow();
@@ -489,6 +519,10 @@ public class SystemViewer {
 		fos.close();
 		window.setVisible(false);
 		window.dispose();
+	}
+
+	public JPanel getSystemPanel() {
+		return systemPanel;
 	}
 
 	public void showViewer() throws NumberFormatException, IOException {
@@ -518,7 +552,6 @@ public class SystemViewer {
 					glassPane.setVisible(true);
 
 					frame.addKeyListener(createKeyListener());
-					View view = load();
 					applyView(view, frame);
 					frame.addWindowListener(createWindowListener(frame));
 					frame.setVisible(true);
@@ -533,7 +566,11 @@ public class SystemViewer {
 					@Override
 					public void windowClosing(WindowEvent e) {
 						try {
-							save(frame);
+							View view = createView(frame);
+							byte[] bytes = getViewBytes(view,
+									"dummy.systemView");
+							for (SaveListener listener : saveListeners)
+								listener.save(bytes);
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						}
@@ -613,13 +650,19 @@ public class SystemViewer {
 	public static void view(String systemFile, String viewFile)
 			throws NumberFormatException, IOException {
 		model.System system = SystemBase.load(systemFile);
+		// Set System L&F
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		new SystemViewer(system, viewFile).showViewer();
 	}
 
 	public static void main(String[] args) throws NumberFormatException,
 			IOException {
 		SystemViewer viewer = new SystemViewer(new Bookstore().getSystem(),
-				"src/viewer/Bookstore.ecore");
+				"src/viewer/Bookstore.systemView");
 		// viewer.showViewer();
 		viewer.saveImage("temp/system.jpg");
 	}

@@ -38,7 +38,7 @@ public class CreateImage extends Task {
 					.newInstance();
 			SystemViewer viewer = new SystemViewer(system.getSystem(),
 					viewerFile);
-			viewer.saveImage(imageFile, imageType);
+			// viewer.saveImage(imageFile, imageType);
 		} catch (Throwable e) {
 			if (failOnError)
 				throw new BuildException(e);

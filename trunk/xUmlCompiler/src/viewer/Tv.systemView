@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
-<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/view http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore">
+<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" file="Tv.systemDefinition">
   <frame width="612" height="324" x="67" y="140"/>
   <viewport width="750" height="550"/>
   <element x="18" y="59" name="class.Channel"/>
   <element x="159" y="75" name="label.Class Channel Association R1 Verb Clause" fixedTo="//@element[name='class.Channel']"/>
   <element x="160" y="100" name="label.Class Channel Association R1 Multiplicity" fixedTo="//@element[name='class.Channel']"/>
   <element x="370" y="38" name="class.Recording"/>
-  <element x="360" y="102" name="label.Class Recording Association R1 Multiplicity" fixedTo="//@element[name='class.Recording']"/>
   <element x="301" y="73" name="label.Class Recording Association R1 Verb Clause" fixedTo="//@element[name='class.Recording']"/>
+  <element x="360" y="102" name="label.Class Recording Association R1 Multiplicity" fixedTo="//@element[name='class.Recording']"/>
 </view:View>
