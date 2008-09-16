@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +86,7 @@ public class SystemViewer {
 	private final Map<Stately, StateComponent> statelyComponents = new HashMap<Stately, StateComponent>();
 	private final View view;
 	private List<SaveListener> saveListeners = new ArrayList<SaveListener>();
+	private boolean viewerShown;
 
 	public void addListener(SaveListener listener) {
 		saveListeners.add(listener);
@@ -398,21 +400,12 @@ public class SystemViewer {
 				int returnVal = fc.showSaveDialog(systemPanel);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					File file = fc.getSelectedFile();
-					BufferedImage bi = new BufferedImage(systemPanel
-							.getPreferredSize().width, systemPanel
-							.getPreferredSize().height,
-							BufferedImage.TYPE_INT_RGB);
-					Graphics2D g2 = bi.createGraphics();
-					systemPanel.setDoubleBuffered(false);
-					systemPanel.paint(g2);
-					systemPanel.setDoubleBuffered(true);
-					g2.dispose();
+					if (!file.getName().toUpperCase().endsWith(".PNG"))
+						file = new File(file.getAbsolutePath() + ".PNG");
 					try {
-						if (!file.getName().toUpperCase().endsWith(".PNG"))
-							file = new File(file.getAbsolutePath() + ".PNG");
-						ImageIO.write(bi, "png", file);
+						saveImageFromGui(file);
 					} catch (IOException e1) {
-						throw new Error(e1);
+						e1.printStackTrace();
 					}
 				}
 			}
@@ -424,6 +417,25 @@ public class SystemViewer {
 					menu.show((Component) e.getSource(), e.getX(), e.getY());
 			}
 		});
+	}
+
+	public void saveImageFromGui(File file) throws IOException {
+		FileOutputStream fos;
+		fos = new FileOutputStream(file);
+		saveImageFromGui(fos);
+		fos.close();
+	}
+
+	public void saveImageFromGui(OutputStream os) throws IOException {
+		BufferedImage bi = new BufferedImage(
+				systemPanel.getPreferredSize().width, systemPanel
+						.getPreferredSize().height, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2 = bi.createGraphics();
+		systemPanel.setDoubleBuffered(false);
+		systemPanel.paint(g2);
+		systemPanel.setDoubleBuffered(true);
+		g2.dispose();
+		ImageIO.write(bi, "png", os);
 	}
 
 	private void addClasses(Package pkg) {
@@ -513,7 +525,11 @@ public class SystemViewer {
 	}
 
 	public void saveImage(String filename) throws IOException {
-		saveImage(filename, "jpg", view);
+		saveImage(filename, "jpg");
+	}
+
+	public void saveImage(String filename, String imageType) throws IOException {
+		saveImage(filename, imageType, view);
 	}
 
 	public void saveImage(String filename, String imageType, View view)
@@ -534,6 +550,7 @@ public class SystemViewer {
 		FileOutputStream fos = new FileOutputStream(filename);
 		ImageIO.write(bufferedImage, imageType, fos);
 		fos.close();
+		log.info("image saved to " + filename);
 		window.setVisible(false);
 		window.dispose();
 	}
@@ -542,7 +559,12 @@ public class SystemViewer {
 		return systemPanel;
 	}
 
+	public boolean isViewerShown() {
+		return viewerShown;
+	}
+
 	public void showViewer() throws NumberFormatException, IOException {
+		viewerShown = false;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -573,6 +595,7 @@ public class SystemViewer {
 					frame.addWindowListener(createWindowListener(frame));
 					frame.setVisible(true);
 					frame.repaint();
+					viewerShown = true;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
