@@ -333,7 +333,7 @@
 			<test name="moten.david.xuml.model.example.specialize.Test" />
 			<test name="moten.david.util.freemarker.Test" />
 		</junit>
-		<delete file="${basedir}/derby.log"/>
+		<delete file="${basedir}/derby.log" />
 	</target>
 
 	<!-- jar -->
@@ -361,7 +361,7 @@
 				<exclude name="shop/**/*" />
 				<exclude name="simple/**/*" />
 				<exclude name="tv/**/*" />
-				<exclude name="self/**/*"/>
+				<exclude name="self/**/*" />
 				<exclude name="specialize/**/*" />
 				<exclude name="META-INF/persistence.xml" />
 				<exclude name="log4j.properties" />
@@ -392,8 +392,13 @@
 	</target>
 
 	<!-- build -->
-	<target name="build" depends="jar" >
-		<copy file="${jar}" todir="../xUmlCompilerPlugin/temp" failonerror="false"/>
+	<target name="build" depends="jar">
+		<copy file="${jar}" todir="../xUmlCompilerPlugin" failonerror="false" />
+		<copy todir="../xUmlCompilerPlugin" failonerror="false">
+			<fileset dir="${dependencies}">
+				<include name="swingx*" />
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="update.local">

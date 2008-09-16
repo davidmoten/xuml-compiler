@@ -35,7 +35,7 @@ public class Self extends SystemBase {
 	private Class event;
 
 	public Self() {
-		super("self", "Self");
+		super(null, "Self");
 		initialize();
 	}
 

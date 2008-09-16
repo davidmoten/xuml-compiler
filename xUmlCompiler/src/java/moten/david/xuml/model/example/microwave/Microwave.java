@@ -10,7 +10,7 @@ import moten.david.xuml.model.util.SystemBase;
 public class Microwave extends SystemBase {
 
 	public Microwave() {
-		super("microwave", "Microwave");
+		super(null, "Microwave");
 		initialize();
 	}
 

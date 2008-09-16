@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +55,7 @@ import moten.david.xuml.model.example.mellor.Bookstore;
 import moten.david.xuml.model.util.SystemBase;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.lf5.util.StreamUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -258,40 +260,55 @@ public class SystemViewer {
 		}
 	}
 
+	public static View load(InputStream is) {
+		try {
+			File file = File.createTempFile("Temp", SETTINGS_EXTENSION);
+			FileOutputStream fos = new FileOutputStream(file);
+			StreamUtils.copy(is, fos);
+			fos.close();
+			is.close();
+			return load(file.getAbsolutePath());
+
+		} catch (IOException e) {
+			throw new Error(e);
+		}
+	}
+
+	public static View load(URI uri) {
+		// Register the XMI resource factory for the extension
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put(SETTINGS_EXTENSION, new XMIResourceFactoryImpl());
+		// Obtain a new resource set
+		ResourceSet resourceSet = new ResourceSetImpl();
+		{
+			// perform some trickery to get the ViewPackage to be loaded
+			// this is a workaround for an ecore instantiation problem
+			View temp = ViewFactory.eINSTANCE.createView();
+			Resource resource = new ResourceSetImpl().createResource(URI
+					.createURI("unused." + SETTINGS_EXTENSION));
+			resource.getContents().add(temp);
+			resource.getContents().remove(temp);
+		}
+		log.info(ViewFactory.eINSTANCE.getViewPackage());
+		resourceSet.getPackageRegistry().put(
+				ViewFactory.eINSTANCE.getViewPackage().getNsURI(),
+				ViewFactory.eINSTANCE.getViewPackage());
+
+		// Get the resource
+		Resource resource = resourceSet.getResource(uri, true);
+
+		View view = (View) resource.getContents().get(0);
+
+		return view;
+	}
+
 	public static View load(String settingsFilename) {
 		try {
 			String filename = settingsFilename;
 			if (!new File(filename).exists())
-				return null;
-			// Register the XMI resource factory for the extension
-			Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-			Map<String, Object> m = reg.getExtensionToFactoryMap();
-			m.put(SETTINGS_EXTENSION, new XMIResourceFactoryImpl());
-
-			// Obtain a new resource set
-			ResourceSet resourceSet = new ResourceSetImpl();
-
-			{
-				// perform some trickery to get the ViewPackage to be loaded
-				// this is a workaround for an ecore instantiation problem
-				View temp = ViewFactory.eINSTANCE.createView();
-				Resource resource = new ResourceSetImpl().createResource(URI
-						.createURI("unused." + SETTINGS_EXTENSION));
-				resource.getContents().add(temp);
-				resource.getContents().remove(temp);
-			}
-			log.info(ViewFactory.eINSTANCE.getViewPackage());
-			resourceSet.getPackageRegistry().put(
-					ViewFactory.eINSTANCE.getViewPackage().getNsURI(),
-					ViewFactory.eINSTANCE.getViewPackage());
-
-			// Get the resource
-			Resource resource = resourceSet.getResource(
-					URI.createURI(filename), true);
-
-			View view = (View) resource.getContents().get(0);
-
-			return view;
+				throw new Error("file does not exist: " + filename);
+			return load(URI.createURI(filename));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
