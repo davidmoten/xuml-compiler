@@ -11,7 +11,7 @@ Export-Package: model,
  model.activity,
  model.activity.impl,
  model.activity.util,
-  model.collaboration,
+ model.collaboration,
  model.collaboration.impl,
  model.collaboration.util,
  model.diagram,
@@ -24,10 +24,8 @@ Export-Package: model,
  model.use,
  model.use.impl,
  model.use.util,
- model.util,
- model
+ model.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.codegen.ecore
-Eclipse-LazyStart: true
