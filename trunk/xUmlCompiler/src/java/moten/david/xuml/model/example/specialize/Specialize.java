@@ -9,7 +9,7 @@ import moten.david.xuml.model.util.SystemBase;
 public class Specialize extends SystemBase {
 
 	public Specialize() {
-		super("Specialize", "Specialize");
+		super(null, "Specialize");
 		initialize();
 	}
 

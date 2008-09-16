@@ -11,7 +11,7 @@ import moten.david.xuml.model.util.SystemBase;
 
 public class Shop extends SystemBase {
 
-	private static final String schema = "SHOP";
+	private static final String schema = null;
 	private static final String systemName = "Shop";
 
 	public Shop() {
