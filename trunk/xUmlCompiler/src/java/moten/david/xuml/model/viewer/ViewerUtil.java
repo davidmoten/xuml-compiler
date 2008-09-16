@@ -14,7 +14,8 @@ import view.View;
 public class ViewerUtil {
 	private static Logger log = Logger.getLogger(ViewerUtil.class);
 
-	public static void view(String directory, Class<? extends SystemBase> cls) {
+	public static SystemViewer view(String directory,
+			Class<? extends SystemBase> cls) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			String definitionFilename = directory + File.separator
@@ -32,6 +33,7 @@ public class ViewerUtil {
 			SystemViewer viewer = new SystemViewer(system.getSystem(), view);
 			viewer.addListener(new FileSaveListener(new File(viewFilename)));
 			viewer.showViewer();
+			return viewer;
 		} catch (Throwable t) {
 			throw new Error(t);
 		}
