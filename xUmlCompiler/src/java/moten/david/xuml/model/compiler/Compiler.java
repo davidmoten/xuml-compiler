@@ -89,7 +89,8 @@ public class Compiler {
 		for (model.Package pkg : system.getPackage())
 			compile(pkg);
 		compileDocumentation();
-		compilePersistenceXml();
+		if (true)
+			compilePersistenceXml();
 	}
 
 	private void compilePersistenceXml() throws IOException, TemplateException {
