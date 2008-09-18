@@ -46,6 +46,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JWindow;
 import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import model.FinalState;
 import model.InitialState;
@@ -86,6 +88,7 @@ public class SystemViewer {
 	private final Map<Stately, StateComponent> statelyComponents = new HashMap<Stately, StateComponent>();
 	private final View view;
 	private List<SaveListener> saveListeners = new ArrayList<SaveListener>();
+
 	private boolean viewerShown;
 
 	public void addListener(SaveListener listener) {
@@ -94,6 +97,21 @@ public class SystemViewer {
 
 	public void removeListener(SaveListener listener) {
 		saveListeners.remove(listener);
+	}
+
+	private List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
+
+	public void addListener(ChangeListener listener) {
+		changeListeners.add(listener);
+	}
+
+	public void removeListener(ChangeListener listener) {
+		changeListeners.remove(listener);
+	}
+
+	public void fireChanged() {
+		for (ChangeListener listener : changeListeners)
+			listener.stateChanged(new ChangeEvent(this));
 	}
 
 	public SystemViewer(model.System system, String settingsFilename) {
@@ -115,6 +133,12 @@ public class SystemViewer {
 		joinLayer.setSize(10000, 10000);
 		systemPanel.add(joinLayer);
 		createMenu();
+		Movable.addListener(new MovableListener() {
+			@Override
+			public void moved() {
+				fireChanged();
+			}
+		});
 	}
 
 	private void createComponents(model.System system) {
@@ -173,6 +197,19 @@ public class SystemViewer {
 	}
 
 	private View createView(JFrame frame) {
+		View view = createView();
+
+		Frame f = ViewFactory.eINSTANCE.createFrame();
+		f.setX(frame.getX());
+		f.setY(frame.getY());
+		f.setHeight(frame.getHeight());
+		f.setWidth(frame.getWidth());
+		view.setFrame(f);
+
+		return view;
+	}
+
+	public View createView() {
 		View view = ViewFactory.eINSTANCE.createView();
 		for (ClassComponent c : components) {
 			Element element = ViewFactory.eINSTANCE.createElement();
@@ -198,26 +235,20 @@ public class SystemViewer {
 			element.setName(getElementName(c));
 			view.getElement().add(element);
 		}
-
-		Frame f = ViewFactory.eINSTANCE.createFrame();
-		f.setX(frame.getX());
-		f.setY(frame.getY());
-		f.setHeight(frame.getHeight());
-		f.setWidth(frame.getWidth());
 		Viewport v = ViewFactory.eINSTANCE.createViewport();
 		v.setHeight(Math.max(systemPanel.getPreferredSize().height, systemPanel
 				.getHeight()));
 		v.setWidth(Math.max(systemPanel.getPreferredSize().width, systemPanel
 				.getWidth()));
-		view.setFrame(f);
 		view.setViewport(v);
 		view.setFile(this.view.getFile());
+		view.setFrame(this.view.getFrame());
 		return view;
 	}
 
 	public void save(JFrame frame, String settingsFilename) {
 		View view = createView(frame);
-		byte[] bytes = getViewBytes(view, settingsFilename);
+		byte[] bytes = getViewBytes(view);
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(settingsFilename);
@@ -228,9 +259,30 @@ public class SystemViewer {
 		}
 	}
 
-	public static byte[] getViewBytes(View view, String settingsFilename) {
+	public static void saveView(View view, URI uri) throws IOException {
+		// Register the XMI resource factory for the extension
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put(SETTINGS_EXTENSION, new XMIResourceFactoryImpl());
+
+		// Obtain a new resource set
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// set up save options
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put(XMIResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
+
+		// Create a resource
+		Resource resource = resSet.createResource(uri);
+		resource.getContents().add(view);
+
+		// save the resource
+		resource.save(options);
+	}
+
+	public static byte[] getViewBytes(View view) {
 		try {
-			String filename = settingsFilename;
 			// Register the XMI resource factory for the extension
 			Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 
@@ -245,7 +297,8 @@ public class SystemViewer {
 			options.put(XMIResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
 
 			// Create a resource
-			Resource resource = resSet.createResource(URI.createURI(filename));
+			Resource resource = resSet.createResource(URI
+					.createURI("dummyView." + SETTINGS_EXTENSION));
 			resource.getContents().add(view);
 			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 
@@ -322,7 +375,11 @@ public class SystemViewer {
 				.round(100 * Math.random()));
 	}
 
-	public void applyView(View view, JPanel panel) {
+	public void applyView() {
+		applyView(view);
+	}
+
+	public void applyView(View view) {
 		for (StateComponent c : statelyComponents.values())
 			locateRandomly(c);
 		for (ClassComponent c : components) {
@@ -341,7 +398,6 @@ public class SystemViewer {
 								+ (count - 1) * 11);
 					} else
 						label.setLocation(e.getX(), e.getY());
-
 				}
 			}
 		}
@@ -367,7 +423,7 @@ public class SystemViewer {
 			frame.setSize(new Dimension(800, 600));
 			systemPanel.setPreferredSize(new Dimension(750, 550));
 		} else {
-			applyView(view, systemPanel);
+			applyView(view);
 			frame.setLocation(view.getFrame().getX(), view.getFrame().getY());
 			frame.setSize(new Dimension(view.getFrame().getWidth(), view
 					.getFrame().getHeight()));
@@ -535,7 +591,7 @@ public class SystemViewer {
 	public void saveImage(String filename, String imageType, View view)
 			throws IOException {
 		Toolkit.getDefaultToolkit().createImage(new byte[] { (byte) 10 });
-		applyView(view, systemPanel);
+		applyView(view);
 		Dimension size = systemPanel.getPreferredSize();
 		JWindow window = new JWindow();
 		window.setSize(new Dimension(0, 0));
@@ -607,8 +663,7 @@ public class SystemViewer {
 					public void windowClosing(WindowEvent e) {
 						try {
 							View view = createView(frame);
-							byte[] bytes = getViewBytes(view,
-									"dummy.systemView");
+							byte[] bytes = getViewBytes(view);
 							for (SaveListener listener : saveListeners)
 								listener.save(bytes);
 						} catch (Exception e1) {

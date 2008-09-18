@@ -4,11 +4,28 @@ import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Movable implements MouseMotionListener, MouseListener {
 
 	private int xAdjustment;
 	private int yAdjustment;
+
+	private static List<MovableListener> listeners = new ArrayList<MovableListener>();
+
+	public static void addListener(MovableListener listener) {
+		listeners.add(listener);
+	}
+
+	public static void removeListener(MovableListener listener) {
+		listeners.remove(listener);
+	}
+
+	private static void fireMoved() {
+		for (MovableListener l : listeners)
+			l.moved();
+	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -18,6 +35,7 @@ public class Movable implements MouseMotionListener, MouseListener {
 		getComponent(e).setLocation(getComponent(e).getX() + diffX,
 				getComponent(e).getY() + diffY);
 		((Component) e.getSource()).getParent().repaint();
+
 	}
 
 	private Component getComponent(MouseEvent e) {
@@ -55,8 +73,7 @@ public class Movable implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		fireMoved();
 	}
 
 	public static void makeMovable(Component component) {
