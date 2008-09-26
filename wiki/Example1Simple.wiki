@@ -34,7 +34,7 @@ Here's how this system is defined and executed:
 ||EJB Generation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleGenerator.java SimpleGenerator.java]||
 ||Action Language||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java CustomerBehaviour.java]||
 || ||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/EmailBehaviour.java EmailBehaviour.java]||
-||Injection||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleInjectorModule.java InjectorModule.java]||
+||Injection||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/SimpleInjectorModule.java SimpleInjectorModule.java]||
 ||Persistence||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/META-INF/persistence.xml persistence.xml]||
 ||Testing and Execution||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/simple/Test.java Test.java]||
 
