@@ -80,7 +80,7 @@ Validation is performed by a [http://code.google.com/p/xuml-compiler/source/brow
 }}}
 ===View===
 {{{
-    simple.view("src/viewer/Simple.ini");
+    simple.view("src/viewer/Simple.systemView");
 }}}
 ===Generate===
 {{{
