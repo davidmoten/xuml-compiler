@@ -10,6 +10,7 @@ import moten.david.xuml.model.util.SystemBase;
 import org.apache.log4j.Logger;
 
 import view.View;
+import view.ViewFactory;
 
 public class ViewerUtil {
 	private static Logger log = Logger.getLogger(ViewerUtil.class);
@@ -26,7 +27,11 @@ public class ViewerUtil {
 			log.info("view=" + viewFilename);
 			SystemBase system = cls.newInstance();
 			system.save(definitionFilename);
-			View view = SystemViewer.load(viewFilename);
+			View view;
+			if (new File(viewFilename).exists())
+				view = SystemViewer.load(viewFilename);
+			else
+				view = createView(cls.getSimpleName());
 			String relativeDefinitionPath = RelativePath.getRelativePath(
 					new File(viewFilename), new File(definitionFilename));
 			view.setFile(relativeDefinitionPath);
@@ -37,5 +42,19 @@ public class ViewerUtil {
 		} catch (Throwable t) {
 			throw new Error(t);
 		}
+	}
+
+	private static View createView(String title) {
+		View view = ViewFactory.eINSTANCE.createView();
+		view.setViewport(ViewFactory.eINSTANCE.createViewport());
+		view.setTitle(title);
+		view.getViewport().setWidth(1000);
+		view.getViewport().setHeight(1000);
+		view.setFrame(ViewFactory.eINSTANCE.createFrame());
+		view.getFrame().setX(100);
+		view.getFrame().setY(100);
+		view.getFrame().setWidth(800);
+		view.getFrame().setHeight(600);
+		return view;
 	}
 }
