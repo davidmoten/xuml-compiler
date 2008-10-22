@@ -2,10 +2,11 @@
 ===Background===
 I was introduced to Executable UML in early 2008 by a colleague and I liked what I saw.
 
-As a java developer I naturally wanted a tool to use Executable UML. Preferrably open source that
- * generated java classes
- * generated documentation
- * displayed class and state diagrams
+As a java developer I naturally wanted a tool to use Executable UML that
+ * is open source
+ * generates java classes
+ * generates documentation
+ * displays class and state diagrams
 
 Implementation independence is clearly an important precept of xUML but a java based system seemed to be a good place to start.
 
