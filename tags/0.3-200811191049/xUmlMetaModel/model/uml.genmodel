@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/xUmlMetaModel/src"
+    modelPluginID="xUmlMetaModel" modelName="Uml" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>uml.ecore</foreignModel>
+  <genPackages prefix="Model" disposableProviderFactory="true" ecorePackage="uml.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="uml.ecore#//Primitive">
+      <genEnumLiterals ecoreEnumLiteral="uml.ecore#//Primitive/Boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="uml.ecore#//Primitive/Integer"/>
+      <genEnumLiterals ecoreEnumLiteral="uml.ecore#//Primitive/String"/>
+      <genEnumLiterals ecoreEnumLiteral="uml.ecore#//Primitive/Decimal"/>
+      <genEnumLiterals ecoreEnumLiteral="uml.ecore#//Primitive/ArbitraryId"/>
+      <genEnumLiterals ecoreEnumLiteral="uml.ecore#//Primitive/Long"/>
+      <genEnumLiterals ecoreEnumLiteral="uml.ecore#//Primitive/Date"/>
+      <genEnumLiterals ecoreEnumLiteral="uml.ecore#//Primitive/Timestamp"/>
+      <genEnumLiterals ecoreEnumLiteral="uml.ecore#//Primitive/Time"/>
+    </genEnums>
+    <genClasses ecoreClass="uml.ecore#//System">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/package"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/association"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/constraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/collaborator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/communication"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/domain"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/bridge"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/useCase"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/actorUseCase"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/unitTest"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/event"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/freeType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//System/primitiveType"/>
+      <genOperations ecoreOperation="uml.ecore#//System/passesTest">
+        <genParameters ecoreParameter="uml.ecore#//System/passesTest/test"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//Package">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Package/class"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Package/subPackage"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//Package/parent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Package/dataType"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//Class">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//Class/package"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/attribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/attributeReferential"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/operation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/constraints"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/stateMachine"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/identifierPrimary"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/identifierNonPrimary"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Class/associationEndPrimary"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Class/associationEndSecondary"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/persistence"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Class/specializationGroup"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//Association">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Association/primary"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Association/secondary"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Association/associationClass"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//AssociationEndPrimary">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AssociationEndPrimary/class"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//AssociationEndPrimary/association"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//AssociationEndSecondary">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AssociationEndSecondary/class"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//AssociationEndSecondary/association"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="uml.ecore#//AssociationEnd">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AssociationEnd/mandatory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AssociationEnd/multiple"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AssociationEnd/verbClause"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AssociationEnd/role"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AssociationEnd/rolePlural"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AssociationEnd/derivedAttribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//AssociationEnd/persistence"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//AssociationClass">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AssociationClass/association"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//Attribute">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//Attribute/class"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Attribute/constraints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Attribute/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//Attribute/unique"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Attribute/identifierPrimary"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Attribute/identifierNonPrimary"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//Attribute/mandatory"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Attribute/persistence"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//Attribute/values"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//AttributeReferential">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AttributeReferential/associationEnd"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//AttributeReferential/class"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AttributeReferential/identifierPrimary"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AttributeReferential/identifierNonPrimary"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//OperationSignature">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//OperationSignature/parameter"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//OperationSignature/returns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//OperationSignature/returnsMultiple"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//Operation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Operation/action"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//FreeType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//FreeType/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//FreeType/multiple"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//FreeType/system"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="uml.ecore#//Type"/>
+    <genClasses ecoreClass="uml.ecore#//Parameter">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Parameter/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//Parameter/multiple"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//ActionLanguage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//ActionLanguage/action"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//ObjectConstraintLanguage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//ObjectConstraintLanguage/ocl"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="uml.ecore#//Named">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//Named/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//Named/description"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="uml.ecore#//Identifier"/>
+    <genClasses ecoreClass="uml.ecore#//IdentifierPrimary">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierPrimary/attribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierPrimary/attributeReferential"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//IdentifierNonPrimary">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierNonPrimary/attribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//IdentifierNonPrimary/attributeReferential"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="uml.ecore#//IdentifierParticipant"/>
+    <genClasses image="false" ecoreClass="uml.ecore#//Event">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Event/transition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Event/parameter"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//SignalEvent"/>
+    <genClasses ecoreClass="uml.ecore#//TimerEvent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//TimerEvent/timeMs"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//ChangeEvent"/>
+    <genClasses ecoreClass="uml.ecore#//CallEvent"/>
+    <genClasses ecoreClass="uml.ecore#//ExceptionEvent"/>
+    <genClasses ecoreClass="uml.ecore#//PrimitiveType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//PrimitiveType/primitive"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//PrimitiveType/system"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//PrimitiveType/precision"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//PrimitiveType/scale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//PrimitiveType/utc"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//PrimitiveType/length"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//PrimitiveType/yesNo"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//State">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//State/entryProcedure"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//State/stateMachine"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//Transition">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//Transition/event"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Transition/fromState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Transition/toState"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//Procedure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//Procedure/action"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//InitialState">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//InitialState/stateMachine"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//FinalState">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//FinalState/stateMachine"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="uml.ecore#//Stately"/>
+    <genClasses ecoreClass="uml.ecore#//StateMachine">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//StateMachine/class"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//StateMachine/initialState"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//StateMachine/state"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//StateMachine/finalState"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//StateMachine/event"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="uml.ecore#//FromState">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//FromState/transitionTo"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="uml.ecore#//ToState">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//ToState/transitionFrom"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//ToState/event"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//Index">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Index/attribute"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//ClassPersistence">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//ClassPersistence/schema"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//ClassPersistence/table"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//ClassPersistence/index"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//AttributePersistence">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/generatedBySequence"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/generatedValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/length"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/scale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/precision"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//AssociationEndPersistence">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AssociationEndPersistence/lazyFetch"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//AssociationEndPersistence/orderBy"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//DataType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//DataType/attribute"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//DataType/package"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//SpecializationGroup">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference uml.ecore#//SpecializationGroup/generalization"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//SpecializationGroup/specialization"/>
+    </genClasses>
+    <genClasses ecoreClass="uml.ecore#//Specialization">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference uml.ecore#//Specialization/group"/>
+    </genClasses>
+    <nestedGenPackages prefix="Collaboration" disposableProviderFactory="true" ecorePackage="uml.ecore#//collaboration">
+      <genClasses ecoreClass="uml.ecore#//collaboration/Object">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//collaboration/Object/class"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//collaboration/Collaborator"/>
+      <genClasses ecoreClass="uml.ecore#//collaboration/Communication">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//collaboration/Communication/fromCollaborator"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//collaboration/Communication/toCollaborator"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//collaboration/Communication/signalEvent"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//collaboration/Communication/order"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Domain" disposableProviderFactory="true" ecorePackage="uml.ecore#//domain">
+      <genClasses ecoreClass="uml.ecore#//domain/Domain"/>
+      <genClasses ecoreClass="uml.ecore#//domain/Bridge">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//domain/Bridge/aDomain"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//domain/Bridge/bDomain"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Diagram" disposableProviderFactory="true" ecorePackage="uml.ecore#//diagram">
+      <genClasses ecoreClass="uml.ecore#//diagram/ClassDiagram">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/ClassDiagram/class"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/ClassDiagram/association"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/ClassDiagram/constraints"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//diagram/StateMachineDiagram">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/StateMachineDiagram/stateMachine"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//diagram/CollaborationDiagram">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/CollaborationDiagram/collaborator"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/CollaborationDiagram/communication"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//diagram/DomainChart">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/DomainChart/domain"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/DomainChart/bridge"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//diagram/UseCaseDiagram">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/UseCaseDiagram/useCase"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//diagram/ActivityDiagram">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//diagram/ActivityDiagram/actorUseCase"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Use" disposableProviderFactory="true" ecorePackage="uml.ecore#//use">
+      <genClasses ecoreClass="uml.ecore#//use/Actor"/>
+      <genClasses ecoreClass="uml.ecore#//use/UseCase">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//use/UseCase/actor"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//use/UseCase/activity"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//use/UseCase/precondition"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//use/UseCase/postcondition"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//use/Condition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//use/Condition/description"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//use/UnitTest">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//use/UnitTest/useCase"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//use/UnitTest/parameterData"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//use/ParameterData">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//use/ParameterData/parameter"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference uml.ecore#//use/ParameterData/data"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//use/Data"/>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Activity" disposableProviderFactory="true" ecorePackage="uml.ecore#//activity">
+      <genClasses ecoreClass="uml.ecore#//activity/Activity">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//activity/Activity/signalEvent"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//activity/ActorUseCase">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//activity/ActorUseCase/actor"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//activity/ActorUseCase/activity"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//activity/ActorUseCase/nextNode"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//activity/Conditional">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//activity/Conditional/condition"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//activity/Conditional/nextNodeOnTrue"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//activity/Conditional/nextNodeOnFalse"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//activity/Fork">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//activity/Fork/nextNode"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//activity/Join">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference uml.ecore#//activity/Join/nextNode"/>
+      </genClasses>
+      <genClasses ecoreClass="uml.ecore#//activity/ActivityNode"/>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

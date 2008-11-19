@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://davidmoten.homeip.net/uml/executable/model" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/model http://xuml-compiler.googlecode.com/svn/trunk/xUmlMetaModel/model/uml.ecore" name="Simple">
+  <package name="simple" description="a simple system">
+    <class name="Customer" description="a customer, possible contactable using multiple emails" associationEndPrimary="//@association.0/@primary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.0/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="name" type="//@primitiveType[name='String']" unique="true"/>
+      <stateMachine>
+        <initialState name="InitialState" transitionTo="//@package.0/@class.0/@stateMachine/@event.0/@transition[name='InitialState_newCustomer_Inactive']"/>
+        <state name="Inactive" transitionFrom="//@package.0/@class.0/@stateMachine/@event.2/@transition[name='Active_deactivate_Inactive'] //@package.0/@class.0/@stateMachine/@event.0/@transition[name='InitialState_newCustomer_Inactive']" transitionTo="//@package.0/@class.0/@stateMachine/@event.1/@transition[name='Inactive_activate_Active'] //@package.0/@class.0/@stateMachine/@event.4/@transition[name='Inactive_remove_FinalState']"/>
+        <state name="Active" transitionFrom="//@package.0/@class.0/@stateMachine/@event.1/@transition[name='Inactive_activate_Active'] //@package.0/@class.0/@stateMachine/@event.3/@transition[name='Active_addEmail_Active']" transitionTo="//@package.0/@class.0/@stateMachine/@event.2/@transition[name='Active_deactivate_Inactive'] //@package.0/@class.0/@stateMachine/@event.3/@transition[name='Active_addEmail_Active']"/>
+        <finalState name="FinalState" transitionFrom="//@package.0/@class.0/@stateMachine/@event.4/@transition[name='Inactive_remove_FinalState']"/>
+        <event xsi:type="model:CallEvent" name="newCustomer">
+          <transition name="InitialState_newCustomer_Inactive" fromState="//@package.0/@class.0/@stateMachine/@initialState" toState="//@package.0/@class.0/@stateMachine/@state.0"/>
+          <parameter name="name" type="//@freeType[name='String']"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="activate">
+          <transition name="Inactive_activate_Active" fromState="//@package.0/@class.0/@stateMachine/@state.0" toState="//@package.0/@class.0/@stateMachine/@state.1"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="deactivate">
+          <transition name="Active_deactivate_Inactive" fromState="//@package.0/@class.0/@stateMachine/@state.1" toState="//@package.0/@class.0/@stateMachine/@state.0"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="addEmail">
+          <transition name="Active_addEmail_Active" fromState="//@package.0/@class.0/@stateMachine/@state.1" toState="//@package.0/@class.0/@stateMachine/@state.1"/>
+          <parameter name="email" type="//@freeType[name='simple.Email']"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="remove">
+          <transition name="Inactive_remove_FinalState" fromState="//@package.0/@class.0/@stateMachine/@state.0" toState="//@package.0/@class.0/@stateMachine/@finalState"/>
+        </event>
+      </stateMachine>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
+      <persistence/>
+    </class>
+    <class name="Email" description="an email address belonging to a customer, e.g fred@google.com" associationEndSecondary="//@association.0/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.1/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="email" type="//@primitiveType[name='String']"/>
+      <operation name="send" description="sends an email">
+        <parameter name="subject" description="subject line of the email" type="//@primitiveType[name='String']"/>
+        <parameter name="body" description="body of the message" type="//@primitiveType[name='String']"/>
+        <parameter name="from" description="the sender of the email" type="//@primitiveType[name='String']"/>
+      </operation>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.1/@attribute.0"/>
+      <persistence/>
+    </class>
+  </package>
+  <association name="R1">
+    <primary name="Customer customer" mandatory="true" verbClause="is used to contact" role="customer" class="//@package.0/@class.0"/>
+    <secondary name="Email email" multiple="true" verbClause="is contactable via" role="email" class="//@package.0/@class.1"/>
+  </association>
+  <freeType name="String" description="FreeType enclosure for type String" type="String"/>
+  <freeType name="simple.Email" description="FreeType enclosure for type simple.Email" type="simple.Email"/>
+  <primitiveType name="ArbitraryId" description="Primitive type enclosure for primitive ArbitraryId" primitive="ArbitraryId"/>
+  <primitiveType name="String" description="Primitive type enclosure for primitive String" primitive="String"/>
+</model:System>

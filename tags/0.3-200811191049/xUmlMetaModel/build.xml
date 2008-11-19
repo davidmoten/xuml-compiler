@@ -1,0 +1,31 @@
+<project name="xUmlMetaModel" default="build">
+
+	<property name="temp" value="${basedir}/temp" />
+
+	<target name="clean">
+		<delete dir="${temp}" />
+		<mkdir dir="${temp}" />
+	</target>
+
+	<target name="zip" depends="clean">
+		<zip basedir="${basedir}" destfile="${temp}/uml.zip">
+			<include name="**/*" />
+			<exclude name="temp/**/*" />
+			<exclude name="bin/**/*" />
+		</zip>
+	</target>
+
+	<target name="clean.generated">
+		<delete>
+			<fileset dir="${basedir}/src">
+				<include name="**/*.java" />
+			</fileset>
+		</delete>
+		<delete file="${basedir}/model/uml.genmodel" />
+	</target>
+
+	<target name="build" depends="zip" />
+
+
+
+</project>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:model="http://davidmoten.homeip.net/uml/executable/model" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/model http://xuml-compiler.googlecode.com/svn/trunk/xUmlMetaModel/model/uml.ecore" name="Tv">
+  <package name="tv" description="tv root package">
+    <class name="Channel" description="Digital TV channels" associationEndSecondary="//@association.0/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.0/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="name" type="//@primitiveType[name='String']" unique="true"/>
+      <attribute name="description" type="//@primitiveType[name='String']" mandatory="false"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
+      <persistence/>
+    </class>
+    <class name="Recording" description="Scheduled and completed recordings" associationEndPrimary="//@association.0/@primary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.1/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="jobNumber" type="//@primitiveType[name='Integer']" unique="true"/>
+      <attribute name="startTime" type="//@primitiveType[name='Timestamp']"/>
+      <attribute name="durationMinutes" type="//@primitiveType[name='Decimal']"/>
+      <attribute name="name" type="//@primitiveType[name='String']"/>
+      <attribute name="description" type="//@primitiveType[name='String']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.1/@attribute.0"/>
+      <persistence/>
+    </class>
+  </package>
+  <association name="R1">
+    <primary name="Recording recording" multiple="true" verbClause="is recorded by" role="recording" class="//@package.0/@class.1"/>
+    <secondary name="Channel channel" mandatory="true" verbClause="records" role="channel" class="//@package.0/@class.0"/>
+  </association>
+  <primitiveType name="ArbitraryId" description="Primitive type enclosure for primitive ArbitraryId" primitive="ArbitraryId"/>
+  <primitiveType name="String" description="Primitive type enclosure for primitive String" primitive="String"/>
+  <primitiveType name="Integer" description="Primitive type enclosure for primitive Integer" primitive="Integer"/>
+  <primitiveType name="Timestamp" description="Primitive type enclosure for primitive Timestamp" primitive="Timestamp"/>
+  <primitiveType name="Decimal" description="Primitive type enclosure for primitive Decimal" primitive="Decimal"/>
+</model:System>
