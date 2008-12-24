@@ -48,7 +48,7 @@ All methods and state machine entry points should be implemented by your behavio
 [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/shop/ShipmentBehaviour.java ShipmentBehaviour] is the actions implementation for the Shipment class:
 
 ==Define an injector==
-The implementations of action interfaces above are injected at runtime by the Guice framework. The injector is configured by [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/shop/ShopInjectorModule.java].
+The implementations of action interfaces above are injected at runtime by the Guice framework. The injector is configured by [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/shop/ShopInjectorModule.java ShopInjectorModule].
 
 ==Execute the system==
 To execute the system we must first ensure that the generated objects use [http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/java/moten/david/xuml/model/example/shop/ShopInjectorModule.java ShopInjectorModule] for late bound injection of behaviour:
