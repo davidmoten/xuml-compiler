@@ -280,6 +280,7 @@ public class ClassMap {
 			map.put("generalizations", list);
 			for (SpecializationGroup group : sp.getGroup()) {
 				KeyMap map2 = new KeyMap();
+				map2.put("name", group.getName());
 				map2.put("class", group.getGeneralization().getName());
 				list.add(map2);
 			}
