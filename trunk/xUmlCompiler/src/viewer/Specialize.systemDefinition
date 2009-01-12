@@ -6,7 +6,7 @@
         <persistence generatedValue="true"/>
       </attribute>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
-      <persistence schema="Specialize"/>
+      <persistence/>
       <specializationGroup name="R1" description="specialization of book" specialization="//@package.0/@class.1 //@package.0/@class.2"/>
       <specializationGroup name="R2" description="specialization of book" specialization="//@package.0/@class.3 //@package.0/@class.4 //@package.0/@class.5"/>
     </class>
@@ -15,35 +15,35 @@
         <persistence generatedValue="true"/>
       </attribute>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.1/@attribute.0"/>
-      <persistence schema="Specialize"/>
+      <persistence/>
     </class>
     <class xsi:type="model:Specialization" name="NonFiction" description="" group="//@package.0/@class.0/@specializationGroup[name='R1']">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.2/@identifierPrimary">
         <persistence generatedValue="true"/>
       </attribute>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.2/@attribute.0"/>
-      <persistence schema="Specialize"/>
+      <persistence/>
     </class>
     <class xsi:type="model:Specialization" name="HardCover" description="" group="//@package.0/@class.0/@specializationGroup[name='R2']">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.3/@identifierPrimary">
         <persistence generatedValue="true"/>
       </attribute>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.3/@attribute.0"/>
-      <persistence schema="Specialize"/>
+      <persistence/>
     </class>
     <class xsi:type="model:Specialization" name="SoftCover" description="" group="//@package.0/@class.0/@specializationGroup[name='R2']">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.4/@identifierPrimary">
         <persistence generatedValue="true"/>
       </attribute>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.4/@attribute.0"/>
-      <persistence schema="Specialize"/>
+      <persistence/>
     </class>
     <class xsi:type="model:Specialization" name="ElectronicEdition" description="" group="//@package.0/@class.0/@specializationGroup[name='R2']">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.5/@identifierPrimary">
         <persistence generatedValue="true"/>
       </attribute>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.5/@attribute.0"/>
-      <persistence schema="Specialize"/>
+      <persistence/>
       <specializationGroup name="R3" description="specialization of electronic edition" specialization="//@package.0/@class.6 //@package.0/@class.7 //@package.0/@class.8"/>
     </class>
     <class xsi:type="model:Specialization" name="ElectronicPdf" description="" group="//@package.0/@class.5/@specializationGroup[name='R3']">
@@ -51,21 +51,21 @@
         <persistence generatedValue="true"/>
       </attribute>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.6/@attribute.0"/>
-      <persistence schema="Specialize"/>
+      <persistence/>
     </class>
     <class xsi:type="model:Specialization" name="ElectronicDoc" description="" group="//@package.0/@class.5/@specializationGroup[name='R3']">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.7/@identifierPrimary">
         <persistence generatedValue="true"/>
       </attribute>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.7/@attribute.0"/>
-      <persistence schema="Specialize"/>
+      <persistence/>
     </class>
     <class xsi:type="model:Specialization" name="ElectronicText" description="" group="//@package.0/@class.5/@specializationGroup[name='R3']">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.8/@identifierPrimary">
         <persistence generatedValue="true"/>
       </attribute>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.8/@attribute.0"/>
-      <persistence schema="Specialize"/>
+      <persistence/>
     </class>
   </package>
   <primitiveType name="ArbitraryId" description="Primitive type enclosure for primitive ArbitraryId" primitive="ArbitraryId"/>
