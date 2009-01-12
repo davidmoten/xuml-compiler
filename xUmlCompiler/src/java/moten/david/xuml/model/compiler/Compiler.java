@@ -239,6 +239,7 @@ public class Compiler {
 				map2.put("generalizations", list2);
 				for (SpecializationGroup group : sp.getGroup()) {
 					KeyMap map3 = new KeyMap();
+					map3.put("name", group.getName());
 					map3.put("class", group.getGeneralization().getName());
 					list2.add(map3);
 				}
@@ -269,6 +270,11 @@ public class Compiler {
 				cls.getName() + "Impl");
 		writeJavaMap(map, cls.getPackage(), "interface.ftl",
 				interfacePackageExtension, cls.getName());
+		for (SpecializationGroup sg : cls.getSpecializationGroup()) {
+			map.put("specializationGroup", sg);
+			writeJavaMap(map, cls.getPackage(), "specializationGroup.ftl",
+					interfacePackageExtension, cls.getName() + sg.getName());
+		}
 		writeJavaMap(map, cls.getPackage(), "actions.ftl",
 				actionsPackageExtension, cls.getName() + "Actions");
 		File wwwDirectory = new File(outputDirectory, "www");
