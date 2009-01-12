@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
 * @generatedBy xUML
 */
 
-public interface ${name}  {
+public interface ${name} <#if generalizations?exists><#if generalizations?size gt 0>extends </#if><#list generalizations as generalization><#if generalization_index gt 0>, </#if>${generalization.class}${generalization.name?cap_first}</#list></#if>  {
 <#list attributes as attribute>
 <#if !attribute.derived>
 
