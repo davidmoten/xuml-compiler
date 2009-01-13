@@ -353,7 +353,6 @@
 			<fileset dir="${bin}">
 				<exclude name="**/example/**/*" />
 				<exclude name="bookstore/**/*" />
-				<exclude name="bookstore/**/*" />
 				<exclude name="many_to*/**/*" />
 				<exclude name="one_*/**/*" />
 				<exclude name="zero_*/**/*" />
@@ -363,6 +362,17 @@
 				<exclude name="tv/**/*" />
 				<exclude name="self/**/*" />
 				<exclude name="specialize/**/*" />
+				<exclude name="**/example" />
+				<exclude name="bookstore" />
+				<exclude name="many_to*" />
+				<exclude name="one_*" />
+				<exclude name="zero_*" />
+				<exclude name="microwave" />
+				<exclude name="shop" />
+				<exclude name="simple" />
+				<exclude name="tv" />
+				<exclude name="self" />
+				<exclude name="specialize" />
 				<exclude name="META-INF/persistence.xml" />
 				<exclude name="log4j.properties" />
 			</fileset>
