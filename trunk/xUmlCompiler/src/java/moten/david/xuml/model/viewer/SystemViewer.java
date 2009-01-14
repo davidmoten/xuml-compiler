@@ -712,11 +712,19 @@ public class SystemViewer {
 				if (pageNum > 0)
 					return Printable.NO_SUCH_PAGE;
 				Graphics2D g2 = (Graphics2D) pg;
-				double scalex = pf.getPaper().getImageableWidth()
-						/ panel.getPreferredSize().getWidth();
-				double scaley = pf.getPaper().getImageableHeight()
-						/ panel.getPreferredSize().getHeight();
+				double w;
+				double h;
+				if (pf.getOrientation() == PageFormat.LANDSCAPE) {
+					w = pf.getPaper().getImageableHeight();
+					h = pf.getPaper().getImageableWidth();
+				} else {
+					w = pf.getPaper().getImageableWidth();
+					h = pf.getPaper().getImageableHeight();
+				}
+				double scalex = w / panel.getPreferredSize().getWidth();
+				double scaley = h / panel.getPreferredSize().getHeight();
 				double scale = Math.min(scalex, scaley);
+
 				g2.translate(pf.getImageableX(), pf.getImageableY());
 				g2.scale(scale, scale);
 				panel.setDoubleBuffered(false);
