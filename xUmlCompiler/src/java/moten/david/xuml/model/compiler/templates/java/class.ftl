@@ -272,7 +272,7 @@ public class ${name}Impl implements ${name} {
     /**
     * 0..1 to 1 (association "${association.name}")
     */
-	@OneToOne(targetEntity=${association.other.classImpl}.class<#if generalizations?exists>,cascade=CascadeType.ALL</#if>)
+	@OneToOne(targetEntity=${association.other.classImpl}.class<#if generalizations?exists>,cascade=CascadeType.ALL</#if>, fetch=FetchType.LAZY)
 	@JoinColumn(name = "${otherColumn}",nullable = false)
 <#-- 1 to 1 primary -->
 <#elseif !association.this.multiple
@@ -310,7 +310,7 @@ public class ${name}Impl implements ${name} {
   	/**
   	* 1 .. 1 secondary (association "${association.name}")
   	*/
-	@OneToOne(targetEntity=${association.other.classImpl}.class)
+	@OneToOne(targetEntity=${association.other.classImpl}.class, fetch=FetchType.LAZY)
 	@JoinColumn(name = "${otherColumn}",nullable = false)
 <#-- 1 to * -->
 <#elseif !association.this.multiple
@@ -333,7 +333,10 @@ public class ${name}Impl implements ${name} {
   	/**
   	* * to 1 (association "${association.name}")
   	*/
-	@ManyToOne(targetEntity=${association.other.classImpl}.class)
+	@ManyToOne(
+	    targetEntity=${association.other.classImpl}.class,
+	    fetch=FetchType.LAZY
+	)
 	@JoinColumn(name = "${otherColumn}",nullable = false)
 <#-- 1 to 1..* -->
 <#elseif !association.this.multiple
@@ -393,7 +396,7 @@ public class ${name}Impl implements ${name} {
 	/**
 	* 0..1 to 0..1 secondary (association "${association.name}")
 	*/
-	@OneToOne(targetEntity=${association.other.classImpl}.class)
+	@OneToOne(targetEntity=${association.other.classImpl}.class, fetch=FetchType.LAZY)
 	@JoinColumn(name = "${otherColumn}",nullable = true)
 <#-- 0..1 to * -->
 <#elseif !association.this.multiple
@@ -416,7 +419,7 @@ public class ${name}Impl implements ${name} {
 	/**
 	* * to 0..1 (association "${association.name}")
 	*/
-	@ManyToOne(targetEntity=${association.other.classImpl}.class)
+	@ManyToOne(targetEntity=${association.other.classImpl}.class, fetch=FetchType.LAZY)
 	@JoinColumn(name = "${otherColumn}", nullable = true)
 <#-- 0..1 to 1..* -->
 <#elseif !association.this.multiple
@@ -452,7 +455,7 @@ public class ${name}Impl implements ${name} {
 	/**
 	* 1..* to 0..1 (association "${association.name}")
 	*/
-	@ManyToOne(targetEntity=${association.other.classImpl}.class)
+	@ManyToOne(targetEntity=${association.other.classImpl}.class, fetch=FetchType.LAZY)
 	@JoinColumn(name = "${otherColumn}",nullable = true)
 <#-- * to * primary-->
 <#elseif association.this.multiple
