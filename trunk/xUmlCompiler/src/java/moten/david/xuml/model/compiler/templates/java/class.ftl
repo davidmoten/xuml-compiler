@@ -50,7 +50,7 @@ import ${package}.actions.*;
 	indexes = {<#list persistence.indexes as index>
 		@org.hibernate.annotations.Index(
 			name="${index.name}", 
-			columnNames={<#list index.attributes as att><#if att_index gt 0>, </#if>"${att.name}"</#list>})</#list>})
+			columnNames={<#list index.attributes as att><#if att_index gt 0>, </#if>"<@underscore>${att.name}</@underscore>"</#list>})</#list>})
 </#if>
 public class ${name}Impl implements ${name} {
 
