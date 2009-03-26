@@ -4,10 +4,11 @@
 <%@page import="au.gov.amsa.er.craft.tracking.generated.*"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.google.inject.Injector"%>
 <html>
 <% 
-	EntityManagerFactory emf = request.getAttribute("entityManagerFactory");
-	// CtsInjector.getInjector().getInstance(EntityManagerFactory.class);
+	Injector injector = (Injector) getServletContext().getAttribute("guiceInjector");
+	EntityManagerFactory emf = injector.getInstance(EntityManagerFactory.class);
 	EntityManager em = emf.createEntityManager();
 	int id = Integer.parseInt(request.getParameter("id"));
 	boolean update = "true".equals(request.getParameter("update"));

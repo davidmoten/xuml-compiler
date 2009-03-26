@@ -5,9 +5,11 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.google.inject.Injector"%>
 <html>
 <% 
-	EntityManagerFactory emf = CtsInjector.getInjector().getInstance(EntityManagerFactory.class);
+	Injector injector = (Injector) getServletContext().getAttribute("guiceInjector");
+	EntityManagerFactory emf = injector.getInstance(EntityManagerFactory.class);
 	EntityManager em = emf.createEntityManager();
 	em.getTransaction().begin();
 	List<${name}> beans = (List<${name}>) em.createQuery("from ${name}").getResultList();
