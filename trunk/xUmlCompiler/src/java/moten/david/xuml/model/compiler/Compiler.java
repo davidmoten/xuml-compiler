@@ -280,12 +280,15 @@ public class Compiler {
 		File wwwDirectory = new File(outputDirectory, "www");
 		if (!wwwDirectory.exists())
 			wwwDirectory.mkdir();
-		FileOutputStream fos = new FileOutputStream(new File(wwwDirectory,
-				"update" + cls.getName() + ".jsp"));
+		File updateJsp = new File(wwwDirectory, "update" + cls.getName()
+				+ ".jsp");
+		FileOutputStream fos = new FileOutputStream(updateJsp);
+		log.info("writing jsp:" + updateJsp);
 		write(map, "jsp-update.ftl", fos);
 		fos.close();
-		fos = new FileOutputStream(new File(wwwDirectory, "list"
-				+ cls.getName() + ".jsp"));
+		File listJsp = new File(wwwDirectory, "list" + cls.getName() + ".jsp");
+		fos = new FileOutputStream(listJsp);
+		log.info("writing jsp:" + listJsp);
 		write(map, "jsp-list.ftl", fos);
 		fos.close();
 	}
