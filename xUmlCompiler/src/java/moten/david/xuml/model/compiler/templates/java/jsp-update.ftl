@@ -1,10 +1,9 @@
-<%@page import="au.gov.amsa.er.craft.tracking.CtsInjector"%>
 <%@page import="javax.persistence.EntityManagerFactory"%>
 <%@page import="javax.persistence.EntityManager"%>
-<%@page import="au.gov.amsa.er.craft.tracking.generated.*"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.google.inject.Injector"%>
+<%@page import="${interfaceFullName}"%>
 <html>
 <% 
 	Injector injector = (Injector) getServletContext().getAttribute("guiceInjector");

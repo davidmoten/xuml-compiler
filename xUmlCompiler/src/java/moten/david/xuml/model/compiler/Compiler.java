@@ -266,6 +266,11 @@ public class Compiler {
 		classQualifiedName += "." + cls.getName() + "Impl";
 		classNames.add(classQualifiedName);
 
+		String interfaceQualifiedName = Util.getFullPath(cls.getPackage(), ".");
+		if (interfacePackageExtension != null)
+			interfaceQualifiedName += "." + interfacePackageExtension;
+		interfaceQualifiedName += "." + cls.getName();
+
 		writeJavaMap(map, cls.getPackage(), "class.ftl", classPackageExtension,
 				cls.getName() + "Impl");
 		writeJavaMap(map, cls.getPackage(), "interface.ftl",
@@ -283,6 +288,7 @@ public class Compiler {
 		File updateJsp = new File(wwwDirectory, "update" + cls.getName()
 				+ ".jsp");
 		FileOutputStream fos = new FileOutputStream(updateJsp);
+		map.put("interfaceFullName", interfaceQualifiedName);
 		log.info("writing jsp:" + updateJsp);
 		write(map, "jsp-update.ftl", fos);
 		fos.close();
