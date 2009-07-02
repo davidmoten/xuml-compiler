@@ -200,6 +200,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/column"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/generatedBySequence"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/generatedValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/generatedByIdentity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/length"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/scale"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute uml.ecore#//AttributePersistence/precision"/>

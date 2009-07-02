@@ -1832,7 +1832,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAttributePersistence_Length() {
+	public EAttribute getAttributePersistence_GeneratedByIdentity() {
 		return (EAttribute)attributePersistenceEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1841,7 +1841,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAttributePersistence_Scale() {
+	public EAttribute getAttributePersistence_Length() {
 		return (EAttribute)attributePersistenceEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1850,8 +1850,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAttributePersistence_Precision() {
+	public EAttribute getAttributePersistence_Scale() {
 		return (EAttribute)attributePersistenceEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAttributePersistence_Precision() {
+		return (EAttribute)attributePersistenceEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2178,6 +2187,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEAttribute(attributePersistenceEClass, ATTRIBUTE_PERSISTENCE__COLUMN);
 		createEAttribute(attributePersistenceEClass, ATTRIBUTE_PERSISTENCE__GENERATED_BY_SEQUENCE);
 		createEAttribute(attributePersistenceEClass, ATTRIBUTE_PERSISTENCE__GENERATED_VALUE);
+		createEAttribute(attributePersistenceEClass, ATTRIBUTE_PERSISTENCE__GENERATED_BY_IDENTITY);
 		createEAttribute(attributePersistenceEClass, ATTRIBUTE_PERSISTENCE__LENGTH);
 		createEAttribute(attributePersistenceEClass, ATTRIBUTE_PERSISTENCE__SCALE);
 		createEAttribute(attributePersistenceEClass, ATTRIBUTE_PERSISTENCE__PRECISION);
@@ -2492,6 +2502,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getAttributePersistence_Column(), ecorePackage.getEString(), "column", null, 0, 1, AttributePersistence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAttributePersistence_GeneratedBySequence(), ecorePackage.getEBoolean(), "generatedBySequence", null, 1, 1, AttributePersistence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAttributePersistence_GeneratedValue(), ecorePackage.getEBoolean(), "generatedValue", null, 1, 1, AttributePersistence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAttributePersistence_GeneratedByIdentity(), ecorePackage.getEBoolean(), "generatedByIdentity", null, 1, 1, AttributePersistence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAttributePersistence_Length(), ecorePackage.getEIntegerObject(), "length", null, 0, 1, AttributePersistence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAttributePersistence_Scale(), ecorePackage.getEIntegerObject(), "scale", null, 0, 1, AttributePersistence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAttributePersistence_Precision(), ecorePackage.getEIntegerObject(), "precision", null, 0, 1, AttributePersistence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
