@@ -525,6 +525,8 @@ public class ClassMap {
 					.isGeneratedBySequence());
 			map2.put("generatedValue", attribute.getPersistence()
 					.isGeneratedValue());
+			map2.put("generatedByIdentity", attribute.getPersistence()
+					.isGeneratedByIdentity());
 		}
 		return map;
 	}
