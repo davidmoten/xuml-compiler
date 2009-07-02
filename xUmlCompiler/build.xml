@@ -2,7 +2,7 @@
          default="build"
          xmlns:artifact="urn:maven-artifact-ant">
 
-	<property name="jar.version" value="0.4.4" />
+	<property name="jar.version" value="0.4.5" />
 	<property name="project.short.name" value="xuml-compiler" />
 	<property name="temp" value="${basedir}/temp" />
 	<property name="src" value="${basedir}/src/java" />
