@@ -9,14 +9,12 @@ import ${import.name};
 </#list>
 <#if persistence?exists>
 import javax.persistence.*;
-import org.hibernate.annotations.Type;
 </#if>
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
-import moten.david.xuml.model.compiler.runtime.InvalidRecordException;
 import com.google.inject.Inject;
 import ${package}.*;
 import ${package}.actions.*;
@@ -57,7 +55,7 @@ public class ${name}Impl implements ${name} {
 	/**
 	* static logger
 	**/
-	private static Logger log = Logger.getLogger(${name}Impl.class);
+	//private static Logger log = Logger.getLogger(${name}Impl.class);
 
 	/**
 	* constructor has default access to ensure that instantiation 
@@ -193,24 +191,25 @@ public class ${name}Impl implements ${name} {
 	@SequenceGenerator(name="generator", sequenceName="SEQ_${name?upper_case}_id", allocationSize=1)
        		<#elseif attribute.persistence.generatedValue>
 	@GeneratedValue
+			<#elseif attribute.persistence.generatedByIdentity>
 			</#if>
 		<#else>
 	@Column(name="<@underscore>${attributeName}</@underscore>", ${otherParams})
     	</#if>
 		<#if attribute.primitive="Date" && attribute.utc>
-    @Type(type="moten.david.util.hibernate.utc.DateType")
+    @org.hibernate.annotations.Type(type="moten.david.util.hibernate.utc.DateType")
     	<#elseif attribute.primitive="Date" && !attribute.utc>
     @Temporal(TemporalType.DATE)
     	<#elseif attribute.primitive="Time" && attribute.utc>
-    @Type(type="moten.david.util.hibernate.utc.TimeType")
+    @org.hibernate.annotations.Type(type="moten.david.util.hibernate.utc.TimeType")
     	<#elseif attribute.primitive="Time" && !attribute.utc>
     @Temporal(TemporalType.TIME)
     	<#elseif attribute.primitive="Timestamp" && attribute.utc>
-    @Type(type="moten.david.util.hibernate.utc.TimestampType")
+    @org.hibernate.annotations.Type(type="moten.david.util.hibernate.utc.TimestampType")
     	<#elseif attribute.primitive="Timestamp" && !attribute.utc>
     @Temporal(TemporalType.TIMESTAMP)
     	<#elseif attribute.primitive="Boolean" && attribute.yesNo>
-    @Type(type="yes_no")
+    @org.hibernate.annotations.Type(type="yes_no")
     	</#if>
     </#if>
 	public ${attribute.type} get${attribute.name?cap_first}(){
@@ -287,7 +286,7 @@ public class ${name}Impl implements ${name} {
 
 	public void checkValid${otherName?cap_first}() {
 		if (!valid${otherName?cap_first}())
-			throw new InvalidRecordException(
+			throw new RuntimeException(
 				"cannot update, record not valid due to a relationship not being established");
 	}
 <#assign prePersist>${prePersist!""}
@@ -349,7 +348,7 @@ public class ${name}Impl implements ${name} {
 
 	public void checkValid${otherName?cap_first}() {
 		if (!valid${otherName?cap_first}())
-			throw new InvalidRecordException(
+			throw new RuntimeException(
 				"cannot persist/update, record not valid");
 	}
 <#assign prePersist>${prePersist!""}
@@ -432,7 +431,7 @@ public class ${name}Impl implements ${name} {
 
 	public void checkValid${otherName?cap_first}() {
 		if (!valid${otherName?cap_first}())
-			throw new InvalidRecordException(
+			throw new RuntimeException(
 				"cannot persist/update, record not valid");
 	}
 <#assign prePersist>${prePersist!""}
@@ -505,7 +504,7 @@ public class ${name}Impl implements ${name} {
 
 	public void checkValid${otherName?cap_first}() {
 		if (!valid${otherName?cap_first}())
-			throw new InvalidRecordException(
+			throw new RuntimeException(
 				"cannot persist/update, record not valid");
 	}
 <#assign prePersist>${prePersist!""}
@@ -566,7 +565,7 @@ public class ${name}Impl implements ${name} {
 
 	public void checkValid${otherName?cap_first}() {
 		if (!valid${otherName?cap_first}())
-			throw new InvalidRecordException(
+			throw new RuntimeException(
 				"cannot persist/update, record not valid");
 	}
 <#assign prePersist>${prePersist!""}
@@ -646,7 +645,7 @@ public class ${name}Impl implements ${name} {
 	* process the received ${event.type?cap_first} event <em>${event.name}</em>
 	*/
 	public void processEvent(final ${name}.Event${event.name?cap_first} event) {
-		log.debug("processing event ${event.name}");
+		//log.debug("processing event ${event.name}");
 <#list event.transitions as transition>
 		<#if transition_index gt 0>else</#if>
 		if (state.equals(State.<#assign tempName><@underscore>${transition.fromState}</@underscore></#assign>${tempName?upper_case})){
@@ -657,7 +656,7 @@ public class ${name}Impl implements ${name} {
 					public void run() {
 						checkActions();
 						synchronized (thisObject) {
-							log.debug("performOnEntry${transition.toState?cap_first}");
+							//log.debug("performOnEntry${transition.toState?cap_first}");
 							${name?uncap_first}Actions.performOnEntry${transition.toState?cap_first}(event);
 						}
 					}
@@ -667,7 +666,7 @@ public class ${name}Impl implements ${name} {
 			state = State.<#assign tempName><@underscore>${transition.toState}</@underscore></#assign>${tempName?upper_case};
 			checkActions();
 			synchronized (this) {
-				log.debug("performOnEntry${transition.toState?cap_first}");
+				//log.debug("performOnEntry${transition.toState?cap_first}");
 				${name?uncap_first}Actions.performOnEntry${transition.toState?cap_first}(event);
 			}
 			<#elseif event.type="timer">
@@ -676,7 +675,7 @@ public class ${name}Impl implements ${name} {
 				state = State.<#assign tempName><@underscore>${transition.toState}</@underscore></#assign>${tempName?upper_case};
 				checkActions();
 				synchronized (thisObject) {
-					log.debug("performOnEntry${transition.toState?cap_first}");
+					//log.debug("performOnEntry${transition.toState?cap_first}");
 					${name?uncap_first}Actions.performOnEntry${transition.toState?cap_first}(event);
 				}
 			} else {
@@ -687,7 +686,7 @@ public class ${name}Impl implements ${name} {
 									long interval = event.getCheckIntervalMs();
 									Thread.sleep(interval);
 									event.setTimeMs(Math.max(event.getTimeMs()-interval,0));
-									log.info("timer value = " + event.getTimeMs());
+									//log.info("timer value = " + event.getTimeMs());
 								} catch (InterruptedException e) {
 									//ignore
 								}
@@ -717,9 +716,9 @@ public class ${name}Impl implements ${name} {
 		}
 		</#list>
 		if (count==0)
-			throw new InvalidRecordException("class is abstract, one specialization must be set");
+			throw new RuntimeException("class is abstract, one specialization must be set");
 		else if (count>1) 
-			throw new InvalidRecordException("only one specialization can be set. Currently set are " + list);
+			throw new RuntimeException("only one specialization can be set. Currently set are " + list);
 	}
 	
 </#list>
