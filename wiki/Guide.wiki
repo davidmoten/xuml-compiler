@@ -8,7 +8,8 @@ For a quick start look at [Example1Simple Simple Example].
 ==Setup==
 Two options:
 ===Get the latest build with Subversion===
-*the build needs to be corrected to get this working. don't use this method yet.*
+_the build needs to be corrected to get this working. don't use this method yet._
+
 [http://code.google.com/p/xuml-compiler/source/checkout Checkout the head using svn] and run the build.xml file with ant (works best with 1.7 or later). This creates the xuml-compiler.jar and dowloads its dependencies from Maven repositories.
 
 Once you have run the build include the jars below in your classpath:
