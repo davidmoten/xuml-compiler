@@ -167,12 +167,13 @@
 		<copy todir="${generated}">
 			<fileset dir="${basedir}/../xUmlMetaModel/src" />
 		</copy>
+		<!--
 		<copy todir="${dependencies}">
 			<fileset dir="${basedir}/../xUmlMetaModel/lib/emf">
 				<include name="**/*.jar" />
 			</fileset>
 		</copy>
-
+-->
 	</target>
 
 	<!-- generate -->
