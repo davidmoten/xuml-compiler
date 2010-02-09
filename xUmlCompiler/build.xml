@@ -2,7 +2,7 @@
          default="build"
          xmlns:artifact="urn:maven-artifact-ant">
 
-	<property name="jar.version" value="0.4.5" />
+	<property name="jar.version" value="0.4.6" />
 	<property name="project.short.name" value="xuml-compiler" />
 	<property name="temp" value="${basedir}/temp" />
 	<property name="src" value="${basedir}/src/java" />
@@ -133,8 +133,9 @@
 
 	<!-- get maven dependencies -->
 	<target name="get.maven.dependencies">
+		<property name="maven.lib" value="${lib}/maven"/>
 		<path id="maven-ant-tasks.classpath">
-			<fileset dir="${lib}/maven">
+			<fileset dir="${maven.lib}">
 				<include name="*.jar" />
 			</fileset>
 		</path>
@@ -297,6 +298,8 @@
 			<fileset dir="${temp}">
 				<include name="version.properties" />
 			</fileset>
+			<fileset file="${basedir}/pom.xml"/>
+			
 		</jar>
 		<copy file="${jar}"
 		      tofile="${deployment}/${project.short.name}-${version}.jar" />

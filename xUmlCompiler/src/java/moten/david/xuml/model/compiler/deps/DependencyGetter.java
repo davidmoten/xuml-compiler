@@ -15,7 +15,7 @@ public class DependencyGetter {
 	private static final String URL_EMF_ECORE_COMMON = "http://repo1.maven.org/maven2/org/eclipse/emf/common/2.3.0-v200706262000/common-2.3.0-v200706262000.jar";
 	private static final String URL_ECORE_XMI = "http://repo1.maven.org/maven2/org/eclipse/emf/ecore/xmi/2.3.0-v200706262000/xmi-2.3.0-v200706262000.jar";
 	private static final String URL_EMF_ECORE = "http://repo1.maven.org/maven2/org/eclipse/emf/ecore/2.3.0-v200706262000/ecore-2.3.0-v200706262000.jar";
-	private String directoryName;
+	private final String directoryName;
 
 	public DependencyGetter(String directoryName) {
 		this.directoryName = directoryName;
@@ -57,7 +57,9 @@ public class DependencyGetter {
 
 		System.out.println("writing build.xml");
 		File buildXml = new File(directoryName, "build.xml");
+		File pom = new File(directoryName, "pom.xml");
 		Download.get(getClass().getResource("/build.xml"), buildXml);
+		Download.get(getClass().getResource("/pom.xml"), pom);
 	}
 
 	public void getMavenDependencies(String destination)
@@ -70,7 +72,8 @@ public class DependencyGetter {
 		String[] temp = new String[] { "hello" };
 		Class[] argumentTypes = new Class[] { temp.getClass() };
 		Method main = antLauncherClass.getMethod("main", argumentTypes);
-		Object[] args = new Object[] { new String[] { "get.maven.dependencies" } };
+		Object[] args = new Object[] { new String[] { "-Dmaven.lib=.",
+				"get.maven.dependencies" } };
 		main.invoke(null, args);
 	}
 
