@@ -1,0 +1,348 @@
+<project name="xUmlCompiler"
+         default="build"
+         xmlns:artifact="urn:maven-artifact-ant">
+
+	<property name="jar.version" value="0.4.6" />
+	<property name="project.short.name" value="xuml-compiler" />
+	<property name="temp" value="${basedir}/temp" />
+	<property name="src" value="${basedir}/src/java" />
+	<property name="bin" value="${temp}/bin" />
+	<property name="lib" value="${basedir}/lib" />
+	<property name="lib.generated" value="${temp}/lib-gen" />
+	<property name="generated" value="${temp}/src-gen" />
+	<property name="generated.bookstore" value="${temp}/bookstore" />
+	<property name="generated.associations" value="${temp}/associations" />
+	<property name="generated.microwave" value="${temp}/microwave" />
+	<property name="generated.shop" value="${temp}/shop" />
+	<property name="generated.simple" value="${temp}/simple" />
+	<property name="generated.tv" value="${temp}/tv" />
+	<property name="generated.specialize" value="${temp}/specialize" />
+	<property name="generated.self" value="${temp}/self" />
+	<property name="deployment" value="${temp}/deployment" />
+	<property name="dependencies" value="${temp}/dependencies" />
+	<property name="use.proxy" value="true" />
+	<property name="proxy.host" value="proxy" />
+	<property name="proxy.port" value="8080" />
+	<property name="generated.viewer"
+	          value="${basedir}/src/viewer/model/generated" />
+	<!-- use maven repository from a Maven project at the same level as this project if the Maven project exists -->
+	<condition property="maven.local.repository"
+	           value="${basedir}/../Maven/repository">
+		<available file="${basedir}/../Maven/repository" />
+	</condition>
+	<!-- otherwise use the default repository -->
+	<!--<property name="maven.local.repository" value="${user.home}/main/maven/repository" />-->
+	<property name="maven.local.repository"
+	          value="${user.home}/.m2/repository" />
+	<condition property="set.proxy">
+		<istrue value="${use.proxy}" />
+	</condition>
+
+	<!-- jars -->
+	<fileset id="jars" dir="${lib}">
+		<include name="**/*.jar" />
+	</fileset>
+
+	<!-- deps -->
+	<fileset id="deps" dir="${dependencies}">
+		<include name="**/*.jar" />
+	</fileset>
+
+	<!-- generated jars -->
+	<fileset id="jars.generated" dir="${lib.generated}">
+		<include name="**/*.jar" />
+	</fileset>
+
+	<!-- zips e.g. aurora.zip -->
+	<fileset id="zips" dir="${lib}">
+		<include name="**/*.zip" />
+	</fileset>
+
+	<!-- jdk tools -->
+	<path id="tools">
+		<path location="${jdk.home}/lib/tools.jar" />
+	</path>
+
+	<!-- Resource files -->
+	<patternset id="resource.files">
+		<exclude name="**/*.java" />
+		<exclude name="**/*.class" />
+	</patternset>
+
+	<!-- Classpath declaration -->
+	<path id="libraries">
+		<path path="${bin}" />
+		<fileset refid="jars" />
+		<fileset refid="zips" />
+		<fileset refid="jars.generated" />
+		<fileset refid="deps" />
+	</path>
+
+	<!-- clean -->
+	<target name="clean">
+
+		<delete dir="${temp}" />
+		<delete dir="${bin}" />
+		<delete dir="${generated}" />
+		<delete dir="${lib.generated}" />
+		<delete dir="${generated.bookstore}" />
+		<delete dir="${generated.associations}" />
+		<delete dir="${generated.microwave}" />
+		<delete dir="${generated.shop}" />
+		<delete dir="${generated.simple}" />
+		<delete dir="${generated.tv}" />
+		<delete dir="${generated.specialize}" />
+		<delete dir="${deployment}" />
+		<delete dir="${dependencies}" />
+
+		<mkdir dir="${temp}" />
+		<mkdir dir="${bin}" />
+		<mkdir dir="${generated}" />
+		<mkdir dir="${lib.generated}" />
+		<mkdir dir="${generated.bookstore}" />
+		<mkdir dir="${generated.associations}" />
+		<mkdir dir="${generated.microwave}" />
+		<mkdir dir="${generated.shop}" />
+		<mkdir dir="${generated.simple}" />
+		<mkdir dir="${generated.tv}" />
+		<mkdir dir="${generated.specialize}" />
+		<mkdir dir="${deployment}" />
+		<mkdir dir="${temp}/dependencies" />
+
+	</target>
+
+	<!-- Copy resources to build classpath -->
+	<target name="copy.resources">
+		<mkdir dir="${bin}" />
+		<copy todir="${bin}">
+			<fileset dir="${src}">
+				<patternset refid="resource.files" />
+			</fileset>
+			<fileset dir="${generated}">
+				<patternset refid="resource.files" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- set proxy -->
+	<target name="set.proxy" if="set.proxy" depends="clean">
+		<echo message="setting proxy to ${proxy.host}:${proxy.port}"
+		      level="info" />
+		<setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}" />
+	</target>
+
+	<!-- get maven dependencies -->
+	<target name="get.maven.dependencies">
+		<property name="maven.lib" value="${lib}/maven"/>
+		<path id="maven-ant-tasks.classpath">
+			<fileset dir="${maven.lib}">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+		<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+		         uri="urn:maven-artifact-ant"
+		         classpathref="maven-ant-tasks.classpath" />
+		<artifact:dependencies pathId="dependency.classpath"
+		                       filesetId="dependency.fileset">
+			<pom file="${basedir}/pom.xml" />
+		</artifact:dependencies>
+		<copy todir="${dependencies}" flatten="true">
+			<fileset refid="dependency.fileset" />
+		</copy>
+	</target>
+
+	<!-- get dependencies with Maven -->
+	<target name="get.dependencies" depends="set.proxy">
+		<antcall target="get.maven.dependencies" />
+	</target>
+
+	<!-- build dependencies -->
+	<target name="build.dependencies" depends="get.dependencies">
+		<!-- 
+		<mkdir dir="${lib.generated}/amsa" />
+		<copy file="../Util/deployment/amsa-util.jar"
+		      todir="${lib.generated}/amsa"
+		      overwrite="true" />
+		-->
+		<copy todir="${generated}">
+			<fileset dir="${basedir}/../xUmlMetaModel/src" />
+		</copy>
+		<copy todir="${dependencies}">
+			<fileset dir="${basedir}/../xUmlMetaModel/lib/emf">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+
+	</target>
+
+	<!-- generate -->
+	<target name="generate" depends="build.dependencies" />
+
+	<!-- compile -->
+	<target name="compile" depends="generate,copy.resources">
+		<javac destdir="${bin}"
+		       classpathref="libraries"
+		       debug="true"
+		       debuglevel="lines,vars,source"
+		       fork="true">
+			<src path="${src}" />
+			<src path="${generated}" />
+			<src path="${generated.viewer}" />
+			<exclude name="**/example/**/Test*.java" />
+			<exclude name="**/example/**/*Behaviour.java" />
+			<exclude name="**/example/**/*InjectorModule.java" />
+			<exclude name="**/example/**/*Launcher.java" />
+			<exclude name="**/example/**/*Viewer.java" />
+			<exclude name="**/example/self/compiler/**/*" />
+		</javac>
+
+	</target>
+
+	<!-- generate examples -->
+	<target name="generate.examples" depends="compile">
+
+		<taskdef name="xuml-generate"
+		         classname="moten.david.xuml.model.compiler.ant.GenerateTask"
+		         classpathref="libraries" />
+
+		<xuml-generate outputDirectory="${generated.bookstore}"
+		               codeGenerator="moten.david.xuml.model.example.mellor.Bookstore" />
+		<xuml-generate outputDirectory="${generated.associations}"
+		               codeGenerator="moten.david.xuml.model.example.associations.Associations" />
+		<xuml-generate outputDirectory="${generated.microwave}"
+		               codeGenerator="moten.david.xuml.model.example.microwave.Microwave" />
+		<xuml-generate outputDirectory="${generated.shop}"
+		               codeGenerator="moten.david.xuml.model.example.shop.Shop" />
+		<xuml-generate outputDirectory="${generated.simple}"
+		               codeGenerator="moten.david.xuml.model.example.simple.Simple" />
+		<xuml-generate outputDirectory="${generated.tv}"
+		               codeGenerator="moten.david.xuml.model.example.tv.Tv" />
+		<xuml-generate outputDirectory="${generated.specialize}"
+		               codeGenerator="moten.david.xuml.model.example.specialize.Specialize" />
+		<xuml-generate outputDirectory="${generated.self}"
+		               codeGenerator="moten.david.xuml.model.example.self.Self" />
+
+		<javac srcdir="${src}:${generated}:${generated.bookstore}:${generated.associations}:${generated.microwave}:${generated.viewer}:${generated.specialize}:${generated.shop}:${generated.simple}:${generated.tv}:${generated.self}"
+		       destdir="${bin}"
+		       classpathref="libraries"
+		       debug="true"
+		       debuglevel="lines,vars,source"
+		       fork="true">
+			<!--<exclude name="**/example/shop/**/*" />
+			<exclude name="**/example/simple/**/*" />
+			<exclude name="**/example/tv/**/*" />
+			<exclude name="**/example/self/**/*" />-->
+		</javac>
+	</target>
+
+	<!-- test -->
+	<target name="test" depends="generate.examples">
+		<junit showoutput="true"
+		       haltonfailure="true"
+		       dir="${basedir}"
+		       fork="true"
+		       printsummary="withOutAndErr">
+			<formatter type="plain" usefile="false" />
+			<classpath refid="libraries" />
+			<test name="moten.david.xuml.model.example.associations.Test" />
+			<test name="moten.david.xuml.model.example.mellor.Test" />
+			<test name="moten.david.xuml.model.example.microwave.Test" />
+			<test name="moten.david.xuml.model.example.tv.Test" />
+			<test name="moten.david.xuml.model.example.simple.Test" />
+			<test name="moten.david.xuml.model.example.specialize.Test" />
+			<test name="moten.david.util.freemarker.Test" />
+		</junit>
+		<delete file="${basedir}/derby.log" />
+	</target>
+
+	<!-- jar -->
+	<target name="jar" depends="test">
+		<tstamp>
+			<format pattern="yyyyMMddHHmm"
+			        property="timestamp"
+			        timezone="GMT" />
+		</tstamp>
+		<property name="version" value="${jar.version}-${timestamp}" />
+		<echo file="${temp}/version.properties" message="version=${version}" />
+		<property name="jar" value="${deployment}/${project.short.name}.jar" />
+		<jar destfile="${jar}" manifest="${src}/META-INF/MANIFEST.MF">
+			<fileset dir="${basedir}">
+				<include name="build.xml" />
+			</fileset>
+			<fileset dir="${bin}">
+				<exclude name="**/example/**/*" />
+				<exclude name="bookstore/**/*" />
+				<exclude name="many_to*/**/*" />
+				<exclude name="one_*/**/*" />
+				<exclude name="zero_*/**/*" />
+				<exclude name="microwave/**/*" />
+				<exclude name="shop/**/*" />
+				<exclude name="simple/**/*" />
+				<exclude name="tv/**/*" />
+				<exclude name="self/**/*" />
+				<exclude name="specialize/**/*" />
+				<exclude name="**/example" />
+				<exclude name="bookstore" />
+				<exclude name="many_to*" />
+				<exclude name="one_*" />
+				<exclude name="zero_*" />
+				<exclude name="microwave" />
+				<exclude name="shop" />
+				<exclude name="simple" />
+				<exclude name="tv" />
+				<exclude name="self" />
+				<exclude name="specialize" />
+				<exclude name="META-INF/persistence.xml" />
+				<exclude name="log4j.properties" />
+			</fileset>
+			<fileset dir="${temp}">
+				<include name="version.properties" />
+			</fileset>
+			<fileset file="${basedir}/pom.xml"/>
+			
+		</jar>
+		<copy file="${jar}"
+		      tofile="${deployment}/${project.short.name}-${version}.jar" />
+		<zip destfile="${deployment}/${project.short.name}-${version}.zip">
+			<fileset dir="${deployment}">
+				<include name="*-${version}.jar" />
+			</fileset>
+			<fileset dir="${basedir}/docs/setup">
+				<include name="readme.txt" />
+			</fileset>
+		</zip>
+	</target>
+
+	<!-- ij -->
+	<target name="ij">
+		<java classname="org.apache.derby.tools.ij"
+		      classpathref="libraries"
+		      dir="${temp}"
+		      fork="true">
+		</java>
+	</target>
+
+	<!-- build -->
+	<target name="build" depends="jar">
+		<copy file="${jar}" todir="../xUmlCompilerPlugin" failonerror="false" />
+		<copy todir="../xUmlCompilerPlugin" failonerror="false">
+			<fileset dir="${dependencies}">
+				<include name="swingx*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="update.local">
+		<copy todir="G:\work\source2\xuml-compiler.googlecode.com"
+		      preservelastmodified="true"
+		      includeemptydirs="false">
+			<fileset dir=".." defaultexcludes="true">
+				<include name="xUmlCompiler/**/*" />
+				<include name="xUmlMetaModel/**/*" />
+				<exclude name="*/temp/**/*" />
+				<exclude name="*/bin/**/*" />
+			</fileset>
+		</copy>
+	</target>
+
+</project>

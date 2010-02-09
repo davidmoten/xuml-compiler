@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" file="Simple.systemDefinition">
+  <frame width="637" height="409" x="388" y="260"/>
+  <viewport width="621" height="338"/>
+  <element x="35" y="30" name="class.Customer"/>
+  <element x="149" y="74" name="label.Class Customer Association R1 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
+  <element x="148" y="99" name="label.Class Customer Association R1 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
+  <element x="361" y="57" name="class.Email"/>
+  <element x="273" y="73" name="label.Class Email Association R1 Verb Clause" fixedTo="//@element[name='class.Email']"/>
+  <element x="348" y="102" name="label.Class Email Association R1 Multiplicity" fixedTo="//@element[name='class.Email']"/>
+  <element x="160" y="31" name="class.Customer.state.InitialState"/>
+  <element x="238" y="124" name="class.Customer.state.Active"/>
+  <element x="31" y="124" name="class.Customer.state.Inactive"/>
+  <element x="159" y="254" name="class.Customer.state.FinalState"/>
+</view:View>
