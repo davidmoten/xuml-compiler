@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.moten.david</groupId>
+	<artifactId>xuml-metamodel</artifactId>
+	<name>xUmlMetaModel</name>
+	<version>0.4.5</version>
+	<description>Ecore definition of meta model and generated java classes
+		from ecore model</description>
+	<url>http://xuml-compiler.google.code.com</url>
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>common</artifactId>
+			<version>2.4.0.v200804012208</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>ecore</artifactId>
+			<version>2.4.0.v200804012208</version>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>xuml-compiler</id>
+			<name>xuml-compiler</name>
+			<url>http://xuml-compiler.googlecode.com/svn/repo/</url>
+		</repository>
+	</repositories>
+</project>
