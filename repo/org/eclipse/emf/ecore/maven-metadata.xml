@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.eclipse.emf</groupId>
+  <artifactId>ecore</artifactId>
+  <version>2.4.0.v200804012208</version>
+  <versioning>
+    <versions>
+      <version>2.4.0.v200804012208</version>
+    </versions>
+    <lastUpdated>20100209103613</lastUpdated>
+  </versioning>
+</metadata>
