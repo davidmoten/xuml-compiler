@@ -1,5 +1,5 @@
 #summary Shop example xUmlCompiler system.
-This example does not use a state diagram. See SimpleExmmple for an example with a state diagram.
+This example does not use a state diagram. See [Example1Simple Simple Example] for an example with a state diagram.
 
 Consider this class diagram:
 
