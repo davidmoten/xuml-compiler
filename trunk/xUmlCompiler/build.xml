@@ -164,9 +164,11 @@
 		      todir="${lib.generated}/amsa"
 		      overwrite="true" />
 		-->
+		<!--
 		<copy todir="${generated}">
 			<fileset dir="${basedir}/../xUmlMetaModel/src" />
 		</copy>
+		-->
 		<!--
 		<copy todir="${dependencies}">
 			<fileset dir="${basedir}/../xUmlMetaModel/lib/emf">

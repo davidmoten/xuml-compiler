@@ -197,12 +197,17 @@
 			<artifactId>ecore</artifactId>
 			<version>2.4.0.v200804012208</version>
 		</dependency>
+		<dependency>
+			<groupId>org.moten.david</groupId>
+			<artifactId>xuml-metamodel</artifactId>
+			<version>0.4.5</version>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
-			<id>maven2-repository.dev.java.net</id>
-			<name>Java.net Repository for Maven</name>
-			<url>http://download.java.net/maven/2/</url>
+			<id>xuml-compiler</id>
+			<name>xuml-compiler</name>
+			<url>http://xuml-compiler.googlecode.com/svn/repo</url>
 		</repository>
 	</repositories>
 </project>
