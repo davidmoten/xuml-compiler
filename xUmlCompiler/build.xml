@@ -5,7 +5,7 @@
 	<property name="jar.version" value="0.4.6" />
 	<property name="project.short.name" value="xuml-compiler" />
 	<property name="temp" value="${basedir}/temp" />
-	<property name="src" value="${basedir}/src/java" />
+	<property name="src" value="${basedir}/src/main/java" />
 	<property name="bin" value="${temp}/bin" />
 	<property name="lib" value="${basedir}/lib" />
 	<property name="lib.generated" value="${temp}/lib-gen" />
