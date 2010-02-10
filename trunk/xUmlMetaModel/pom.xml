@@ -65,7 +65,7 @@
 		<repository>
 			<id>xuml-compiler-repo</id>
 			<name>xuml-compiler</name>
-			<url>http://xuml-compiler.googlecode.com/svn/repo/</url>
+			<url>http://xuml-compiler.googlecode.com/svn/repo</url>
 		</repository>
 	</repositories>
 	<distributionManagement>
