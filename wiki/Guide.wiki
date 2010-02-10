@@ -7,7 +7,7 @@ For a quick start look at [Example1Simple Simple Example].
 
 ==Setup==
 ===Sample project===
-A sample Eclipse project using xUmlCompiler with maven (the [Example1Simple Simple] system) is here. Export it via subversion and then refactor as you wish.
+Using subversion export a [http://code.google.com/p/xuml-compiler/source/browse/#svn/trunk/examples/simple sample Eclipse project] using xUmlCompiler with Maven (the [Example1Simple Simple] system). Refactor it as you wish.
 
 It's recommended to at least look at the pom.xml for the sample project because it contains the necessary maven lifecycle hooks for code generation.
 
