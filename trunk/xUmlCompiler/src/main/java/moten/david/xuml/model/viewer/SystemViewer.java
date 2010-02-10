@@ -86,7 +86,7 @@ public class SystemViewer {
 	private final Map<model.Class, JPanel> stateMachinePanels = new HashMap<model.Class, JPanel>();
 	private final Map<Stately, StateComponent> statelyComponents = new HashMap<Stately, StateComponent>();
 	private final View view;
-	private List<SaveListener> saveListeners = new ArrayList<SaveListener>();
+	private final List<SaveListener> saveListeners = new ArrayList<SaveListener>();
 
 	private boolean viewerShown;
 
@@ -98,7 +98,7 @@ public class SystemViewer {
 		saveListeners.remove(listener);
 	}
 
-	private List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
+	private final List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
 
 	public void addListener(ChangeListener listener) {
 		changeListeners.add(listener);
@@ -628,7 +628,7 @@ public class SystemViewer {
 					frame.setSize(500, 500);
 					frame.getContentPane().setLayout(new GridLayout(1, 1));
 					frame.setIconImage(new ImageIcon(SystemViewer.class
-							.getResource("viewer.gif")).getImage());
+							.getResource("/viewer.gif")).getImage());
 					JTabbedPane tabs = new JTabbedPane();
 					JScrollPane scroll = new JScrollPane(systemPanel);
 					scroll.setWheelScrollingEnabled(true);
