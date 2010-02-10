@@ -12,7 +12,7 @@ Two options:
 [http://code.google.com/p/xuml-compiler/source/checkout Checkout trunk/xUmlCompiler using svn]. Run 
  mvn clean install
 
-==Use the maven dependency==
+===Use the maven dependency===
 Add this project's repository to your pom.xml
 {{{
  <repositories>
