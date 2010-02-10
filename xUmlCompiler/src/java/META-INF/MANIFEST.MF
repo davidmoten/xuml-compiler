@@ -1,2 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: moten.david.xuml.model.compiler.deps.DependencyGetter
