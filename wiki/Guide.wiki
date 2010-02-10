@@ -10,6 +10,8 @@ For a quick start look at [Example1Simple Simple Example].
 Using subversion export a [http://code.google.com/p/xuml-compiler/source/browse/#svn/trunk/examples/simple sample Eclipse project] using xUmlCompiler with Maven (the [Example1Simple Simple] system). Refactor it as you wish. To build the sample project:
  mvn clean install
 
+The sample project was tested with Eclipse 3.5 and the m2eclipse plugin.
+
 It's recommended to at least look at the [http://code.google.com/p/xuml-compiler/source/browse/trunk/examples/simple/pom.xml pom.xml] for the sample project because it contains the necessary maven lifecycle hooks for code generation.
 
 ===Use the maven dependency===
