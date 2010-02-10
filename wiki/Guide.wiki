@@ -6,9 +6,14 @@ This guide shows you how to define, view, generate and execute a system using xU
 For a quick start look at [Example1Simple Simple Example].
 
 ==Setup==
+===Sample project===
 A sample Eclipse project using xUmlCompiler with maven (the [Example1Simple Simple] system) is here. Export it via subversion and then refactor as you wish.
 
+It's recommended to at least look at the pom.xml for the sample project because it contains the necessary maven lifecycle hooks for code generation.
+
 ===Use the maven dependency===
+The sample project above refers to the xuml-compiler dependency as below:
+
 Add this project's repository to your pom.xml
 {{{
  <repositories>
@@ -24,7 +29,7 @@ Add the xuml-compiler dependency:
  <dependency>
    <groupId>com.google.code</groupId>
    <artifactId>xuml-compiler</artifactId>
-   <version>0.4.5</version>
+   <version>0.4.6</version>
  </dependency>
 }}}
 
