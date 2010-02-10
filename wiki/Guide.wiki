@@ -9,7 +9,9 @@ For a quick start look at [Example1Simple Simple Example].
 Two options:
 ===Get the latest build with Subversion===
 
-[http://code.google.com/p/xuml-compiler/source/checkout Checkout trunk/xUmlCompiler using svn]. Run 
+[http://code.google.com/p/xuml-compiler/source/checkout Checkout trunk/xUmlCompiler using svn]. 
+
+Run 
  mvn clean install
 
 ===Use the maven dependency===
