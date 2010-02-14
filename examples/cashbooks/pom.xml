@@ -5,13 +5,16 @@
 	<artifactId>cashbooks</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<generated>${project.build.directory}/generated-test-source</generated>
+		<generated>${project.build.directory}/generated-source</generated>
+		<generated.resources>${project.build.directory}/generated-resources</generated.resources>
+		<generated.web>${project.build.directory}/generated-web</generated.web>
+		<generated.docs>${project.build.directory}/generated-docs</generated.docs>
 	</properties>
-	<dependencies> 
+	<dependencies>
 		<dependency>
 			<groupId>com.google.code</groupId>
 			<artifactId>xuml-compiler</artifactId>
-			<version>0.4.7</version>
+			<version>0.4.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -41,8 +44,11 @@
 									classpathref="maven.compile.classpath" />
 								<mkdir dir="${generated}" />
 								<echo message="calling xuml-generate" />
-								<xuml-generate outputDirectory="${generated}"
-									codeGenerator="au.com.southsky.cashbooks.CashbookSystem" />
+								<xuml-generate codeGenerator="au.com.southsky.cashbooks.CashbookSystem"
+									outputDirectory="${generated}" 
+									resourcesDirectory="${generated.resources}"
+									webDirectory = "${generated.web}"
+									docsDirectory = "${generated.docs}"/>
 							</tasks>
 						</configuration>
 					</execution>
@@ -57,7 +63,7 @@
 						<id>add-test-source</id>
 						<phase>generate-test-sources</phase>
 						<goals>
-							<goal>add-test-source</goal>
+							<goal>add-source</goal>
 						</goals>
 						<configuration>
 							<sources>
