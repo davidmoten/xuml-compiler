@@ -53,22 +53,44 @@ public class Compiler {
 
 	private List<String> classNames;
 
+	private final File resourcesDirectory;
+
+	private final File docsDirectory;
+
+	private final File webDirectory;
+
 	public Compiler(System system, File outputDirectory,
+			File resourcesDirectory, File webDirectory, File docsDirectory,
 			Configuration templateConfiguration) {
 		super();
 		this.system = system;
 		this.outputDirectory = outputDirectory;
+		this.resourcesDirectory = resourcesDirectory;
+		this.webDirectory = webDirectory;
+		this.docsDirectory = docsDirectory;
+		makeDirs(outputDirectory);
+		makeDirs(resourcesDirectory);
+		makeDirs(webDirectory);
+		makeDirs(docsDirectory);
 		this.templateConfiguration = templateConfiguration;
 	}
 
-	public Compiler(System system, File outputDirectory) {
+	private void makeDirs(File directory) {
+		if (!directory.exists() && !directory.mkdirs())
+			throw new RuntimeException("couldn not create " + directory);
+	}
 
-		this(system, outputDirectory, getDefaultTemplateConfiguration("java"));
+	public Compiler(System system, File outputDirectory,
+			File resourcesDirectory, File webDirectory, File docsDirectory) {
+
+		this(system, outputDirectory, resourcesDirectory, webDirectory,
+				docsDirectory, getDefaultTemplateConfiguration("java"));
 	}
 
 	public Compiler(System system, File outputDirectory, String path) {
 
-		this(system, outputDirectory, getDefaultTemplateConfiguration(path));
+		this(system, outputDirectory, outputDirectory, outputDirectory,
+				outputDirectory, getDefaultTemplateConfiguration(path));
 	}
 
 	private static Configuration getDefaultTemplateConfiguration(String path) {
@@ -89,8 +111,7 @@ public class Compiler {
 		for (model.Package pkg : system.getPackage())
 			compile(pkg);
 		compileDocumentation();
-		if (true)
-			compilePersistenceXml();
+		compilePersistenceXml();
 	}
 
 	private void compilePersistenceXml() throws IOException, TemplateException {
@@ -103,7 +124,7 @@ public class Compiler {
 			map2.put("name", className);
 			list.add(map2);
 		}
-		File metaInf = new File(outputDirectory, "src/META-INF");
+		File metaInf = new File(resourcesDirectory, "src/META-INF");
 		metaInf.mkdirs();
 		File persistenceXml = new File(metaInf, "persistence.xml");
 		FileOutputStream fos = new FileOutputStream(persistenceXml);
@@ -113,7 +134,7 @@ public class Compiler {
 
 	private void compileDocumentation() throws IOException, TemplateException {
 		SystemMap systemMap = new SystemMap(system);
-		FileOutputStream fos = new FileOutputStream(new File(outputDirectory,
+		FileOutputStream fos = new FileOutputStream(new File(docsDirectory,
 				system.getName() + "-documentation.html"));
 		write(systemMap.getMap(), "documentation.ftl", fos);
 		fos.close();
@@ -282,17 +303,16 @@ public class Compiler {
 		}
 		writeJavaMap(map, cls.getPackage(), "actions.ftl",
 				actionsPackageExtension, cls.getName() + "Actions");
-		File wwwDirectory = new File(outputDirectory, "www");
-		if (!wwwDirectory.exists())
-			wwwDirectory.mkdir();
-		File updateJsp = new File(wwwDirectory, "update" + cls.getName()
+		if (!webDirectory.exists())
+			webDirectory.mkdir();
+		File updateJsp = new File(webDirectory, "update" + cls.getName()
 				+ ".jsp");
 		FileOutputStream fos = new FileOutputStream(updateJsp);
 		map.put("interfaceFullName", interfaceQualifiedName);
 		log.info("writing jsp:" + updateJsp);
 		write(map, "jsp-update.ftl", fos);
 		fos.close();
-		File listJsp = new File(wwwDirectory, "list" + cls.getName() + ".jsp");
+		File listJsp = new File(webDirectory, "list" + cls.getName() + ".jsp");
 		fos = new FileOutputStream(listJsp);
 		log.info("writing jsp:" + listJsp);
 		write(map, "jsp-list.ftl", fos);

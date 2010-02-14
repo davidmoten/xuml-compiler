@@ -4,6 +4,7 @@ public class SelfGenerator {
 
 	public static void main(String[] args) throws Exception {
 		Self system = new Self();
-		system.generate("temp/self");
+		String o = "target/self";
+		system.generate(o, o, o, o);
 	}
 }

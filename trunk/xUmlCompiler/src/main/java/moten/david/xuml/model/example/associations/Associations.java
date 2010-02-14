@@ -48,19 +48,22 @@ public class Associations implements CodeGenerator {
 		if (args.length > 0)
 			outputDirectoryFilename = args[0];
 		Associations system = new Associations();
-		system.generate(outputDirectoryFilename);
+		system.generate(outputDirectoryFilename, outputDirectoryFilename,
+				outputDirectoryFilename, outputDirectoryFilename);
 	}
 
 	@Override
-	public void generate(String outputDirectoryName) throws IOException,
-			TemplateException {
+	public void generate(String outputDirectoryName,
+			String resourcesDirectoryName, String webDirectoryName,
+			String docsDirectoryName) throws IOException, TemplateException {
 		File outputDirectory = new File(outputDirectoryName);
 		Util.delete(outputDirectory);
 		outputDirectory.mkdirs();
 		for (Multiplicity m1 : Multiplicity.values()) {
 			for (Multiplicity m2 : Multiplicity.values()) {
 				Compiler compiler = new Compiler(getSystem(m1, m2),
-						outputDirectory);
+						outputDirectory, new File(resourcesDirectoryName),
+						new File(webDirectoryName), new File(docsDirectoryName));
 				compiler.compile();
 			}
 		}
