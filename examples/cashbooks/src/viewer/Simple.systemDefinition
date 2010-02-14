@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://davidmoten.homeip.net/uml/executable/model" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/model http://xuml-compiler.googlecode.com/svn/trunk/xUmlMetaModel/model/uml.ecore" name="Simple">
+  <package name="simple" description="a simple system">
+    <class name="Customer" description="a customer, possible contactable using multiple emails" associationEndPrimary="//@association.0/@primary //@association.1/@primary //@association.2/@primary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.0/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="name" type="//@primitiveType[name='String']" unique="true"/>
+      <attribute name="shortname" type="//@primitiveType[name='String']" unique="true"/>
+      <stateMachine>
+        <initialState name="InitialState" transitionTo="//@package.0/@class.0/@stateMachine/@event.0/@transition[name='InitialState_newCustomer_Inactive']"/>
+        <state name="Inactive" transitionFrom="//@package.0/@class.0/@stateMachine/@event.2/@transition[name='Active_deactivate_Inactive'] //@package.0/@class.0/@stateMachine/@event.0/@transition[name='InitialState_newCustomer_Inactive']" transitionTo="//@package.0/@class.0/@stateMachine/@event.1/@transition[name='Inactive_activate_Active'] //@package.0/@class.0/@stateMachine/@event.4/@transition[name='Inactive_remove_FinalState']"/>
+        <state name="Active" transitionFrom="//@package.0/@class.0/@stateMachine/@event.1/@transition[name='Inactive_activate_Active'] //@package.0/@class.0/@stateMachine/@event.3/@transition[name='Active_addEmail_Active']" transitionTo="//@package.0/@class.0/@stateMachine/@event.2/@transition[name='Active_deactivate_Inactive'] //@package.0/@class.0/@stateMachine/@event.3/@transition[name='Active_addEmail_Active']"/>
+        <finalState name="FinalState" transitionFrom="//@package.0/@class.0/@stateMachine/@event.4/@transition[name='Inactive_remove_FinalState']"/>
+        <event xsi:type="model:CallEvent" name="newCustomer">
+          <transition name="InitialState_newCustomer_Inactive" fromState="//@package.0/@class.0/@stateMachine/@initialState" toState="//@package.0/@class.0/@stateMachine/@state.0"/>
+          <parameter name="name" type="//@freeType[name='String']"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="activate">
+          <transition name="Inactive_activate_Active" fromState="//@package.0/@class.0/@stateMachine/@state.0" toState="//@package.0/@class.0/@stateMachine/@state.1"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="deactivate">
+          <transition name="Active_deactivate_Inactive" fromState="//@package.0/@class.0/@stateMachine/@state.1" toState="//@package.0/@class.0/@stateMachine/@state.0"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="addEmail">
+          <transition name="Active_addEmail_Active" fromState="//@package.0/@class.0/@stateMachine/@state.1" toState="//@package.0/@class.0/@stateMachine/@state.1"/>
+          <parameter name="email" type="//@freeType[name='simple.Email']"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="remove">
+          <transition name="Inactive_remove_FinalState" fromState="//@package.0/@class.0/@stateMachine/@state.0" toState="//@package.0/@class.0/@stateMachine/@finalState"/>
+        </event>
+      </stateMachine>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
+      <persistence/>
+    </class>
+    <class name="Email" description="an email address belonging to a customer, e.g fred@google.com" associationEndSecondary="//@association.0/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.1/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="email" type="//@primitiveType[name='String']"/>
+      <operation name="send" description="sends an email">
+        <parameter name="subject" description="subject line of the email" type="//@primitiveType[name='String']"/>
+        <parameter name="body" description="body of the message" type="//@primitiveType[name='String']"/>
+        <parameter name="from" description="the sender of the email" type="//@primitiveType[name='String']"/>
+      </operation>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.1/@attribute.0"/>
+      <persistence/>
+    </class>
+    <class name="Account" description="an account operated by a customer for the purpose of making financial transactions" associationEndPrimary="//@association.4/@primary" associationEndSecondary="//@association.1/@secondary //@association.3/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.2/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="bsb" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I2']"/>
+      <attribute name="accountno" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I2']"/>
+      <attribute name="name" type="//@primitiveType[name='String']"/>
+      <attribute name="description" type="//@primitiveType[name='String']"/>
+      <attribute name="type" type="//@primitiveType[name='String']"/>
+      <attribute name="shortname" type="//@primitiveType[name='String']" unique="true"/>
+      <attributeReferential name="customerid" associationEnd="//@association.1/@primary" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I2']"/>
+      <stateMachine>
+        <initialState name="InitialState" transitionTo="//@package.0/@class.2/@stateMachine/@event.1/@transition[name='InitialState_openAccount_Open']"/>
+        <state name="Open" transitionFrom="//@package.0/@class.2/@stateMachine/@event.1/@transition[name='Closed_openAccount_Open'] //@package.0/@class.2/@stateMachine/@event.1/@transition[name='InitialState_openAccount_Open']" transitionTo="//@package.0/@class.2/@stateMachine/@event.2/@transition[name='Open_closeAccount_Closed']"/>
+        <state name="Closed" transitionFrom="//@package.0/@class.2/@stateMachine/@event.2/@transition[name='Open_closeAccount_Closed']" transitionTo="//@package.0/@class.2/@stateMachine/@event.1/@transition[name='Closed_openAccount_Open'] //@package.0/@class.2/@stateMachine/@event.3/@transition[name='Closed_remove_FinalState']"/>
+        <finalState name="FinalState" transitionFrom="//@package.0/@class.2/@stateMachine/@event.3/@transition[name='Closed_remove_FinalState']"/>
+        <event xsi:type="model:CallEvent" name="newAccount">
+          <parameter name="simple.Customer" type="//@freeType[name='String']"/>
+          <parameter name="bsb" type="//@freeType[name='String']"/>
+          <parameter name="accountno" type="//@freeType[name='String']"/>
+          <parameter name="name" type="//@freeType[name='String']"/>
+          <parameter name="decription" type="//@freeType[name='String']"/>
+          <parameter name="type" type="//@freeType[name='String']"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="openAccount">
+          <transition name="Closed_openAccount_Open" fromState="//@package.0/@class.2/@stateMachine/@state.1" toState="//@package.0/@class.2/@stateMachine/@state.0"/>
+          <transition name="InitialState_openAccount_Open" fromState="//@package.0/@class.2/@stateMachine/@initialState" toState="//@package.0/@class.2/@stateMachine/@state.0"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="closeAccount">
+          <transition name="Open_closeAccount_Closed" fromState="//@package.0/@class.2/@stateMachine/@state.0" toState="//@package.0/@class.2/@stateMachine/@state.1"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="remove">
+          <transition name="Closed_remove_FinalState" fromState="//@package.0/@class.2/@stateMachine/@state.1" toState="//@package.0/@class.2/@stateMachine/@finalState"/>
+        </event>
+      </stateMachine>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.2/@attribute.0"/>
+      <identifierNonPrimary name="I2" attribute="//@package.0/@class.2/@attribute.1 //@package.0/@class.2/@attribute.2" attributeReferential="//@package.0/@class.2/@attributeReferential.0"/>
+      <persistence/>
+    </class>
+    <class name="CashBook" description="a primary accounting journal used to record and classify financials transactions" associationEndPrimary="//@association.3/@primary //@association.5/@primary" associationEndSecondary="//@association.2/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.3/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="name" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.3/@identifierNonPrimary[name='I2']"/>
+      <attribute name="description" type="//@primitiveType[name='String']"/>
+      <attributeReferential name="customerId" associationEnd="//@association.2/@primary" identifierNonPrimary="//@package.0/@class.3/@identifierNonPrimary[name='I2']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.3/@attribute.0"/>
+      <identifierNonPrimary name="I2" attribute="//@package.0/@class.3/@attribute.1" attributeReferential="//@package.0/@class.3/@attributeReferential.0"/>
+      <persistence/>
+    </class>
+    <class name="BankSuppliedTransaction" description="a transaction as recorded by the bank or other financial institution" associationEndPrimary="//@association.7/@primary" associationEndSecondary="//@association.4/@secondary //@association.6/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.4/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="tranDate" type="//@primitiveType[name='Date']" identifierNonPrimary="//@package.0/@class.4/@identifierNonPrimary[name='I2']"/>
+      <attribute name="sequence" type="//@primitiveType[name='Integer']" identifierNonPrimary="//@package.0/@class.4/@identifierNonPrimary[name='I2']"/>
+      <attribute name="description" type="//@primitiveType[name='String']"/>
+      <attribute name="value" type="//@primitiveType[name='Decimal']"/>
+      <attribute name="balance" type="//@primitiveType[name='Decimal']"/>
+      <attributeReferential name="accountId" associationEnd="//@association.4/@primary" identifierNonPrimary="//@package.0/@class.4/@identifierNonPrimary[name='I2']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.4/@attribute.0"/>
+      <identifierNonPrimary name="I2" attribute="//@package.0/@class.4/@attribute.1 //@package.0/@class.4/@attribute.2" attributeReferential="//@package.0/@class.4/@attributeReferential.0"/>
+      <persistence/>
+    </class>
+    <class name="CashbookColumn" description="Allows the value of a transaction (or part thereof to be classified according to type" associationEndPrimary="//@association.6/@primary" associationEndSecondary="//@association.5/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.5/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="name" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.5/@identifierNonPrimary[name='I2']"/>
+      <attribute name="cash" type="//@primitiveType[name='Boolean']"/>
+      <attributeReferential name="cashbookId" associationEnd="//@association.5/@primary" identifierNonPrimary="//@package.0/@class.5/@identifierNonPrimary[name='I2']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.5/@attribute.0"/>
+      <identifierNonPrimary name="I2" attribute="//@package.0/@class.5/@attribute.1" attributeReferential="//@package.0/@class.5/@attributeReferential.0"/>
+      <persistence/>
+    </class>
+    <class xsi:type="model:AssociationClass" name="CashbookEntry" description="A transactions is posted to one or more cashbookColumns. Each posting is represented by a cashbook entry" association="//@association.6">
+      <attribute name="value" type="//@primitiveType[name='Decimal']"/>
+      <attributeReferential name="cashbookColumnId" associationEnd="//@association.6/@primary" identifierPrimary="//@package.0/@class.6/@identifierPrimary"/>
+      <attributeReferential name="transactionId" associationEnd="//@association.6/@secondary" identifierPrimary="//@package.0/@class.6/@identifierPrimary"/>
+      <identifierPrimary name="I" attributeReferential="//@package.0/@class.6/@attributeReferential.0 //@package.0/@class.6/@attributeReferential.1"/>
+      <persistence/>
+    </class>
+    <class name="Document" description="an electronic document (scanned or in original electronic form" associationEndPrimary="//@association.8/@primary">
+      <attribute name="physicalId" type="//@primitiveType[name='String']" identifierPrimary="//@package.0/@class.7/@identifierPrimary"/>
+      <attribute name="recordDate" type="//@primitiveType[name='Date']"/>
+      <attribute name="title" type="//@primitiveType[name='String']"/>
+      <attribute name="author" type="//@primitiveType[name='String']"/>
+      <attribute name="description" type="//@primitiveType[name='String']"/>
+      <attribute name="keywords" type="//@primitiveType[name='String']"/>
+      <attribute name="actionRequired" type="//@primitiveType[name='String']"/>
+      <attributeReferential name="physicalId" associationEnd="//@association.8/@primary" identifierPrimary="//@package.0/@class.9/@identifierPrimary"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.7/@attribute.0"/>
+      <persistence/>
+    </class>
+    <class name="CustomerSuppliedDetails" description="transaction details supplied by the customer" associationEndSecondary="//@association.7/@secondary //@association.8/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.8/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="narrative" type="//@primitiveType[name='String']"/>
+      <attributeReferential name="transactionId" associationEnd="//@association.7/@primary"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.8/@attribute.0"/>
+      <persistence/>
+    </class>
+    <class xsi:type="model:AssociationClass" name="TransactionDocument" description="the use of one document to support one bank supplied transaction" association="//@association.8">
+      <attributeReferential name="customerSuppliedDetailsId" associationEnd="//@association.8/@secondary" identifierPrimary="//@package.0/@class.9/@identifierPrimary"/>
+      <identifierPrimary name="I" attributeReferential="//@package.0/@class.9/@attributeReferential.0 //@package.0/@class.7/@attributeReferential.0"/>
+      <persistence/>
+    </class>
+  </package>
+  <association name="R1">
+    <primary name="Customer customer" mandatory="true" verbClause="is used to contact" role="customer" class="//@package.0/@class.0"/>
+    <secondary name="Email email" multiple="true" verbClause="is contactable via" role="email" class="//@package.0/@class.1"/>
+  </association>
+  <association name="R2">
+    <primary name="Customer customer" mandatory="true" verbClause="is operated by" role="customer" derivedAttribute="//@package.0/@class.2/@attributeReferential.0" class="//@package.0/@class.0"/>
+    <secondary name="Account account" multiple="true" verbClause="operates" role="account" class="//@package.0/@class.2"/>
+  </association>
+  <association name="R3">
+    <primary name="Customer customer" mandatory="true" verbClause="records the financial activity of" role="customer" derivedAttribute="//@package.0/@class.3/@attributeReferential.0" class="//@package.0/@class.0"/>
+    <secondary name="CashBook cashBook" multiple="true" verbClause="records financial activity in" role="cashBook" class="//@package.0/@class.3"/>
+  </association>
+  <association name="R4">
+    <primary name="CashBook cashBook" mandatory="true" verbClause="contributes transactions to" role="cashBook" class="//@package.0/@class.3"/>
+    <secondary name="Account account" multiple="true" verbClause="records and classifies transactions from" role="account" class="//@package.0/@class.2"/>
+  </association>
+  <association name="R5">
+    <primary name="Account account" mandatory="true" verbClause="modifies the balance of" role="account" derivedAttribute="//@package.0/@class.4/@attributeReferential.0" class="//@package.0/@class.2"/>
+    <secondary name="BankSuppliedTransaction bankSuppliedTransaction" multiple="true" verbClause="has balance modified by" role="bankSuppliedTransaction" class="//@package.0/@class.4"/>
+  </association>
+  <association name="R6">
+    <primary name="CashBook cashBook" mandatory="true" verbClause="is a transaction value category for" role="cashBook" derivedAttribute="//@package.0/@class.5/@attributeReferential.0" class="//@package.0/@class.3"/>
+    <secondary name="CashbookColumn cashbookColumn" multiple="true" verbClause="allows transaction values to be posted against" role="cashbookColumn" class="//@package.0/@class.5"/>
+  </association>
+  <association name="R7" associationClass="//@package.0/@class.6">
+    <primary name="CashbookColumn cashbookColumn" mandatory="true" multiple="true" verbClause="is posted to" role="cashbookColumn" derivedAttribute="//@package.0/@class.6/@attributeReferential.0" class="//@package.0/@class.5"/>
+    <secondary name="BankSuppliedTransaction bankSuppliedTransaction" multiple="true" verbClause="receives postings from" role="bankSuppliedTransaction" derivedAttribute="//@package.0/@class.6/@attributeReferential.1" class="//@package.0/@class.4"/>
+  </association>
+  <association name="R8">
+    <primary name="BankSuppliedTransaction bankSuppliedTransaction" mandatory="true" verbClause="supplies additional information concerning" role="bankSuppliedTransaction" derivedAttribute="//@package.0/@class.8/@attributeReferential.0" class="//@package.0/@class.4"/>
+    <secondary name="CustomerSuppliedDetails customerSuppliedDetails" verbClause="is augmented with additonal information supplied by" role="customerSuppliedDetails" class="//@package.0/@class.8"/>
+  </association>
+  <association name="R9" associationClass="//@package.0/@class.9">
+    <primary name="Document document" multiple="true" verbClause="has supporting documentation provided by" role="document" derivedAttribute="//@package.0/@class.7/@attributeReferential.0" class="//@package.0/@class.7"/>
+    <secondary name="CustomerSuppliedDetails customerSuppliedDetails" multiple="true" verbClause="documents" role="customerSuppliedDetails" derivedAttribute="//@package.0/@class.9/@attributeReferential.0" class="//@package.0/@class.8"/>
+  </association>
+  <freeType name="String" description="FreeType enclosure for type String" type="String"/>
+  <freeType name="simple.Email" description="FreeType enclosure for type simple.Email" type="simple.Email"/>
+  <primitiveType name="ArbitraryId" description="Primitive type enclosure for primitive ArbitraryId" primitive="ArbitraryId"/>
+  <primitiveType name="String" description="Primitive type enclosure for primitive String" primitive="String"/>
+  <primitiveType name="Date" description="Primitive type enclosure for primitive Date" primitive="Date"/>
+  <primitiveType name="Integer" description="Primitive type enclosure for primitive Integer" primitive="Integer"/>
+  <primitiveType name="Decimal" description="Primitive type enclosure for primitive Decimal" primitive="Decimal"/>
+  <primitiveType name="Boolean" description="Primitive type enclosure for primitive Boolean"/>
+</model:System>
