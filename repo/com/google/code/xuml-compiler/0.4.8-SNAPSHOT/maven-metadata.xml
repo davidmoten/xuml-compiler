@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+  <groupId>com.google.code</groupId>
+  <artifactId>xuml-compiler</artifactId>
+  <version>0.4.8-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20100214233757</lastUpdated>
+  </versioning>
+</metadata>
