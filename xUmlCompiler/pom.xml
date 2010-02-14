@@ -4,7 +4,7 @@
 	<groupId>com.google.code</groupId>
 	<artifactId>xuml-compiler</artifactId>
 	<name>XUml Compiler</name>
-	<version>0.4.6</version>
+	<version>0.4.7</version>
 	<description>Java model compiler based on "Executable UML"
 	</description>
 	<properties>
@@ -35,6 +35,10 @@
 				<exclusion>
 					<groupId>com.sun.jdmk</groupId>
 					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
