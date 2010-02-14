@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ASCII"?>
+<view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" file="Simple.systemDefinition">
+  <frame width="1280" height="766"/>
+  <viewport width="1256" height="1000"/>
+  <element x="48" y="12" name="class.Customer"/>
+  <element x="190" y="132" name="label.Class Customer Association R2 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
+  <element x="96" y="167" name="label.Class Customer Association R1 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
+  <element x="191" y="65" name="label.Class Customer Association R1 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
+  <element x="217" y="84" name="label.Class Customer Association R3 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
+  <element x="184" y="102" name="label.Class Customer Association R2 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
+  <element x="127" y="159" name="label.Class Customer Association R3 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
+  <element x="449" y="28" name="class.Email"/>
+  <element x="354" y="77" name="label.Class Email Association R1 Verb Clause" fixedTo="//@element[name='class.Email']"/>
+  <element x="433" y="120" name="label.Class Email Association R1 Multiplicity" fixedTo="//@element[name='class.Email']"/>
+  <element x="559" y="159" name="class.Account"/>
+  <element x="613" y="373" name="label.Class Account Association R5 Multiplicity" fixedTo="//@element[name='class.Account']"/>
+  <element x="643" y="376" name="label.Class Account Association R5 Verb Clause" fixedTo="//@element[name='class.Account']"/>
+  <element x="501" y="224" name="label.Class Account Association R2 Verb Clause" fixedTo="//@element[name='class.Account']"/>
+  <element x="518" y="332" name="label.Class Account Association R4 Multiplicity" fixedTo="//@element[name='class.Account']"/>
+  <element x="440" y="289" name="label.Class Account Association R4 Verb Clause" fixedTo="//@element[name='class.Account']"/>
+  <element x="514" y="259" name="label.Class Account Association R2 Multiplicity" fixedTo="//@element[name='class.Account']"/>
+  <element x="55" y="420" name="class.CashBook"/>
+  <element x="90" y="521" name="label.Class CashBook Association R6 Multiplicity" fixedTo="//@element[name='class.CashBook']"/>
+  <element x="139" y="514" name="label.Class CashBook Association R6 Verb Clause" fixedTo="//@element[name='class.CashBook']"/>
+  <element x="186" y="447" name="label.Class CashBook Association R4 Multiplicity" fixedTo="//@element[name='class.CashBook']"/>
+  <element x="137" y="395" name="label.Class CashBook Association R3 Multiplicity" fixedTo="//@element[name='class.CashBook']"/>
+  <element x="30" y="379" name="label.Class CashBook Association R3 Verb Clause" fixedTo="//@element[name='class.CashBook']"/>
+  <element x="183" y="390" name="label.Class CashBook Association R4 Verb Clause" fixedTo="//@element[name='class.CashBook']"/>
+  <element x="551" y="652" name="class.BankSuppliedTransaction"/>
+  <element x="605" y="783" name="label.Class BankSuppliedTransaction Association R8 Multiplicity" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
+  <element x="539" y="697" name="label.Class BankSuppliedTransaction Association R7 Multiplicity" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
+  <element x="460" y="730" name="label.Class BankSuppliedTransaction Association R7 Verb Clause" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
+  <element x="636" y="633" name="label.Class BankSuppliedTransaction Association R5 Multiplicity" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
+  <element x="559" y="618" name="label.Class BankSuppliedTransaction Association R5 Verb Clause" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
+  <element x="637" y="778" name="label.Class BankSuppliedTransaction Association R8 Verb Clause" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
+  <element x="62" y="677" name="class.CashbookColumn"/>
+  <element x="184" y="697" name="label.Class CashbookColumn Association R7 Verb Clause" fixedTo="//@element[name='class.CashbookColumn']"/>
+  <element x="103" y="653" name="label.Class CashbookColumn Association R6 Multiplicity" fixedTo="//@element[name='class.CashbookColumn']"/>
+  <element x="185" y="728" name="label.Class CashbookColumn Association R7 Multiplicity" fixedTo="//@element[name='class.CashbookColumn']"/>
+  <element x="130" y="626" name="label.Class CashbookColumn Association R6 Verb Clause" fixedTo="//@element[name='class.CashbookColumn']"/>
+  <element x="269" y="536" name="class.CashbookEntry"/>
+  <element x="49" y="909" name="class.Document"/>
+  <element x="199" y="909" name="label.Class Document Association R9 Multiplicity" fixedTo="//@element[name='class.Document']"/>
+  <element x="199" y="920" name="label.Class Document Association R9 Verb Clause" fixedTo="//@element[name='class.Document']"/>
+  <element x="537" y="941" name="class.CustomerSuppliedDetails"/>
+  <element x="521" y="985" name="label.Class CustomerSuppliedDetails Association R9 Multiplicity" fixedTo="//@element[name='class.CustomerSuppliedDetails']"/>
+  <element x="589" y="921" name="label.Class CustomerSuppliedDetails Association R8 Multiplicity" fixedTo="//@element[name='class.CustomerSuppliedDetails']"/>
+  <element x="641" y="879" name="label.Class CustomerSuppliedDetails Association R8 Verb Clause" fixedTo="//@element[name='class.CustomerSuppliedDetails']"/>
+  <element x="483" y="953" name="label.Class CustomerSuppliedDetails Association R9 Verb Clause" fixedTo="//@element[name='class.CustomerSuppliedDetails']"/>
+  <element x="272" y="806" name="class.TransactionDocument"/>
+  <element x="15" y="71" name="class.Customer.state.Active"/>
+  <element x="13" y="87" name="class.Account.state.Open"/>
+  <element x="2" y="64" name="class.Customer.state.InitialState"/>
+  <element x="74" y="66" name="class.Customer.state.Inactive"/>
+  <element x="44" y="61" name="class.Customer.state.FinalState"/>
+  <element x="13" y="25" name="class.Account.state.Closed"/>
+  <element x="89" y="59" name="class.Account.state.FinalState"/>
+  <element x="54" y="10" name="class.Account.state.InitialState"/>
+</view:View>
