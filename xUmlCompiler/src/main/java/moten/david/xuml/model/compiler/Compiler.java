@@ -124,7 +124,7 @@ public class Compiler {
 			map2.put("name", className);
 			list.add(map2);
 		}
-		File metaInf = new File(resourcesDirectory, "src/META-INF");
+		File metaInf = new File(resourcesDirectory, "META-INF");
 		metaInf.mkdirs();
 		File persistenceXml = new File(metaInf, "persistence.xml");
 		FileOutputStream fos = new FileOutputStream(persistenceXml);
