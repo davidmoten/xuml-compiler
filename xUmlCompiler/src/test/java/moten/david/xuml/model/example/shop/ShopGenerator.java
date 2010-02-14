@@ -4,6 +4,7 @@ public class ShopGenerator {
 
 	public static void main(String[] args) throws Exception {
 		Shop shop = new Shop();
-		shop.generate("temp/shop");
+		String o = "target/shop";
+		shop.generate(o, o, o, o);
 	}
 }

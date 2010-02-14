@@ -197,11 +197,14 @@ public class Bookstore extends SystemBase {
 	}
 
 	@Override
-	public void generate(String outputDirectoryName) throws Exception {
+	public void generate(String outputDirectoryName,
+			String resourcesDirectoryName, String webDirectoryName,
+			String docsDirectoryName) throws Exception {
 		File outputDirectory = new File(outputDirectoryName);
 		Util.delete(outputDirectory);
 		outputDirectory.mkdirs();
-		Compiler compiler = new Compiler(getSystem(), outputDirectory);
+		Compiler compiler = new Compiler(getSystem(), outputDirectory,
+				outputDirectory, outputDirectory, outputDirectory);
 		compiler.compile();
 	}
 

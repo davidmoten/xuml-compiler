@@ -546,10 +546,15 @@ public class SystemBase implements CodeGenerator {
 		return system;
 	}
 
-	public void generate(String outputDirectoryFilename) throws Exception {
+	@Override
+	public void generate(String outputDirectoryFilename,
+			String resourcesDirectoryFilename, String webDirectoryFilename,
+			String docsDirectoryFilename) throws Exception {
 		File outputDirectory = new File(outputDirectoryFilename);
 		outputDirectory.mkdirs();
-		Compiler compiler = new Compiler(getSystem(), outputDirectory);
+		Compiler compiler = new Compiler(getSystem(), outputDirectory,
+				new File(resourcesDirectoryFilename), new File(
+						webDirectoryFilename), new File(docsDirectoryFilename));
 		compiler.compile();
 	}
 
