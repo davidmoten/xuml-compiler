@@ -5,13 +5,16 @@
 	<artifactId>simple</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<generated>${project.build.directory}/generated-test-source</generated>
+		<generated>${project.build.directory}/generated-source</generated>
+		<generated.resources>${project.build.directory}/generated-resources</generated.resources>
+		<generated.web>${project.build.directory}/generated-web</generated.web>
+		<generated.docs>${project.build.directory}/generated-docs</generated.docs>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.code</groupId>
 			<artifactId>xuml-compiler</artifactId>
-			<version>0.4.6</version>
+			<version>0.4.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -42,7 +45,8 @@
 								<mkdir dir="${generated}" />
 								<echo message="calling xuml-generate" />
 								<xuml-generate outputDirectory="${generated}"
-									codeGenerator="moten.david.xuml.model.example.simple.Simple" />
+									resourcesDirectory="${generated.resources}" webDirectory="${generated.web}"
+									docsDirectory="${generated.docs}" codeGenerator="moten.david.xuml.model.example.simple.Simple" />
 							</tasks>
 						</configuration>
 					</execution>
@@ -62,6 +66,7 @@
 						<configuration>
 							<sources>
 								<source>${generated}</source>
+								<source>${generated.resources}</source>
 							</sources>
 						</configuration>
 					</execution>
