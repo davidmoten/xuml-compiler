@@ -64,16 +64,21 @@
 				<version>1.3</version>
 				<executions>
 					<execution>
-						<id>add-test-source</id>
+						<id>add-source</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>add-source</goal>
+							<goal>add-resource</goal>
 						</goals>
 						<configuration>
 							<sources>
 								<source>${generated}</source>
-								<source>${generated.resources}</source>
 							</sources>
+							<resources>
+								<resource>
+									<directory>${generated.resources}</directory>									
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
