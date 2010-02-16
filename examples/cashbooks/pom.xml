@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>au.com.southsky</groupId>
+	<groupId>com.google.code.xuml-compiler.examples</groupId>
 	<artifactId>cashbooks</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
@@ -24,7 +24,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.google.code.xuml-compiler.example</groupId>
+			<groupId>com.google.code.xuml-compiler.examples</groupId>
 			<artifactId>cashbooks-definition</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
@@ -67,15 +67,23 @@
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>add-source</goal>
-							<goal>add-resource</goal>
 						</goals>
 						<configuration>
 							<sources>
 								<source>${generated}</source>
 							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-test-source</id>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
 							<resources>
 								<resource>
-									<directory>${generated.resources}</directory>									
+									<directory>${generated.resources}</directory>
 								</resource>
 							</resources>
 						</configuration>
