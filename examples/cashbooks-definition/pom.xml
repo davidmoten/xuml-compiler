@@ -5,7 +5,6 @@
   <name>Cashbooks Definition</name>
   <version>0.0.1-SNAPSHOT</version>
   <description>Definition of the Cashbooks Model using xuml-compiler</description>
-    
 	<dependencies>
 		<dependency>
 			<groupId>com.google.code</groupId>
