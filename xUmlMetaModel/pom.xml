@@ -20,6 +20,12 @@
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>common</artifactId>
 			<version>${emf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.equinox</groupId>
+					<artifactId>app</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
