@@ -111,9 +111,9 @@ To get stuck into a simple example go to [Example1Simple Simple Example].
 A more detailed example is [Example2Shop Shop Example].
 
 ==Building xUmlCompiler from source==
-===Get the latest build with Subversion===
 
-[http://code.google.com/p/xuml-compiler/source/checkout Checkout trunk using svn]. 
-
-In xuml-compiler-parent run 
- `mvn clean install`
+{{{
+svn checkout http://xuml-compiler.googlecode.com/svn/trunk xuml
+cd xuml/xuml-compiler-parent
+mvn clean install
+}}}
