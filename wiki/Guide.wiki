@@ -116,4 +116,4 @@ A more detailed example is [Example2Shop Shop Example].
 [http://code.google.com/p/xuml-compiler/source/checkout Checkout trunk using svn]. 
 
 In xuml-compiler-parent run 
- mvn clean install
+ `mvn clean install`
