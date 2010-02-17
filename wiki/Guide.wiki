@@ -11,8 +11,8 @@ For a quick start look at [Example1Simple Simple Example].
 Export the simple example project definition and main project:
 
 
-`svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple-definition simple-definition`
-`svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple simple`
+ `svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple-definition simple-definition`
+ `svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple simple`
 
 In simple-definition
  `mvn clean install`
