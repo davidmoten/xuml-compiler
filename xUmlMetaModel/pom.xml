@@ -36,6 +36,10 @@
 					<groupId>org.eclipse.equinox</groupId>
 					<artifactId>app</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.emf</groupId>
+					<artifactId>common</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 	</dependencies>
