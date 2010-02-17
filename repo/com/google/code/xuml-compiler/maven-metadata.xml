@@ -1,14 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><metadata>
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xsi:schemaLocation="http://maven.apache.org/METADATA/1.0.0 http://maven.apache.org/xsd/metadata-1.0.0.xsd" xmlns="http://maven.apache.org/METADATA/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <groupId>com.google.code</groupId>
   <artifactId>xuml-compiler</artifactId>
   <version>0.4.5</version>
   <versioning>
+    <release>0.4.8-SNAPSHOT</release>
     <versions>
       <version>0.4.5</version>
       <version>0.4.6</version>
       <version>0.4.7</version>
       <version>0.4.8-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20100217003734</lastUpdated>
+    <lastUpdated>20100217032319</lastUpdated>
   </versioning>
 </metadata>
