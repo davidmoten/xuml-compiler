@@ -112,6 +112,8 @@ A more detailed example is [Example2Shop Shop Example].
 
 ==Building xUmlCompiler from source==
 
+The following commands build xuml-metamodel, xuml-compiler and the example projects in one go:
+
 {{{
 svn checkout http://xuml-compiler.googlecode.com/svn/trunk xuml
 cd xuml/xuml-compiler-parent
