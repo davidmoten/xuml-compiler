@@ -47,7 +47,7 @@
         </event>
       </stateMachine>
       <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
-      <persistence schema="microwave"/>
+      <persistence/>
     </class>
   </package>
   <freeType name="boolean" description="FreeType enclosure for type boolean" type="boolean"/>

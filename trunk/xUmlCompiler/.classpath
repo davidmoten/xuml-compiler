@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry kind="src" output="target/classes" path="src/viewer/model/generated"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources"/>
-	<classpathentry kind="src" path="src/viewer/model/generated"/>
 	<classpathentry kind="src" path="target/generated-source/associations"/>
 	<classpathentry kind="src" path="target/generated-source/bookstore"/>
 	<classpathentry kind="src" path="target/generated-source/microwave"/>
