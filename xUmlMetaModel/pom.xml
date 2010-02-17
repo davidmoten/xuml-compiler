@@ -13,7 +13,7 @@
 		from ecore model</description>
 	<url>http://xuml-compiler.google.code.com</url>
 	<properties>
-		<emf.version>2.4.0.v200804012208</emf.version>
+		<emf.version>2.3.0-v200706262000</emf.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -25,6 +25,12 @@
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>ecore</artifactId>
 			<version>${emf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.equinox</groupId>
+					<artifactId>app</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
