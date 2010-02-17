@@ -113,7 +113,7 @@ A more detailed example is [Example2Shop Shop Example].
 ==Building xUmlCompiler from source==
 ===Get the latest build with Subversion===
 
-[http://code.google.com/p/xuml-compiler/source/checkout Checkout trunk/xUmlCompiler using svn]. 
+[http://code.google.com/p/xuml-compiler/source/checkout Checkout trunk using svn]. 
 
-Run 
+In xuml-compiler-parent run 
  mvn clean install
