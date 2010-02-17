@@ -1,11 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><metadata>
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xsi:schemaLocation="http://maven.apache.org/METADATA/1.0.0 http://maven.apache.org/xsd/metadata-1.0.0.xsd" xmlns="http://maven.apache.org/METADATA/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <groupId>com.google.code.xuml-compiler</groupId>
   <artifactId>xuml-metamodel</artifactId>
   <version>0.4.8-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <buildNumber>1</buildNumber>
+      <timestamp>20100217.031728</timestamp>
+      <buildNumber>2</buildNumber>
     </snapshot>
-    <lastUpdated>20100217003339</lastUpdated>
+    <lastUpdated>20100217031736</lastUpdated>
   </versioning>
 </metadata>
