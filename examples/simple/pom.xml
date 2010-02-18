@@ -51,7 +51,12 @@
 								<echo message="starting ant task" />
 								<taskdef name="xuml-generate"
 									classname="moten.david.xuml.model.compiler.ant.GenerateTask"
-									classpathref="maven.compile.classpath" />
+									classpathref="maven.compile.classpath">
+									<!--  include to enable cobertura -->
+									<classpath refid="maven.test.classpath" />
+									<!-- include the resources to pick up log4j.properties -->
+									<classpath path="${basedir}/src/test/resources" />
+								</taskdef>
 								<mkdir dir="${generated}" />
 								<echo message="calling xuml-generate" />
 								<xuml-generate outputDirectory="${generated}"
