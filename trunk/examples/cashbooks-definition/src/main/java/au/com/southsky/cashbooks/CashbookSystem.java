@@ -217,7 +217,12 @@ public class CashbookSystem extends SystemBase {
 		// is represented
 		// by a cashbook entry.
 
-		AssociationClass cashbookEntry = createAssociationClass(
+		// TODO: R7 association class "CashbookEntry" has a natural identifier
+		// comprised of
+		// the CashbookColumn ID and the transaction ID. xuml-compiler does not
+		// support this type of identifier at this stage
+
+		AssociationClass cashbookEntry = createAssociationClassWithArbitraryId(
 				pkg,
 				"CashbookEntry",
 				"A transactions is posted to one or more cashbookColumns. Each posting is represented by a cashbook entry");
@@ -233,14 +238,17 @@ public class CashbookSystem extends SystemBase {
 		// A cashbook entry is uniquely identified by the combination of the
 		// transaction ID and the associated cashbookColumn Id
 
-		AttributeReferential cashbookColumnId = createAttributeReferential(
-				cashbookEntry, end1, "cashbookColumnId");
-		AttributeReferential transactionId = createAttributeReferential(
-				cashbookEntry, end2, "transactionId");
-//		createIdentifierPrimary(cashbookEntry, "I", new Attribute[] {},
-//				cashbookColumnId, transactionId);
-		createIdentifierPrimary(cashbookEntry, "I", null,
-				cashbookColumnId, transactionId);
+//		AttributeReferential cashbookColumnId = createAttributeReferential(
+//				cashbookEntry, end1, "cashbookColumnId");
+//		AttributeReferential transactionId = createAttributeReferential(
+//				cashbookEntry, end2, "transactionId");
+//
+//		createIdentifierNonPrimary(cashbookEntry, "I2", null, cashbookColumnId,
+//				transactionId);
+		//
+		// TODO: the following is the identifier that we really want
+		// createIdentifierPrimary(cashbookEntry, "I", null,
+		// cashbookColumnId, transactionId);
 
 		// Document (from document management system)
 
@@ -276,7 +284,7 @@ public class CashbookSystem extends SystemBase {
 				"is augmented with additonal information supplied by");
 		createAssociation("R8", end1, end2);
 
-		transactionId = createAttributeReferential(customerSuppliedDetails,
+		AttributeReferential transactionId = createAttributeReferential(customerSuppliedDetails,
 				end1, "transactionId");
 
 		createAttribute(customerSuppliedDetails, "narrative")
@@ -287,7 +295,7 @@ public class CashbookSystem extends SystemBase {
 		// customers may link documents as evidence to support their
 		// transactions
 
-		AssociationClass transactionDocument = createAssociationClass(pkg,
+		AssociationClass transactionDocument = createAssociationClassWithArbitraryId(pkg,
 				"TransactionDocument",
 				"the use of one document to support one bank supplied transaction");
 
@@ -302,7 +310,7 @@ public class CashbookSystem extends SystemBase {
 				transactionDocument, end2, "customerSuppliedDetailsId");
 		AttributeReferential docId = createAttributeReferential(document, end1,
 				"physicalId");
-		createIdentifierPrimary(transactionDocument, "I", new Attribute[] {},
+		createIdentifierNonPrimary(transactionDocument, "I2", new Attribute[] {},
 				csdId, docId);
 
 		// Selector
