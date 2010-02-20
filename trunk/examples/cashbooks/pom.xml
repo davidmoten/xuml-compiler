@@ -29,6 +29,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>10.4.1.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.google.code.xuml-compiler.examples</groupId>
 			<artifactId>cashbooks-definition</artifactId>
 			<version>${project.parent.version}</version>
@@ -88,7 +94,7 @@
 						<id>add-test-source</id>
 						<phase>generate-test-resources</phase>
 						<goals>
-							<goal>add-resource</goal>
+							<goal>add-test-resource</goal>
 						</goals>
 						<configuration>
 							<resources>
