@@ -184,17 +184,9 @@ public class SystemBase implements CodeGenerator {
 
 	private AttributePersistence createPrimaryKey(Attribute a,
 			boolean generated, boolean generatedBySequence) {
-		IdentifierPrimary id = ModelFactory.eINSTANCE.createIdentifierPrimary();
-		id.setName("I");
-		id.setDescription("primary key for the class");
-		id.getAttribute().add(a);
-		a.getClass_().setIdentifierPrimary(id);
-		AttributePersistence persistence = ModelFactory.eINSTANCE
-				.createAttributePersistence();
-		a.setPersistence(persistence);
-		persistence.setGeneratedBySequence(generatedBySequence);
-		persistence.setGeneratedValue(generated);
-		return persistence;
+
+		createIdentifierPrimary(a.getClass_(), "I", new Attribute[] { a });
+		return a.getPersistence();
 	}
 
 	public AttributePersistence createPrimaryKey(Attribute a,
@@ -286,7 +278,26 @@ public class SystemBase implements CodeGenerator {
 			identifierPrimary.getAttributeReferential().addAll(
 					Arrays.asList(derivedAttributes));
 		cls.setIdentifierPrimary(identifierPrimary);
+		for (Attribute attribute : attributes)
+			initializeAttributePersistenceForPrimaryId(attribute);
+		if (attributes.length > 1)
+			throw new RuntimeException(
+					"multiple attributes in primary id not supported yet.");
+		if (derivedAttributes != null && derivedAttributes.length > 0)
+			throw new RuntimeException(
+					"derived attributes in primary id not supported yet.");
 		return identifierPrimary;
+	}
+
+	private void initializeAttributePersistenceForPrimaryId(Attribute attribute) {
+		// need to set a persistence attribute for id fields
+		if (attribute.getPersistence() == null) {
+			AttributePersistence persistence = ModelFactory.eINSTANCE
+					.createAttributePersistence();
+			attribute.setPersistence(persistence);
+			persistence.setGeneratedBySequence(false);
+			persistence.setGeneratedValue(false);
+		}
 	}
 
 	public IdentifierNonPrimary createIdentifierNonPrimary(model.Class cls,
