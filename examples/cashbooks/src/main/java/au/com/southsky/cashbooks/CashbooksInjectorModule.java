@@ -10,12 +10,11 @@ import com.google.inject.AbstractModule;
 
 public class CashbooksInjectorModule extends AbstractModule {
 
-        @Override
-        protected void configure() {
-                bind(CustomerActions.class).to(CustomerBehaviour.class);
-                bind(EmailActions.class).to(EmailBehaviour.class);
-                bind(EntityManagerFactory.class).toInstance(
-                                Persistence.createEntityManagerFactory("cashbooks-derby"));
-                bind(Test.class);
-        }
+	@Override
+	protected void configure() {
+		bind(CustomerActions.class).to(CustomerBehaviour.class);
+		bind(EmailActions.class).to(EmailBehaviour.class);
+		bind(EntityManagerFactory.class).toInstance(
+				Persistence.createEntityManagerFactory("cashbooks-derby"));
+	}
 }
