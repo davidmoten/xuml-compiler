@@ -32,7 +32,7 @@ public class Test {
 	@org.junit.Test
 	public void test() throws Exception {
 		Connection con = DriverManager
-				.getConnection("jdbc:derby:temp/db-associations");
+				.getConnection("jdbc:derby:target/db-associations");
 		MetaDataReporter reporter = new MetaDataReporter(con.getMetaData());
 		log.info("metadata:\n" + reporter.getReport("BOOKSTORE"));
 		for (Multiplicity m1 : Multiplicity.values())

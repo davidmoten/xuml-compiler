@@ -108,7 +108,7 @@ public class Test {
 
 		// now connect to the created database with jdbc
 		Connection con = DriverManager
-				.getConnection("jdbc:derby:temp/db-bookstore");
+				.getConnection("jdbc:derby:target/db-bookstore");
 		try {
 			String schema = "BOOKSTORE";
 			DatabaseUtil db = new DatabaseUtil(con);
