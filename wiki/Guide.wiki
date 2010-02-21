@@ -72,7 +72,7 @@ To run the system:
   # Within the context of an `EntityManager` transaction make persistent changes to the data and send events to entities.
 
 ===Define a system===
-Create a class that extends [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/main/java/moten/david/xuml/model/util/SystemBase.java SystemBase]. Create all the system bits in the constructor by using the utility classes that [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/main/java/moten/david/xuml/model/util/SystemBase.java SystemBase] offers. For example, from [Example1Simple Simple Example]:
+Create a class that extends [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/xuml/model/util/SystemBase.java SystemBase]. Create all the system bits in the constructor by using the utility classes that [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/xuml/model/util/SystemBase.java SystemBase] offers. For example, from [Example1Simple Simple Example]:
 {{{
 public Simple extends SystemBase {
         public Simple() {
@@ -101,10 +101,10 @@ or
 ===Define a System using Ecore===
 Navigate to xUmlMetaModel/model/uml.ecore, open the file in Eclipse with the default Sample Ecore Editor, then choose Create Dynamic Instance on the System node:
 
-http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/ecoreSystemCreate1.png 
+http://xuml-compiler.googlecode.com/svn/trunk/xuml-compiler/docs/wiki/ecoreSystemCreate1.png 
 
 ===Validate===
-Validation is performed by a [http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/main/java/moten/david/xuml/model/util/SystemBase.java SystemBase] method that throws a `ValidationException`:
+Validation is performed by a [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/xuml/model/util/SystemBase.java SystemBase] method that throws a `ValidationException`:
 {{{
     Simple simple = new Simple();
     simple.validate();
