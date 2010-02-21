@@ -17,7 +17,7 @@ public class Microwave extends SystemBase {
 	public void initialize() {
 		model.Package pkg = createRootPackage("microwave", "a microwave oven");
 		Class m = createClass(pkg, "Microwave", "a microwave oven");
-		createPrimaryKey(createAttribute(m, "serialNo"),
+		createIdentifierPrimary(createAttribute(m, "serialNo"),
 				Generator.NOT_GENERATED);
 		createAttribute(m, "lightOn", Primitive.BOOLEAN);
 		createAttribute(m, "powerTubeOn", Primitive.BOOLEAN);

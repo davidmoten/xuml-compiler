@@ -182,14 +182,14 @@ public class SystemBase implements CodeGenerator {
 		return c;
 	}
 
-	private AttributePersistence createPrimaryKey(Attribute a,
+	private AttributePersistence createIdentifierPrimary(Attribute a,
 			boolean generated, boolean generatedBySequence) {
 
 		createIdentifierPrimary(a.getClass_(), "I", new Attribute[] { a });
 		return a.getPersistence();
 	}
 
-	public AttributePersistence createPrimaryKey(Attribute a,
+	public AttributePersistence createIdentifierPrimary(Attribute a,
 			Generator generator) {
 		boolean generated = true;
 		boolean generatedBySequence = false;
@@ -197,7 +197,7 @@ public class SystemBase implements CodeGenerator {
 			generatedBySequence = true;
 		else if (generator.equals(Generator.NOT_GENERATED))
 			generated = false;
-		return createPrimaryKey(a, generated, generatedBySequence);
+		return createIdentifierPrimary(a, generated, generatedBySequence);
 	}
 
 	public IdentifierNonPrimary createIdentifierNonPrimary(model.Class cls,
@@ -215,7 +215,7 @@ public class SystemBase implements CodeGenerator {
 	public AssociationClass createAssociationClassWithArbitraryId(
 			model.Package pkg, String name, String description) {
 		AssociationClass cls = createAssociationClass(pkg, name, description);
-		createPrimaryKey(createAttribute(cls, "id", Primitive.ARBITRARY_ID),
+		createIdentifierPrimary(createAttribute(cls, "id", Primitive.ARBITRARY_ID),
 				generator);
 		return cls;
 	}
@@ -545,7 +545,7 @@ public class SystemBase implements CodeGenerator {
 	}
 
 	public AttributePersistence createArbitraryId(Class cls) {
-		return createPrimaryKey(createAttribute(cls, "id",
+		return createIdentifierPrimary(createAttribute(cls, "id",
 				Primitive.ARBITRARY_ID), generator);
 	}
 

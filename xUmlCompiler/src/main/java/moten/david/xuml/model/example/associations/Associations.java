@@ -31,10 +31,10 @@ public class Associations implements CodeGenerator {
 		SystemBase u = new SystemBase(schema, systemName);
 		Package pkg = u.createRootPackage(schema.toLowerCase(), "test system");
 		Class a = u.createClass(pkg, "A" + ++counter, "first table");
-		u.createPrimaryKey(u.createAttribute(a, "id"),
+		u.createIdentifierPrimary(u.createAttribute(a, "id"),
 				Generator.GENERATED_VALUE);
 		Class b = u.createClass(pkg, "B" + counter, "second table");
-		u.createPrimaryKey(u.createAttribute(b, "id"),
+		u.createIdentifierPrimary(u.createAttribute(b, "id"),
 				Generator.GENERATED_VALUE);
 		u.createAssociation("R1", u.createAssociationEndPrimary(a, "athing",
 				aMultiplicity, "has"), u.createAssociationEndSecondary(b,
