@@ -77,7 +77,7 @@ public class Bookstore extends SystemBase {
 	private Class createCreditCardCharge(Package pkg) {
 		Class credit = createClass(pkg, "CreditCardCharge",
 				"a charge made to a credit card");
-		createPrimaryKey(createAttribute(credit, "chargeId",
+		createIdentifierPrimary(createAttribute(credit, "chargeId",
 				Primitive.ARBITRARY_ID), Generator.GENERATED_VALUE);
 		createAttribute(credit, "accountNumber");
 		createAttribute(credit, "cardholderName");
@@ -93,7 +93,7 @@ public class Bookstore extends SystemBase {
 	private Class createCustomer(Package pkg) {
 		Class customer = createClass(pkg, "Customer",
 				"someone that orders books");
-		createPrimaryKey(createAttribute(customer, "email"),
+		createIdentifierPrimary(createAttribute(customer, "email"),
 				Generator.NOT_GENERATED);
 		createAttribute(customer, "name");
 		createAttribute(customer, "shippingAddress");
@@ -104,7 +104,7 @@ public class Bookstore extends SystemBase {
 
 	private Class createOrder(Package pkg) {
 		Class order = createClass(pkg, "Order", "a customer's order of books");
-		createPrimaryKey(createAttribute(order, "id", Primitive.ARBITRARY_ID),
+		createIdentifierPrimary(createAttribute(order, "id", Primitive.ARBITRARY_ID),
 				Generator.GENERATED_VALUE);
 		createAttribute(order, "dateOrderPlaced", Primitive.DATE);
 		createAttribute(order, "recipient");
@@ -126,7 +126,7 @@ public class Bookstore extends SystemBase {
 	private Class createShipment(Package pkg) {
 		Class shipment = createClass(pkg, "Shipment",
 				"the sending of an order to a customer");
-		createPrimaryKey(
+		createIdentifierPrimary(
 				createAttribute(shipment, "id", Primitive.ARBITRARY_ID),
 				Generator.GENERATED_VALUE);
 		createAttribute(shipment, "trackingNumber");
@@ -142,7 +142,7 @@ public class Bookstore extends SystemBase {
 	private AssociationClass createProductSelection(Package pkg) {
 		AssociationClass a = createAssociationClass(pkg, "ProductSelection",
 				"what books are on what orders");
-		createPrimaryKey(createAttribute(a, "id", Primitive.ARBITRARY_ID),
+		createIdentifierPrimary(createAttribute(a, "id", Primitive.ARBITRARY_ID),
 				Generator.GENERATED_VALUE);
 		createAttribute(a, "quantity", Primitive.INTEGER);
 		createAttribute(a, "unitPriceOfSelection", Primitive.DECIMAL);
@@ -160,7 +160,7 @@ public class Bookstore extends SystemBase {
 	private Class createPublisher(Package pkg) {
 		Class publisher = createClass(pkg, "Publisher",
 				"the publisher of a book, volume or journal");
-		createPrimaryKey(createAttribute(publisher, "id",
+		createIdentifierPrimary(createAttribute(publisher, "id",
 				Primitive.ARBITRARY_ID), Generator.GENERATED_VALUE);
 		createIdentifierNonPrimary(publisher, createAttribute(publisher,
 				"groupCode"), createAttribute(publisher, "publisherCode"));
@@ -173,7 +173,7 @@ public class Bookstore extends SystemBase {
 	private Class createAuthor(Package pkg) {
 		Class author = createClass(pkg, "Author",
 				"the author of a book, volume or journal");
-		createPrimaryKey(createAttribute(author, "name"),
+		createIdentifierPrimary(createAttribute(author, "name"),
 				Generator.NOT_GENERATED);
 		createAttribute(author, "website").setMandatory(false);
 		createAttribute(author, "email").setMandatory(false);
@@ -182,7 +182,7 @@ public class Bookstore extends SystemBase {
 
 	private Class createBook(Package pkg) {
 		Class book = createClass(pkg, "Book", "a book, volume or journal");
-		createPrimaryKey(createAttribute(book, "bookNumber"),
+		createIdentifierPrimary(createAttribute(book, "bookNumber"),
 				Generator.NOT_GENERATED);
 		createAttribute(book, "productId");
 		createAttribute(book, "title");
