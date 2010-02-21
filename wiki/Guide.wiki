@@ -46,6 +46,17 @@ Add the xuml-compiler dependency:
  </dependency>
 }}}
 
+==Building xUmlCompiler from source==
+This is currently the preferred method as a lot of development is occurring on 0.4.8-SNAPSHOT.
+
+The following commands build xuml-metamodel, xuml-compiler and the example projects in one go:
+
+{{{
+svn checkout http://xuml-compiler.googlecode.com/svn/trunk xuml
+cd xuml/xuml-compiler-parent
+mvn clean install
+}}}
+
 ==System==
 Here are the steps required to create a system:
   # Define a system
@@ -109,13 +120,3 @@ Validation is performed by a [http://code.google.com/p/xuml-compiler/source/brow
 To get stuck into a simple example go to [Example1Simple Simple Example].
 
 A more detailed example is [Example2Shop Shop Example].
-
-==Building xUmlCompiler from source==
-
-The following commands build xuml-metamodel, xuml-compiler and the example projects in one go:
-
-{{{
-svn checkout http://xuml-compiler.googlecode.com/svn/trunk xuml
-cd xuml/xuml-compiler-parent
-mvn clean install
-}}}
