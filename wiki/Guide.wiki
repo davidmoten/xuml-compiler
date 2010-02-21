@@ -24,6 +24,17 @@ Refactor this simple project as you wish.
 
 The sample project was tested with Eclipse 3.5 and the m2eclipse plugin.
 
+==Building xUmlCompiler from source==
+This is currently the preferred method rather than obtaining the xuml-compiler dependency from the repository as a lot of development is occurring on 0.4.8-SNAPSHOT.
+
+The following commands build xuml-metamodel, xuml-compiler and the example projects in one go:
+
+{{{
+svn checkout http://xuml-compiler.googlecode.com/svn/trunk xuml
+cd xuml/xuml-compiler-parent
+mvn clean install
+}}}
+
 ===Use the maven dependency===
 The sample project above refers to the xuml-compiler dependency as below:
 
@@ -44,17 +55,6 @@ Add the xuml-compiler dependency:
    <artifactId>xuml-compiler</artifactId>
    <version>0.4.8-SNAPSHOT</version>
  </dependency>
-}}}
-
-==Building xUmlCompiler from source==
-This is currently the preferred method as a lot of development is occurring on 0.4.8-SNAPSHOT.
-
-The following commands build xuml-metamodel, xuml-compiler and the example projects in one go:
-
-{{{
-svn checkout http://xuml-compiler.googlecode.com/svn/trunk xuml
-cd xuml/xuml-compiler-parent
-mvn clean install
 }}}
 
 ==System==
