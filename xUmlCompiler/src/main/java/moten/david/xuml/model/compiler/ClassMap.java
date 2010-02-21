@@ -42,6 +42,13 @@ import moten.david.xuml.model.util.ModelUtil;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 
+/**
+ * Provides a KeyMap which is consumed by a templater (e.g. freemarker) to
+ * generate .java class files.
+ * 
+ * @author dave
+ * 
+ */
 public class ClassMap {
 
 	private static Logger log = Logger.getLogger(ClassMap.class);

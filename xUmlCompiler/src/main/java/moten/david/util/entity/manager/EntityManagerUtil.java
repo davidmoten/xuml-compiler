@@ -13,6 +13,13 @@ import moten.david.xuml.model.compiler.runtime.InvalidRecordException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * JPA Utilities including persistence of multiple objects, exception checking
+ * and a script runner.
+ * 
+ * @author dave
+ * 
+ */
 public class EntityManagerUtil {
 
 	private static Logger log = Logger.getLogger(EntityManagerUtil.class);

@@ -1,14 +1,12 @@
-package moten.david.util.freemarker;
+package moten.david.util.text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import moten.david.util.text.UnderscoreFilterWriter;
-
 import org.junit.Assert;
 
-public class Test {
+public class UnderscoreFilterWriterTest {
 
 	@org.junit.Test
 	public void test() throws IOException {
