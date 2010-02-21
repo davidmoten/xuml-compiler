@@ -29,6 +29,12 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.TemplateException;
 
+/**
+ * Executable Uml model compiler supporting one public method, compile().
+ * 
+ * @author dave
+ * 
+ */
 public class Compiler {
 
 	private static final String KEY_ACTIONS_PACKAGE_EXTENSION = "actionsPackageExtension";
