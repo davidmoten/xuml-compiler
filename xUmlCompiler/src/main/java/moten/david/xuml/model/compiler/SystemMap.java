@@ -13,9 +13,15 @@ import moten.david.xuml.model.compiler.util.KeyMap;
 
 import org.eclipse.emf.common.util.EList;
 
+/**
+ * Provides a KeyMap for use by templater across whole system (all classes).
+ * 
+ * @author dave
+ * 
+ */
 public class SystemMap {
 
-	private KeyMap map = new KeyMap();
+	private final KeyMap map = new KeyMap();
 
 	public SystemMap(System system) {
 		map.put("name", system.getName());
