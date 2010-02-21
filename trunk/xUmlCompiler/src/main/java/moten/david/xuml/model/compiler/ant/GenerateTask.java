@@ -7,6 +7,12 @@ import moten.david.xuml.model.CodeGenerator;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
+/**
+ * Ant task to call an xuml-compiler code generator.
+ * 
+ * @author dave
+ * 
+ */
 public class GenerateTask extends Task {
 
 	private String outputDirectory;

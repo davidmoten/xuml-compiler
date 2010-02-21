@@ -5,9 +5,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * Utility methods for use with Apache Derby database.
+ * 
+ * @author dave
+ * 
+ */
 public class DerbyUtil {
 
-	public static final String logFilename = "temp/db";
+	public static final String logFilename = "target/db";
 	public static final OutputStream DERBY_LOG = getNullOutputStream();
 	public static final OutputStream NULL_LOG = getNullOutputStream();
 

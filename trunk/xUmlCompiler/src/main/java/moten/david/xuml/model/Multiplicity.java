@@ -1,5 +1,12 @@
 package moten.david.xuml.model;
 
+/**
+ * Indicates the multiplicity of a relationship end. Complies with the
+ * Executable UML profile.
+ * 
+ * @author dave
+ * 
+ */
 public enum Multiplicity {
 
 	ONE(true, false), ZERO_ONE(false, false), ONE_MANY(true, true), MANY(false,

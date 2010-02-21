@@ -12,6 +12,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+/**
+ * Saves an EObject to a file in XMI format
+ * 
+ * @author dave
+ * 
+ */
 public class Xmi {
 
 	private static Logger log = Logger.getLogger(Xmi.class);
