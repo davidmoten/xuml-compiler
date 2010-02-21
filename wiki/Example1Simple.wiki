@@ -21,22 +21,22 @@ As a test we will
 
 _Figure 1:_
 
-||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple2.png||
+||http://xuml-compiler.googlecode.com/svn/trunk/xuml-compiler/docs/wiki/simple2.png||
 
 _Figure 2: Customer State Machine_
 
-||http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/simple-state.png||
+||http://xuml-compiler.googlecode.com/svn/trunk/xuml-compiler/docs/wiki/simple-state.png||
 
 Here's how this system is defined and executed:
 
-||Definition, Validation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/main/java/moten/david/xuml/model/example/simple/Simple.java Simple.java]||
-||Viewing||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/test/java/moten/david/xuml/model/example/simple/SimpleViewer.java SimpleViewer.java]||
-||EJB Generation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/test/java/moten/david/xuml/model/example/simple/SimpleGenerator.java SimpleGenerator.java]||
-||Action Language||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/test/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java CustomerBehaviour.java]||
-|| ||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/test/java/moten/david/xuml/model/example/simple/EmailBehaviour.java EmailBehaviour.java]||
-||Injection||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/test/java/moten/david/xuml/model/example/simple/SimpleInjectorModule.java SimpleInjectorModule.java]||
-||Persistence||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/main/resources/META-INF/persistence.xml persistence.xml]||
-||Testing and Execution||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xUmlCompiler/src/test/java/moten/david/xuml/model/example/simple/Test.java Test.java]||
+||Definition, Validation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/xuml/model/example/simple/Simple.java Simple.java]||
+||Viewing||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/SimpleViewer.java SimpleViewer.java]||
+||EJB Generation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/SimpleGenerator.java SimpleGenerator.java]||
+||Action Language||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java CustomerBehaviour.java]||
+|| ||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/EmailBehaviour.java EmailBehaviour.java]||
+||Injection||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/SimpleInjectorModule.java SimpleInjectorModule.java]||
+||Persistence||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/resources/META-INF/persistence.xml persistence.xml]||
+||Testing and Execution||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/Test.java Test.java]||
 
 Results of the run of the test class:
 {{{
