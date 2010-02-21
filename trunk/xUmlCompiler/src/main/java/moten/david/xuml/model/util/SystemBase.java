@@ -75,15 +75,35 @@ public class SystemBase implements CodeGenerator {
 
 	private Generator generator = Generator.GENERATED_VALUE;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param schema
+	 * @param system
+	 */
 	public SystemBase(String schema, System system) {
 		this.schema = schema;
 		this.system = system;
 	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param schema
+	 * @param systemName
+	 */
 	public SystemBase(String schema, String systemName) {
 		this(schema, createSystem(systemName));
 	}
 
+	/**
+	 * Create root package with a name and description. TODO: document how to
+	 * use name with dot delimiters. Have only tested one word package names.
+	 * 
+	 * @param name
+	 * @param description
+	 * @return
+	 */
 	public model.Package createRootPackage(String name, String description) {
 		model.Package pkg = ModelFactory.eINSTANCE.createPackage();
 		pkg.setName(name);
@@ -92,6 +112,15 @@ public class SystemBase implements CodeGenerator {
 		return pkg;
 	}
 
+	/**
+	 * Create a package with the given name and description and set it as a
+	 * child package of parent.
+	 * 
+	 * @param parent
+	 * @param name
+	 * @param description
+	 * @return
+	 */
 	public model.Package createPackage(model.Package parent, String name,
 			String description) {
 		model.Package pkg = ModelFactory.eINSTANCE.createPackage();
@@ -101,6 +130,13 @@ public class SystemBase implements CodeGenerator {
 		return pkg;
 	}
 
+	/**
+	 * Get the possibly cached PrimitiveType corresponding to the given
+	 * primitive.
+	 * 
+	 * @param primitive
+	 * @return
+	 */
 	private PrimitiveType getPrimitiveType(Primitive primitive) {
 		if (primitive == null)
 			return null;
@@ -116,6 +152,12 @@ public class SystemBase implements CodeGenerator {
 		return t;
 	}
 
+	/**
+	 * Get the FreeType for the typeName.
+	 * 
+	 * @param typeName
+	 * @return
+	 */
 	private FreeType getFreeType(String typeName) {
 		if (typeName == null)
 			return null;
@@ -130,6 +172,16 @@ public class SystemBase implements CodeGenerator {
 		return t;
 	}
 
+	/**
+	 * Create an Attribute for the class with the given name, type and optional
+	 * list of enumerated values.
+	 * 
+	 * @param cls
+	 * @param name
+	 * @param type
+	 * @param values
+	 * @return
+	 */
 	public Attribute createAttribute(model.Class cls, String name,
 			Primitive type, String[] values) {
 		Attribute attribute = ModelFactory.eINSTANCE.createAttribute();
@@ -142,25 +194,72 @@ public class SystemBase implements CodeGenerator {
 		return attribute;
 	}
 
+	/**
+	 * Create an Attribute for the Class with the given name and primitive type.
+	 * 
+	 * @param cls
+	 * @param name
+	 * @param type
+	 * @return
+	 */
 	public Attribute createAttribute(model.Class cls, String name,
 			Primitive type) {
 		return createAttribute(cls, name, type, null);
 	}
 
+	/**
+	 * Create an Attribute of type Primitive.STRING for the Class with the given
+	 * name and and enumerated values.
+	 * 
+	 * @param cls
+	 * @param name
+	 * @param values
+	 * @return
+	 */
 	public Attribute createAttribute(model.Class cls, String name,
 			String[] values) {
 		return createAttribute(cls, name, Primitive.STRING, values);
 	}
 
+	/**
+	 * Create an Attribute of type Primitive.STRING for the Class with the given
+	 * name and a null description.
+	 * 
+	 * @param cls
+	 * @param name
+	 * @return
+	 */
 	public Attribute createAttribute(model.Class cls, String name) {
 		return createAttribute(cls, name, Primitive.STRING, null);
 	}
 
+	/**
+	 * Create a Class in the package with name and description. The class is
+	 * nominated persistent to a table name with the same name as the name of
+	 * the class.
+	 * 
+	 * @param pkg
+	 * @param name
+	 * @param description
+	 * @return
+	 */
 	public model.Class createClass(model.Package pkg, String name,
 			String description) {
 		return createClassWithTableName(pkg, name, description, null, true);
 	}
 
+	/**
+	 * Create a Class in the package with name and description. The class is
+	 * optionally nominated as persistent and if it is, the underlying table
+	 * name for persisting the Class is as given.
+	 * 
+	 * @param pkg
+	 * @param name
+	 * @param description
+	 * @param tableName
+	 * @param persistent
+	 * @return
+	 */
 	public model.Class createClassWithTableName(model.Package pkg, String name,
 			String description, String tableName, boolean persistent) {
 		model.Class c = ModelFactory.eINSTANCE.createClass();
@@ -172,6 +271,15 @@ public class SystemBase implements CodeGenerator {
 		return c;
 	}
 
+	/**
+	 * Create an AssociationClass in the given package with name and
+	 * description.
+	 * 
+	 * @param pkg
+	 * @param name
+	 * @param description
+	 * @return
+	 */
 	public AssociationClass createAssociationClass(model.Package pkg,
 			String name, String description) {
 		AssociationClass c = ModelFactory.eINSTANCE.createAssociationClass();
@@ -182,6 +290,15 @@ public class SystemBase implements CodeGenerator {
 		return c;
 	}
 
+	/**
+	 * Create an identifier which will be the nominated JPA identifier for the
+	 * Class (the attribute will be annotated @Id) that is optionally generated
+	 * 
+	 * @param a
+	 * @param generated
+	 * @param generatedBySequence
+	 * @return
+	 */
 	private AttributePersistence createIdentifierPrimary(Attribute a,
 			boolean generated, boolean generatedBySequence) {
 
@@ -215,8 +332,8 @@ public class SystemBase implements CodeGenerator {
 	public AssociationClass createAssociationClassWithArbitraryId(
 			model.Package pkg, String name, String description) {
 		AssociationClass cls = createAssociationClass(pkg, name, description);
-		createIdentifierPrimary(createAttribute(cls, "id", Primitive.ARBITRARY_ID),
-				generator);
+		createIdentifierPrimary(createAttribute(cls, "id",
+				Primitive.ARBITRARY_ID), generator);
 		return cls;
 	}
 
