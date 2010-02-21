@@ -44,7 +44,7 @@ public class Associations implements CodeGenerator {
 
 	public static void main(String[] args) throws IOException,
 			TemplateException {
-		String outputDirectoryFilename = "temp/associations";
+		String outputDirectoryFilename = "target/associations";
 		if (args.length > 0)
 			outputDirectoryFilename = args[0];
 		Associations system = new Associations();
