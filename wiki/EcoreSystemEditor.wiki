@@ -10,13 +10,13 @@ Using the [Example1Simple Simple] system, this is how to save a java defined sys
 
 Opening the file temp/simple.ecore using Eclipse 3.3 or later gives:
 
-http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/ecore1.png
+http://xuml-compiler.googlecode.com/svn/trunk/xuml-compiler/docs/wiki/ecore1.png
 
 ==Validation==
 
 Validation is performed in Eclipse like so:
 
-http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/docs/wiki/ecore2.png
+http://xuml-compiler.googlecode.com/svn/trunk/xuml-compiler/docs/wiki/ecore2.png
 
 or in code:
 
