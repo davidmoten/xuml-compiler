@@ -3,7 +3,7 @@
   <package name="cashbooks" description="cashbooks system">
     <class name="Customer" description="a customer, possible contactable using multiple emails" associationEndPrimary="//@association.0/@primary //@association.1/@primary //@association.2/@primary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.0/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="name" type="//@primitiveType[name='String']" unique="true"/>
       <attribute name="shortname" type="//@primitiveType[name='String']" unique="true"/>
@@ -30,12 +30,12 @@
           <transition name="Inactive_remove_FinalState" fromState="//@package.0/@class.0/@stateMachine/@state.0" toState="//@package.0/@class.0/@stateMachine/@finalState"/>
         </event>
       </stateMachine>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.0/@attribute.0"/>
       <persistence/>
     </class>
     <class name="Email" description="an email address belonging to a customer, e.g fred@google.com" associationEndSecondary="//@association.0/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.1/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="email" type="//@primitiveType[name='String']"/>
       <operation name="send" description="sends an email">
@@ -43,12 +43,12 @@
         <parameter name="body" description="body of the message" type="//@primitiveType[name='String']"/>
         <parameter name="from" description="the sender of the email" type="//@primitiveType[name='String']"/>
       </operation>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.1/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.1/@attribute.0"/>
       <persistence/>
     </class>
     <class name="Account" description="an account operated by a customer for the purpose of making financial transactions" associationEndPrimary="//@association.4/@primary" associationEndSecondary="//@association.1/@secondary //@association.3/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.2/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="bsb" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I2']"/>
       <attribute name="accountno" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I2']"/>
@@ -81,24 +81,24 @@
           <transition name="Closed_remove_FinalState" fromState="//@package.0/@class.2/@stateMachine/@state.1" toState="//@package.0/@class.2/@stateMachine/@finalState"/>
         </event>
       </stateMachine>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.2/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.2/@attribute.0"/>
       <identifierNonPrimary name="I2" attribute="//@package.0/@class.2/@attribute.1 //@package.0/@class.2/@attribute.2" attributeReferential="//@package.0/@class.2/@attributeReferential.0"/>
       <persistence/>
     </class>
     <class name="CashBook" description="a primary accounting journal used to record and classify financials transactions" associationEndPrimary="//@association.3/@primary //@association.5/@primary //@association.9/@primary" associationEndSecondary="//@association.2/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.3/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="name" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.3/@identifierNonPrimary[name='I2']"/>
       <attribute name="description" type="//@primitiveType[name='String']"/>
       <attributeReferential name="customerId" associationEnd="//@association.2/@primary" identifierNonPrimary="//@package.0/@class.3/@identifierNonPrimary[name='I2']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.3/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.3/@attribute.0"/>
       <identifierNonPrimary name="I2" attribute="//@package.0/@class.3/@attribute.1" attributeReferential="//@package.0/@class.3/@attributeReferential.0"/>
       <persistence/>
     </class>
     <class name="BankSuppliedTransaction" description="a transaction as recorded by the bank or other financial institution" associationEndPrimary="//@association.7/@primary" associationEndSecondary="//@association.4/@secondary //@association.6/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.4/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="tranDate" type="//@primitiveType[name='Date']" identifierNonPrimary="//@package.0/@class.4/@identifierNonPrimary[name='I2']"/>
       <attribute name="sequence" type="//@primitiveType[name='Integer']" identifierNonPrimary="//@package.0/@class.4/@identifierNonPrimary[name='I2']"/>
@@ -106,76 +106,92 @@
       <attribute name="value" type="//@primitiveType[name='Decimal']"/>
       <attribute name="balance" type="//@primitiveType[name='Decimal']"/>
       <attributeReferential name="accountId" associationEnd="//@association.4/@primary" identifierNonPrimary="//@package.0/@class.4/@identifierNonPrimary[name='I2']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.4/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.4/@attribute.0"/>
       <identifierNonPrimary name="I2" attribute="//@package.0/@class.4/@attribute.1 //@package.0/@class.4/@attribute.2" attributeReferential="//@package.0/@class.4/@attributeReferential.0"/>
       <persistence/>
     </class>
     <class name="CashbookColumn" description="Allows the value of a transaction (or part thereof to be classified according to type" associationEndPrimary="//@association.6/@primary //@association.11/@primary" associationEndSecondary="//@association.5/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.5/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="name" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.5/@identifierNonPrimary[name='I2']"/>
       <attribute name="cash" type="//@primitiveType[name='Boolean']"/>
       <attributeReferential name="cashbookId" associationEnd="//@association.5/@primary" identifierNonPrimary="//@package.0/@class.5/@identifierNonPrimary[name='I2']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.5/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.5/@attribute.0"/>
       <identifierNonPrimary name="I2" attribute="//@package.0/@class.5/@attribute.1" attributeReferential="//@package.0/@class.5/@attributeReferential.0"/>
       <persistence/>
     </class>
     <class xsi:type="model:AssociationClass" name="CashbookEntry" description="A transactions is posted to one or more cashbookColumns. Each posting is represented by a cashbook entry" association="//@association.6">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.6/@identifierPrimary">
+        <persistence generatedValue="true" generatedByIdentity="true"/>
+      </attribute>
       <attribute name="value" type="//@primitiveType[name='Decimal']"/>
-      <attributeReferential name="cashbookColumnId" associationEnd="//@association.6/@primary" identifierPrimary="//@package.0/@class.6/@identifierPrimary"/>
-      <attributeReferential name="transactionId" associationEnd="//@association.6/@secondary" identifierPrimary="//@package.0/@class.6/@identifierPrimary"/>
-      <identifierPrimary name="I" attributeReferential="//@package.0/@class.6/@attributeReferential.0 //@package.0/@class.6/@attributeReferential.1"/>
+      <attributeReferential name="cashbookColumnId" associationEnd="//@association.6/@primary"/>
+      <attributeReferential name="transactionId" associationEnd="//@association.6/@secondary"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.6/@attribute.0"/>
       <persistence/>
       <specializationGroup name="R13" description="A CashbookEntry can be classified as either a ManualEntry or an AutoGeneratedEntry" specialization="//@package.0/@class.12 //@package.0/@class.13"/>
     </class>
     <class name="Document" description="an electronic document (scanned or in original electronic form" associationEndPrimary="//@association.8/@primary">
-      <attribute name="physicalId" type="//@primitiveType[name='String']" identifierPrimary="//@package.0/@class.7/@identifierPrimary"/>
+      <attribute name="physicalId" type="//@primitiveType[name='String']" identifierPrimary="//@package.0/@class.7/@identifierPrimary">
+        <persistence/>
+      </attribute>
       <attribute name="recordDate" type="//@primitiveType[name='Date']"/>
       <attribute name="title" type="//@primitiveType[name='String']"/>
       <attribute name="author" type="//@primitiveType[name='String']"/>
       <attribute name="description" type="//@primitiveType[name='String']"/>
       <attribute name="keywords" type="//@primitiveType[name='String']"/>
       <attribute name="actionRequired" type="//@primitiveType[name='String']"/>
-      <attributeReferential name="physicalId" associationEnd="//@association.8/@primary" identifierPrimary="//@package.0/@class.9/@identifierPrimary"/>
+      <attributeReferential name="physicalId" associationEnd="//@association.8/@primary"/>
       <identifierPrimary name="I" attribute="//@package.0/@class.7/@attribute.0"/>
       <persistence/>
     </class>
     <class name="CustomerSuppliedDetails" description="transaction details supplied by the customer" associationEndSecondary="//@association.7/@secondary //@association.8/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.8/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="narrative" type="//@primitiveType[name='String']"/>
       <attributeReferential name="transactionId" associationEnd="//@association.7/@primary"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.8/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.8/@attribute.0"/>
       <persistence/>
     </class>
     <class xsi:type="model:AssociationClass" name="TransactionDocument" description="the use of one document to support one bank supplied transaction" association="//@association.8">
-      <attributeReferential name="customerSuppliedDetailsId" associationEnd="//@association.8/@secondary" identifierPrimary="//@package.0/@class.9/@identifierPrimary"/>
-      <identifierPrimary name="I" attributeReferential="//@package.0/@class.9/@attributeReferential.0 //@package.0/@class.7/@attributeReferential.0"/>
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.9/@identifierPrimary">
+        <persistence generatedValue="true" generatedByIdentity="true"/>
+      </attribute>
+      <attributeReferential name="customerSuppliedDetailsId" associationEnd="//@association.8/@secondary"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.9/@attribute.0"/>
       <persistence/>
     </class>
     <class name="Selector" description="is used to select transactions for posting to a cashbook" associationEndPrimary="//@association.10/@primary" associationEndSecondary="//@association.9/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.10/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="pattern" type="//@primitiveType[name='String']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.10/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.10/@attribute.0"/>
       <persistence/>
     </class>
     <class name="PostingRule" description="specifies posting of a transaction (or part thereof) to a cashbook column via the creation of a CashbookEntry instance" associationEndPrimary="//@association.12/@primary" associationEndSecondary="//@association.10/@secondary //@association.11/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.11/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="multiplier" type="//@primitiveType[name='Decimal']"/>
       <attribute name="description" type="//@primitiveType[name='String']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.11/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.11/@attribute.0"/>
       <persistence/>
     </class>
     <class xsi:type="model:Specialization" name="ManualEntry" description="a CashbookEntry created by the customer in leiu of an AutoGeneratedEntry" group="//@package.0/@class.6/@specializationGroup[name='R13']">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.12/@identifierPrimary">
+        <persistence generatedValue="true" generatedByIdentity="true"/>
+      </attribute>
+      <identifierPrimary name="I" attribute="//@package.0/@class.12/@attribute.0"/>
       <persistence/>
     </class>
     <class xsi:type="model:Specialization" name="AutoGeneratedEntry" description="a CashbookEntry created automatically as a result of a psoting rule" associationEndSecondary="//@association.12/@secondary" group="//@package.0/@class.6/@specializationGroup[name='R13']">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.13/@identifierPrimary">
+        <persistence generatedValue="true" generatedByIdentity="true"/>
+      </attribute>
+      <identifierPrimary name="I" attribute="//@package.0/@class.13/@attribute.0"/>
       <persistence/>
     </class>
   </package>
