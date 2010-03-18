@@ -119,6 +119,7 @@ Validation is performed by a [http://code.google.com/p/xuml-compiler/source/brow
 ===Define behaviour===
 Behaviour is defined in implementations of generated interfaces that you associate with those interfaces in a Guice module. See [Behaviour Behaviour] for more.
 
+===Examples===
 To get stuck into a simple example go to [Example1Simple Simple Example].
 
 A more detailed example is [Example2Shop Shop Example].
