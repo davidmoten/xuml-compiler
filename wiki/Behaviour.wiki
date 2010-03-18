@@ -1,0 +1,3 @@
+#Guice injected behaviour (java as the action language)
+
+= How do I get an EntityManager in my behaviour class? =
