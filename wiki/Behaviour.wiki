@@ -5,5 +5,5 @@ The answer is inject one but ensure that if the current thread already has an op
 
 In your injector module use [http://www.google.com/codesearch/p?hl=en#Yl0srusBlss/trunk/xUmlCompiler/src/java/moten/david/util/persistence/ThreadLocalEntityManagerFactory.java&q=entitymanagerfactory%20package:http://xuml-compiler\.googlecode\.com&sa=N&cd=1&ct=rc ThreadLocalEntityManagerFactory]: 
 {{{
-  bind(EntityManagerFactory.class).to(ThreadLocalEntityManagerFactory.class);
+  bind(EntityManager.class).to(ThreadLocalEntityManagerProvider.class);
 }}}
