@@ -7,7 +7,7 @@ Simple behaviour classes may not need an entity manager at all (e.g. an event th
 
 A useful pattern is to use `ThreadLocal` (thread specific object storage) to provide thread specific `EntityManagers`:
 
-  *If the current thread already has an open entity manager then reuse that one otherwise  create one from the `EntityManagerFactory`.
+ If the current thread already has an open entity manager then reuse that one otherwise  create one from the `EntityManagerFactory`.
 
 In your injector module use [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/util/persistence/ThreadLocalEntityManagerFactory.java ThreadLocalEntityManagerFactory]: 
 {{{
