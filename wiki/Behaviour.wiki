@@ -1,4 +1,4 @@
-#Guice injected behaviour
+#summary Guice injected behaviour
 
 Java is used as the action language in xuml-compiler. Using Guice we define bindings from the generated behaviour interface classes to our implementations.
 
