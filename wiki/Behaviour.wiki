@@ -3,7 +3,7 @@
 Java is used as the action language in xuml-compiler. Using Guice we define bindings from the generated behaviour interface classes to our implementations.
 
 == How do I get an `EntityManager` in my behaviour class? ==
-Simple behaviour classes may not need an entity manager at all (e.g. an event that sets an address of a person for example). However, more complex business logic such as performing a lookoup in the event action language might need access to the current EntityManager. 
+Simple behaviour classes may not need an entity manager at all (e.g. an event that sets an address of a person for example). However, more complex business logic such as performing a lookoup in the event action language might need access to the current `EntityManager`. 
 
 A useful pattern is to use `ThreadLocal` (thread specific object storage) to provide thread specific `EntityManagers`.
 
