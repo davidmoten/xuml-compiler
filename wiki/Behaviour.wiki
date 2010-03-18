@@ -17,6 +17,6 @@ In your injector module use [http://code.google.com/p/xuml-compiler/source/brows
 == Events ==
 On first look Executable UML appears to constrain state models to one event per destination state. This is not true because Executable UML supports the idea of Polymorphic Events in that any subclass of an event may be used to transition to a state.  
 
-xUmlCompiler does not support polymorphic events, a simpler approach was taken in that each state can be transited to by multiple events. Reuse scenarios in the behaviour class can be handled in the normal way in java code (common methods). 
+xUmlCompiler does not support polymorphic events. A simpler approach was taken in that each state can be transited to by multiple events. Reuse scenarios in the behaviour class can be handled in the normal way in java code. 
 
-Another benefit of the xuml-compiler event approach is that if a single on entry method was used for a state then polymorphic events would necessitate multiple if-else statements checking for different event subclasses within that method. There is no guarantee that all subclasses would be covered. Using the xuml-compiler approach the behaviour class contains methods for all possible events and it's obvious to the developer if a method hasn't been coded.
+Another benefit of the xuml-compiler event approach is that if a single on-entry method was used for a state then polymorphic events would necessitate multiple if-else statements checking for different event subtypes within that method. There is no guarantee that all subtypes would be covered. Using the xuml-compiler approach the behaviour class contains methods for all possible events and it's obvious to the developer if an eventhasn't been coded for because the method block will be empty.
