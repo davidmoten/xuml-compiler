@@ -116,6 +116,8 @@ Validation is performed by a [http://code.google.com/p/xuml-compiler/source/brow
 {{{
     simple.generate("temp/simple");
 }}}
+===Define behaviour===
+Behaviour is defined in implementations of generated interfaces that you associate with those interfaces in a Guice module. See [Behaviour] for more.
 
 To get stuck into a simple example go to [Example1Simple Simple Example].
 
