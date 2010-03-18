@@ -1,4 +1,4 @@
 #Guice injected behaviour (java as the action language)
 
-== How do I get an _EntityManager_ in my behaviour class? ==
+== How do I get an `EntityManager` in my behaviour class? ==
 The answer is inject one but ensure that if the current thread already has an open entity manager that you reuse that one otherwise you create one from the `EntityManagerFactory`.
