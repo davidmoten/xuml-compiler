@@ -1,0 +1,13 @@
+#summary Instructions for xuml-compiler developers (committers)
+
+== Eclipse instructions ==
+Using Eclipse 3.5.1 and Subversive plugin, add a new SVN repository with location 
+ https://xuml-compiler.googlecode.com/svn
+add your username (without the @gmail.com) and the password as on Source - checkout above.
+
+In the SVN Repository Perspective, open up the xuml-compiler repository and select trunk. Choose Find/Checkout As... and select the Find projects option. Hit Finish. In the next dialog tick Respect project hierarchy and Finish. 
+
+Then go to the Java perspective and to the Run button. Run _xuml-compiler-parent clean install_. That will build all the xuml compiler projects. Select all projects in the workspace and hit F5. 
+
+That's it, all projects built and installed in the local repository ready for more changes.
+
