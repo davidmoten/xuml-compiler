@@ -9,9 +9,7 @@ A useful pattern is to use `ThreadLocal` (thread specific object storage) to pro
 
  If the current thread already has an open entity manager then reuse that one otherwise  create one from the `EntityManagerFactory`.
 
-In your injector module use [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/util/persistence/ThreadLocalEntityManagerFactory.java ThreadLocalEntityManagerFactory]: 
+In your injector module use [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/util/persistence/ThreadLocalEntityManagerFactory.java ThreadLocalEntityManagerProvider]: 
 {{{
-  bind(EntityManagerFactory.class).to(ThreadLocalEntityManagerFactory.class);
+  bind(EntityManagerFactory.class).toProvider(ThreadLocalEntityManagerProvider.class);
 }}}
-
-TODO: A provider is set up for `EntityManager.class` but this should be modified to conform to the Guice Provider definition.
