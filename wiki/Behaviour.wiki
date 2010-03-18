@@ -1,7 +1,7 @@
 #Guice injected behaviour (java as the action language)
 
 == How do I get an `EntityManager` in my behaviour class? ==
-`ThreadLocal` (thread specific object storage) is used to provide thread specific `EntityManagers.
+`ThreadLocal` (thread specific object storage) is used to provide thread specific `EntityManagers`.
 
 If the current thread already has an open entity manager that you reuse that one otherwise you create one from the `EntityManagerFactory`.
 
