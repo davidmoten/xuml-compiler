@@ -1,7 +1,11 @@
-#Guice injected behaviour (java as the action language)
+#Guice injected behaviour
+
+Java is used as the action language in xuml-compiler. Using Guice we define bindings from the generated behaviour interface classes to our implementations.
 
 == How do I get an `EntityManager` in my behaviour class? ==
-`ThreadLocal` (thread specific object storage) is used to provide thread specific `EntityManagers`.
+Simple behaviour classes may not need an entity manager at all (e.g. an event that sets an address of a person for example). However, more complex business logic such as performing a lookoup in the event action language might need access to the current EntityManager. 
+
+A useful pattern is to use `ThreadLocal` (thread specific object storage) to provide thread specific `EntityManagers`.
 
 If the current thread already has an open entity manager that you reuse that one otherwise you create one from the `EntityManagerFactory`.
 
