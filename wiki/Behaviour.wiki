@@ -13,3 +13,8 @@ In your injector module use [http://code.google.com/p/xuml-compiler/source/brows
 {{{
   bind(EntityManagerFactory.class).toProvider(ThreadLocalEntityManagerProvider.class);
 }}}
+
+== Events ==
+On first look Executable UML appears to constrain state models to one event per destination state. This is not true because Executable UML supports the idea of Polymorphic Events in that any subclass of an event may be used to transition to a state. 
+
+xUmlCompiler does not support polymorphic events, a simpler approach was taken in that each state can be transited to by multiple events.
