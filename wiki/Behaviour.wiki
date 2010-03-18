@@ -1,7 +1,9 @@
 #Guice injected behaviour (java as the action language)
 
 == How do I get an `EntityManager` in my behaviour class? ==
-The answer is inject one but ensure that if the current thread already has an open entity manager that you reuse that one otherwise you create one from the `EntityManagerFactory`.
+ThreadLocal (thread specific object storage) is used to provide thread specific `EntityManager`s.
+
+If the current thread already has an open entity manager that you reuse that one otherwise you create one from the `EntityManagerFactory`.
 
 In your injector module use [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/util/persistence/ThreadLocalEntityManagerFactory.java ThreadLocalEntityManagerFactory]: 
 {{{
