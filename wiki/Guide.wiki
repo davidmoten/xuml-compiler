@@ -1,4 +1,5 @@
 #summary Guide to using xUmlCompiler
+#sidebar TableOfContents
 
 ==Introduction==
 This guide shows you how to define, view, generate and execute a system using xUmlCompiler.
