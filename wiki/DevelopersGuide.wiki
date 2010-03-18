@@ -1,6 +1,6 @@
 #summary Instructions for xuml-compiler developers (committers)
 
-== Eclipse instructions ==
+== Checkout into Eclipse ==
 Using Eclipse 3.5.1 and Subversive plugin, add a new SVN repository with location 
  https://xuml-compiler.googlecode.com/svn
 add your username (without the @gmail.com) and the password from [http://code.google.com/p/xuml-compiler/source/checkout Source - Checkout].
