@@ -410,6 +410,7 @@ public class CashbookSystem extends SystemBase {
 		State active = createState(customer, "Active");
 		CallEvent newCustomer = createCallEvent(customer, "newCustomer");
 		createParameter(newCustomer, "name");
+		createParameter(newCustomer, "shortname");
 		CallEvent activate = createCallEvent(customer, "activate");
 		CallEvent deactivate = createCallEvent(customer, "deactivate");
 		CallEvent addEmail = createCallEvent(customer, "addEmail");
