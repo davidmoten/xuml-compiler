@@ -1,4 +1,7 @@
 #summary Overview
+
+<wiki:toc max_depth="4" />
+
 ===Background===
 I was introduced to Executable UML in early 2008 by a colleague and I liked what I saw.
 
