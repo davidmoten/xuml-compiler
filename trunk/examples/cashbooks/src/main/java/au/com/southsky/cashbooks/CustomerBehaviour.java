@@ -2,6 +2,7 @@ package au.com.southsky.cashbooks;
 
 import cashbooks.Customer;
 import cashbooks.Customer.EventActivate;
+// import cashbooks.Customer.EventAddCashbook;
 import cashbooks.Customer.EventAddEmail;
 import cashbooks.Customer.EventDeactivate;
 import cashbooks.Customer.EventNewCustomer;
@@ -41,5 +42,11 @@ public class CustomerBehaviour implements CustomerActions {
 		customer.setName(event.getName());
 		customer.setShortname(event.getName());
 	}
+
+//	@Override
+//	public void performOnEntryActive(EventAddCashbook event) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 }
