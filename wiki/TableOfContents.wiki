@@ -6,7 +6,7 @@
     * [DevelopersGuide Developer's Guide]    
     * 
   * Examples
-    * [Example1Simple]
-    * [Example2Shop]
+    * [Example1Simple Simple System]
+    * [Example2Shop Shop System]
   * [Plan]
    
