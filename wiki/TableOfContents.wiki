@@ -2,8 +2,9 @@
   * Guide
     * [Guide User Guide]
       * [Behaviour]    
+      * [EcoreSystemEditor Ecore System Editor]
     * [DevelopersGuide Developer's Guide]    
-    * [EcoreSystemEditor Ecore System Editor]
+    * 
   * Examples
     * [Example1Simple]
     * [Example2Shop]
