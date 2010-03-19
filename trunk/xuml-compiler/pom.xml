@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>com.google.code</groupId>
 	<artifactId>xuml-compiler</artifactId>
-	<name>XUml Compiler</name>
+	<name>xuml-compiler</name>
 	<description>Java model compiler based on "Executable UML"
 	</description>
 	<properties>
