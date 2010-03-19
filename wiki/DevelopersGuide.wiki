@@ -12,6 +12,6 @@ In the SVN Repository Perspective,
   # Click _Finish_
   # In the next dialog tick _Respect project hierarchy_ and click _Finish_. 
 
-Then go to the Java perspective and to the Run button. Run _xuml-compiler-parent clean install_. That will build all the xuml compiler projects. Select all projects in the workspace and hit F5. 
+Then go to the Java perspective and to the Run button. Run _xuml-compiler-parent clean install_. That will build all the xuml compiler projects. Select all projects in the workspace and hit F5 (Refresh). 
 
 That's it, all projects built and installed in the local repository ready for more changes.
