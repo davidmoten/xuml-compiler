@@ -21,20 +21,20 @@
   <element x="772" y="213" name="label.Class Account Association R2 Multiplicity" fixedTo="//@element[name='class.Account']"/>
   <element x="366" y="370" name="class.CashBook"/>
   <element x="401" y="471" name="label.Class CashBook Association R6 Multiplicity" fixedTo="//@element[name='class.CashBook']"/>
-  <element x="448" y="345" name="label.Class CashBook Association R3 Multiplicity" fixedTo="//@element[name='class.CashBook']"/>
   <element x="341" y="329" name="label.Class CashBook Association R3 Verb Clause" fixedTo="//@element[name='class.CashBook']"/>
-  <element x="484" y="327" name="label.Class CashBook Association R4 Verb Clause" fixedTo="//@element[name='class.CashBook']"/>
   <element x="271" y="437" name="label.Class CashBook Association R10 Verb Clause" fixedTo="//@element[name='class.CashBook']"/>
   <element x="327" y="458" name="label.Class CashBook Association R4 Multiplicity" fixedTo="//@element[name='class.CashBook']"/>
   <element x="450" y="464" name="label.Class CashBook Association R6 Verb Clause" fixedTo="//@element[name='class.CashBook']"/>
   <element x="523" y="389" name="label.Class CashBook Association R10 Multiplicity" fixedTo="//@element[name='class.CashBook']"/>
+  <element x="448" y="345" name="label.Class CashBook Association R3 Multiplicity" fixedTo="//@element[name='class.CashBook']"/>
+  <element x="484" y="327" name="label.Class CashBook Association R4 Verb Clause" fixedTo="//@element[name='class.CashBook']"/>
   <element x="814" y="521" name="class.BankSuppliedTransaction"/>
+  <element x="900" y="647" name="label.Class BankSuppliedTransaction Association R8 Verb Clause" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
   <element x="868" y="652" name="label.Class BankSuppliedTransaction Association R8 Multiplicity" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
   <element x="802" y="566" name="label.Class BankSuppliedTransaction Association R7 Multiplicity" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
-  <element x="822" y="487" name="label.Class BankSuppliedTransaction Association R5 Verb Clause" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
   <element x="723" y="599" name="label.Class BankSuppliedTransaction Association R7 Verb Clause" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
-  <element x="900" y="647" name="label.Class BankSuppliedTransaction Association R8 Verb Clause" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
   <element x="899" y="502" name="label.Class BankSuppliedTransaction Association R5 Multiplicity" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
+  <element x="822" y="487" name="label.Class BankSuppliedTransaction Association R5 Verb Clause" fixedTo="//@element[name='class.BankSuppliedTransaction']"/>
   <element x="371" y="541" name="class.CashbookColumn"/>
   <element x="439" y="512" name="label.Class CashbookColumn Association R6 Multiplicity" fixedTo="//@element[name='class.CashbookColumn']"/>
   <element x="277" y="615" name="label.Class CashbookColumn Association R12 Verb Clause" fixedTo="//@element[name='class.CashbookColumn']"/>

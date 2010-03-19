@@ -40,7 +40,7 @@ public class CustomerBehaviour implements CustomerActions {
 	@Override
 	public void performOnEntryInactive(EventNewCustomer event) {
 		customer.setName(event.getName());
-		customer.setShortname(event.getName());
+		customer.setShortname(event.getShortname());
 	}
 
 //	@Override

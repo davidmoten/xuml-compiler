@@ -52,7 +52,8 @@ public class Test {
 		em.getTransaction().begin();
 		Customer c = ObjectFactory.instance.createCustomer();
 		EventNewCustomer newCustomer = new EventNewCustomer();
-		newCustomer.setName("Fred");
+		newCustomer.setName("Fred Bloggs");
+		newCustomer.setShortname("Fred");
 		c.processEvent(newCustomer);
 		em.persist(c);
 		em.getTransaction().commit();
@@ -75,7 +76,7 @@ public class Test {
 		addEmail.setEmail(email);
 		
 
-		Customer fred = Customer.Search.findByName(em, "Fred");
+		Customer fred = Customer.Search.findByName(em, "Fred Bloggs");
 		fred.processEvent(addEmail);
 		// no email should be added till the customer is activated
 		Assert.assertEquals(0, fred.getEmail().size());
@@ -88,7 +89,7 @@ public class Test {
 		em.close();
 
 		em = entityManagerFactory.createEntityManager();
-		fred = Customer.Search.findByName(em, "Fred");
+		fred = Customer.Search.findByName(em, "Fred Bloggs");
 		// now that the customer has been activated, the email can be added
 		Assert.assertEquals(1, fred.getEmail().size());
 		for (Email mail : fred.getEmail())
@@ -110,7 +111,7 @@ public class Test {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		em.getTransaction().begin();
 
-		Customer fred = Customer.Search.findByName(em, "Fred");
+		Customer fred = Customer.Search.findByName(em, "Fred Bloggs");
 
 		// add a couple of cashbooks
 		
@@ -138,7 +139,7 @@ public class Test {
 		em.close();
 
 		em = entityManagerFactory.createEntityManager();
-		fred = Customer.Search.findByName(em, "Fred");
+		fred = Customer.Search.findByName(em, "Fred Bloggs");
 		
 		// check that the customer has 2 cashbooks
 		
@@ -158,7 +159,7 @@ public class Test {
 		
 		// get the test customer
 
-		Customer fred = Customer.Search.findByName(em, "Fred");
+		Customer fred = Customer.Search.findByName(em, "Fred Bloggs");
 
 		// get the two cashbooks
 		
@@ -218,7 +219,7 @@ public class Test {
 		em.close();
 
 		em = entityManagerFactory.createEntityManager();
-		fred = Customer.Search.findByName(em, "Fred");
+		fred = Customer.Search.findByName(em, "Fred Bloggs");
 		
 		// check that the customer has 3 accounts
 		
