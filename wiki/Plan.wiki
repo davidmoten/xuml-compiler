@@ -1,4 +1,5 @@
 #summary Project Plan
+#labels Featured
 
   * create a State Machine Viewer (done 29 June 2008).
   * use `ImportContext` in template files to collate the import declarations
