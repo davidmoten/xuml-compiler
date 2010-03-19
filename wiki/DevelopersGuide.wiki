@@ -1,4 +1,5 @@
 #summary Instructions for xuml-compiler developers (committers)
+#labels Featured
 
 == Checkout into Eclipse ==
 Using Eclipse 3.5.1 and Subversive plugin, add a new SVN repository with location 
