@@ -9,11 +9,12 @@ A useful pattern is to use `ThreadLocal` (thread specific object storage) to pro
 {{{
 If the current thread already has an open entity manager then reuse that one otherwise create one with the EntityManagerFactory.
 }}}
-In your injector module use [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/util/persistence/ThreadLocalEntityManagerFactory.java ThreadLocalEntityManagerProvider]: 
+In your injector module use [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/util/persistence/ThreadLocalEntityManagerProvider.java ThreadLocalEntityManagerProvider]: 
 {{{
-  bind(EntityManagerFactory.class).toProvider(ThreadLocalEntityManagerProvider.class);
+  bind(EntityManager.class).toProvider(ThreadLocalEntityManagerProvider.class);
 }}}
 
+For an example see [http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/CustomerBehaviourUsingEntityManager.java CustomerBehaviourUsingEntityManager.java].
 == Events ==
 On first look Executable UML appears to constrain state models to one event per destination state. This is not true because Executable UML supports the idea of Polymorphic Events in that any subclass of an event may be used to transition to a state.  
 
