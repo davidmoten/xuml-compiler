@@ -66,8 +66,10 @@ public class CashbookSystem extends SystemBase {
 		createParameter(newAccount, "bsb");
 		createParameter(newAccount, "accountno");
 		createParameter(newAccount, "name");
+		createParameter(newAccount, "shortname");
 		createParameter(newAccount, "decription");
 		createParameter(newAccount, "type");
+		createParameter(newAccount, "cashBook", "cashbooks.CashBook");
 
 		CallEvent openAccount = createCallEvent(account, "openAccount");
 		CallEvent closeAccount = createCallEvent(account, "closeAccount");
@@ -75,7 +77,7 @@ public class CashbookSystem extends SystemBase {
 		createTransition(open, closed, closeAccount);
 		createTransition(closed, open, openAccount);
 		createTransition(account.getStateMachine().getInitialState(), open,
-				openAccount);
+				newAccount);
 		CallEvent remove = createCallEvent(account, "remove");
 		createTransition(closed, account.getStateMachine().getFinalState(),
 				remove);
@@ -105,6 +107,21 @@ public class CashbookSystem extends SystemBase {
 		createArbitraryId(cashbook);
 		Attribute name = createAttribute(cashbook, "name");
 		createAttribute(cashbook, "description");
+		
+		
+		// state machine for cashbook
+		
+		State created = createState(cashbook, "Created");
+
+		CallEvent newCashbook = createCallEvent(cashbook, "newCashbook");
+		createParameter(newCashbook, "name");
+		createParameter(newCashbook, "description");
+		createParameter(newCashbook, "customer","cashbooks.Customer");
+		
+		createTransition(cashbook.getStateMachine().getInitialState(),
+				created, newCashbook);
+		
+		
 
 		// A customer may have a number of cashbooks to represents all of their
 		// separate activities
@@ -397,9 +414,19 @@ public class CashbookSystem extends SystemBase {
 		CallEvent deactivate = createCallEvent(customer, "deactivate");
 		CallEvent addEmail = createCallEvent(customer, "addEmail");
 		createParameter(addEmail, "email", "cashbooks.Email");
+
+		
+// Dave: The following approach causes a "double import" of cashbooks.Cashbook into class Customer
+//		CallEvent addCashbook = createCallEvent(customer,"addCashbook");
+//		createParameter(addCashbook, "cashbook", "cashbooks.Cashbook");
+//		createTransition(active, active, addCashbook);
+		
 		createTransition(inactive, active, activate);
 		createTransition(active, inactive, deactivate);
 		createTransition(active, active, addEmail);
+		
+		
+		
 		createTransition(customer.getStateMachine().getInitialState(),
 				inactive, newCustomer);
 		CallEvent remove = createCallEvent(customer, "remove");
