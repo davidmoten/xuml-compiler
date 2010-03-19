@@ -58,21 +58,23 @@
       <attribute name="shortname" type="//@primitiveType[name='String']" unique="true"/>
       <attributeReferential name="customerid" associationEnd="//@association.1/@primary" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I2']"/>
       <stateMachine>
-        <initialState name="InitialState" transitionTo="//@package.0/@class.2/@stateMachine/@event.1/@transition[name='InitialState_openAccount_Open']"/>
-        <state name="Open" transitionFrom="//@package.0/@class.2/@stateMachine/@event.1/@transition[name='Closed_openAccount_Open'] //@package.0/@class.2/@stateMachine/@event.1/@transition[name='InitialState_openAccount_Open']" transitionTo="//@package.0/@class.2/@stateMachine/@event.2/@transition[name='Open_closeAccount_Closed']"/>
+        <initialState name="InitialState" transitionTo="//@package.0/@class.2/@stateMachine/@event.0/@transition[name='InitialState_newAccount_Open']"/>
+        <state name="Open" transitionFrom="//@package.0/@class.2/@stateMachine/@event.1/@transition[name='Closed_openAccount_Open'] //@package.0/@class.2/@stateMachine/@event.0/@transition[name='InitialState_newAccount_Open']" transitionTo="//@package.0/@class.2/@stateMachine/@event.2/@transition[name='Open_closeAccount_Closed']"/>
         <state name="Closed" transitionFrom="//@package.0/@class.2/@stateMachine/@event.2/@transition[name='Open_closeAccount_Closed']" transitionTo="//@package.0/@class.2/@stateMachine/@event.1/@transition[name='Closed_openAccount_Open'] //@package.0/@class.2/@stateMachine/@event.3/@transition[name='Closed_remove_FinalState']"/>
         <finalState name="FinalState" transitionFrom="//@package.0/@class.2/@stateMachine/@event.3/@transition[name='Closed_remove_FinalState']"/>
         <event xsi:type="model:CallEvent" name="newAccount">
+          <transition name="InitialState_newAccount_Open" fromState="//@package.0/@class.2/@stateMachine/@initialState" toState="//@package.0/@class.2/@stateMachine/@state.0"/>
           <parameter name="customer" type="//@freeType[name='cashbooks.Customer']"/>
           <parameter name="bsb" type="//@freeType[name='String']"/>
           <parameter name="accountno" type="//@freeType[name='String']"/>
           <parameter name="name" type="//@freeType[name='String']"/>
+          <parameter name="shortname" type="//@freeType[name='String']"/>
           <parameter name="decription" type="//@freeType[name='String']"/>
           <parameter name="type" type="//@freeType[name='String']"/>
+          <parameter name="cashBook" type="//@freeType[name='cashbooks.CashBook']"/>
         </event>
         <event xsi:type="model:CallEvent" name="openAccount">
           <transition name="Closed_openAccount_Open" fromState="//@package.0/@class.2/@stateMachine/@state.1" toState="//@package.0/@class.2/@stateMachine/@state.0"/>
-          <transition name="InitialState_openAccount_Open" fromState="//@package.0/@class.2/@stateMachine/@initialState" toState="//@package.0/@class.2/@stateMachine/@state.0"/>
         </event>
         <event xsi:type="model:CallEvent" name="closeAccount">
           <transition name="Open_closeAccount_Closed" fromState="//@package.0/@class.2/@stateMachine/@state.0" toState="//@package.0/@class.2/@stateMachine/@state.1"/>
@@ -92,6 +94,17 @@
       <attribute name="name" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.3/@identifierNonPrimary[name='I2']"/>
       <attribute name="description" type="//@primitiveType[name='String']"/>
       <attributeReferential name="customerId" associationEnd="//@association.2/@primary" identifierNonPrimary="//@package.0/@class.3/@identifierNonPrimary[name='I2']"/>
+      <stateMachine>
+        <initialState name="InitialState" transitionTo="//@package.0/@class.3/@stateMachine/@event.0/@transition[name='InitialState_newCashbook_Created']"/>
+        <state name="Created" transitionFrom="//@package.0/@class.3/@stateMachine/@event.0/@transition[name='InitialState_newCashbook_Created']"/>
+        <finalState name="FinalState"/>
+        <event xsi:type="model:CallEvent" name="newCashbook">
+          <transition name="InitialState_newCashbook_Created" fromState="//@package.0/@class.3/@stateMachine/@initialState" toState="//@package.0/@class.3/@stateMachine/@state.0"/>
+          <parameter name="name" type="//@freeType[name='String']"/>
+          <parameter name="description" type="//@freeType[name='String']"/>
+          <parameter name="customer" type="//@freeType[name='cashbooks.Customer']"/>
+        </event>
+      </stateMachine>
       <identifierPrimary name="I" attribute="//@package.0/@class.3/@attribute.0"/>
       <identifierNonPrimary name="I2" attribute="//@package.0/@class.3/@attribute.1" attributeReferential="//@package.0/@class.3/@attributeReferential.0"/>
       <persistence/>
@@ -250,6 +263,7 @@
   <freeType name="String" description="FreeType enclosure for type String" type="String"/>
   <freeType name="cashbooks.Email" description="FreeType enclosure for type cashbooks.Email" type="cashbooks.Email"/>
   <freeType name="cashbooks.Customer" description="FreeType enclosure for type cashbooks.Customer" type="cashbooks.Customer"/>
+  <freeType name="cashbooks.CashBook" description="FreeType enclosure for type cashbooks.CashBook" type="cashbooks.CashBook"/>
   <primitiveType name="ArbitraryId" description="Primitive type enclosure for primitive ArbitraryId" primitive="ArbitraryId"/>
   <primitiveType name="String" description="Primitive type enclosure for primitive String" primitive="String"/>
   <primitiveType name="Date" description="Primitive type enclosure for primitive Date" primitive="Date"/>

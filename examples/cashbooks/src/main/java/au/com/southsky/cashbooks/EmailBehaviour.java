@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import cashbooks.Email;
 import cashbooks.actions.EmailActions;
 
-public class EmailBehaviour implements EmailActions {
+public class EmailBehaviour implements  EmailActions {
 
         private static Logger log = Logger.getLogger(EmailBehaviour.class);
         private Email email;
