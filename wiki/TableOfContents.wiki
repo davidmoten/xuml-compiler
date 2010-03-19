@@ -1,4 +1,10 @@
   * [Overview]
   * [Guide]
+    ** [EcoreSystemEditor Ecore System Editor]
+    ** [Behaviour]
   * [DevelopersGuide Developers Guide]
+  * Examples
+    ** [Example1Simple]
+    ** [Example2Shop]
+  * [Plan]
    
