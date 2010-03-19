@@ -6,8 +6,8 @@ Using Eclipse 3.5.1 and Subversive plugin, add a new SVN repository with locatio
 add your username (without the @gmail.com) and the password from [http://code.google.com/p/xuml-compiler/source/checkout Source - Checkout].
 
 In the SVN Repository Perspective, 
-  # Open up the xuml-compiler repository and select _trunk._
-  # Choose _Find/Checkout As..._
+  # Open up the xuml-compiler repository
+  # Right mouse on _trunk_ and select _Find/Checkout As..._
   # Select _Find projects in the children of the selected resource_
   # Click _Finish_
   # In the next dialog tick _Respect project hierarchy_ and click _Finish_. 
