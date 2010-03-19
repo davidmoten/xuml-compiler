@@ -1,5 +1,7 @@
 #summary Guide to using xUmlCompiler
 
+<wiki:toc max_depth="4" />
+
 ==Introduction==
 This guide shows you how to define, view, generate and execute a system using xUmlCompiler.
 
