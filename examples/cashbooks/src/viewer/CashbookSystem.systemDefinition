@@ -15,6 +15,7 @@
         <event xsi:type="model:CallEvent" name="newCustomer">
           <transition name="InitialState_newCustomer_Inactive" fromState="//@package.0/@class.0/@stateMachine/@initialState" toState="//@package.0/@class.0/@stateMachine/@state.0"/>
           <parameter name="name" type="//@freeType[name='String']"/>
+          <parameter name="shortname" type="//@freeType[name='String']"/>
         </event>
         <event xsi:type="model:CallEvent" name="activate">
           <transition name="Inactive_activate_Active" fromState="//@package.0/@class.0/@stateMachine/@state.0" toState="//@package.0/@class.0/@stateMachine/@state.1"/>
@@ -128,6 +129,7 @@
         <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="name" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.5/@identifierNonPrimary[name='I2']"/>
+      <attribute name="description" type="//@primitiveType[name='String']"/>
       <attribute name="cash" type="//@primitiveType[name='Boolean']"/>
       <attributeReferential name="cashbookId" associationEnd="//@association.5/@primary" identifierNonPrimary="//@package.0/@class.5/@identifierNonPrimary[name='I2']"/>
       <identifierPrimary name="I" attribute="//@package.0/@class.5/@attribute.0"/>

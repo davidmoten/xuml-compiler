@@ -1,0 +1,3 @@
+"CustShortname","AccountShortname","BSB","AccountNo","AccountName","Type ","Description","CashBookName"
+"BLOGGS","Personal","062900",123456789,"F J and A H Bloggs","CHEQUE","Account used by Fred and Agnes for their personal transactions","PersonalCashbook"
+"BLOGGS","Company","062901","001234567","Bloggs Blogging Systems","CHEQUE","Account used by Fred and Agnes for company related transactions","CompanyCashbook"

@@ -1,5 +1,10 @@
 package au.com.southsky.cashbooks.admin;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
@@ -12,7 +17,6 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 public abstract class Loader {
-	
 
 	protected static Injector injector = Guice
 			.createInjector(new CashbooksInjectorModule());
@@ -21,6 +25,23 @@ public abstract class Loader {
 
 	protected EntityManagerFactory getEntityManagerFactory() {
 		return entityManagerFactory;
+	}
+
+	protected BufferedReader in;
+	protected int count;
+
+	protected void prepareReader(File f) throws LoaderException {
+		try {
+			this.in = new BufferedReader(new InputStreamReader(
+					new FileInputStream(f)));
+
+			// check that column headings are what we expect
+
+			checkCsvColumnNames(in.readLine());
+			count = 1;
+		} catch (IOException e) {
+			throw new LoaderException(e);
+		}
 	}
 
 	@Inject
@@ -33,14 +54,14 @@ public abstract class Loader {
 
 	protected void checkCsvColumnNames(String rec) throws LoaderException {
 		List<String> fileFieldNames = CSVutil.parse(rec);
-		String [] csvFieldNames = getCsvFieldNames();
+		String[] csvFieldNames = getCsvFieldNames();
 
 		if (csvFieldNames.length > fileFieldNames.size()) {
-			new LoaderException("Insufficient fields in file");
+			throw new LoaderException("Insufficient fields in file");
 		}
 
 		if (csvFieldNames.length < fileFieldNames.size()) {
-			new LoaderException("Too many fields in file");
+			throw new LoaderException("Too many fields in file");
 		}
 
 		for (int i = 0; i < csvFieldNames.length; i++) {
@@ -51,6 +72,34 @@ public abstract class Loader {
 
 			}
 		}
+	}
+	
+	
+
+	protected List<String> getNextRecord() throws LoaderException {
+		String rec = null;
+		try {
+			rec = in.readLine();
+
+			if (rec == null) {
+				in.close();
+				return null;
+			}
+		} catch (IOException e) {
+			throw new LoaderException(e);
+		}
+
+		count++;
+
+		// parse the line into fields
+
+		List<String> fields = CSVutil.parse(rec);
+
+		if (fields.size() < getCsvFieldNames().length) {
+			throw new LoaderException(
+					"Insuffient fields to construct event at line " + count);
+		}
+		return fields;
 	}
 
 }

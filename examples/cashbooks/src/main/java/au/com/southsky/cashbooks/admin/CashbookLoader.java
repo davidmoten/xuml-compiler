@@ -7,17 +7,18 @@ import javax.persistence.EntityManager;
 
 import org.apache.log4j.Logger;
 
+import cashbooks.CashBook;
 import cashbooks.Customer;
-import cashbooks.Email;
 import cashbooks.ObjectFactory;
+import cashbooks.CashBook.EventNewCashbook;
 import cashbooks.Customer.EventAddEmail;
 
-public class EmailLoader extends Loader {
+public class CashbookLoader extends Loader {
+	
+	private static final Logger logger = Logger.getLogger(CashbookLoader.class);
+	private String[] csvFieldNames = { "Shortname", "Name", "Description" };
 
-	private static final Logger logger = Logger.getLogger(CustomerLoader.class);
-	private String[] csvFieldNames = { "Shortname", "Email" };
-
-	public EmailLoader() {
+	public CashbookLoader() {
 		super();
 		injector.injectMembers(this);
 	}
@@ -42,18 +43,20 @@ public class EmailLoader extends Loader {
 						"No customer with shortname of %s", shortname));
 			}
 
-			// create the Email object
+			// create the cashbook object
 
-			Email email = ObjectFactory.instance.createEmail();
-			email.setCustomer(customer);
-			email.setEmail(fields.get(1));
+			CashBook cashBook = ObjectFactory.instance.createCashBook();
+			EventNewCashbook newCashBook = new EventNewCashbook();
+			newCashBook.setName(fields.get(1));
+			newCashBook.setDescription(fields.get(2));
+			newCashBook.setCustomer(customer);
+			
+			
+			// send an AddEmail event to the cashbook
+			
+			cashBook.processEvent(newCashBook);
 
-			// send an AddEmail event to the customer
-
-			EventAddEmail addEmail = new EventAddEmail();
-			addEmail.setEmail(email);
-			customer.processEvent(addEmail);
-			em.persist(email);
+			em.persist(cashBook);
 			count++;
 		}
 
@@ -63,8 +66,11 @@ public class EmailLoader extends Loader {
 		return count;
 	}
 
+
 	@Override
 	protected String[] getCsvFieldNames() {
+		
 		return csvFieldNames;
 	}
+
 }
