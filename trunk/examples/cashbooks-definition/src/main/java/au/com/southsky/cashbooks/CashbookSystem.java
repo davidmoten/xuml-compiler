@@ -210,6 +210,7 @@ public class CashbookSystem extends SystemBase {
 				"CashbookColumn",
 				"Allows the value of a transaction (or part thereof to be classified according to type");
 		Attribute columnName = createAttribute(cashbookColumn, "name");
+		createAttribute(cashbookColumn, "description");
 		createAttribute(cashbookColumn, "cash", Primitive.BOOLEAN);
 
 		// Cashbook contains multiple cashbook columns. A cashbook column is a
