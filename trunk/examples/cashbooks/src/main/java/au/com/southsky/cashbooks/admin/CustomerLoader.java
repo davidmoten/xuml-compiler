@@ -8,17 +8,11 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-
-import au.com.southsky.cashbooks.CashbooksInjectorModule;
-import au.com.southsky.cashbooks.utils.CVSutil;
+import au.com.southsky.cashbooks.utils.CSVutil;
 import cashbooks.Customer;
 import cashbooks.ObjectFactory;
 import cashbooks.Customer.EventNewCustomer;
@@ -31,71 +25,69 @@ import cashbooks.Customer.EventNewCustomer;
  * @author smr
  * 
  */
-public class CustomerLoader {
+public class CustomerLoader extends Loader {
 
 	private static final Logger logger = Logger.getLogger(CustomerLoader.class);
+	private String [] csvFieldNames = {"Name", "Shortname"};
 
-	private static Injector injector = Guice
-			.createInjector(new CashbooksInjectorModule());
-	
-	private EntityManagerFactory entityManagerFactory;
-
-	public EntityManagerFactory getEntityManagerFactory() {
-		return entityManagerFactory;
-	}
-
-	@Inject
-	public void setEntityManagerFactory(
-			EntityManagerFactory entityManagerFactory) {
-		this.entityManagerFactory = entityManagerFactory;
-	}
-	
-	
 
 	public CustomerLoader() {
 		super();
 		injector.injectMembers(this);
 	}
 
-	public void load(File f) throws IOException {
-		NewCustomerEventReader eventReader = new NewCustomerEventReader(f);
+	public int load(File f) throws LoaderException {
+		NewCustomerEventReader eventReader;
+		try {
+			eventReader = new NewCustomerEventReader(f);
+		} catch (IOException e) {
+			throw new LoaderException(e);
+		}
 		EventNewCustomer event;
 
 		EntityManager em = entityManagerFactory.createEntityManager();
+		em.getTransaction().begin();
 
+		int count = 0;
 		while (null != (event = eventReader.next())) {
 			Customer c = ObjectFactory.instance.createCustomer();
-			EventNewCustomer newCustomer = new EventNewCustomer();
 			c.processEvent(event);
 			em.persist(c);
+			count++;
 		}
 
-		em.getTransaction().begin();
 		em.getTransaction().commit();
 		em.close();
+
+		return count;
 	}
 
 	public class NewCustomerEventReader {
 		private final BufferedReader in;
 		private int count;
 
-		public NewCustomerEventReader(File f) throws IOException {
+		public NewCustomerEventReader(File f) throws IOException, LoaderException {
 			super();
 			this.in = new BufferedReader(new InputStreamReader(
 					new FileInputStream(f)));
 
-			// throw away the first line
+			// check that column headings are what we expect
 
-			in.readLine();
+			checkCsvColumnNames(in.readLine());			
 			count = 1;
 		}
 
-		public EventNewCustomer next() throws IOException {
-			String rec = in.readLine();
+		public EventNewCustomer next() throws LoaderException {
+			String rec = null;
+			try {
+				rec = in.readLine();
 
-			if (rec == null) {
-				in.close();
-				return null;
+				if (rec == null) {
+					in.close();
+					return null;
+				}
+			} catch (IOException e) {
+				throw new LoaderException(e);
 			}
 
 			count++;
@@ -103,10 +95,10 @@ public class CustomerLoader {
 
 			// parse the line into fields
 
-			List<String> fields = CVSutil.parse(rec);
+			List<String> fields = CSVutil.parse(rec);
 
 			if (fields.size() < 2) {
-				throw new IOException(
+				throw new LoaderException(
 						"Insuffient fields to construct event at line " + count);
 			}
 			EventNewCustomer event = new EventNewCustomer();
@@ -116,7 +108,6 @@ public class CustomerLoader {
 			return event;
 
 		}
-
 	}
 
 	public static void main(String[] args) {
@@ -138,7 +129,7 @@ public class CustomerLoader {
 		CustomerLoader loader = new CustomerLoader();
 		try {
 			loader.load(csvFile);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error(e);
 			e.printStackTrace();
 		}
@@ -150,6 +141,11 @@ public class CustomerLoader {
 			logger.error(msg);
 		}
 		logger.info("usage: java LoadCustomers <csvFilePath>");
+	}
+
+	@Override
+	protected String[] getCsvFieldNames() {
+		return csvFieldNames;
 	}
 
 }

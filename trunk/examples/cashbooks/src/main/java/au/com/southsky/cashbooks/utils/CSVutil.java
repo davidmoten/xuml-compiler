@@ -5,7 +5,7 @@ import java.util.List;
 
 import cashbooks.Customer.EventNewCustomer;
 
-public class CVSutil {
+public class CSVutil {
 
 	public static List<String> parse(String csv) {
 		ArrayList<String> fields = new ArrayList<String>();
