@@ -97,10 +97,9 @@ public class SystemBase implements CodeGenerator {
 	}
 
 	/**
-	 * Create root package with a name and description. TODO: document how to
-	 * use name with dot delimiters. Have only tested one word package names.
+	 * Create root package with a name and description. 
 	 * 
-	 * @param name
+	 * @param name should not contain delimiters e.g. '.' . Use createPackage repeatedly to create nested packages.
 	 * @param description
 	 * @return
 	 */
