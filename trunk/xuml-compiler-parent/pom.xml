@@ -19,6 +19,10 @@
 	</modules>
 	<build>
 		<extensions>
+			<!--
+				Wagon Subversion Extension to allow deployment of Maven artifacts.
+				See: http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
+			-->
 			<extension>
 				<groupId>org.jvnet.wagon-svn</groupId>
 				<artifactId>wagon-svn</artifactId>
