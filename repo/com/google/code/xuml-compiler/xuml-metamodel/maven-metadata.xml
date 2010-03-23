@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<metadata xsi:schemaLocation="http://maven.apache.org/METADATA/1.0.0 http://maven.apache.org/xsd/metadata-1.0.0.xsd" xmlns="http://maven.apache.org/METADATA/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<metadata>
   <groupId>com.google.code.xuml-compiler</groupId>
   <artifactId>xuml-metamodel</artifactId>
   <version>0.4.8-SNAPSHOT</version>
@@ -9,6 +8,6 @@
     <versions>
       <version>0.4.8-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20100217031728</lastUpdated>
+    <lastUpdated>20100323200313</lastUpdated>
   </versioning>
 </metadata>
