@@ -1,4 +1,5 @@
 #summary How to download xuml-compiler
+#labels Featured
 #sidebar TableOfContents
 
 The project binaries (jars) can be found in the maven repository for this project:
