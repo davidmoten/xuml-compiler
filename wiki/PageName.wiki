@@ -1,3 +1,0 @@
-#summary how to download
-#sidebar TableOfContents
-=Downloads=
