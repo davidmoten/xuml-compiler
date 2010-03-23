@@ -4,7 +4,7 @@
       * [Behaviour]    
       * [EcoreSystemEditor Ecore System Editor]
     * [DevelopersGuide Developer's Guide]    
-    * 
+    * [Downloads]
   * Examples
     * [Example1Simple Simple System]
     * [Example2Shop Shop System]
