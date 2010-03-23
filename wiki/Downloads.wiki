@@ -4,4 +4,13 @@
 The project binaries (jars) can be found in the maven repository for this project:
   http://xuml-compiler.googlecode.com/svn/repo
 
-The preferred technique is to use the maven dependencies as detailed in the example poms. In combination with the repositories element in the pom containing:
+The preferred technique is to use the maven dependencies as detailed in the example poms. In combination with the repositories element in the project pom or in your settings.xml containing:
+{{{
+ <repositories>
+   <repository>
+     <id>xuml-compiler-repo</id>
+     <name>xuml-compiler</name>
+     <url>http://xuml-compiler.googlecode.com/svn/repo/</url>
+   </repository>
+  </repositories>
+}}}
