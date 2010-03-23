@@ -13,18 +13,34 @@
 		from ecore model</description>
 	<url>http://xuml-compiler.google.code.com</url>
 	<properties>
-		<emf.version>2.4.0.v200804012208</emf.version>
+		<emf.version>2.3.0-v200706262000</emf.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>common</artifactId>
 			<version>${emf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.equinox</groupId>
+					<artifactId>app</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>ecore</artifactId>
 			<version>${emf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.equinox</groupId>
+					<artifactId>app</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.emf</groupId>
+					<artifactId>common</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
@@ -54,19 +70,7 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
-		<!--
-			Wagon Subversion Extension to allow deployment of Maven artifacts.
-			See: http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
-		-->
-		<extensions>
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.9</version>
-			</extension>
-		</extensions>
 	</build>
 	<repositories>
 		<repository>
@@ -75,11 +79,4 @@
 			<url>http://xuml-compiler.googlecode.com/svn/repo</url>
 		</repository>
 	</repositories>
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>xuml.compiler</id>
-			<url>svn:https://xuml-compiler.googlecode.com/svn/repo</url>
-		</repository>
-	</distributionManagement>
 </project>
