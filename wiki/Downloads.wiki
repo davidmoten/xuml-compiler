@@ -1,0 +1,7 @@
+#summary How to download xuml-compiler
+#sidebar TableOfContents
+
+The project binaries (jars) can be found in the maven repository for this project:
+  http://xuml-compiler.googlecode.com/svn/repo
+
+The preferred technique is to use the maven dependencies as detailed in the example poms. In combination with the repositories element in the pom containing:
