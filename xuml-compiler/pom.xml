@@ -22,6 +22,7 @@
 		<generated.tv>${generated}/tv</generated.tv>
 		<generated.specialize>${generated}/specialize</generated.specialize>
 		<generated.self>${generated}/self</generated.self>
+		<emf.version>2.3.0-v200706262000</emf.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -136,7 +137,7 @@
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>ecore</artifactId>
-			<version>2.3.0-v200706262000</version>
+			<version>${emf.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.eclipse.equinox</groupId>
@@ -160,7 +161,7 @@
 		<dependency>
 			<groupId>org.eclipse.emf.ecore</groupId>
 			<artifactId>xmi</artifactId>
-			<version>2.3.0-v200706262000</version>
+			<version>${emf.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.eclipse.equinox</groupId>
@@ -180,12 +181,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!--
-			<dependency> <groupId>org.eclipse.emf</groupId>
-			<artifactId>common</artifactId>
-			<version>2.3.0-v200706262000</version> <scope>test</scope>
-			</dependency>
-		-->
 		<dependency>
 			<groupId>org.eclipse.core</groupId>
 			<artifactId>runtime</artifactId>
@@ -301,31 +296,6 @@
 								<source>${basedir}/src/viewer/model/generated</source>
 							</sources>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<inherited>true</inherited>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<verbose>true</verbose>
-					<fork>true</fork>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
 					</execution>
 				</executions>
 			</plugin>
