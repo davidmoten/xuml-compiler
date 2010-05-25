@@ -43,7 +43,7 @@ Add the xuml-compiler dependency:
  <dependency>
    <groupId>com.google.code</groupId>
    <artifactId>xuml-compiler</artifactId>
-   <version>0.4.8-SNAPSHOT</version>
+   <version>0.4.8</version>
  </dependency>
 }}}
 
