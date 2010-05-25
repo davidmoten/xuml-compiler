@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.google.code.xuml-compiler.examples</groupId>
 	<artifactId>cashbooks</artifactId>
-	<version>0.4.8</version>
+	<version>0.4.9-SNAPSHOT</version>
 	<name>Cashbooks</name>
 	<properties>
 		<generated>${project.build.directory}/generated-source</generated>

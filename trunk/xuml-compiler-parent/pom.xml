@@ -5,7 +5,7 @@
 	<artifactId>xuml-compiler-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>xUmlCompiler parent</name>
-	<version>0.4.8</version>
+	<version>0.4.9-SNAPSHOT</version>
 	<properties>
 		<examples>../examples</examples>
 		<compiler.source.version>1.6</compiler.source.version>
