@@ -1,0 +1,8 @@
+#Thu May 01 18:10:08 EST 2008
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/xUmlMetaModel/model/uml.genmodel
+gmf_dashboard/domainModel=platform\:/resource/xUmlMetaModel/model/uml.ecore
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/xUmlMetaModel/model/uml.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/xUmlMetaModel/model/uml.gmfmap
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/xUmlMetaModel/model/uml.gmftool
+instance/org.eclipse.core.net/org.eclipse.core.net.hasMigrated=true
