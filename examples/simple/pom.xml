@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.google.code.xuml-compiler.examples</groupId>
 	<artifactId>simple</artifactId>
-		<version>0.4.8-SNAPSHOT</version>
+		<version>0.4.8</version>
 	<name>Simple example</name>
 	<properties>
 		<generated>${project.build.directory}/generated-source</generated>
