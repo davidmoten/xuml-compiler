@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.google.code.xuml-compiler</groupId>
+		<artifactId>xuml-compiler-parent</artifactId>
+		<version>0.4.8</version>
+		<relativePath>../xuml-compiler-parent/pom.xml</relativePath>
+	</parent>
+	<groupId>com.google.code.xuml-compiler</groupId>
+	<artifactId>xuml-metamodel</artifactId>
+	<name>xUmlMetaModel</name>
+	<description>Ecore definition of meta model and generated java classes
+		from ecore model</description>
+	<url>http://xuml-compiler.google.code.com</url>
+	<properties>
+		<emf.version>2.3.0-v200706262000</emf.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>common</artifactId>
+			<version>${emf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.equinox</groupId>
+					<artifactId>app</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>ecore</artifactId>
+			<version>${emf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.equinox</groupId>
+					<artifactId>app</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.emf</groupId>
+					<artifactId>common</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+</project>
