@@ -17,11 +17,13 @@ svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple-definit
 svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple simple`
 }}}
 Build the projects:
-{{{cd simple-definition
+{{{
+cd simple-definition
 mvn clean install
 cd ..
 cd simple
-mvn clean install}}}
+mvn clean install
+}}}
 
 Refactor this simple project as you wish.
 
