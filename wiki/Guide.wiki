@@ -20,8 +20,7 @@ Build the projects:
 {{{
 cd simple-definition
 mvn clean install
-cd ..
-cd simple
+cd ../simple
 mvn clean install
 }}}
 
