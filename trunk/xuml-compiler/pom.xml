@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.google.code.xuml-compiler</groupId>
 		<artifactId>xuml-compiler-parent</artifactId>
-		<version>0.4.9</version>
+		<version>0.4.10-SNAPSHOT</version>
 	</parent>
 	<groupId>com.google.code</groupId>
 	<artifactId>xuml-compiler</artifactId>
