@@ -5,7 +5,6 @@
 		<groupId>com.google.code.xuml-compiler</groupId>
 		<artifactId>xuml-compiler-parent</artifactId>
 		<version>0.4.9-SNAPSHOT</version>
-		<relativePath>../xuml-compiler-parent/pom.xml</relativePath>
 	</parent>
 	<groupId>com.google.code.xuml-compiler</groupId>
 	<artifactId>xuml-metamodel</artifactId>
