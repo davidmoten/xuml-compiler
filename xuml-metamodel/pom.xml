@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>com.google.code.xuml-compiler</groupId>
 	<artifactId>xuml-metamodel</artifactId>
-	<name>xUmlMetaModel</name>
+	<name>xuml-metamodel</name>
 	<description>Ecore definition of meta model and generated java classes
 		from ecore model</description>
 	<url>http://xuml-compiler.google.code.com</url>

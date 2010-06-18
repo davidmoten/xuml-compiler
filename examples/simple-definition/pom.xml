@@ -3,7 +3,7 @@
   <groupId>com.google.code.xuml-compiler.examples</groupId>
   <artifactId>simple-definition</artifactId>
 		<version>0.4.9-SNAPSHOT</version>
-  <name>Simple Definition</name>
+  <name>simple-definition</name>
   <description>Definition of the Simple Model</description>
 	<dependencies>
 		<dependency>

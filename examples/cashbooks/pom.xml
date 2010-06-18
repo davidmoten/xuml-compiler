@@ -4,7 +4,7 @@
 	<groupId>com.google.code.xuml-compiler.examples</groupId>
 	<artifactId>cashbooks</artifactId>
 	<version>0.4.9-SNAPSHOT</version>
-	<name>Cashbooks</name>
+	<name>cashbooks</name>
 	<properties>
 		<generated>${project.build.directory}/generated-source</generated>
 		<generated.resources>${project.build.directory}/generated-resources</generated.resources>
