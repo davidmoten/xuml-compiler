@@ -4,7 +4,7 @@
 	<groupId>com.google.code.xuml-compiler.examples</groupId>
 	<artifactId>simple</artifactId>
 		<version>0.4.9-SNAPSHOT</version>
-	<name>Simple example</name>
+	<name>simple</name>
 	<properties>
 		<generated>${project.build.directory}/generated-source</generated>
 		<generated.resources>${project.build.directory}/generated-resources</generated.resources>
