@@ -4,7 +4,7 @@
 	<groupId>com.google.code.xuml-compiler</groupId>
 	<artifactId>xuml-compiler-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>xUmlCompiler parent</name>
+	<name>xuml-compiler-parent</name>
 	<version>0.4.9-SNAPSHOT</version>
 	<developers>
 		<developer>
