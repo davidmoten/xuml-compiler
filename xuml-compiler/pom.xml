@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.google.code.xuml-compiler</groupId>
 		<artifactId>xuml-compiler-parent</artifactId>
-		<version>0.4.9-SNAPSHOT</version>
+		<version>0.4.9</version>
 	</parent>
 	<groupId>com.google.code</groupId>
 	<artifactId>xuml-compiler</artifactId>
@@ -220,12 +219,10 @@
 							<tasks>
 								<echo message="starting ant task" />
 								<!--  include the test classpath to enable cobertura -->
-								<taskdef name="xuml-generate"
-									classname="moten.david.xuml.model.compiler.ant.GenerateTask"
-									classpathref="maven.compile.classpath" >
-									<classpath refid="maven.test.classpath"/>
+								<taskdef name="xuml-generate" classname="moten.david.xuml.model.compiler.ant.GenerateTask" classpathref="maven.compile.classpath">
+									<classpath refid="maven.test.classpath" />
 									<!-- include the resources to pick up log4j.properties -->
-									<classpath path="${basedir}/src/test/resources"/>
+									<classpath path="${basedir}/src/test/resources" />
 								</taskdef>
 
 								<mkdir dir="${generated}" />
@@ -239,22 +236,14 @@
 								<property name="generated.specialize" value="${generated}/specialize" />
 								<property name="generated.self" value="${generated}/self" />
 								<echo message="calling xuml-generate" />
-								<xuml-generate outputDirectory="${generated.bookstore}"
-									codeGenerator="moten.david.xuml.model.example.mellor.Bookstore" />
-								<xuml-generate outputDirectory="${generated.associations}"
-									codeGenerator="moten.david.xuml.model.example.associations.Associations" />
-								<xuml-generate outputDirectory="${generated.microwave}"
-									codeGenerator="moten.david.xuml.model.example.microwave.Microwave" />
-								<xuml-generate outputDirectory="${generated.shop}"
-									codeGenerator="moten.david.xuml.model.example.shop.Shop" />
-								<xuml-generate outputDirectory="${generated.simple}"
-									codeGenerator="moten.david.xuml.model.example.simple.Simple" />
-								<xuml-generate outputDirectory="${generated.tv}"
-									codeGenerator="moten.david.xuml.model.example.tv.Tv" />
-								<xuml-generate outputDirectory="${generated.specialize}"
-									codeGenerator="moten.david.xuml.model.example.specialize.Specialize" />
-								<xuml-generate outputDirectory="${generated.self}"
-									codeGenerator="moten.david.xuml.model.example.self.Self" />
+								<xuml-generate outputDirectory="${generated.bookstore}" codeGenerator="moten.david.xuml.model.example.mellor.Bookstore" />
+								<xuml-generate outputDirectory="${generated.associations}" codeGenerator="moten.david.xuml.model.example.associations.Associations" />
+								<xuml-generate outputDirectory="${generated.microwave}" codeGenerator="moten.david.xuml.model.example.microwave.Microwave" />
+								<xuml-generate outputDirectory="${generated.shop}" codeGenerator="moten.david.xuml.model.example.shop.Shop" />
+								<xuml-generate outputDirectory="${generated.simple}" codeGenerator="moten.david.xuml.model.example.simple.Simple" />
+								<xuml-generate outputDirectory="${generated.tv}" codeGenerator="moten.david.xuml.model.example.tv.Tv" />
+								<xuml-generate outputDirectory="${generated.specialize}" codeGenerator="moten.david.xuml.model.example.specialize.Specialize" />
+								<xuml-generate outputDirectory="${generated.self}" codeGenerator="moten.david.xuml.model.example.self.Self" />
 							</tasks>
 						</configuration>
 					</execution>

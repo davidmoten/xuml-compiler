@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.google.code.xuml-compiler.examples</groupId>
 	<artifactId>simple</artifactId>
-		<version>0.4.9-SNAPSHOT</version>
+		<version>0.4.9</version>
 	<name>simple</name>
 	<properties>
 		<generated>${project.build.directory}/generated-source</generated>
@@ -45,9 +44,7 @@
 						<configuration>
 							<tasks>
 								<echo message="starting ant task" />
-								<taskdef name="xuml-generate"
-									classname="moten.david.xuml.model.compiler.ant.GenerateTask"
-									classpathref="maven.compile.classpath">
+								<taskdef name="xuml-generate" classname="moten.david.xuml.model.compiler.ant.GenerateTask" classpathref="maven.compile.classpath">
 									<!--  include to enable cobertura -->
 									<classpath refid="maven.test.classpath" />
 									<!-- include the resources to pick up log4j.properties -->
@@ -55,9 +52,7 @@
 								</taskdef>
 								<mkdir dir="${generated}" />
 								<echo message="calling xuml-generate" />
-								<xuml-generate outputDirectory="${generated}"
-									resourcesDirectory="${generated.resources}" webDirectory="${generated.web}"
-									docsDirectory="${generated.docs}" codeGenerator="moten.david.xuml.model.example.simple.Simple" />
+								<xuml-generate outputDirectory="${generated}" resourcesDirectory="${generated.resources}" webDirectory="${generated.web}" docsDirectory="${generated.docs}" codeGenerator="moten.david.xuml.model.example.simple.Simple" />
 							</tasks>
 						</configuration>
 					</execution>
