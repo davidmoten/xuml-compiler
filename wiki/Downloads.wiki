@@ -15,5 +15,3 @@ The preferred technique is to use the maven dependencies as detailed in the exam
    </repository>
   </repositories>
 }}}
-
-Note that a lot of work is taking place at the 0.4.8-SNAPSHOT level. While that is the case it's recommended to do an svn checkout and build and install artifacts locally using maven. See [Guide].
