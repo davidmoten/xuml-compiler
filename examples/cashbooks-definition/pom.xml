@@ -11,11 +11,18 @@
   <description>Definition of the Cashbooks Model using xuml-compiler</description>
 	<dependencies>
 		<dependency>
-			<groupId>com.google.code</groupId>
+			<groupId>com.google.code.xuml-compiler</groupId>
 			<artifactId>xuml-compiler</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+                        <groupId>com.google.code.xuml-compiler</groupId>
+                        <artifactId>xuml-metamodel</artifactId>
+                        <version>${project.version}</version>
+                        <scope>compile</scope>
+                </dependency>
+
 		<dependency>
 			<groupId>com.google.code.xuml-compiler</groupId>
 			<artifactId>xuml-jpa</artifactId>

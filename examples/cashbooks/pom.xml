@@ -16,7 +16,7 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>com.google.code</groupId>
+			<groupId>com.google.code.xuml-compiler</groupId>
 			<artifactId>xuml-compiler</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
