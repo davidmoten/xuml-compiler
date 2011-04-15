@@ -154,7 +154,9 @@ public class ${name}Impl implements ${name} {
 	* on load of this object from persistence necessary operations are injected.
 	* This ensures that the object operations are available before the object is "used in anger".
 	*/
-	@PostLoad
+//Versions 3.5 and 3.6 of Hibernate have a bug to do with PostLoad so workaround with checkActions()
+//See http://opensource.atlassian.com/projects/hibernate/browse/HHH-6043
+//	@PostLoad
 	public void inject() {
 		ObjectFactory.instance.injectMembers(this);
 	}
@@ -162,7 +164,9 @@ public class ${name}Impl implements ${name} {
 	/** 
 	* check that operations have been injected
 	*/
-	private void checkActions(){
+	private synchronized void checkActions(){
+		if (${name?uncap_first}Actions==null)
+			inject();
 		if (${name?uncap_first}Actions==null)
 			throw new Error(
 				"no implementation for operations has been injected yet! Perhaps there is no binding for ${name}Actions.class in the InjectorModule.");
@@ -596,7 +600,7 @@ public class ${name}Impl implements ${name} {
 <#if association.other.persistence.orderBy?exists>
 	<#assign collectionType>List</#assign>
 	@OrderBy("<#list association.other.persistence.orderBy as orderBy><#rt/>
-<#if orderBy_index gt 0>,</#if>${orderBy.name}<#rt/>
+<#if orderBy_index gt 0>,</#if>`${orderBy.name}`<#rt/>
 </#list>")
 </#if>
 </#if>
