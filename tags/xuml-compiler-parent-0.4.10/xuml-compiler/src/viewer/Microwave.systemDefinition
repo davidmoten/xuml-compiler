@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://davidmoten.homeip.net/uml/executable/model" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/model http://xuml-compiler.googlecode.com/svn/trunk/xUmlMetaModel/model/uml.ecore" name="Microwave">
+  <package name="microwave" description="a microwave oven">
+    <class name="Microwave" description="a microwave oven">
+      <attribute name="serialNo" type="//@primitiveType[name='String']" identifierPrimary="//@package.0/@class.0/@identifierPrimary">
+        <persistence/>
+      </attribute>
+      <attribute name="lightOn" type="//@primitiveType[name='Boolean']"/>
+      <attribute name="powerTubeOn" type="//@primitiveType[name='Boolean']"/>
+      <operation name="turnLightOn" description="turns the light on/off">
+        <parameter name="on" description="light is on" type="//@freeType[name='boolean']"/>
+      </operation>
+      <operation name="energizePowerTube" description="energizes/deenergizes the power tube">
+        <parameter name="energize" description="energize the power tube" type="//@freeType[name='boolean']"/>
+      </operation>
+      <stateMachine>
+        <initialState name="InitialState" transitionTo="//@package.0/@class.0/@stateMachine/@event.4/@transition[name='InitialState_pluggedIn_ReadyToCook']"/>
+        <state name="ReadyToCook" transitionFrom="//@package.0/@class.0/@stateMachine/@event.4/@transition[name='InitialState_pluggedIn_ReadyToCook'] //@package.0/@class.0/@stateMachine/@event.2/@transition[name='DoorOpen_doorClosed_ReadyToCook'] //@package.0/@class.0/@stateMachine/@event.2/@transition[name='CookingInterrupted_doorClosed_ReadyToCook']" transitionTo="//@package.0/@class.0/@stateMachine/@event.0/@transition[name='ReadyToCook_buttonPressed_Cooking'] //@package.0/@class.0/@stateMachine/@event.1/@transition[name='ReadyToCook_doorOpened_DoorOpen']"/>
+        <state name="DoorOpen" transitionFrom="//@package.0/@class.0/@stateMachine/@event.1/@transition[name='ReadyToCook_doorOpened_DoorOpen'] //@package.0/@class.0/@stateMachine/@event.1/@transition[name='CookingComplete_doorOpened_DoorOpen']" transitionTo="//@package.0/@class.0/@stateMachine/@event.2/@transition[name='DoorOpen_doorClosed_ReadyToCook']"/>
+        <state name="Cooking" transitionFrom="//@package.0/@class.0/@stateMachine/@event.0/@transition[name='ReadyToCook_buttonPressed_Cooking'] //@package.0/@class.0/@stateMachine/@event.0/@transition[name='CookingComplete_buttonPressed_Cooking']" transitionTo="//@package.0/@class.0/@stateMachine/@event.1/@transition[name='Cooking_doorOpened_CookingInterrupted'] //@package.0/@class.0/@stateMachine/@event.0/@transition[name='Cooking_buttonPressed_CookingExtended'] //@package.0/@class.0/@stateMachine/@event.3/@transition[name='Cooking_timerTimesOut_CookingComplete']"/>
+        <state name="CookingInterrupted" transitionFrom="//@package.0/@class.0/@stateMachine/@event.1/@transition[name='Cooking_doorOpened_CookingInterrupted'] //@package.0/@class.0/@stateMachine/@event.1/@transition[name='CookingExtended_doorOpened_CookingInterrupted']" transitionTo="//@package.0/@class.0/@stateMachine/@event.2/@transition[name='CookingInterrupted_doorClosed_ReadyToCook']"/>
+        <state name="CookingComplete" transitionFrom="//@package.0/@class.0/@stateMachine/@event.3/@transition[name='Cooking_timerTimesOut_CookingComplete'] //@package.0/@class.0/@stateMachine/@event.3/@transition[name='CookingExtended_timerTimesOut_CookingComplete']" transitionTo="//@package.0/@class.0/@stateMachine/@event.0/@transition[name='CookingComplete_buttonPressed_Cooking'] //@package.0/@class.0/@stateMachine/@event.1/@transition[name='CookingComplete_doorOpened_DoorOpen']"/>
+        <state name="CookingExtended" transitionFrom="//@package.0/@class.0/@stateMachine/@event.0/@transition[name='Cooking_buttonPressed_CookingExtended'] //@package.0/@class.0/@stateMachine/@event.0/@transition[name='CookingExtended_buttonPressed_CookingExtended']" transitionTo="//@package.0/@class.0/@stateMachine/@event.0/@transition[name='CookingExtended_buttonPressed_CookingExtended'] //@package.0/@class.0/@stateMachine/@event.3/@transition[name='CookingExtended_timerTimesOut_CookingComplete'] //@package.0/@class.0/@stateMachine/@event.1/@transition[name='CookingExtended_doorOpened_CookingInterrupted']"/>
+        <finalState name="FinalState"/>
+        <event xsi:type="model:SignalEvent" name="buttonPressed">
+          <transition name="ReadyToCook_buttonPressed_Cooking" fromState="//@package.0/@class.0/@stateMachine/@state.0" toState="//@package.0/@class.0/@stateMachine/@state.2"/>
+          <transition name="Cooking_buttonPressed_CookingExtended" fromState="//@package.0/@class.0/@stateMachine/@state.2" toState="//@package.0/@class.0/@stateMachine/@state.5"/>
+          <transition name="CookingComplete_buttonPressed_Cooking" fromState="//@package.0/@class.0/@stateMachine/@state.4" toState="//@package.0/@class.0/@stateMachine/@state.2"/>
+          <transition name="CookingExtended_buttonPressed_CookingExtended" fromState="//@package.0/@class.0/@stateMachine/@state.5" toState="//@package.0/@class.0/@stateMachine/@state.5"/>
+        </event>
+        <event xsi:type="model:SignalEvent" name="doorOpened">
+          <transition name="ReadyToCook_doorOpened_DoorOpen" fromState="//@package.0/@class.0/@stateMachine/@state.0" toState="//@package.0/@class.0/@stateMachine/@state.1"/>
+          <transition name="Cooking_doorOpened_CookingInterrupted" fromState="//@package.0/@class.0/@stateMachine/@state.2" toState="//@package.0/@class.0/@stateMachine/@state.3"/>
+          <transition name="CookingComplete_doorOpened_DoorOpen" fromState="//@package.0/@class.0/@stateMachine/@state.4" toState="//@package.0/@class.0/@stateMachine/@state.1"/>
+          <transition name="CookingExtended_doorOpened_CookingInterrupted" fromState="//@package.0/@class.0/@stateMachine/@state.5" toState="//@package.0/@class.0/@stateMachine/@state.3"/>
+        </event>
+        <event xsi:type="model:SignalEvent" name="doorClosed">
+          <transition name="DoorOpen_doorClosed_ReadyToCook" fromState="//@package.0/@class.0/@stateMachine/@state.1" toState="//@package.0/@class.0/@stateMachine/@state.0"/>
+          <transition name="CookingInterrupted_doorClosed_ReadyToCook" fromState="//@package.0/@class.0/@stateMachine/@state.3" toState="//@package.0/@class.0/@stateMachine/@state.0"/>
+        </event>
+        <event xsi:type="model:TimerEvent" name="timerTimesOut">
+          <transition name="Cooking_timerTimesOut_CookingComplete" fromState="//@package.0/@class.0/@stateMachine/@state.2" toState="//@package.0/@class.0/@stateMachine/@state.4"/>
+          <transition name="CookingExtended_timerTimesOut_CookingComplete" fromState="//@package.0/@class.0/@stateMachine/@state.5" toState="//@package.0/@class.0/@stateMachine/@state.4"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="pluggedIn">
+          <transition name="InitialState_pluggedIn_ReadyToCook" fromState="//@package.0/@class.0/@stateMachine/@initialState" toState="//@package.0/@class.0/@stateMachine/@state.0"/>
+        </event>
+      </stateMachine>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
+      <persistence/>
+    </class>
+  </package>
+  <freeType name="boolean" description="FreeType enclosure for type boolean" type="boolean"/>
+  <primitiveType name="String" description="Primitive type enclosure for primitive String" primitive="String"/>
+  <primitiveType name="Boolean" description="Primitive type enclosure for primitive Boolean"/>
+</model:System>

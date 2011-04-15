@@ -1,0 +1,24 @@
+==Mumble==
+Mumble is a java code generator in the style of ''Executable UML'' (Mellor and Balcer, 2002)
+
+Mumble can generate a fully executable persistent system as defined by 
+* UML Class Diagram 
+* UML State Machine
+Action Language is written in java classes implementing state entry procedures and class operations which is then injected into entity beans when required by a Guice injection module.
+
+===Features ===
+For each entity Mumble creates
+* Interface class
+* Ejb annotated Implementation class
+* Actions interface class (to be implemented by the injected actions class written externally)
+* Event classes as static nested classes of the interface class
+* Search class as a static nested class of the interface class
+
+Actions
+* all state machine entry methods are in the actions interface
+* all class operations (methods) are in the actions interface
+
+Search
+* every index and identifier is represented with a specific search method
+
+Entity instantiation is only available through static create methods on a package level ObjectFactory class. This forces creation of objects in conjunction with the injector.
