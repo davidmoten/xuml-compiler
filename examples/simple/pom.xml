@@ -1,8 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+  <parent>
+	<groupId>com.google.code.xuml-compiler</groupId>
+	<artifactId>xuml-compiler-parent</artifactId>
+	<version>0.4.10-SNAPSHOT</version>
+  </parent>
+
 	<groupId>com.google.code.xuml-compiler.examples</groupId>
 	<artifactId>simple</artifactId>
-		<version>0.4.10-SNAPSHOT</version>
 	<name>simple</name>
 	<properties>
 		<generated>${project.build.directory}/generated-source</generated>
