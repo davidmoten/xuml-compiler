@@ -17,3 +17,4 @@ Or
 Do everything at once
 
   mvn clean install release:prepare release:perform -DautoVersionSubmodules=true
+

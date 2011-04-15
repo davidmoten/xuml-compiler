@@ -34,6 +34,12 @@
 			<artifactId>cashbooks-definition</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.code.xuml-compiler</groupId>
+			<artifactId>xuml-jpa</artifactId>
+			<version>${project.version}</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

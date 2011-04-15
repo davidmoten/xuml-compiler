@@ -33,6 +33,7 @@
 		<url>http://code.google.com/p/xuml-compiler/source/browse/#svn/trunk</url>
 	</scm>
 	<modules>
+		<module>xuml-jpa</module>
 		<module>xuml-compiler</module>
 		<module>xuml-metamodel</module>
 		<module>${examples}/simple-definition</module>
