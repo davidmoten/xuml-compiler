@@ -30,7 +30,7 @@ _Figure 2: Customer State Machine_
 Here's how this system is defined and executed:
 
 ||Definition, Validation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/main/java/moten/david/xuml/model/example/simple/Simple.java Simple.java]||
-||Viewing||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/SimpleViewer.java SimpleViewer.java]||
+||Viewing||[http://code.google.com/p/xuml-compiler/source/browse/trunk/examples/simple/src/main/java/moten/david/xuml/model/example/simple/SimpleViewer.java]||
 ||EJB Generation||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/SimpleGenerator.java SimpleGenerator.java]||
 ||Action Language||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/CustomerBehaviour.java CustomerBehaviour.java]||
 || ||[http://code.google.com/p/xuml-compiler/source/browse/trunk/xuml-compiler/src/test/java/moten/david/xuml/model/example/simple/EmailBehaviour.java EmailBehaviour.java]||
