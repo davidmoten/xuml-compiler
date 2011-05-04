@@ -5,6 +5,7 @@
 		<artifactId>xuml-compiler-parent</artifactId>
 		<version>0.4.11-SNAPSHOT</version>
 	</parent>
+	<groupId>com.google.code.xuml-compiler</groupId>
 	<artifactId>xuml-metamodel</artifactId>
 	<name>xuml-metamodel</name>
 	<description>Ecore definition of meta model and generated java classes
