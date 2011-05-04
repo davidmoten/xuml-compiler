@@ -19,7 +19,8 @@ svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple my-xuml
 If you are using Eclipse:
   # create a svn repository (SVN Repositories View) with the url http://xuml-compiler.googlecode.com/svn. 
   # Explode the new repository down to ''trunk - examples'' and right click on the project you are interested in (say ''simple-definition'') and select Export. 
-  # Select your Eclipse workspace in the path, then in Package Explorer, select the project and hit F2 to rename it (to say my-xuml-definition).
+  # Select your Eclipse workspace in the path and hit OK
+  # In Package Explorer, select the project and hit F2 to rename it (to say my-xuml-definition).
 
 Repeat steps 2 and 3 for simple-definition and simple, renaming them to my-xuml-definition and my-xuml.
 
