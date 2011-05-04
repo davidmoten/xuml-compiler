@@ -17,11 +17,11 @@ svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple my-xuml
 }}}
 
 If you are using Eclipse:
-# create a svn repository (SVN Repositories View) with the url http://xuml-compiler.googlecode.com/svn. 
-# Explode the new repository down to trunk - examples and right click on the project you are interested in (say simple-definition) and select Export. 
-# Select your Eclipse workspace in the path, then in Package Explorer, select the project and hit F2 to rename it (to say my-xuml-definition).
+  # create a svn repository (SVN Repositories View) with the url http://xuml-compiler.googlecode.com/svn. 
+  # Explode the new repository down to trunk - examples and right click on the project you are interested in (say simple-definition) and select Export. 
+  # Select your Eclipse workspace in the path, then in Package Explorer, select the project and hit F2 to rename it (to say my-xuml-definition).
 
-Perform an export of both simple-definition and simple, renaming them to my-xuml-definition and my-xuml.
+Repeat steps 2 and 3 for simple-definition and simple, renaming them to my-xuml-definition and my-xuml.
 
 Now edit my-xuml-definition/pom.xml and my-xuml/pom.xml and change the parent version tags at the top to be the latest released version, say <code><version>4.10</version></code> (if you want to use the snapshot version you will need to checkout xuml-compiler-parent and do mvn clean install).
 
