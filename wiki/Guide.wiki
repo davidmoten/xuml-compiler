@@ -10,20 +10,23 @@ For a quick start look at [Example1Simple Simple Example].
 
 ===Sample project===
 
-Export the simple example project definition and main project:
+Checkout all the xuml-compiler projects under the parent:
 
 {{{
 svn checkout http://xuml-compiler.googlecode.com/svn/trunk xuml-compiler-parent
 }}}
 Build the projects:
 {{{
-cd simple-definition
-mvn clean install
-cd ../simple
+cd xuml-compiler-parent
 mvn clean install
 }}}
+Now to get the simple example project so that you can change it to your needs:
+{{{
+svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple-definition my-xuml-definition
+svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple my-xuml
+}}}
 
-Refactor this simple project as you wish.
+Refactor these simple projects ''my-xuml-definition'' and ''my-xuml'' as you wish.
 
 The sample project was tested with Eclipse 3.5 and the m2eclipse plugin.
 
