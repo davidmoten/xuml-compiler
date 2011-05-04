@@ -9,7 +9,7 @@ This guide shows you how to define, view, generate and execute a system using xU
 For a quick start look at [Example1Simple Simple Example].
 
 ===Create your own xuml project===
-
+====Export example projects===
 Get the simple example project so that you can change it to your needs:
 
 *Command line*
@@ -26,6 +26,7 @@ svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple my-xuml
 
 Repeat steps from step 2 for simple-definition and simple, renaming them to my-xuml-definition and my-xuml.
 
+====Customize example projects====
 Now edit my-xuml-definition/pom.xml and my-xuml/pom.xml and change the parent version tags at the top to be the latest released version, say <code><version>4.10</version></code> (if you want to use the snapshot version you will need to checkout xuml-compiler-parent and do mvn clean install).
 
 The sample project was tested with Eclipse 3.5 and the m2eclipse plugin.
