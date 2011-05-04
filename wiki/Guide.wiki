@@ -11,12 +11,14 @@ For a quick start look at [Example1Simple Simple Example].
 ===Create your own xuml project===
 
 Get the simple example project so that you can change it to your needs:
+
+'''Command line'''
 {{{
 svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple-definition my-xuml-definition
 svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple my-xuml
 }}}
 
-If you are using Eclipse:
+'''Or Using Eclipse'''
   # Create a svn repository (SVN Repositories View) with the url http://xuml-compiler.googlecode.com/svn. 
   # Explode the new repository down to ''trunk - examples'' and right click on the project you are interested in (say ''simple-definition'') and select Checkout. 
   # Right click on the project in Package Explorer and select Team - Disconnect. Select Also Delete the SVN meta-information and hit Yes.
