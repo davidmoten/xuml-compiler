@@ -10,21 +10,13 @@ For a quick start look at [Example1Simple Simple Example].
 
 ===Create your own xuml project===
 
-Checkout all the xuml-compiler projects under the parent:
-
-{{{
-svn checkout http://xuml-compiler.googlecode.com/svn/trunk xuml-compiler-parent
-}}}
-Build the projects:
-{{{
-cd xuml-compiler-parent
-mvn clean install
-}}}
-Now to get the simple example project so that you can change it to your needs:
+Get the simple example project so that you can change it to your needs:
 {{{
 svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple-definition my-xuml-definition
 svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple my-xuml
 }}}
+
+Now edit my-xuml-definition/pom.xml and my-xuml/pom.xml and change the version tags at the top to be the latest released version, say <version>4.10</version> (if you want to use the snapshot version you will need to checkout xuml-compiler-parent and do mvn clean install).
 
 The sample project was tested with Eclipse 3.5 and the m2eclipse plugin.
 
