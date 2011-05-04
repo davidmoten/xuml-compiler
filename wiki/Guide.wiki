@@ -16,7 +16,7 @@ svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple-definit
 svn export http://xuml-compiler.googlecode.com/svn/trunk/examples/simple my-xuml
 }}}
 
-Now edit my-xuml-definition/pom.xml and my-xuml/pom.xml and change the version tags at the top to be the latest released version, say <version>4.10</version> (if you want to use the snapshot version you will need to checkout xuml-compiler-parent and do mvn clean install).
+Now edit my-xuml-definition/pom.xml and my-xuml/pom.xml and change the version tags at the top to be the latest released version, say <code><version>4.10</version></code> (if you want to use the snapshot version you will need to checkout xuml-compiler-parent and do mvn clean install).
 
 The sample project was tested with Eclipse 3.5 and the m2eclipse plugin.
 
