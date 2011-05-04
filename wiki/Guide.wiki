@@ -8,7 +8,7 @@ This guide shows you how to define, view, generate and execute a system using xU
 
 For a quick start look at [Example1Simple Simple Example].
 
-===Sample project===
+===Create your own xuml project===
 
 Checkout all the xuml-compiler projects under the parent:
 
