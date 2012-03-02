@@ -1,0 +1,11 @@
+<domain xmlns="http://david.moten.org/xuml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://david.moten.org/xuml ../../main/resources/xuml.xsd ">
+	
+	<class name="Watch">
+		<attribute name="id" type="ArbitraryId" />
+		<identifier name="I">
+			<attribute name="id"/>
+		</identifier>
+	</class>
+	
+</domain>

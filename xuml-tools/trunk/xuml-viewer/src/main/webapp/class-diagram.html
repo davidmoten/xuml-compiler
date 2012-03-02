@@ -68,8 +68,6 @@
 				top:  element.offset().top + element.height()/2 };
 	}
 
-	
-
 	/**
 	* Returns determinant of this matrix:
 	*    | a  b |
@@ -226,13 +224,6 @@
 		return p6;
 	}
 
-	function unused_placeRelativeTo(element,a,b,c,weighting, degrees, labelOffset) {
-		var p = weightedAverage(a,b,weighting);
-		var q = rotateAbout(p, c, degrees);	
-		q = plus(q, labelOffset);					
-		setPosition(element,q.left, q.top);
-	}
-
 	var relationshipMidpoints = new Object();
 
 	function getRelationshipMidpoint(relationshipName) {
@@ -259,7 +250,6 @@
 				var t = Math.tan(Math.PI/2+x.theta);
 				delta = (e.width()+2 * 5)/t;
 			} else delta = 0;
-//console.log(e.text() + " theta="+ x.theta + " delta="+ + delta);
 			setPosition(e, p.left + 15, p.top -5 - delta - e.height());		
 		}
 		else if (p.side==3) {//bottom

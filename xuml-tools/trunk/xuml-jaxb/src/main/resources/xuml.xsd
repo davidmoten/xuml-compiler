@@ -1,5 +1,5 @@
 
-<schema targetNamespace="http://miuml.org/class" xmlns:t="http://miuml.org/class"
+<schema targetNamespace="http://david.moten.org/xuml" xmlns:t="http://david.moten.org/xuml"
 	xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<element name="domain" type="t:domain" />
@@ -18,75 +18,68 @@
 
 	<complexType name="class">
 		<sequence>
-			<element name="name" type="t:nonBlankString" />
 			<element name="attribute" type="t:attribute" maxOccurs="unbounded" />
 			<element name="identifier" type="t:identifier" maxOccurs="unbounded" />
-			<element name="operation" type="t:operation" maxOccurs="unbounded" />
+			<element name="operation" type="t:operation" maxOccurs="unbounded" minOccurs="0"/>
 		</sequence>
+		<attribute name="name" type="t:nonBlankString" />
 	</complexType>
 
 	<complexType name="attribute">
-		<sequence>
-			<element name="name" type="t:nonBlankString" />
-			<element name="type" type="t:attributeType" />
-			<element name="mandatory" type="boolean" minOccurs="0"
-				default="true" />
-		</sequence>
+		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="type" type="t:attributeType" />
+		<attribute name="mandatory" type="boolean" use="optional"
+			default="true" />
 	</complexType>
 
 	<simpleType name="attributeType">
 		<restriction base="string">
-			<enumeration value="decimal" />
-			<enumeration value="integer" />
-			<enumeration value="boolean" />
-			<enumeration value="timestamp" />
-			<enumeration value="date" />
-			<enumeration value="string" />
+			<enumeration value="Decimal" />
+			<enumeration value="Integer" />
+			<enumeration value="Boolean" />
+			<enumeration value="Timestamp" />
+			<enumeration value="Date" />
+			<enumeration value="String" />
+			<enumeration value="ArbitraryId"/>
 		</restriction>
 	</simpleType>
 
 	<complexType name="identifier">
 		<sequence>
-			<element name="name" type="t:nonBlankString" />
 			<element name="attribute" type="t:identifierAttribute"
 				maxOccurs="unbounded" />
 		</sequence>
+		<attribute name="name" type="t:nonBlankString" />
 	</complexType>
 
 	<complexType name="identifierAttribute">
-		<sequence>
-			<element name="relationshipName" type="t:nonBlankString"
-				minOccurs="0" />
-			<element name="attributeName" type="t:nonBlankString" />
-		</sequence>
+		<attribute name="relationshipName" type="t:nonBlankString"
+			use="optional" />
+		<attribute name="name" type="t:nonBlankString" />
 	</complexType>
 
 	<complexType name="operation">
 		<sequence>
-			<element name="name" type="t:nonBlankString" />
 			<element name="parameter" type="t:parameter" minOccurs="0"
 				maxOccurs="unbounded" />
-			<element name="returns" type="t:nonBlankString" minOccurs="0" />
 		</sequence>
+		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="returns" type="t:nonBlankString" use="optional" />
 	</complexType>
 
 	<complexType name="parameter">
-		<sequence>
-			<element name="name" type="t:nonBlankString" />
-			<element name="type" type="t:nonBlankString" />
-		</sequence>
+		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="type" type="t:nonBlankString" />
 	</complexType>
 
 	<complexType name="relationship">
-		<sequence>
-			<element name="name" type="t:nonBlankString" />
-			<element name="className1" type="t:nonBlankString" />
-			<element name="className2" type="t:nonBlankString" />
-			<element name="multiplicity1" type="t:multiplicity" />
-			<element name="multiplicity2" type="t:multiplicity" />
-			<element name="verbClause1" type="t:nonBlankString" />
-			<element name="verbClause2" type="t:nonBlankString" />
-		</sequence>
+		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="className1" type="t:nonBlankString" />
+		<attribute name="className2" type="t:nonBlankString" />
+		<attribute name="multiplicity1" type="t:multiplicity" />
+		<attribute name="multiplicity2" type="t:multiplicity" />
+		<attribute name="verbClause1" type="t:nonBlankString" />
+		<attribute name="verbClause2" type="t:nonBlankString" />
 	</complexType>
 
 	<simpleType name="multiplicity">
@@ -100,17 +93,15 @@
 
 	<complexType name="generalization">
 		<sequence>
-			<element name="name" type="t:nonBlankString" />
-			<element name="superClassName" type="t:nonBlankString" />
 			<element name="className" type="t:nonBlankString" maxOccurs="unbounded" />
 		</sequence>
+		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="superClassName" type="t:nonBlankString" />
 	</complexType>
 
 	<complexType name="association">
-		<sequence>
-			<element name="className" type="t:nonBlankString" />
-			<element name="relationshipName" type="t:nonBlankString" />
-		</sequence>
+		<attribute name="className" type="t:nonBlankString" />
+		<attribute name="relationshipName" type="t:nonBlankString" />
 	</complexType>
 
 	<simpleType name="nonBlankString">
