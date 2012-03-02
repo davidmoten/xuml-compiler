@@ -1,0 +1,22 @@
+<domain xmlns="http://david.moten.org/xuml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://david.moten.org/xuml ../../../../xuml-jaxb/src/main/resources/xuml.xsd">
+
+	<class name="Class">
+		<attribute name="domain" type="String" />
+		<attribute name="name" type="String" />
+		<identifier name="I">
+			<attribute name="domain" />
+			<attribute name="name" />
+		</identifier>
+	</class>
+
+	<class name="Attribute">
+		<attribute name="id" type="ArbitraryId" />
+		<attribute name="name" type="String" />
+		<attribute name="relationship" type="String" mandatory="false" />
+		<identifier name="I">
+			<attribute name="id" />
+		</identifier>
+	</class>
+
+</domain>
