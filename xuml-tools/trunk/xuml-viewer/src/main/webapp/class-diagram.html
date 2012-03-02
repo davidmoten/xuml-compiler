@@ -42,6 +42,9 @@
 	.cls {background:#F6F4D4; box-shadow: 5px 5px 5px #888;border:thin solid grey;}
 	.save {float:right; padding-right:2em;color:#0000EE;}
 	.restore {float:right; padding-right:2em; color:#0000EE;}
+	.edit {float:right; padding-right:2em; color:#0000EE;}
+	.editor {display:none;}
+	.editor textarea {width:95%;height:95%;resize:none;}
 </style>
 <script>
 
@@ -509,13 +512,27 @@
 		});
 	}
 
+	function createEdit() {
+		$("body").prepend("<div id='edit' class='edit noprint'>Edit</div>");
+		$("body").prepend("<div id='editor' class='editor' title='Editor'><textarea class='editor-text'></textarea></div>");
+		$("#editor").dialog({ autoOpen: false });
+		$("#edit").click(function () {
+			$("#editor").dialog('open');
+		});
+	}
+
+	function makeDraggable() {
+		$( ".draggable" ).draggable(dragListener).resizable(resizeListener);	
+	}
+
 	var xml;
 
 	function setup() {
-		$( ".draggable" ).draggable(dragListener).resizable(resizeListener);
 		createDivs();
+		createEdit();	
 		createSave();
-		createRestore();		
+		createRestore();	
+		makeDraggable();
 		repaint();
 	}
 
