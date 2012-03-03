@@ -42,9 +42,8 @@
 	.cls {background:#F6F4D4; box-shadow: 5px 5px 5px #888;border:thin solid grey;}
 	.save {float:right; padding-right:2em;color:#0000EE;}
 	.restore {float:right; padding-right:2em; color:#0000EE;}
-	.edit {float:right; padding-right:2em; color:#0000EE;}
-	.editor {display:none;}
-	.editor textarea {width:95%;height:95%;resize:none;}
+	#options {float:right; padding-right:2em; color:#0000EE;}
+	#options-editor {display:none;}
 </style>
 <script>
 
@@ -512,12 +511,14 @@
 		});
 	}
 
-	function createEdit() {
-		$("body").prepend("<div id='edit' class='edit noprint'>Edit</div>");
-		$("body").prepend("<div id='editor' class='editor' title='Editor'><textarea class='editor-text'></textarea></div>");
-		$("#editor").dialog({ autoOpen: false });
-		$("#edit").click(function () {
-			$("#editor").dialog('open');
+	function createOptions() {
+		$("body").prepend("<div id='options-editor' class='options-editor' title='Options'><p>Options for the diagram will go here.</p></div>");
+		$("body").prepend("<div id='options' class='options noprint'>Options</div>");
+		var options = $("#options");
+		var optionsEditor = $("#options-editor");	
+		optionsEditor.dialog({ autoOpen: false });
+		options.click(function () {
+			optionsEditor.dialog('open');
 		});
 	}
 
@@ -529,7 +530,7 @@
 
 	function setup() {
 		createDivs();
-		createEdit();	
+		createOptions();	
 		createSave();
 		createRestore();	
 		makeDraggable();

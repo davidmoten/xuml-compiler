@@ -15,7 +15,7 @@
 
 	<modules>
 		<module>xuml-jaxb</module>
-		<module>xuml-viewer</module>
+		<module>xuml-diagrams</module>
 	</modules>
 	<build>
 		<plugins>

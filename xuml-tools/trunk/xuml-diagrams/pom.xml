@@ -6,7 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>xuml-viewer</artifactId>
+  <artifactId>xuml-diagrams</artifactId>
   <name>${project.artifactId}</name>
   <packaging>war</packaging>
 </project>
