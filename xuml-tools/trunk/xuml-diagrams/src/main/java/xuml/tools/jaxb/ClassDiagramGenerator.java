@@ -22,27 +22,39 @@ public class ClassDiagramGenerator {
 			for (Attribute a : c.getAttribute()) {
 				s.append("    <div class=\"attribute\">" + a.getName() + ": "
 						+ a.getType().value());
-				Set<String> identifiers = new TreeSet<String>();
-				for (Identifier id : c.getIdentifier())
-					for (IdentifierAttribute ida : id.getAttribute())
-						if (ida.getName().equals(a.getName())
-								&& ida.getRelationshipName() == null)
-							identifiers.add(id.getName());
-				{
-					StringBuilder sb = new StringBuilder();
-					for (String id : identifiers) {
-						if (sb.length()>0) sb.append(",");
-						sb.append(id);
-					}
-					if (sb.length()>0)
-						s.append(" {"+sb+"}");
-				}
+				s.append(getMatchingIdentifiers(c, null, a.getName()));
+				if (!a.isMandatory())
+					s.append(" {O}");
 				s.append("</div>\n");
 			}
+			for (Identifier id : c.getIdentifier())
+				for (IdentifierAttribute ida : id.getAttribute())
+					if (ida.getRelationshipName() != null)
+						s.append("<div class=\"attribute\">" + ida.getName()
+								+ " " + ida.getRelationshipName() + "</div");
 			s.append("  </div>\n");
 			s.append("</div>\n");
 		}
 		return s.toString();
 	}
 
+	public String getMatchingIdentifiers(Class c, String relationshipName,
+			String attributeName) {
+		Set<String> identifiers = new TreeSet<String>();
+		for (Identifier id : c.getIdentifier())
+			for (IdentifierAttribute ida : id.getAttribute())
+				if (ida.getName().equals(attributeName)
+						&& ida.getRelationshipName() == relationshipName)
+					identifiers.add(id.getName());
+		StringBuilder sb = new StringBuilder();
+		for (String id : identifiers) {
+			if (sb.length() > 0)
+				sb.append(",");
+			sb.append(id);
+		}
+		if (sb.length() > 0)
+			return " {" + sb + "}";
+		else
+			return "";
+	}
 }
