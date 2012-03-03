@@ -9,4 +9,17 @@
   <artifactId>xuml-diagrams</artifactId>
   <name>${project.artifactId}</name>
   <packaging>war</packaging>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.moten.david</groupId>
+  		<artifactId>xuml-jaxb</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.8.2</version>
+  		<scope>test</scope>
+  	</dependency>
+  </dependencies>
 </project>

@@ -22,7 +22,7 @@
 				</executions>
 				<configuration>
 					<schemaDirectory>${basedir}/src/main/resources</schemaDirectory>
-					<packageName>xuml.jaxb</packageName>
+					<packageName>xuml.metamodel.jaxb</packageName>
 				</configuration>
 			</plugin>
 		</plugins>
