@@ -1,6 +1,6 @@
 
 <schema targetNamespace="http://david.moten.org/xuml" xmlns:t="http://david.moten.org/xuml"
-	xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"  elementFormDefault="unqualified">
+	xmlns="http://www.w3.org/2001/XMLSchema"   elementFormDefault="qualified">
 
 	<element name="domain" type="t:domain" />
 
