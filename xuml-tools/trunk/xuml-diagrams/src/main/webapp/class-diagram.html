@@ -26,7 +26,8 @@
 <style>
 	body {font-family: Tahoma, Geneva, sans-serif;font-size:100%;}
 	.draggable { position:absolute; left:0px; top:0px; width: 150px; height: 150px; }
-	.className { border-bottom:thin solid grey; padding:0.5em;font-weight:bold; }
+	.className { border-bottom:thin solid grey; padding:0.5em;font-weight:bold; text-align:center;}
+	.header { font-weight:normal;text-align:center;padding-left:0.5em;padding-top:0.5em;padding-right:0.5em;color:grey;}
 	.attributes { padding:0.5em; }
 	.operations { padding:0.5em; border-top:thin solid grey;}
 	.operation { font-style:italic;}
@@ -478,7 +479,12 @@
 		});
 		$(".cls").each(function() {
 			var e = $(this);	
-			e.prepend('<div class="className">'+e.attr("id")+"</div>"); 
+			e.prepend('<div id="className'+e.attr("id")+'" class="className">'+e.attr("id")+"</div>");
+			//make sure header comes before class name 
+			e.find(".header").each(function () {
+				var h = $(this);
+				h.insertBefore("#className"+e.attr("Id"));
+			});
 		});
 	}
 
@@ -547,6 +553,7 @@
 <canvas id="canvas" width="4000" height="4000"></canvas>
 
 <div id="Watch" class=" draggable cls" style="width: 280px; height: 155px; left: 245px; top: 259px; ">
+  <div class="header">&lt;&lt;stereotype&gt;&gt;</div>
   <div class="attributes">
     <div class="attribute">id: ArbitraryId {I}</div>
     <div class="attribute">startTime: Timestamp</div>
