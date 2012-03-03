@@ -502,29 +502,37 @@
 		});
 	}
 
+	function restore() {
+		$('.cls').each(function() {
+			var e = $(this);
+			var id = e.attr("id");			
+			e.css("left",localStorage.getItem(id + ".left"));
+			e.css("top",localStorage.getItem(id + ".top"));
+			e.css("width",localStorage.getItem(id + ".width"));
+			e.css("height",localStorage.getItem(id + ".height"));
+		});
+		repaint();
+	}
+
 	function createRestore() {
 		$("body").prepend("<div id='restore' class='restore noprint'>Restore</div>");
 		$("#restore").click(function () {
-			$('.cls').each(function() {
-				var e = $(this);
-				var id = e.attr("id");			
-				e.css("left",localStorage.getItem(id + ".left"));
-				e.css("top",localStorage.getItem(id + ".top"));
-				e.css("width",localStorage.getItem(id + ".width"));
-				e.css("height",localStorage.getItem(id + ".height"));
-			});
-			repaint();
+			restore();
 		});
 	}
 
 	function createOptions() {
-		$("body").prepend("<div id='options-editor' class='options-editor' title='Options'><p>Options for the diagram will go here.</p></div>");
+		$("body").prepend("<div id='options-editor' class='options-editor' title='Options'><input id='restoreOnLoad' type='checkbox' name='restoreOnLoad' value='false'> Restore on load</div>");
 		$("body").prepend("<div id='options' class='options noprint'>Options</div>");
 		var options = $("#options");
 		var optionsEditor = $("#options-editor");	
 		optionsEditor.dialog({ autoOpen: false });
 		options.click(function () {
 			optionsEditor.dialog('open');
+		});
+		$("#restoreOnLoad").change(function () {
+			var checked = $(this).is(':checked');
+			localStorage.setItem("restoreOnLoad", checked);
 		});
 	}
 
@@ -540,6 +548,8 @@
 		createSave();
 		createRestore();	
 		makeDraggable();
+		if (localStorage.getItem("restoreOnLoad") == "true")
+			restore();
 		repaint();
 	}
 
