@@ -18,13 +18,13 @@ public class ClassDiagramGeneratorTest {
 	public void testGenerate() throws IOException {
 		ClassDiagramGenerator g = new ClassDiagramGenerator();
 		Domain domain = new Marshaller().unmarshal(new FileInputStream(
-				"src/main/webapp/xuml-sample-1.xml"));
+				TstUtil.SAMPLE_XML));
 		String s = g.generate(domain);
 		System.out.println(s);
 		File webapp= new File("target/webapp");
 		FileUtils.deleteDirectory(webapp);
 		FileUtils.copyDirectoryToDirectory(new File("src/main/webapp"), new File("target"));
-		FileOutputStream fos = new FileOutputStream("target/webapp/class-diagram-1.html");
+		FileOutputStream fos = new FileOutputStream("target/webapp/class-diagram.html");
 		IOUtils.copy(IOUtils.toInputStream(s), fos);
 		fos.close();
 		Assert.assertTrue(s.endsWith("</html>"));

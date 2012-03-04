@@ -1,6 +1,6 @@
 body {font-family: Tahoma, Geneva, sans-serif;font-size:100%;}
 body {font-family: Tahoma, Geneva, sans-serif;font-size:100%;}
-.draggable { position:absolute; left:0px; top:0px; width: 150px; height: 150px; }
+.draggable { position:absolute; left:0px; top:0px; }
 .className { border-bottom:thin solid grey; padding:0.5em;font-weight:bold; text-align:center;}
 .header { font-weight:normal;text-align:center;padding-left:0.5em;padding-top:0.5em;padding-right:0.5em;color:grey;}
 .attributes { padding:0.5em; }

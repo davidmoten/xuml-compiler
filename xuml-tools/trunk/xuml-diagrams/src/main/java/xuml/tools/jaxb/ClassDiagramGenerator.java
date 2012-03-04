@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.Domain;
+import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.Identifier;
 import xuml.metamodel.jaxb.IdentifierAttribute;
 import xuml.metamodel.jaxb.Multiplicity;
@@ -59,8 +60,16 @@ public class ClassDiagramGenerator {
 					+ "\" multiplicity1=\""
 					+ getAbbreviation(r.getMultiplicity1())
 					+ "\" multiplicity2=\""
-					+ getAbbreviation(r.getMultiplicity2()) + "\"></div>");
+					+ getAbbreviation(r.getMultiplicity2()) + "\"></div>\n");
 		}
+		for (Generalization g : domain.getGeneralization())
+			for (String className : g.getClassName()) {
+				s.append("<div class=\"generalization\" id=\""
+						+ className + "-" + g.getName()
+						+ "\" groupName=\"" + g.getName()
+						+ "\" superClassName=\"" + g.getSuperClassName()
+						+ "\" subClassName=\"" + className + "\"></div>\n");
+			}
 		return s.toString();
 	}
 

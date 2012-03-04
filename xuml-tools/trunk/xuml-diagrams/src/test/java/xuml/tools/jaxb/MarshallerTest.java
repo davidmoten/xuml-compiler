@@ -14,7 +14,7 @@ public class MarshallerTest {
 	@Test
 	public void testUnmarshal() throws FileNotFoundException {
 		Marshaller m = new Marshaller();
-		InputStream is = new FileInputStream("src/main/webapp/xuml-sample-1.xml");
+		InputStream is = new FileInputStream(TstUtil.SAMPLE_XML);
 		Domain domain = m.unmarshal(is);
 		Assert.assertTrue(domain.getClazz().size()>1);
 	}
