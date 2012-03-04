@@ -13,8 +13,6 @@ import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
 
-import xuml.metamodel.jaxb.Domain;
-
 public class Marshaller {
 
 	private Unmarshaller unmarshaller;
@@ -42,9 +40,9 @@ public class Marshaller {
 		}
 	}
 
-	public synchronized Domain unmarshal(InputStream is) {
+	public synchronized xuml.metamodel.jaxb.System unmarshal(InputStream is) {
 		try {
-			return unmarshaller.unmarshal(new StreamSource(is), Domain.class)
+			return unmarshaller.unmarshal(new StreamSource(is), xuml.metamodel.jaxb.System.class)
 					.getValue();
 		} catch (JAXBException e) {
 			throw new RuntimeException(e);

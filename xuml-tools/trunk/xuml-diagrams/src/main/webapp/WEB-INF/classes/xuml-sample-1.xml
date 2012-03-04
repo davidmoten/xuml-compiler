@@ -1,0 +1,51 @@
+<system xmlns="http://david.moten.org/xuml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://david.moten.org/xuml ../../../../xuml-jaxb/src/main/resources/xuml.xsd">
+
+	<class name="Class" domain="xuml">
+		<attribute name="Name" type="String" />
+		<attribute name="Element" type="String" />
+		<attribute name="Cnum" type="String" />
+		<identifier name="I">
+			<native name="Domain" />
+			<native name="Name" />
+		</identifier>
+	</class>
+
+	<class name="Attribute" domain="xuml">
+		<attribute name="id" type="ArbitraryId" />
+		<attribute name="name" type="String" />
+		<identifier name="I">
+			<native name="id" />
+		</identifier>
+	</class>
+
+	<class name="ReferentialAttribute" domain="xuml">
+		<attribute name="id" type="ArbitraryId" />
+		<attribute name="name" type="String" />
+		<attribute name="relationship" type="String" />
+		<identifier name="I">
+			<native name="id" />
+		</identifier>
+	</class>
+
+	<class name="NativeAttribute" domain="xuml">
+		<attribute name="id" type="ArbitraryId" />
+		<identifier name="I">
+			<native name="id" />
+		</identifier>
+	</class>
+
+	<relationship name="RO1">
+		<class1 name="Class" domain="xuml" verbClause="is a member of"
+			multiplicity="ONE" />
+		<class2 name="Attribute" domain="xuml" verbClause="has member"
+			multiplicity="ONE_MANY" />
+	</relationship>
+
+	<generalization name="G01">
+		<superClass name="Attribute" domain="xuml" />
+		<class name="ReferentialAttribute" domain="xuml" />
+		<class name="NativeAttribute" domain="xuml" />
+	</generalization>
+
+</system>

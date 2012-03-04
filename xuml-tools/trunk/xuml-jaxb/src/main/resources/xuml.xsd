@@ -1,10 +1,10 @@
 
 <schema targetNamespace="http://david.moten.org/xuml" xmlns:t="http://david.moten.org/xuml"
-	xmlns="http://www.w3.org/2001/XMLSchema"   elementFormDefault="qualified">
+	xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
-	<element name="domain" type="t:domain" />
+	<element name="system" type="t:system" />
 
-	<complexType name="domain">
+	<complexType name="system">
 		<sequence>
 			<element name="class" type="t:class" minOccurs="0" maxOccurs="unbounded" />
 			<element name="relationship" type="t:relationship" minOccurs="0"
@@ -17,12 +17,16 @@
 	</complexType>
 
 	<complexType name="class">
-		<sequence>
-			<element name="attribute" type="t:attribute" maxOccurs="unbounded" />
-			<element name="identifier" type="t:identifier" maxOccurs="unbounded" />
-			<element name="operation" type="t:operation" maxOccurs="unbounded" minOccurs="0"/>
-		</sequence>
-		<attribute name="name" type="t:nonBlankString" />
+		<complexContent>
+			<extension base="t:classWithDomain">
+				<sequence>
+					<element name="attribute" type="t:attribute" maxOccurs="unbounded" />
+					<element name="identifier" type="t:identifier" maxOccurs="unbounded" />
+					<element name="operation" type="t:operation" maxOccurs="unbounded"
+						minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
 	</complexType>
 
 	<complexType name="attribute">
@@ -40,22 +44,28 @@
 			<enumeration value="Timestamp" />
 			<enumeration value="Date" />
 			<enumeration value="String" />
-			<enumeration value="ArbitraryId"/>
+			<enumeration value="ArbitraryId" />
 		</restriction>
 	</simpleType>
 
 	<complexType name="identifier">
 		<sequence>
-			<element name="attribute" type="t:identifierAttribute"
-				maxOccurs="unbounded" />
+			<element name="native" type="t:nativeAttribute" maxOccurs="unbounded" minOccurs="0" />
+			<element name="referential" type="t:referentialAttribute" maxOccurs="unbounded"  minOccurs="0"/>
 		</sequence>
+		<attribute name="name" type="t:nonBlankString"/>
+	</complexType>
+
+	<complexType name="nativeAttribute">
 		<attribute name="name" type="t:nonBlankString" />
 	</complexType>
 
-	<complexType name="identifierAttribute">
+	<complexType name="referentialAttribute">
+		<sequence>
+			<element name="class" type="t:classWithDomain" />
+		</sequence>
 		<attribute name="relationshipName" type="t:nonBlankString"
 			use="optional" />
-		<attribute name="name" type="t:nonBlankString" />
 	</complexType>
 
 	<complexType name="operation">
@@ -73,13 +83,20 @@
 	</complexType>
 
 	<complexType name="relationship">
+		<sequence>
+			<element name="class1" type="t:relationshipEnd" />
+			<element name="class2" type="t:relationshipEnd" />
+		</sequence>
 		<attribute name="name" type="t:nonBlankString" />
-		<attribute name="className1" type="t:nonBlankString" />
-		<attribute name="className2" type="t:nonBlankString" />
-		<attribute name="multiplicity1" type="t:multiplicity" />
-		<attribute name="multiplicity2" type="t:multiplicity" />
-		<attribute name="verbClause1" type="t:nonBlankString" />
-		<attribute name="verbClause2" type="t:nonBlankString" />
+	</complexType>
+
+	<complexType name="relationshipEnd">
+		<complexContent>
+			<extension base="t:classWithDomain">
+				<attribute name="verbClause" type="t:nonBlankString" />
+				<attribute name="multiplicity" type="t:multiplicity" />
+			</extension>
+		</complexContent>
 	</complexType>
 
 	<simpleType name="multiplicity">
@@ -93,15 +110,23 @@
 
 	<complexType name="generalization">
 		<sequence>
-			<element name="className" type="t:nonBlankString" maxOccurs="unbounded" />
+			<element name="superClass" type="t:classWithDomain" />
+			<element name="class" type="t:classWithDomain" maxOccurs="unbounded" />
 		</sequence>
 		<attribute name="name" type="t:nonBlankString" />
-		<attribute name="superClassName" type="t:nonBlankString" />
+	</complexType>
+
+	<complexType name="classWithDomain">
+		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="domain" type="t:nonBlankString" />
 	</complexType>
 
 	<complexType name="association">
-		<attribute name="className" type="t:nonBlankString" />
-		<attribute name="relationshipName" type="t:nonBlankString" />
+		<complexContent>
+			<extension base="t:classWithDomain">
+				<attribute name="relationshipName" type="t:nonBlankString" />
+			</extension>
+		</complexContent>
 	</complexType>
 
 	<simpleType name="nonBlankString">

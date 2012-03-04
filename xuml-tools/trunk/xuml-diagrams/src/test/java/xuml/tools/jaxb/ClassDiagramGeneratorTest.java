@@ -10,16 +10,15 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import xuml.metamodel.jaxb.Domain;
-
 public class ClassDiagramGeneratorTest {
 
+	
 	@Test
 	public void testGenerate() throws IOException {
 		ClassDiagramGenerator g = new ClassDiagramGenerator();
-		Domain domain = new Marshaller().unmarshal(new FileInputStream(
+		xuml.metamodel.jaxb.System system= new Marshaller().unmarshal(new FileInputStream(
 				TstUtil.SAMPLE_XML));
-		String s = g.generate(domain);
+		String s = g.generate(system);
 		System.out.println(s);
 		File webapp= new File("target/webapp");
 		FileUtils.deleteDirectory(webapp);
