@@ -1,8 +1,13 @@
 package xuml.tools.jaxb;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 import xuml.metamodel.jaxb.Domain;
@@ -10,12 +15,19 @@ import xuml.metamodel.jaxb.Domain;
 public class ClassDiagramGeneratorTest {
 
 	@Test
-	public void testGenerate() throws FileNotFoundException {
+	public void testGenerate() throws IOException {
 		ClassDiagramGenerator g = new ClassDiagramGenerator();
 		Domain domain = new Marshaller().unmarshal(new FileInputStream(
 				"src/main/webapp/xuml-sample-1.xml"));
 		String s = g.generate(domain);
 		System.out.println(s);
+		File webapp= new File("target/webapp");
+		FileUtils.deleteDirectory(webapp);
+		FileUtils.copyDirectoryToDirectory(new File("src/main/webapp"), new File("target"));
+		FileOutputStream fos = new FileOutputStream("target/webapp/class-diagram-1.html");
+		IOUtils.copy(IOUtils.toInputStream(s), fos);
+		fos.close();
+		Assert.assertTrue(s.endsWith("</html>"));
 	}
 
 }

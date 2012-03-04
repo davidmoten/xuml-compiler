@@ -18,5 +18,8 @@
 			<attribute name="id" />
 		</identifier>
 	</class>
+	
+	<relationship name="RO1" className1="Class" className2="Attribute" verbClause1="is a member of" verbClause2="has member" multiplicity1="ONE" multiplicity2="ONE_MANY"/>
+	
 
 </domain>
