@@ -10,8 +10,6 @@
 				maxOccurs="unbounded" />
 			<element name="generalization" type="t:generalization"
 				minOccurs="0" maxOccurs="unbounded" />
-			<element name="association" type="t:association" minOccurs="0"
-				maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 
@@ -23,6 +21,12 @@
 					<element name="operation" type="t:operation" maxOccurs="unbounded"
 						minOccurs="0" />
 				</sequence>
+				<attribute name="relationship" type="t:nonBlankString">
+					<annotation>
+						<documentation>If this is present then the class is an Association
+							Class</documentation>
+					</annotation>
+				</attribute>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -37,7 +41,7 @@
 			<element name="identifier" type="t:identifier" minOccurs="0"
 				maxOccurs="unbounded" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString"  use="required"/>
+		<attribute name="name" type="t:nonBlankString" use="required" />
 	</complexType>
 
 	<complexType name="identifier">
@@ -47,7 +51,7 @@
 	<complexType name="nativeAttribute">
 		<complexContent>
 			<extension base="t:attribute">
-				<attribute name="type" type="t:nativeAttributeType" use="required"/>
+				<attribute name="type" type="t:nativeAttributeType" use="required" />
 				<attribute name="mandatory" type="boolean" use="optional"
 					default="true" />
 			</extension>
@@ -69,8 +73,10 @@
 	<complexType name="referentialAttribute">
 		<complexContent>
 			<extension base="t:attribute">
-				<attribute name="otherAttribute" type="t:nonBlankString" use="optional"/>
-				<attribute name="relationship" type="t:nonBlankString"  use="required"/>
+				<attribute name="otherName" type="t:nonBlankString"
+					use="optional" />
+				<attribute name="relationship" type="t:nonBlankString"
+					use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -80,13 +86,13 @@
 			<element name="parameter" type="t:parameter" minOccurs="0"
 				maxOccurs="unbounded" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString"  use="required"/>
+		<attribute name="name" type="t:nonBlankString" use="required" />
 		<attribute name="returns" type="t:nonBlankString" use="optional" />
 	</complexType>
 
 	<complexType name="parameter">
-		<attribute name="name" type="t:nonBlankString"  use="required"/>
-		<attribute name="type" type="t:nonBlankString"  use="required"/>
+		<attribute name="name" type="t:nonBlankString" use="required" />
+		<attribute name="type" type="t:nonBlankString" use="required" />
 	</complexType>
 
 	<complexType name="relationship">
@@ -94,14 +100,14 @@
 			<element name="class1" type="t:relationshipEnd" />
 			<element name="class2" type="t:relationshipEnd" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString"  use="required"/>
+		<attribute name="name" type="t:nonBlankString" use="required" />
 	</complexType>
 
 	<complexType name="relationshipEnd">
 		<complexContent>
 			<extension base="t:classWithDomain">
-				<attribute name="verbClause" type="t:nonBlankString"  use="required"/>
-				<attribute name="multiplicity" type="t:multiplicity"  use="required"/>
+				<attribute name="verbClause" type="t:nonBlankString" use="required" />
+				<attribute name="multiplicity" type="t:multiplicity" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -120,20 +126,12 @@
 			<element name="superClass" type="t:classWithDomain" />
 			<element name="class" type="t:classWithDomain" maxOccurs="unbounded" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString" use="required"/>
+		<attribute name="name" type="t:nonBlankString" use="required" />
 	</complexType>
 
 	<complexType name="classWithDomain">
-		<attribute name="name" type="t:nonBlankString"  use="required"/>
-		<attribute name="domain" type="t:nonBlankString"  use="required"/>
-	</complexType>
-
-	<complexType name="association">
-		<complexContent>
-			<extension base="t:classWithDomain">
-				<attribute name="relationship" type="t:nonBlankString"  use="required"/>
-			</extension>
-		</complexContent>
+		<attribute name="name" type="t:nonBlankString" use="required" />
+		<attribute name="domain" type="t:nonBlankString" use="required" />
 	</complexType>
 
 	<simpleType name="nonBlankString">

@@ -34,54 +34,12 @@ public class ClassDiagramGenerator {
 
 	private String generateDivs(xuml.metamodel.jaxb.System system) {
 		StringBuilder s = new StringBuilder();
-		for (Class c : system.getClazz()) {
-			System.out.println("class="+c.getName());
-			s.append("<div id=\"" + c.getName()
-					+ "\" class=\"cls draggable\">\n");
-			s.append("  <div class=\"attributes\">\n");
-			for (JAXBElement<? extends Attribute> attr : c.getAttribute()) {
-				System.out.println("attribute=" + attr.getValue().getName());
-				List<String> items = new ArrayList<String>();
-				for (Identifier id : attr.getValue().getIdentifier())
-					items.add(id.getName());
-				if (attr.getValue() instanceof NativeAttribute) {
-					NativeAttribute a = (NativeAttribute) attr.getValue();
-					s.append("    <div class=\"attribute\">" + a.getName()
-							+ ": " + a.getType().value() + " ");
-					if (!a.isMandatory())
-						items.add("O");
-				} else {
-					ReferentialAttribute r = (ReferentialAttribute) attr
-							.getValue();
-					items.add(r.getRelationship());
-					s.append("<div class=\"attribute\">"
-							+ r.getName() + ": ");
-				}
-				StringBuilder b = new StringBuilder();
-				for (String item : items) {
-					if (b.length() > 0)
-						b.append(",");
-					b.append(item);
-				}
-				if (b.length() > 0)
-					s.append("{" + b + "}");
-				s.append("</div>\n");
-			}
-			s.append("  </div>\n");
-			s.append("</div>\n");
-		}
-		for (Relationship r : system.getRelationship()) {
-			s.append("<div class=\"relationship\" id=\"" + r.getName()
-					+ "\" className1=\"" + r.getClass1().getName()
-					+ "\" className2=\"" + r.getClass2().getName()
-					+ "\" verbClause1=\"" + r.getClass1().getVerbClause()
-					+ "\" verbClause2=\"" + r.getClass2().getVerbClause()
-					+ "\" multiplicity1=\""
-					+ getAbbreviation(r.getClass1().getMultiplicity())
-					+ "\" multiplicity2=\""
-					+ getAbbreviation(r.getClass2().getMultiplicity())
-					+ "\"></div>\n");
-		}
+		for (Class c : system.getClazz()) 
+			generateClass(s, c);
+		
+		for (Relationship r : system.getRelationship()) 
+			generateRelationship(s, r);
+		
 		for (Generalization g : system.getGeneralization())
 			for (ClassWithDomain cls : g.getClazz()) {
 				s.append("<div class=\"generalization\" id=\"" + cls.getName()
@@ -90,6 +48,62 @@ public class ClassDiagramGenerator {
 						+ "\" subClassName=\"" + cls.getName() + "\"></div>\n");
 			}
 		return s.toString();
+	}
+
+	private void generateRelationship(StringBuilder s, Relationship r) {
+		s.append("<div class=\"relationship\" id=\"" + r.getName()
+				+ "\" className1=\"" + r.getClass1().getName()
+				+ "\" className2=\"" + r.getClass2().getName()
+				+ "\" verbClause1=\"" + r.getClass1().getVerbClause()
+				+ "\" verbClause2=\"" + r.getClass2().getVerbClause()
+				+ "\" multiplicity1=\""
+				+ getAbbreviation(r.getClass1().getMultiplicity())
+				+ "\" multiplicity2=\""
+				+ getAbbreviation(r.getClass2().getMultiplicity())
+				+ "\"></div>\n");
+	}
+
+	private void generateClass(StringBuilder s, Class c) {
+		System.out.println("class="+c.getName());
+		s.append("<div id=\"" + c.getName()
+				+ "\" class=\"cls draggable");
+		if (c.getRelationship()!=null)
+			s.append(" associationClass");
+		s.append("\"");
+		if (c.getRelationship()!=null)
+			s.append(" relationshipName=\""+ c.getRelationship() + "\" ");
+		s.append(">\n");
+		s.append("  <div class=\"attributes\">\n");
+		for (JAXBElement<? extends Attribute> attr : c.getAttribute()) {
+			System.out.println("attribute=" + attr.getValue().getName());
+			List<String> items = new ArrayList<String>();
+			for (Identifier id : attr.getValue().getIdentifier())
+				items.add(id.getName());
+			if (attr.getValue() instanceof NativeAttribute) {
+				NativeAttribute a = (NativeAttribute) attr.getValue();
+				s.append("    <div class=\"attribute\">" + a.getName()
+						+ ": " + a.getType().value() + " ");
+				if (!a.isMandatory())
+					items.add("O");
+			} else {
+				ReferentialAttribute r = (ReferentialAttribute) attr
+						.getValue();
+				items.add(r.getRelationship());
+				s.append("<div class=\"attribute\">"
+						+ r.getName() + ": ");
+			}
+			StringBuilder b = new StringBuilder();
+			for (String item : items) {
+				if (b.length() > 0)
+					b.append(",");
+				b.append(item);
+			}
+			if (b.length() > 0)
+				s.append("{" + b + "}");
+			s.append("</div>\n");
+		}
+		s.append("  </div>\n");
+		s.append("</div>\n");
 	}
 
 	private static String getAbbreviation(Multiplicity m) {

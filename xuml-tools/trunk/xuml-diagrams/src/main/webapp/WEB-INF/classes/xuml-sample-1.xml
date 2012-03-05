@@ -74,14 +74,19 @@
 			<identifier name="I" />
 		</referential>
 	</class>
-	<class name="IdentifierAttribute" domain="xuml">
-		<native name="Number" type="String">
-			<identifier name="I" />
-		</native>
-		<referential name="Class" relationship="R27">
+	<class name="IdentifierAttribute" domain="xuml" relationship="R22">
+		<referential name="Identifier" otherName="Number"
+			relationship="R22">
 			<identifier name="I" />
 		</referential>
-		<referential name="Domain" relationship="R27">
+		<referential name="Attribute" otherName="Name"
+			relationship="R22">
+			<identifier name="I" />
+		</referential>
+		<referential name="Class" relationship="R22">
+			<identifier name="I" />
+		</referential>
+		<referential name="Domain" relationship="R22">
 			<identifier name="I" />
 		</referential>
 	</class>
@@ -97,6 +102,24 @@
 			<identifier name="I" />
 		</referential>
 		<referential name="Type" relationship="R24" />
+	</class>
+
+	<class name="AttributeInDerivation" domain="xuml" relationship="R26">
+		<referential name="SourceAttribute" relationship="R26">
+			<identifier name="I" />
+		</referential>
+		<referential name="SourceClass" relationship="R26">
+			<identifier name="I" />
+		</referential>
+		<referential name="TargetAttribute" relationship="R26">
+			<identifier name="I" />
+		</referential>
+		<referential name="TargetClass" relationship="R26">
+			<identifier name="I" />
+		</referential>
+		<referential name="Domain" relationship="R26">
+			<identifier name="I"/>
+		</referential>
 	</class>
 
 	<class name="IndependentAttribute" domain="xuml">
@@ -120,6 +143,7 @@
 		<referential name="Domain" relationship="R25">
 			<identifier name="I" />
 		</referential>
+		<native name="Formula" type="String"/>
 	</class>
 	<relationship name="R20">
 		<class1 name="Class" domain="xuml" verbClause="characterizes"
@@ -132,6 +156,12 @@
 			multiplicity="MANY" />
 		<class2 name="Attribute" domain="xuml" verbClause="requires"
 			multiplicity="ONE_MANY" />
+	</relationship>
+	<relationship name="R26">
+		<class1 name="Attribute" domain="xuml" verbClause="is derived from"
+			multiplicity="ONE_MANY" />
+		<class2 name="DerivedAttribute" domain="xuml" verbClause="contributes to the value of"
+			multiplicity="MANY" />
 	</relationship>
 	<relationship name="R27">
 		<class1 name="Class" domain="xuml" verbClause="uniquely distinguishes"
