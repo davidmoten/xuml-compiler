@@ -1,4 +1,3 @@
-
 <schema targetNamespace="http://david.moten.org/xuml" xmlns:t="http://david.moten.org/xuml"
 	xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
@@ -38,7 +37,7 @@
 			<element name="identifier" type="t:identifier" minOccurs="0"
 				maxOccurs="unbounded" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString"/>
+		<attribute name="name" type="t:nonBlankString"  use="required"/>
 	</complexType>
 
 	<complexType name="identifier">
@@ -48,7 +47,7 @@
 	<complexType name="nativeAttribute">
 		<complexContent>
 			<extension base="t:attribute">
-				<attribute name="type" type="t:nativeAttributeType" />
+				<attribute name="type" type="t:nativeAttributeType" use="required"/>
 				<attribute name="mandatory" type="boolean" use="optional"
 					default="true" />
 			</extension>
@@ -71,7 +70,7 @@
 		<complexContent>
 			<extension base="t:attribute">
 				<attribute name="otherAttribute" type="t:nonBlankString" use="optional"/>
-				<attribute name="relationship" type="t:nonBlankString" />
+				<attribute name="relationship" type="t:nonBlankString"  use="required"/>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -81,13 +80,13 @@
 			<element name="parameter" type="t:parameter" minOccurs="0"
 				maxOccurs="unbounded" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="name" type="t:nonBlankString"  use="required"/>
 		<attribute name="returns" type="t:nonBlankString" use="optional" />
 	</complexType>
 
 	<complexType name="parameter">
-		<attribute name="name" type="t:nonBlankString" />
-		<attribute name="type" type="t:nonBlankString" />
+		<attribute name="name" type="t:nonBlankString"  use="required"/>
+		<attribute name="type" type="t:nonBlankString"  use="required"/>
 	</complexType>
 
 	<complexType name="relationship">
@@ -95,14 +94,14 @@
 			<element name="class1" type="t:relationshipEnd" />
 			<element name="class2" type="t:relationshipEnd" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="name" type="t:nonBlankString"  use="required"/>
 	</complexType>
 
 	<complexType name="relationshipEnd">
 		<complexContent>
 			<extension base="t:classWithDomain">
-				<attribute name="verbClause" type="t:nonBlankString" />
-				<attribute name="multiplicity" type="t:multiplicity" />
+				<attribute name="verbClause" type="t:nonBlankString"  use="required"/>
+				<attribute name="multiplicity" type="t:multiplicity"  use="required"/>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -121,18 +120,18 @@
 			<element name="superClass" type="t:classWithDomain" />
 			<element name="class" type="t:classWithDomain" maxOccurs="unbounded" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="name" type="t:nonBlankString" use="required"/>
 	</complexType>
 
 	<complexType name="classWithDomain">
-		<attribute name="name" type="t:nonBlankString" />
-		<attribute name="domain" type="t:nonBlankString" />
+		<attribute name="name" type="t:nonBlankString"  use="required"/>
+		<attribute name="domain" type="t:nonBlankString"  use="required"/>
 	</complexType>
 
 	<complexType name="association">
 		<complexContent>
 			<extension base="t:classWithDomain">
-				<attribute name="relationshipName" type="t:nonBlankString" />
+				<attribute name="relationship" type="t:nonBlankString"  use="required"/>
 			</extension>
 		</complexContent>
 	</complexType>

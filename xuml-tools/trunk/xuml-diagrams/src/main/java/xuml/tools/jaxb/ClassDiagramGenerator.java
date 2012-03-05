@@ -35,10 +35,12 @@ public class ClassDiagramGenerator {
 	private String generateDivs(xuml.metamodel.jaxb.System system) {
 		StringBuilder s = new StringBuilder();
 		for (Class c : system.getClazz()) {
+			System.out.println("class="+c.getName());
 			s.append("<div id=\"" + c.getName()
 					+ "\" class=\"cls draggable\">\n");
 			s.append("  <div class=\"attributes\">\n");
 			for (JAXBElement<? extends Attribute> attr : c.getAttribute()) {
+				System.out.println("attribute=" + attr.getValue().getName());
 				List<String> items = new ArrayList<String>();
 				for (Identifier id : attr.getValue().getIdentifier())
 					items.add(id.getName());

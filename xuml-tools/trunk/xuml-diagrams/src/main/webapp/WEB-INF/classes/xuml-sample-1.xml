@@ -45,7 +45,7 @@
 			<identifier name="I" />
 		</referential>
 	</class>
-	
+
 	<class name="SpecializedClass" domain="xuml">
 		<referential name="Name" relationship="R23">
 			<identifier name="I" />
@@ -59,6 +59,29 @@
 			<identifier name="I" />
 		</referential>
 		<referential name="Domain" relationship="R23">
+			<identifier name="I" />
+		</referential>
+	</class>
+
+	<class name="Identifier" domain="xuml">
+		<native name="Number" type="String">
+			<identifier name="I" />
+		</native>
+		<referential name="Class" relationship="R27">
+			<identifier name="I" />
+		</referential>
+		<referential name="Domain" relationship="R27">
+			<identifier name="I" />
+		</referential>
+	</class>
+	<class name="IdentifierAttribute" domain="xuml">
+		<native name="Number" type="String">
+			<identifier name="I" />
+		</native>
+		<referential name="Class" relationship="R27">
+			<identifier name="I" />
+		</referential>
+		<referential name="Domain" relationship="R27">
 			<identifier name="I" />
 		</referential>
 	</class>
@@ -104,7 +127,18 @@
 		<class2 name="Attribute" domain="xuml" verbClause="is characterized by"
 			multiplicity="ONE_MANY" />
 	</relationship>
-
+	<relationship name="R22">
+		<class1 name="Identifier" domain="xuml" verbClause="is required in"
+			multiplicity="MANY" />
+		<class2 name="Attribute" domain="xuml" verbClause="requires"
+			multiplicity="ONE_MANY" />
+	</relationship>
+	<relationship name="R27">
+		<class1 name="Class" domain="xuml" verbClause="uniquely distinguishes"
+			multiplicity="ONE" />
+		<class2 name="Identifier" domain="xuml" verbClause="is uniquely distinguished by"
+			multiplicity="ONE_MANY" />
+	</relationship>
 	<generalization name="R21">
 		<superClass name="Attribute" domain="xuml" />
 		<class name="ReferentialAttribute" domain="xuml" />
