@@ -23,10 +23,8 @@
 	}
 
 	/**
-	* Returns determinant of this matrix:
-	*    | a  b |
-	*    | c  d |
-	**/
+	 * Returns determinant of this matrix: | a b | | c d |
+	 */
 	function det(a,b,c,d) {
 		return a*d - b* c;
 	}
@@ -38,9 +36,10 @@
 	_testDet();
 
     function lineIntersection(x1,y1,x2,y2,x3,y3,x4,y4) {
-		//See Wolfram Mathworld http://mathworld.wolfram.com/Line-LineIntersection.html
+		// See Wolfram Mathworld
+		// http://mathworld.wolfram.com/Line-LineIntersection.html
 		var denom = det(x1-x2,y1-y2,x3-x4,y3-y4);
-		if (denom == 0) return null;//lines are parallel
+		if (denom == 0) return null;// lines are parallel
 
 		var d1 = det(x1,y1,x2,y2);
 		var d2 = det(x3,y3,x4,y4);
@@ -186,7 +185,7 @@
 
 	function placeVerbClause(e, p, inDirection) {
 		var x = cartesianToPolar(minus(inDirection,p));
-		if (p.side==1) { //top 
+		if (p.side==1) { // top
 			var delta;
 			if (Math.abs(x.theta)==Math.PI/2||x.theta==0) 
 				delta = 0;
@@ -196,7 +195,7 @@
 			} else delta = 0;
 			setPosition(e, p.left - delta - 5 - e.width(), p.top -5 - e.height());		
 		}
-		else if (p.side==2) { //right
+		else if (p.side==2) { // right
 			var delta;
 			if (Math.abs(x.theta)==Math.PI/2||x.theta==0) 
 				delta = 0;
@@ -206,7 +205,7 @@
 			} else delta = 0;
 			setPosition(e, p.left + 15, p.top -5 - delta - e.height());		
 		}
-		else if (p.side==3) {//bottom
+		else if (p.side==3) {// bottom
 			var delta;
 			if (Math.abs(x.theta)==Math.PI/2||x.theta==0) 
 				delta = 0;
@@ -216,7 +215,7 @@
 			} else delta = 0;
 			setPosition(e, p.left -delta -e.width()-5, p.top + 10);		
 		}
-		else if (p.side==4) {//left
+		else if (p.side==4) {// left
 			var delta;
 			if (Math.abs(x.theta)==Math.PI/2||x.theta==0) 
 				delta = 0;
@@ -230,13 +229,13 @@
 	}
 
 	function placeMultiplicity(e, p) {
-		if (p.side==1) //top
+		if (p.side==1) // top
 			setPosition(e, p.left + 15, p.top - e.height() - 5);		
-		else if (p.side==2) //right
+		else if (p.side==2) // right
 			setPosition(e, p.left + 15, p.top + e.height() + 5);		
-		else if (p.side==3) //bottom
+		else if (p.side==3) // bottom
 			setPosition(e, p.left + 15, p.top + 10);		
-		else if (p.side==4) //bottom
+		else if (p.side==4) // bottom
 			setPosition(e, p.left - e.width() - 5, p.top + e.height() + 5);
 		else alert("should not get here");
 	}
@@ -284,9 +283,11 @@
 	CanvasRenderingContext2D.prototype.dashedLineTo = 
 		function (fromX, fromY, toX, toY, pattern) {
 		  // Our growth rate for our line can be one of the following:
-		  //   (+,+), (+,-), (-,+), (-,-)
-		  // Because of this, our algorithm needs to understand if the x-coord and
-		  // y-coord should be getting smaller or larger and properly cap the values
+		  // (+,+), (+,-), (-,+), (-,-)
+		  // Because of this, our algorithm needs to understand if the x-coord
+			// and
+		  // y-coord should be getting smaller or larger and properly cap the
+			// values
 		  // based on (x,y).
 		  var lt = function (a, b) { return a <= b; };
 		  var gt = function (a, b) { return a >= b; };
@@ -357,7 +358,7 @@
 			var p2close = towards(p2,p1,5);
 			var p3 = towards(p2close,p1,arrowSize);
 			ctx.moveTo(p1.left, p1.top );
-			//draw arrow
+			// draw arrow
 			var angle = 30;
 			var p4 = rotateAbout(p3,p2close,angle);
 			var p5 = rotateAbout(p3,p2close,-angle);
@@ -378,8 +379,8 @@
 
 	function repaint() {
 		var canvas = $("#canvas")[0]; 
-		//canvas.width = 5*window.innerWidth;
-		//canvas.height = 5*window.innerHeight;
+		// canvas.width = 5*window.innerWidth;
+		// canvas.height = 5*window.innerHeight;
 		var c = $("#canvas").offset();
 		var ctx = canvas.getContext("2d");
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -405,7 +406,7 @@
 		$(".cls").each(function() {
 			var e = $(this);	
 			e.prepend('<div id="className'+e.attr("id")+'" class="className">'+e.attr("id")+"</div>");
-			//make sure header comes before class name 
+			// make sure header comes before class name
 			e.find(".header").each(function () {
 				var h = $(this);
 				h.insertBefore("#className"+e.attr("Id"));
@@ -416,27 +417,46 @@
 	function createSave() {
 		$("body").prepend("<div id='save' class='save noprint'>Save</div>");
 		$("#save").click(function () {
-			$('.cls').each(function() {
-				var e = $(this);
-				var id = e.attr("id");			
-				localStorage.setItem(id + ".left",e.css("left"));
-				localStorage.setItem(id + ".top",e.css("top"));
-				//localStorage.setItem(id + ".width",e.css("width"));
-				//localStorage.setItem(id + ".height",e.css("height"));
-			});
+			var presentation = buildPresentationJson();
+			localStorage.setItem("positions",presentation);
 		});
 	}
 
 	function restore() {
+		var presentation = localStorage.getItem("positions");
+		if (presentation !== undefined){
+		  console.log(presentation);
+		  restoreFromJSON(presentation);
+	    }
+		repaint();
+	}
+	
+	function restoreFromJSON(x) {
+		var o = jQuery.parseJSON(x);
+		restoreFromObject(o);
+	}
+	
+	function restoreFromObject(x){
+		$('.cls').each(function() {
+			var e = $(this);
+			var id = e.attr("id");	
+			if (id !== undefined) {
+			  e.css("left",x[id].left);
+			  e.css("top",x[id].top);
+		    }
+		});
+	}
+	
+	function buildPresentationJson() {
+		var o = new Object();
 		$('.cls').each(function() {
 			var e = $(this);
 			var id = e.attr("id");			
-			e.css("left",localStorage.getItem(id + ".left"));
-			e.css("top",localStorage.getItem(id + ".top"));
-			//e.css("width",localStorage.getItem(id + ".width"));
-		    //e.css("height",localStorage.getItem(id + ".height"));
+			o[id] = new Object();
+			o[id].left=e.css("left");
+			o[id].top=e.css("top");
 		});
-		repaint();
+		return JSON.stringify(o);
 	}
 
 	function createRestore() {
@@ -478,7 +498,7 @@
 				stop: function() {repaint();}
 			};
 		resizeListener.handles='';
-		$( ".draggable" ).draggable(dragListener);//.resizable(resizeListener);
+		$( ".draggable" ).draggable(dragListener);// .resizable(resizeListener);
 	}
 
 	var xml;
