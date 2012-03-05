@@ -484,6 +484,11 @@
 			$("#restoreOnLoad").attr("checked","true");
 		}
 	}
+	
+	function createSchemaButton() {
+		$("body").prepend("<div id='schema' class='options noprint'>Edit</div>");
+		
+	}
 
 	function makeDraggable() {
 		var dragListener = {
@@ -507,7 +512,8 @@
 		createDivs();
 		createOptions();	
 		createSave();
-		createRestore();	
+		createRestore();
+		createSchemaButton();
 		makeDraggable();
 		repaint();
 	}
