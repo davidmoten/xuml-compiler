@@ -1,8 +1,10 @@
 package xuml.tools.jaxb;
 
 import java.io.IOException;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBElement;
 
 import org.apache.commons.io.IOUtils;
 
@@ -36,21 +38,33 @@ public class ClassDiagramGenerator {
 			s.append("<div id=\"" + c.getName()
 					+ "\" class=\"cls draggable\">\n");
 			s.append("  <div class=\"attributes\">\n");
-			for (Attribute a : c.getAttribute()) {
-				s.append("    <div class=\"attribute\">" + a.getName() + ": "
-						+ a.getType().value());
-				s.append(getMatchingIdentifiers(c, a.getName()));
-				if (!a.isMandatory())
-					s.append(" {O}");
+			for (JAXBElement<? extends Attribute> attr : c.getAttribute()) {
+				List<String> items = new ArrayList<String>();
+				for (Identifier id : attr.getValue().getIdentifier())
+					items.add(id.getName());
+				if (attr.getValue() instanceof NativeAttribute) {
+					NativeAttribute a = (NativeAttribute) attr.getValue();
+					s.append("    <div class=\"attribute\">" + a.getName()
+							+ ": " + a.getType().value() + " ");
+					if (!a.isMandatory())
+						items.add("O");
+				} else {
+					ReferentialAttribute r = (ReferentialAttribute) attr
+							.getValue();
+					items.add(r.getRelationship());
+					s.append("<div class=\"attribute\">"
+							+ r.getName() + ": ");
+				}
+				StringBuilder b = new StringBuilder();
+				for (String item : items) {
+					if (b.length() > 0)
+						b.append(",");
+					b.append(item);
+				}
+				if (b.length() > 0)
+					s.append("{" + b + "}");
 				s.append("</div>\n");
 			}
-			for (Identifier id : c.getIdentifier())
-				for (ReferentialAttribute r : id.getReferential())
-						s.append("<div class=\"attribute\">"
-								+ r.getClazz().getName()
-								+ ": {"
-								+ r.getRelationshipName()
-								+ "}</div");
 			s.append("  </div>\n");
 			s.append("</div>\n");
 		}
@@ -74,24 +88,6 @@ public class ClassDiagramGenerator {
 						+ "\" subClassName=\"" + cls.getName() + "\"></div>\n");
 			}
 		return s.toString();
-	}
-
-	public String getMatchingIdentifiers(Class c, String attributeName) {
-		Set<String> identifiers = new TreeSet<String>();
-		for (Identifier id : c.getIdentifier())
-			for (NativeAttribute n: id.getNative())
-				if (n.getName().equals(attributeName))
-					identifiers.add(id.getName());
-		StringBuilder sb = new StringBuilder();
-		for (String id : identifiers) {
-			if (sb.length() > 0)
-				sb.append(",");
-			sb.append(id);
-		}
-		if (sb.length() > 0)
-			return " {" + sb + "}";
-		else
-			return "";
 	}
 
 	private static String getAbbreviation(Multiplicity m) {

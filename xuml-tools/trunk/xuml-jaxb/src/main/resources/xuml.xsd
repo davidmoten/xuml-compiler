@@ -20,8 +20,7 @@
 		<complexContent>
 			<extension base="t:classWithDomain">
 				<sequence>
-					<element name="attribute" type="t:attribute" maxOccurs="unbounded" />
-					<element name="identifier" type="t:identifier" maxOccurs="unbounded" />
+					<element ref="t:attribute" maxOccurs="unbounded" />
 					<element name="operation" type="t:operation" maxOccurs="unbounded"
 						minOccurs="0" />
 				</sequence>
@@ -29,14 +28,34 @@
 		</complexContent>
 	</complexType>
 
+	<element name="attribute" type="t:attribute" />
+	<element name="native" substitutionGroup="t:attribute" type="t:nativeAttribute" />
+	<element name="referential" substitutionGroup="t:attribute"
+		type="t:referentialAttribute" />
+
 	<complexType name="attribute">
-		<attribute name="name" type="t:nonBlankString" />
-		<attribute name="type" type="t:attributeType" />
-		<attribute name="mandatory" type="boolean" use="optional"
-			default="true" />
+		<sequence>
+			<element name="identifier" type="t:identifier" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="name" type="t:nonBlankString"/>
 	</complexType>
 
-	<simpleType name="attributeType">
+	<complexType name="identifier">
+		<attribute name="name" type="t:nonBlankString" />
+	</complexType>
+
+	<complexType name="nativeAttribute">
+		<complexContent>
+			<extension base="t:attribute">
+				<attribute name="type" type="t:nativeAttributeType" />
+				<attribute name="mandatory" type="boolean" use="optional"
+					default="true" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<simpleType name="nativeAttributeType">
 		<restriction base="string">
 			<enumeration value="Decimal" />
 			<enumeration value="Integer" />
@@ -48,24 +67,13 @@
 		</restriction>
 	</simpleType>
 
-	<complexType name="identifier">
-		<sequence>
-			<element name="native" type="t:nativeAttribute" maxOccurs="unbounded" minOccurs="0" />
-			<element name="referential" type="t:referentialAttribute" maxOccurs="unbounded"  minOccurs="0"/>
-		</sequence>
-		<attribute name="name" type="t:nonBlankString"/>
-	</complexType>
-
-	<complexType name="nativeAttribute">
-		<attribute name="name" type="t:nonBlankString" />
-	</complexType>
-
 	<complexType name="referentialAttribute">
-		<sequence>
-			<element name="class" type="t:classWithDomain" />
-		</sequence>
-		<attribute name="relationshipName" type="t:nonBlankString"
-			use="optional" />
+		<complexContent>
+			<extension base="t:attribute">
+				<attribute name="otherAttribute" type="t:nonBlankString" use="optional"/>
+				<attribute name="relationship" type="t:nonBlankString" />
+			</extension>
+		</complexContent>
 	</complexType>
 
 	<complexType name="operation">
