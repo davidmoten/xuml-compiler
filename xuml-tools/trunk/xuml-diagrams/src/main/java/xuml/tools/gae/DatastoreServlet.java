@@ -18,39 +18,28 @@ public class DatastoreServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7659767941927427251L;
 
+	private static final String keyType = "xuml-tools";
+	private static final String key = "diagram";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String id = req.getParameter("id");
-		String param = req.getParameter("param");
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Key key = KeyFactory.createKey("id", id);
-		String result;
-		Entity entity;
-		try {
-			entity = ds.get(key);
-			Object property = entity.getProperty(param);
-			if (property != null)
-				result = property.toString();
-			else
-				result = "";
-		} catch (EntityNotFoundException e) {
-			result = "";
-		}
-		resp.getOutputStream().write(result.getBytes());
+		String entity = req.getParameter("entity");
+		String property = req.getParameter("property");
+		Datastore ds = new Datastore();
+		String result = ds.get(keyType, key, entity, property);
+		if (result != null)
+			resp.getOutputStream().write(result.getBytes());
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String id = req.getParameter("id");
-		String param = req.getParameter("param");
+		String entity = req.getParameter("entity");
+		String property = req.getParameter("property");
 		String value = req.getParameter("value");
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Key key = KeyFactory.createKey("id", id);
-		Entity entity = new Entity(param, key);
-		entity.setProperty("value", value);
-		ds.put(entity);
+		Datastore ds = new Datastore();
+		ds.put(keyType, key, entity, property, value);
 	}
 
 }
