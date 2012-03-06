@@ -566,11 +566,14 @@ function createSave() {
 			});
 		} else {
 			localStorage.setItem("positions", presentation);
+			window.setTimeout(function () {
+	    		$("#save").text("Save");
+			}, 300);	
 		}
 	});
 }
 
-function restorePresentation(presentation) {
+function restorePresentationFromWeb(presentation) {
 	console.log("restoring presentation="+presentation);
 	if (presentation !== undefined && presentation.length>0) {
 		restoreFromObject(JSON.parse(presentation));
@@ -579,11 +582,15 @@ function restorePresentation(presentation) {
 }
 
 function restore() {
+	$("#restore").text("Restoring...");
 	if (webStorage) {
-		getFromWeb("1","presentation",restorePresentation);
+		getFromWeb("1","presentation",restorePresentationFromWeb);
 	} else {
 		var presentation = localStorage.getItem("positions");
 		restoreFromJSON(presentation);
+		window.setTimeout(function () {
+    		$("#restore").text("Restore");
+		}, 300);	
 	}
 }
 
@@ -593,6 +600,7 @@ function restoreFromJSON(x) {
 }
 
 function restoreFromObject(x) {
+	if (x == undefined || x == null) return;
 	$('.cls').each(function() {
 		var e = $(this);
 		var id = e.attr("id");
