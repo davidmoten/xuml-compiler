@@ -6,34 +6,39 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Text;
 
 public class Datastore {
 
-	public void put(String keyType, String key, String entity, String property,String value){
-		System.out.println("putting " + keyType + "," + key + "," + entity + "," + property + "," + value);
+	public void put(String kind, String name, String property, String value) {
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Key k = KeyFactory.createKey(keyType, key);
-		Entity ent = new Entity(entity, k);
-		ent.setProperty(property, value);
+		Key k = KeyFactory.createKey(kind, name);
+		System.out.println("putting " + k + "=" + value);
+		Entity ent = new Entity(k);
+		ent.setProperty(property, new Text(value));
 		ds.put(ent);
 	}
-	
-	public String get(String keyType, String key, String entity,String property){
+
+	public String get(String kind, String name, String property) {
+		System.out.println("getting");
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Key k = KeyFactory.createKey(keyType, key);
+		Key k = KeyFactory.createKey(kind, name);
 		String result;
-		Entity ent;
 		try {
-			ent = ds.get(k);
-			Object prop = ent.getProperty(property);
-			if (property != null)
-				result = property.toString();
+			Entity ent = ds.get(k);
+			System.out.println(ent.getProperties());
+			Text prop = (Text) ent.getProperty(property);
+			System.out.println("Datastore.get "+ k + "= " + prop);
+			if (prop != null)
+				result = prop.getValue();
 			else
 				result = null;
 		} catch (EntityNotFoundException e) {
+			System.out.println(e.getMessage());
 			result = null;
 		}
+		System.out.println("get returns " + result);
 		return result;
 	}
-	
+
 }
