@@ -1,3 +1,12 @@
+function getParameterByName(name) {
+
+    var match = RegExp('[?&]' + name + '=([^&]*)')
+                    .exec(window.location.search);
+
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+
+}
+
 function midPoint(p1, p2) {
 	return {
 		left : (p1.left + p2.left) / 2,
@@ -232,7 +241,7 @@ function magnitude(p) {
 function towards(p1, p2, distance) {
 	var p3 = cartesianToPolar(minus(p2, p1));
 	var p4 = {
-		r : distance,
+		r : distance, 
 		theta : p3.theta
 	};
 	var p5 = polarToCartesian(p4);
@@ -527,7 +536,7 @@ function createDivs() {
 			});
 }
 
-var webStorage = true;
+var webStorage = getParameterByName("web") !== "false";
 
 function saveToWeb(id, property, value, success) {
 	jQuery.post("ds", {
@@ -611,7 +620,7 @@ function createRestore() {
 			.prepend("<div id='restore' class='restore noprint'>Restore</div>");
 	$("#restore").click(function() {
 		restore();
-	});
+	}); 
 }
 
 function createOptions() {
@@ -638,8 +647,8 @@ function createOptions() {
 	}
 }
 
-function createSchemaButton() {
-	$("body").prepend("<div id='schema' class='options noprint'>Edit</div>");
+function createEdit() {
+	$("body").prepend("<div id='edit' class='edit noprint'>Edit</div>");
 
 }
 
@@ -671,14 +680,12 @@ function makeDraggable() {
 	$(".draggable").draggable(dragListener);// .resizable(resizeListener);
 }
 
-var xml;
-
 function setup() {
 	createDivs();
 	createOptions();
 	createSave();
 	createRestore();
-	createSchemaButton();
+	createEdit();
 	makeDraggable();
 	repaint();
 }
