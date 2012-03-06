@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 public class Datastore {
 
 	public void put(String keyType, String key, String entity, String property,String value){
+		System.out.println("putting " + keyType + "," + key + "," + entity + "," + property + "," + value);
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Key k = KeyFactory.createKey(keyType, key);
 		Entity ent = new Entity(entity, k);
