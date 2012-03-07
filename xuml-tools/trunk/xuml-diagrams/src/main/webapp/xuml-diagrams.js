@@ -562,7 +562,7 @@ function createSave() {
 		var presentation = buildPresentationJson();
 		console.log("saved presentation="+presentation);
 		if (webStorage) {
-			saveToWeb("1", "presentation", presentation, function(data) {
+			saveToWeb(diagramId, "presentation", presentation, function(data) {
 				$("#save").text("Save");
 			});
 		} else {
@@ -586,7 +586,7 @@ function restorePresentationFromWeb(presentation) {
 function restore() {
 	$("#restore").text("Restoring...");
 	if (webStorage) {
-		getFromWeb("1","presentation",restorePresentationFromWeb);
+		getFromWeb(diagramId,"presentation",restorePresentationFromWeb);
 	} else {
 		var presentation = localStorage.getItem("positions");
 		restoreFromJSON(presentation);
