@@ -1,6 +1,7 @@
 <html>
 <head>
-
+<script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <style type="text/css">
 #presentation {min-height:5em;width:100%}
 #xml {min-height:20em;width:100%}
@@ -9,30 +10,44 @@ body {font-family: Tahoma, Geneva, sans-serif;font-size:80%%;}
 label {float:left;clear:left;padding-top:0.3em;}
 input {margin-bottom:10px;}
 textarea {margin-bottom:10px;}
+#create {color:blue; text-decoration: underline;}
 </style>
+<script>
+$(function() {
+	$("#create").click(function() {
+		var id = $("#createId").val();
+		var xml = $("#xml").val();
+		var presentation = $("#presentation").val();
+		var data = {entity:id, property:"model",value:xml};
+		console.log(data);
+		$("#status").text("Creating...");
+		jQuery.post("ds",data,function() {
+			$("#status").text("Created");
+		});
+	});
+});
+</script>
+
 </head>
 <body>
 
 <h2>XUML Tools</h2>
 <p>XUML Tools includes a Class Diagram Viewer (perhaps later an Editor) that parses a model definition (specified in xml)
  and a JSON presentation string (optional) and displays a class diagram from the model in an html 5 viewer for manipulation by the user.</p>
+ <p>Here is an <a href="class-diagram-sample.html">example class diagram.</a></p>
 <h3>XUML Schema</h3>
 <p>The xml schema (XSD) for model definitions is <a href="schema">here</a>.</p>
 <h3>Display a class diagram</h3>
-<form id="displayForm" url="diagram/class/display" type="get">
-<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "id" name="id" value="1"></input>
-	<input type="submit" value="Display"/>
-</form>
+<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "getid" name="id" value="1"></input>
 
 <h3>Create a class diagram</h3>
-<form id="createForm" url="diagram/class/create" type="get">
-<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "id" name="id" value="1"></input><br/>
+<label for="id">Class Diagram Id:</label><div class="mandatory">*</div>
+<input type="text" id="createId" name="id" value="1"></input><br/>
 <label for="xml">Model definition (xml):</label><div class="mandatory">*</div><br/>
 	<textarea name="xml" id="xml"></textarea><br/>
 <label for="presentation">Presentation (JSON):</label><br/>
 	<textarea name="presentation" id="presentation"></textarea><br/>
-	<input type="submit" value="Create"/>
-</form>
-
+<div id="status"></div>
+<div id="create">Create</div>
 </body>
 </html>
