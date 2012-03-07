@@ -13,6 +13,16 @@
 		<servlet-name>Datastore</servlet-name>
 		<url-pattern>/ds</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Schema</servlet-name>
+		<servlet-class>xuml.tools.jaxb.SchemaServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Schema</servlet-name>
+		<url-pattern>/schema</url-pattern>
+	</servlet-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
