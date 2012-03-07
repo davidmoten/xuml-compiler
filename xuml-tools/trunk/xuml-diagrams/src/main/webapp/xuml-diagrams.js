@@ -633,6 +633,15 @@ function createRestore() {
 	}); 
 }
 
+function createHome() {
+	$("body")
+		.prepend("<div id='home' class='home noprint'>Home</div>");
+	$("#home").click(function() {
+		window.location="/";
+	});
+
+}
+
 function createOptions() {
 	$("body")
 			.prepend(
@@ -692,6 +701,7 @@ function makeDraggable() {
 
 function setup() {
 	createDivs();
+	createHome();
 	createOptions();
 	createSave();
 	createRestore();
