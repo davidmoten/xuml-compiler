@@ -14,6 +14,7 @@ public class ApplicationServletContextListener implements
 	public void contextInitialized(ServletContextEvent sce) {
 		saveXmlTo("47");
 		saveXmlTo("48");
+		saveXmlTo("1");
 	}
 
 	public void saveXmlTo(String id) {
@@ -22,6 +23,10 @@ public class ApplicationServletContextListener implements
 					id,
 					IOUtils.toString(ApplicationServletContextListener.class
 							.getResourceAsStream("/xuml-sample-1.xml")));
+			PresentationPersistence.instance().save(
+					id,
+					IOUtils.toString(ApplicationServletContextListener.class
+							.getResourceAsStream("/xuml-sample-1.json")));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

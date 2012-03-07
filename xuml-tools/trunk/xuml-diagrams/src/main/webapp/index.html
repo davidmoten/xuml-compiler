@@ -15,6 +15,7 @@ textarea {margin-bottom:10px;}
 #load {color:blue; text-decoration: underline;float:left;padding-left:10px;}
 #status {color:gray; float:left;padding-left:10px;}
 #error {color:red;}
+h2 {color:white;background-color:blue;padding:10px;}
 </style>
 <script>
 $(function() {
@@ -39,8 +40,8 @@ $(function() {
         	setError(request.responseText);
     	});
 		if (presentation.length >0){
-			var x = {entity:id + "-presentation",property:"presentation",value:presentation};
-			jQuery.post("ds",x,function() {
+			var x = {id:id,value:presentation};
+			jQuery.post("presentation",x,function() {
 				setStatus("saved");
 			});
 		}
@@ -64,6 +65,7 @@ $(function() {
 		var id = $("#getId").val();
 		window.location = "cd?id="+id;
 	});
+	$("#load").click();
 });
 </script>
 
@@ -73,7 +75,7 @@ $(function() {
 <h2>XUML Tools</h2>
 <p>XUML Tools includes a Class Diagram Viewer (perhaps later an Editor) that parses a model definition (specified in xml)
  and a JSON presentation string (optional) and displays a class diagram from the model in an html 5 viewer for manipulation by the user.</p>
- <p>Here is an <a href="class-diagram-sample.html">example class diagram.</a></p>
+ <p>Here is an <a href="cd?id=47">example class diagram.</a></p>
 <h3>XUML Schema</h3>
 <p>The xml schema (XSD) for model definitions is <a href="schema">here</a>.</p>
 <h3>Display a class diagram</h3>

@@ -39,13 +39,13 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>Model</servlet-name>
-		<servlet-class>xuml.tools.jaxb.ModelServlet</servlet-class>
+		<servlet-name>Presentation</servlet-name>
+		<servlet-class>xuml.tools.jaxb.PresentationServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>Model</servlet-name>
-		<url-pattern>/model</url-pattern>
+		<servlet-name>Presentation</servlet-name>
+		<url-pattern>/presentation</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
