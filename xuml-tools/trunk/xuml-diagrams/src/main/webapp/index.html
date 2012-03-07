@@ -1,0 +1,36 @@
+<html>
+<head>
+
+<style type="text/css">
+#presentation {min-height:5em;width:100%}
+#xml {min-height:20em;width:100%}
+body {font-family: Tahoma, Geneva, sans-serif;font-size:80%%;}
+.mandatory {color:red;float:left;}
+label {float:left;clear:left;}
+</style>
+</head>
+<body>
+
+<h2>XUML Tools</h2>
+<p>XUML Tools includes a Class Diagram Viewer (perhaps later an Editor) that parses a model definition (specified in xml)
+ and a JSON presentation string (optional) and displays a class diagram from the model in an html 5 viewer for manipulation by the user.</p>
+<h3>XUML Schema</h3>
+<p>The xml schema (XSD) for model definitions is <a href="schema">here</a>.</p>
+<h3>Display a class diagram</h3>
+<form id="displayForm" url="diagram/class/display" type="get">
+<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "id" name="id" value="1"></input>
+	<input type="submit" value="Display"/>
+</form>
+
+<h3>Create a class diagram</h3>
+<form id="createForm" url="diagram/class/create" type="get">
+<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "id" name="id" value="1"></input><br/>
+<label for="xml">Model definition (xml):</label><div class="mandatory">*</div><br/>
+	<textarea name="xml" id="xml"></textarea><br/>
+<label for="presentation">Presentation (JSON):</label><br/>
+	<textarea name="presentation" id="presentation"></textarea><br/>
+	<input type="submit" value="Create"/>
+</form>
+
+</body>
+</html>
