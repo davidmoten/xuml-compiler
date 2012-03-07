@@ -4,30 +4,57 @@
     src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <style type="text/css">
 #presentation {min-height:5em;width:100%}
-#xml {min-height:20em;width:100%}
+#xml {min-height:10em;width:100%}
 body {font-family: Tahoma, Geneva, sans-serif;font-size:80%%;}
 .mandatory {color:red;float:left;}
 label {float:left;clear:left;padding-top:0.3em;}
 input {margin-bottom:10px;}
 textarea {margin-bottom:10px;}
-#create {color:blue; text-decoration: underline;}
 #get {color:blue; text-decoration: underline;}
+#save {color:blue; text-decoration: underline;clear:left;float:left;}
+#load {color:blue; text-decoration: underline;float:left;padding-left:10px;}
+#status {color:gray; float:left;padding-left:10px;}
 </style>
 <script>
 $(function() {
-	$("#create").click(function() {
-		var id = $("#createId").val();
+	
+	var setStatus = function(s){
+		$("#status").text(s);
+	}
+	$("#save").click(function() {
+		var id = $("#saveId").val();
 		var xml = $("#xml").val();
 		var presentation = $("#presentation").val();
 		var data = new Object();
 		data.entity = id + "-model";
 		data.property = "model";
 		data.value = xml;
-		$("#status").text("Creating...");
+		setStatus("saving...");
 		jQuery.post("ds",data,function() {
-			$("#status").text("Created");
+			setStatus("saved");
 		});
+		if (presentation.length >0){
+			var x = {entity:id + "-presentation",property:"presentation",value:presentation};
+			jQuery.post("ds",x,function() {
+				setStatus("saved");
+			});
+		}
 	});
+	$("#load").click(function() {
+		var id = $("#saveId").val();
+		var data = {entity:id + "-model",property:"model",mime: "text/plain"}
+		setStatus("loading");
+		jQuery.get("ds",data, function(x) {
+			$("#xml").val(x);
+			setStatus("loaded");
+		});
+		data.entity=id + "-presentation";
+		data.property="presentation";
+		jQuery.get("ds",data, function(x) {
+			$("#presentation").val(x);
+			setStatus("loaded");
+		});
+	})
 	$("#get").click(function() {
 		var id = $("#getId").val();
 		window.location = "cd?id="+id;
@@ -48,14 +75,16 @@ $(function() {
 <label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "getId" name="id" value="1"></input>
 <div id="get">Display</div>
 
-<h3>Create a class diagram</h3>
+<h3>Load/Save a class diagram</h3>
 <label for="id">Class Diagram Id:</label><div class="mandatory">*</div>
-<input type="text" id="createId" name="id" value="1"></input><br/>
+<input type="text" id="saveId" name="id" value="1"></input><br/>
 <label for="xml">Model definition (xml):</label><div class="mandatory">*</div><br/>
 	<textarea name="xml" id="xml"></textarea><br/>
 <label for="presentation">Presentation (JSON):</label><br/>
 	<textarea name="presentation" id="presentation"></textarea><br/>
+<div id="save">Save</div>
+<div id="load">Load</div> 
 <div id="status"></div>
-<div id="create">Create</div>
+
 </body>
 </html>
