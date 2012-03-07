@@ -578,6 +578,7 @@ function restorePresentationFromWeb(presentation) {
 	if (presentation !== undefined && presentation.length>0) {
 		restoreFromObject(JSON.parse(presentation));
 		repaint();
+		$("#restore").text("Restore");
 	}
 }
 
