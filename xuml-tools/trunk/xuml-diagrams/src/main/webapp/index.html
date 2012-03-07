@@ -11,6 +11,7 @@ label {float:left;clear:left;padding-top:0.3em;}
 input {margin-bottom:10px;}
 textarea {margin-bottom:10px;}
 #create {color:blue; text-decoration: underline;}
+#get {color:blue; text-decoration: underline;}
 </style>
 <script>
 $(function() {
@@ -18,12 +19,18 @@ $(function() {
 		var id = $("#createId").val();
 		var xml = $("#xml").val();
 		var presentation = $("#presentation").val();
-		var data = {entity:id, property:"model",value:xml};
-		console.log(data);
+		var data = new Object();
+		data.entity = id + "-model";
+		data.property = "model";
+		data.value = xml;
 		$("#status").text("Creating...");
 		jQuery.post("ds",data,function() {
 			$("#status").text("Created");
 		});
+	});
+	$("#get").click(function() {
+		var id = $("#getId").val();
+		window.location = "cd?id="+id;
 	});
 });
 </script>
@@ -38,7 +45,8 @@ $(function() {
 <h3>XUML Schema</h3>
 <p>The xml schema (XSD) for model definitions is <a href="schema">here</a>.</p>
 <h3>Display a class diagram</h3>
-<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "getid" name="id" value="1"></input>
+<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "getId" name="id" value="1"></input>
+<div id="get">Display</div>
 
 <h3>Create a class diagram</h3>
 <label for="id">Class Diagram Id:</label><div class="mandatory">*</div>

@@ -537,10 +537,11 @@ function createDivs() {
 }
 
 var webStorage = getParameterByName("web") !== "false";
+var diagramId = getParameterByName("id");
 
 function saveToWeb(id, property, value, success) {
 	jQuery.post("ds", {
-		entity: "1",
+		entity: diagramId + "-presentation",
 		property : property,
 		value : value
 	}, success);
@@ -548,7 +549,7 @@ function saveToWeb(id, property, value, success) {
 
 function getFromWeb(id, property, success) {
 	jQuery.get("ds", {
-		entity: "1",
+		entity: diagramId +"-presentation",
 		property : property,
 		mime: "text/plain"
 	}, success);

@@ -24,6 +24,16 @@
 		<url-pattern>/schema</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>ClassDiagram</servlet-name>
+		<servlet-class>xuml.tools.jaxb.ClassDiagramServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ClassDiagram</servlet-name>
+		<url-pattern>/cd</url-pattern>
+	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>index.html</welcome-file>

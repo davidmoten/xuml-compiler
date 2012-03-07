@@ -9,6 +9,12 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
 
 public class Datastore {
+	
+	private static Datastore datastore = new Datastore();
+	
+	public static Datastore instance(){
+		return datastore;
+	}
 
 	public void put(String kind, String name, String property, String value) {
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
