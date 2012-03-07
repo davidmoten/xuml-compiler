@@ -23,6 +23,16 @@
 		<servlet-name>Schema</servlet-name>
 		<url-pattern>/schema</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Model</servlet-name>
+		<servlet-class>xuml.tools.jaxb.ModelServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Model</servlet-name>
+		<url-pattern>/model</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ClassDiagram</servlet-name>

@@ -14,6 +14,7 @@ textarea {margin-bottom:10px;}
 #save {color:blue; text-decoration: underline;clear:left;float:left;}
 #load {color:blue; text-decoration: underline;float:left;padding-left:10px;}
 #status {color:gray; float:left;padding-left:10px;}
+#error {color:red;}
 </style>
 <script>
 $(function() {
@@ -21,18 +22,22 @@ $(function() {
 	var setStatus = function(s){
 		$("#status").text(s);
 	}
+	var setError = function(s){
+		$("#error").text(s);
+		setStatus("Error occurred");
+	}
 	$("#save").click(function() {
 		var id = $("#saveId").val();
 		var xml = $("#xml").val();
 		var presentation = $("#presentation").val();
-		var data = new Object();
-		data.entity = id + "-model";
-		data.property = "model";
-		data.value = xml;
 		setStatus("saving...");
-		jQuery.post("ds",data,function() {
+		setError("");
+		jQuery.post("model",{id:id, xml:xml},function() {
 			setStatus("saved");
-		});
+		})
+		.error( function (request, status, error) {
+        	setError(request.responseText);
+    	});
 		if (presentation.length >0){
 			var x = {entity:id + "-presentation",property:"presentation",value:presentation};
 			jQuery.post("ds",x,function() {
@@ -78,6 +83,7 @@ $(function() {
 <h3>Load/Save a class diagram</h3>
 <label for="id">Class Diagram Id:</label><div class="mandatory">*</div>
 <input type="text" id="saveId" name="id" value="1"></input><br/>
+<div id="error"></div>
 <label for="xml">Model definition (xml):</label><div class="mandatory">*</div><br/>
 	<textarea name="xml" id="xml"></textarea><br/>
 <label for="presentation">Presentation (JSON):</label><br/>
