@@ -606,16 +606,20 @@ function restoreFromObject(x) {
 	$('.cls').each(function() {
 		var e = $(this);
 		var id = e.attr("id");
-		if (id !== undefined) {
-			if (!(typeof x[id] === "undefined")) {
-				if (x[id].left != null)
-				    e.css("left", x[id].left);
+		if (!(typeof id === "undefined")) {
+			if (x[id].modelId != null)
+				modelId = x[id].modelId;
+			if (!(typeof x.classPositions[id] === "undefined")) {
+				if (x.classPositions[id].left != null)
+				    e.css("left", x.classPositions[id].left);
 				if (x[id].top !=null)
-				    e.css("top", x[id].top);
+				    e.css("top", x.classPositions[id].top);
 			}
 		}
 	});
 }
+
+var modelId = "1";
 
 function buildPresentationJson() {
 	var o = new Object();
@@ -626,7 +630,12 @@ function buildPresentationJson() {
 		o[id].left = e.css("left");
 		o[id].top = e.css("top");
 	});
-	return JSON.stringify(o);
+	var all = new Object();
+	all.classPositions=o;
+	all.title="miUML Class Subsystem Class Diagram";
+	all.description="As created by Leon Starr";
+	all.modelId=modelId;
+	return JSON.stringify(all);
 }
 
 function createRestore() {
