@@ -16,6 +16,11 @@ textarea {margin-bottom:10px;}
 #status {color:gray; float:left;padding-left:10px;}
 #error {color:red;}
 h2 {color:white;background-color:blue;padding:10px;}
+h3 {clear:left;}
+.label {clear:left;float:left;padding-top:3px;min-width:10em;}
+.inline-input {padding-left:0.5em;float:left}
+.buttons {float:left; padding-left:0.5em;}
+.button {float:left; padding-left:1.0em;color:blue;padding-top:3px;}
 </style>
 <script>
 $(function() {
@@ -76,8 +81,16 @@ $(function() {
 <p>XUML Tools includes a Class Diagram Viewer (perhaps later an Editor) that parses a model definition (specified in xml)
  and a JSON presentation string (optional) and displays a class diagram from the model in an html 5 viewer for manipulation by the user.</p>
  <p>Here is an <a href="cd?id=47">example class diagram.</a></p>
-<h3>XUML Schema</h3>
 <p>The xml schema (XSD) for model definitions is <a href="schema">here</a>.</p>
+<br/><br/>
+<div class="label">Class Diagram Id:</div>
+<div class="inline-input"><input name="classDiagramId" type="text" value="1"></input></div>
+<div class="buttons"><div class="button">Edit</div><div class="button">View</div></div>
+<div class="label">Model Id:</div>
+<div class="inline-input"><input name="modelId" type="text" value="1"></input></div>
+<div class="buttons"><div class="button">Edit</div><div class="button">View</div></div>
+
+
 <h3>Display a class diagram</h3>
 <label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "getId" name="id" value="1"></input>
 <div id="get">Display</div>
