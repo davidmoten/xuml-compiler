@@ -2,6 +2,10 @@
 <head>
 <script type="text/javascript"
     src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css"
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
 <style type="text/css">
 #presentation {min-height:5em;width:100%}
 #xml {min-height:10em;width:100%}
@@ -21,6 +25,8 @@ h3 {clear:left;}
 .inline-input {padding-left:0.5em;float:left}
 .buttons {float:left; padding-left:0.5em;}
 .button {float:left; padding-left:1.0em;color:blue;padding-top:3px;}
+.select {padding-left:3em;float:left;padding-top:3px;}
+.actionLabel {float:left;padding-left:3em;padding-top:0.5em;padding-right:1em;}
 </style>
 <script>
 $(function() {
@@ -33,12 +39,14 @@ $(function() {
 		setStatus("Error occurred");
 	}
 	$("#save").click(function() {
-		var id = $("#saveId").val();
+		var id = $("#cdId").val();
 		var xml = $("#xml").val();
+		var modelId = $("#modelId").val();
 		var presentation = $("#presentation").val();
 		setStatus("saving...");
 		setError("");
-		jQuery.post("model",{id:id, xml:xml},function() {
+		if (xml.length>0)
+		jQuery.post("model",{id:modelId, xml:xml},function() {
 			setStatus("saved");
 		})
 		.error( function (request, status, error) {
@@ -52,8 +60,9 @@ $(function() {
 		}
 	});
 	$("#load").click(function() {
-		var id = $("#saveId").val();
-		var data = {entity:id + "-model",property:"model",mime: "text/plain"}
+		var id = $("#cdId").val();
+		var modelId = $("#modelId").val();
+		var data = {entity:modelId + "-model",property:"model",mime: "text/plain"}
 		setStatus("loading");
 		jQuery.get("ds",data, function(x) {
 			$("#xml").val(x);
@@ -67,7 +76,7 @@ $(function() {
 		});
 	})
 	$("#get").click(function() {
-		var id = $("#getId").val();
+		var id = $("#getCdId").val();
 		window.location = "cd?id="+id;
 	});
 	$("#load").click();
@@ -82,27 +91,21 @@ $(function() {
  and a JSON presentation string (optional) and displays a class diagram from the model in an html 5 viewer for manipulation by the user.</p>
  <p>Here is an <a href="cd?id=47">example class diagram.</a></p>
 <p>The xml schema (XSD) for model definitions is <a href="schema">here</a>.</p>
-<br/><br/>
-<div class="label">Class Diagram Id:</div>
-<div class="inline-input"><input name="classDiagramId" type="text" value="1"></input></div>
-<div class="buttons"><div class="button">Edit</div><div class="button">View</div></div>
-<div class="label">Model Id:</div>
-<div class="inline-input"><input name="modelId" type="text" value="1"></input></div>
-<div class="buttons"><div class="button">Edit</div><div class="button">View</div></div>
-
 
 <h3>Display a class diagram</h3>
-<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "getId" name="id" value="1"></input>
+<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "getCdId" name="id" value="1"></input>
 <div id="get">Display</div>
 
 <h3>Load/Save a class diagram</h3>
 <label for="id">Class Diagram Id:</label><div class="mandatory">*</div>
-<input type="text" id="saveId" name="id" value="1"></input><br/>
+<input type="text" id="cdId"  value="1"></input><br/>
+<label for="presentation">Presentation (JSON):</label><br/>
+<textarea name="presentation" id="presentation"></textarea><br/>
+<label for="id">Model Id:</label><div class="mandatory">*</div>
+<input type="text" id="modelId" value="1"></input><br/>
 <div id="error"></div>
 <label for="xml">Model definition (xml):</label><div class="mandatory">*</div><br/>
 	<textarea name="xml" id="xml"></textarea><br/>
-<label for="presentation">Presentation (JSON):</label><br/>
-	<textarea name="presentation" id="presentation"></textarea><br/>
 <div id="save">Save</div>
 <div id="load">Load</div> 
 <div id="status"></div>

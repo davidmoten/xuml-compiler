@@ -576,7 +576,7 @@ function createSave() {
 
 function restorePresentationFromWeb(presentation) {
 	console.log("restoring presentation="+presentation);
-	if (presentation !== undefined && presentation.length>0) {
+	if (!(typeof presentation === "undefined") && presentation.length>0) {
 		restoreFromObject(JSON.parse(presentation));
 		repaint();
 		$("#restore").text("Restore");
@@ -602,13 +602,17 @@ function restoreFromJSON(x) {
 }
 
 function restoreFromObject(x) {
-	if (x == undefined || x == null) return;
+	if (typeof x === "undefined" || x == null) return;
 	$('.cls').each(function() {
 		var e = $(this);
 		var id = e.attr("id");
 		if (id !== undefined) {
-			e.css("left", x[id].left);
-			e.css("top", x[id].top);
+			if (!(typeof x[id] === "undefined")) {
+				if (x[id].left != null)
+				    e.css("left", x[id].left);
+				if (x[id].top !=null)
+				    e.css("top", x[id].top);
+			}
 		}
 	});
 }
