@@ -44,6 +44,14 @@
 	</servlet>
 
 	<servlet-mapping>
+		<servlet-name>Find</servlet-name>
+		<url-pattern>/find</url-pattern>
+	</servlet-mapping>	<servlet>
+		<servlet-name>Find</servlet-name>
+		<servlet-class>xuml.tools.jaxb.FindServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
 		<servlet-name>Presentation</servlet-name>
 		<url-pattern>/presentation</url-pattern>
 	</servlet-mapping>

@@ -14,19 +14,28 @@ body {font-family: Tahoma, Geneva, sans-serif;font-size:80%%;}
 label {float:left;clear:left;padding-top:0.3em;}
 input {margin-bottom:10px;}
 textarea {margin-bottom:10px;}
-#get {color:blue; text-decoration: underline;}
-#save {color:blue; text-decoration: underline;clear:left;float:left;}
-#load {color:blue; text-decoration: underline;float:left;padding-left:10px;}
 #status {color:gray; float:left;padding-left:10px;}
 #error {color:red;}
 h2 {color:white;background-color:blue;padding:10px;}
 h3 {clear:left;}
 .label {clear:left;float:left;padding-top:3px;min-width:10em;}
-.inline-input {padding-left:0.5em;float:left}
 .buttons {float:left; padding-left:0.5em;}
 .button {float:left; padding-left:1.0em;color:blue;padding-top:3px;}
-.select {padding-left:3em;float:left;padding-top:3px;}
-.actionLabel {float:left;padding-left:3em;padding-top:0.5em;padding-right:1em;}
+.id {float:left; padding-left:10px;width:10em;border:1px solid grey; padding:0.5em;height:20px;}
+.name {float:left;color:brown;border-top:1px solid grey;border-bottom:1px solid grey;border-left:1px solid grey; width:30em;padding:0.5em;height:20px;}
+.action {float:left;border-top:1px solid grey;border-bottom:1px solid grey;border-right:1px solid grey; width:6em;padding:0.5em;height:20px;}
+.view {
+	background-image: url(images/view.png);
+	background-repeat: no-repeat;
+	background-position: center center;}
+.edit {
+	background-image: url(images/edit.png);
+	background-repeat: no-repeat;
+	background-position: center center;}
+	
+#model-xml {width:100%; height:90%;border:none;}
+.line {clear:left;}
+#found {  padding:5px;margin-bottom:5px;}
 </style>
 <script>
 $(function() {
@@ -38,48 +47,75 @@ $(function() {
 		$("#error").text(s);
 		setStatus("Error occurred");
 	}
-	$("#save").click(function() {
-		var id = $("#cdId").val();
-		var xml = $("#xml").val();
-		var modelId = $("#modelId").val();
-		var presentation = $("#presentation").val();
-		setStatus("saving...");
-		setError("");
-		if (xml.length>0)
-		jQuery.post("model",{id:modelId, xml:xml},function() {
-			setStatus("saved");
-		})
-		.error( function (request, status, error) {
-        	setError(request.responseText);
-    	});
-		if (presentation.length >0){
-			var x = {id:id,value:presentation};
-			jQuery.post("presentation",x,function() {
-				setStatus("saved");
-			});
-		}
-	});
-	$("#load").click(function() {
-		var id = $("#cdId").val();
-		var modelId = $("#modelId").val();
-		var data = {entity:modelId + "-model",property:"model",mime: "text/plain"}
-		setStatus("loading");
-		jQuery.get("ds",data, function(x) {
-			$("#xml").val(x);
-			setStatus("loaded");
+	var editXml = function (id) {
+		jQuery.get("model",{id:"1"},function(data) {
+			$("#model-xml").val(data);
+			$("#dialog").dialog({
+		        maxWidth:"90%",
+		        maxHeight: "90%",
+		        width: "80%",
+		        height: 600,
+		        modal: true,
+		        buttons: {
+			        "Save": function() {
+			        	jQuery.post("model",{id:"1",xml:$("#model-xml").val()},function(data) {
+				        	$("#dialog").dialog("close");
+			        	}).error(function (request,status,error) {
+			    			setError(request.responseText);
+			    		});
+			        },
+			        Cancel: function() {
+			        	$(this).dialog("close");
+			        }
+			    }
+	        });
+		},'text')
+		.error(function (request,status,error) {
+			setError(request.responseText);
 		});
-		data.entity=id + "-presentation";
-		data.property="presentation";
-		jQuery.get("ds",data, function(x) {
-			$("#presentation").val(x);
-			setStatus("loaded");
+	};
+	$("#find").click(function() {
+		var searchFor = $("searchFor").val();
+		var found = $("#found");
+		setStatus("searching...")
+		jQuery.get("find",{"text":searchFor},function(data){
+			var result = JSON.parse(data);
+			var html = "";
+			var action = function (t,id) {
+				return "action-"+t+"-"+id;
+			}
+			for (var i=1;i<=result.count;i++){
+				var type=result["type"+i];
+				var id = result["id"+i];
+				var name=result["name"+i];
+				var style;
+				if (type == "model")
+					style = "edit";
+				else 
+					style = "view";
+				html += "<div class='line'><div class='id'>"+id+"</div><div class='name'>" + name + "</div><div id='"+action(type,id)+"' class='action "+style+"'></div>";
+			}
+			found.html(html);
+			for (var i=1;i<=result.count;i++){
+				var type=result["type"+i];
+				var id = result["id"+i];
+				var name=result["name"+i];
+				$("#"+action(type,id)).click(function() {
+					if (type=="model") {
+						var d = $("#dialog");
+						d.attr("title",id + ": "+ name);
+						editXml(id);
+					}
+					else 
+						window.location="cd?id="+id;
+				});
+			}			
+			setStatus("")
+		})
+		.error(function (request,status,error) {
+			setError(request.responseText);
 		});
 	})
-	$("#get").click(function() {
-		var id = $("#getCdId").val();
-		window.location = "cd?id="+id;
-	});
-	$("#load").click();
 });
 </script>
 
@@ -92,23 +128,12 @@ $(function() {
  <p>Here is an <a href="cd?id=47">example class diagram.</a></p>
 <p>The xml schema (XSD) for model definitions is <a href="schema">here</a>.</p>
 
-<h3>Display a class diagram</h3>
-<label for="id">Class Diagram Id:</label><div class="mandatory">*</div><input type="text" id = "getCdId" name="id" value="1"></input>
-<div id="get">Display</div>
-
-<h3>Load/Save a class diagram</h3>
-<label for="id">Class Diagram Id:</label><div class="mandatory">*</div>
-<input type="text" id="cdId"  value="1"></input><br/>
-<label for="presentation">Presentation (JSON):</label><br/>
-<textarea name="presentation" id="presentation"></textarea><br/>
-<label for="id">Model Id:</label><div class="mandatory">*</div>
-<input type="text" id="modelId" value="1"></input><br/>
-<div id="error"></div>
-<label for="xml">Model definition (xml):</label><div class="mandatory">*</div><br/>
-	<textarea name="xml" id="xml"></textarea><br/>
-<div id="save">Save</div>
-<div id="load">Load</div> 
+<label for="find"></label><input type="text" id="searchFor" value=""></input><input type="button" id="find" value="Find"></input>
+<div id="found"></div>
 <div id="status"></div>
-
+<div id="error"></div>
+<div id="dialog" title="Model">
+	<textarea id="model-xml"></textarea>
+</div>
 </body>
 </html>
