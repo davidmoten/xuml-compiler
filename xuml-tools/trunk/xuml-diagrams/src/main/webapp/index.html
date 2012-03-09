@@ -47,10 +47,10 @@ $(function() {
 		$("#error").text(s);
 		setStatus("Error occurred");
 	}
-	var editXml = function (id) {
+	var editXml = function (id,title) {
 		jQuery.get("model",{id:"1"},function(data) {
-			$("#model-xml").val(data);
-			$("#dialog").dialog({
+			$('<div id="dialog" title="'+title+'"><textarea id="model-xml">'+data+'</textarea></div>').dialog({
+				autoOpen:true,
 		        maxWidth:"90%",
 		        maxHeight: "90%",
 		        width: "80%",
@@ -58,8 +58,9 @@ $(function() {
 		        modal: true,
 		        buttons: {
 			        "Save": function() {
-			        	jQuery.post("model",{id:"1",xml:$("#model-xml").val()},function(data) {
-				        	$("#dialog").dialog("close");
+			        	var me = $(this);
+			        	jQuery.post("model",{id:"1",xml:$(this).find("#model-xml").val()},function(data) {
+				        	me.dialog("close");
 			        	}).error(function (request,status,error) {
 			    			setError(request.responseText);
 			    		});
@@ -84,7 +85,8 @@ $(function() {
 			var action = function (t,id) {
 				return "action-"+t+"-"+id;
 			}
-			for (var i=1;i<=result.count;i++){
+			var i;
+			for ( i=1;i<=result.count;i++){
 				var type=result["type"+i];
 				var id = result["id"+i];
 				var name=result["name"+i];
@@ -93,19 +95,17 @@ $(function() {
 					style = "edit";
 				else 
 					style = "view";
-				html += "<div class='line'><div class='id'>"+id+"</div><div class='name'>" + name + "</div><div id='"+action(type,id)+"' class='action "+style+"'></div>";
+				html += "<div class='line'><div class='id'>"+id+"</div><div class='name'>" + name + "</div><div id='"+action(type,id)+"' class='action "+style+"'></div></div>";
+				console.log(html);
 			}
 			found.html(html);
-			for (var i=1;i<=result.count;i++){
+			for (i=1;i<=result.count;i++){
 				var type=result["type"+i];
 				var id = result["id"+i];
 				var name=result["name"+i];
 				$("#"+action(type,id)).click(function() {
-					if (type=="model") {
-						var d = $("#dialog");
-						d.attr("title",id + ": "+ name);
-						editXml(id);
-					}
+					if (type == "model") 
+						editXml(id,id + ": "+ name);
 					else 
 						window.location="cd?id="+id;
 				});
@@ -132,8 +132,5 @@ $(function() {
 <div id="found"></div>
 <div id="status"></div>
 <div id="error"></div>
-<div id="dialog" title="Model">
-	<textarea id="model-xml"></textarea>
-</div>
 </body>
 </html>
