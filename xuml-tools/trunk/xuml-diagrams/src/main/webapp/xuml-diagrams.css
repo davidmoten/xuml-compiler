@@ -11,10 +11,10 @@ body {font-family: Tahoma, Geneva, sans-serif;font-size:100%;}
 #canvas { position:absolute; left:50px; top: 50px; }
 .relationshipName {position:absolute; left:100px;top:100px;background:white;padding:2px;}
 .generalization {position:absolute; left:100px;top:100px;background:white;}
-.verbClause1 {position:absolute; left:100px;top:100px;background:transparent;max-width:110px;}
-.verbClause2 {position:absolute; left:100px;top:100px;background:transparent;max-width:110px;}
-.multiplicity1 {position:absolute; left:100px;top:100px;transparent;}
-.multiplicity2 {position:absolute; left:100px;top:100px;transparent;}
+.verbClause1 {position:absolute; left:100px;top:100px;background:transparent;max-width:110px;font-size:80%;}
+.verbClause2 {position:absolute; left:100px;top:100px;background:transparent;max-width:110px;font-size:80%;}
+.multiplicity1 {position:absolute; left:100px;top:100px;transparent;font-size:80%;}
+.multiplicity2 {position:absolute; left:100px;top:100px;transparent;font-size:80%;}
 .cls {background:#F6F4D4; box-shadow: 5px 5px 5px #888;border:thin solid grey;}
 #save {float:right; padding-right:2em;color:#0000EE;}
 #restore {float:right; padding-right:2em; color:#0000EE;}
