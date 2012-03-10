@@ -20,6 +20,8 @@
 		<nativeAttribute name="Alias" type="String">
 			<identifier number="4" />
 		</nativeAttribute>
+		<operation name="validate"/>
+		<event name="Rename"/>
 	</class>
 
 	<class name="Attribute" domain="xuml">

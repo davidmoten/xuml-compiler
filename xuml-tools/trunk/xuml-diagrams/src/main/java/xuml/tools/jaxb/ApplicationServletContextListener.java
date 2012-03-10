@@ -15,6 +15,8 @@ public class ApplicationServletContextListener implements
 		saveXmlTo("47");
 		saveXmlTo("48");
 		saveXmlTo("1");
+		saveXmlTo("2");
+		saveXmlTo("3");
 	}
 
 	public void saveXmlTo(String id) {

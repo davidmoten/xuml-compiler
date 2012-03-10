@@ -12,10 +12,12 @@ import org.apache.commons.io.IOUtils;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.ClassWithDomain;
+import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.Identifier;
 import xuml.metamodel.jaxb.Multiplicity;
 import xuml.metamodel.jaxb.NativeAttribute;
+import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.ReferentialAttribute;
 import xuml.metamodel.jaxb.Relationship;
 
@@ -82,7 +84,8 @@ public class ClassDiagramGenerator {
 			s.append(" associationClass");
 		s.append("\"");
 		if (c.getRelationship() != null)
-			s.append(" relationshipName=\"" + getRelationshipName(c.getRelationship()) + "\" ");
+			s.append(" relationshipName=\""
+					+ getRelationshipName(c.getRelationship()) + "\" ");
 		s.append(">\n");
 		s.append("  <div class=\"attributes\">\n");
 		for (JAXBElement<? extends Attribute> attr : c.getAttribute()) {
@@ -112,6 +115,25 @@ public class ClassDiagramGenerator {
 			s.append("</div>\n");
 		}
 		s.append("  </div>\n");
+
+		if (!c.getOperation().isEmpty()) {
+			s.append("<div class=\"operations\">");
+			for (Operation op : c.getOperation()) {
+				s.append("<div class=\"operation\">");
+				s.append(op.getName() + "()");
+				s.append("</div>");
+			}
+			s.append("</div>");
+		}
+		if (!c.getEvent().isEmpty()) {
+			s.append("<div class=\"events\">");
+			for (Event event : c.getEvent()) {
+				s.append("<div class=\"event\">");
+				s.append(event.getName());
+				s.append("</div>");
+			}
+			s.append("</div>");
+		}
 		s.append("</div>\n");
 	}
 
