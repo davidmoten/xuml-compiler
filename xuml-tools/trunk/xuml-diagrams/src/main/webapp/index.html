@@ -125,10 +125,10 @@ $(function() {
 			}
 			window.addEvent('domready',function(){
 				$$('.name').each(function(el){
-					el.addEvent('click',function(){this.inlineEdit()});
+					el.addEvent('click',function(){this.inlineEdit(); $(".input").css("width","30em");});
 				});
 			});
-			setStatus("")
+			setStatus("");
 		})
 		.error(function (request,status,error) {
 			setError(request.responseText);
