@@ -21,7 +21,7 @@ label {float:left;clear:left;padding-top:0.3em;}
 input {margin-bottom:10px;}
 textarea {margin-bottom:10px;}
 #status {color:gray; float:left;padding-left:10px;}
-#error {color:red;}
+.error {color:red;}
 h2 {color:white;background-color:blue;padding:10px;}
 h3 {clear:left;}
 .label {clear:left;float:left;padding-top:3px;min-width:10em;}
@@ -40,7 +40,8 @@ h3 {clear:left;}
 	background-image: url(images/edit.png);
 	background-repeat: no-repeat;
 	background-position: center center;}
-	
+#newModel {clear:left;float:left;margin:10px}
+#newClassDiagram {float:left;margin:10px;}
 #model-xml {width:100%; height:90%;border:none;}
 .line {clear:left;}
 #found {  padding:5px;margin-bottom:5px;}
@@ -56,9 +57,10 @@ $(function() {
 		$("#error").text(s);
 		setStatus("Error occurred");
 	}
-	var editXml = function (id,title) {
-		jQuery.get("model",{id:"1"},function(data) {
-			var dialog = $('<div id="dialog" title="'+title+'"><textarea id="model-xml">'+data+'</textarea></div>').dialog({
+	var editXml = function (id,name) {
+		var title = id + ": "+ name;
+		jQuery.get("model",{id:id},function(data) {
+			var dialog = $('<div id="dialog" title="'+title+'"><textarea id="model-xml">'+data+'</textarea><br/><div id="modelError" class="error"></div></div>').dialog({
 				autoOpen:true,
 		        maxWidth:"90%",
 		        maxHeight: "90%",
@@ -68,10 +70,10 @@ $(function() {
 		        buttons: {
 			        "Save": function() {
 			        	var me = $(this);
-			        	jQuery.post("model",{id:"1",xml:$(this).find("#model-xml").val()},function(data) {
+			        	jQuery.post("model",{id:id,xml:$(this).find("#model-xml").val()},function(data) {
 				        	me.dialog("close");
 			        	}).error(function (request,status,error) {
-			    			setError(request.responseText);
+			    			$("#modelError").text(request.responseText);
 			    		});
 			        },
 			        Cancel: function() {
@@ -89,7 +91,11 @@ $(function() {
 		var found = $("#found");
 		setStatus("searching...")
 		jQuery.get("find",{"text":searchFor},function(data){
-			var result = JSON.parse(data);
+			var result;
+			if (data.length==0) 
+				result = {count:0};
+			else
+				result = JSON.parse(data);
 			var html = "";
 			var action = function (t,id) {
 				return "myaction-"+t+"-"+id;
@@ -108,7 +114,7 @@ $(function() {
 						+"<div class='type'>" + typeName +"</div>"
 						+"<div class='id'>"+id+"</div>"
 						+"<div class='name'>" + name + "</div>"
-						+"<div id='"+action(type,id)+"' itemId='"+ id + " itemType='"+type+"' itemName='" + name +"' class='action "+style+"'></div>"
+						+"<div id='"+action(type,id)+"' class='action "+style+"'></div>"
 						+"</div>\n";
 				console.log(html);
 			}
@@ -120,7 +126,7 @@ $(function() {
 				$("#"+action(type,id)).click(function(type,id,name) {
 					return function(){	
 						if (type == "model") 
-							editXml(id,id + ": "+ name);
+							editXml(id,name);
 						else 
 							window.location="cd?id="+id;
 					};
@@ -138,6 +144,14 @@ $(function() {
 		});
 	};
 
+	$("#newModel").click(function(){
+		var id = prompt("New model id:", "");
+		if (id !== null) {
+			var name = prompt("Model name:","");
+			if (name !== null)
+				editXml(id,name);
+		}
+	});
 	$("#find").click(function () {
 		var searchFor = $("searchFor").val();
 		find(searchFor);
@@ -158,7 +172,8 @@ $(function() {
 
 <!-- <label for="find"></label><input type="text" id="searchFor" value=""></input><input type="button" id="find" value="Find"></input>-->
 <div id="found"></div>
+<input type="button" id="newModel" value="New Model"></input><input type="button" id="newClassDiagram" value="New Class Diagram"></input>
 <div id="status"></div>
-<div id="error"></div>
+<div id="error" class="error"></div>
 </body>
 </html>

@@ -4,12 +4,11 @@ import xuml.tools.gae.Datastore;
 
 public class ModelPersistence {
 	
-
 	private static final String KEY_KIND = "diagram";
 	private static ModelPersistence instance = new ModelPersistence();
 	
 	public static ModelPersistence instance() {
-		return  instance;
+		return instance;
 	}
 	public String getXml(String id){
 		String entity = id + "-model";

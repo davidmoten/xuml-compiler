@@ -2,184 +2,184 @@
 	xsi:schemaLocation="http://david.moten.org/xuml ../../../../xuml-jaxb/src/main/resources/xuml.xsd">
 
 	<class name="Class" domain="xuml">
-		<native name="Name" type="String">
-			<identifier name="I" />
-		</native>
-		<referential name="Domain" relationship="R14">
-			<identifier name="I" />
-			<identifier name="I2" />
-			<identifier name="I3" />
-			<identifier name="I4" />
-		</referential>
-		<referential name="Element" relationship="R14">
-			<identifier name="I2" />
-		</referential>
-		<native name="Cnum" type="String">
-			<identifier name="I3" />
-		</native>
-		<native name="Alias" type="String">
-			<identifier name="I4" />
-		</native>
+		<nativeAttribute name="Name" type="String">
+			<identifier number="1" />
+		</nativeAttribute>
+		<referentialAttribute name="Domain" relationship="14">
+			<identifier number="1" />
+			<identifier number="2" />
+			<identifier number="3" />
+			<identifier number="4" />
+		</referentialAttribute>
+		<referentialAttribute name="Element" relationship="14">
+			<identifier number="2" />
+		</referentialAttribute>
+		<nativeAttribute name="Cnum" type="String">
+			<identifier number="3" />
+		</nativeAttribute>
+		<nativeAttribute name="Alias" type="String">
+			<identifier number="4" />
+		</nativeAttribute>
 	</class>
 
 	<class name="Attribute" domain="xuml">
-		<native name="Name" type="String">
-			<identifier name="I" />
-		</native>
-		<referential name="Class" relationship="R20">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R20">
-			<identifier name="I" />
-		</referential>
+		<nativeAttribute name="Name" type="String">
+			<identifier number="1" />
+		</nativeAttribute>
+		<referentialAttribute name="Class" relationship="20">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="20">
+			<identifier number="1" />
+		</referentialAttribute>
 	</class>
 
 	<class name="ReferentialAttribute" domain="xuml">
-		<referential name="Name" relationship="R21">
-			<identifier name="I" />
-		</referential>
-		<referential name="Class" relationship="R21">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R21">
-			<identifier name="I" />
-		</referential>
+		<referentialAttribute name="Name" relationship="21">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Class" relationship="21">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="21">
+			<identifier number="1" />
+		</referentialAttribute>
 	</class>
 
 	<class name="SpecializedClass" domain="xuml">
-		<referential name="Name" relationship="R23">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R23">
-			<identifier name="I" />
-		</referential>
+		<referentialAttribute name="Name" relationship="23">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="23">
+			<identifier number="1" />
+		</referentialAttribute>
 	</class>
 	<class name="NonSpecializedClass" domain="xuml">
-		<referential name="Name" relationship="R23">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R23">
-			<identifier name="I" />
-		</referential>
+		<referentialAttribute name="Name" relationship="23">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="23">
+			<identifier number="1" />
+		</referentialAttribute>
 	</class>
 
 	<class name="Identifier" domain="xuml">
-		<native name="Number" type="String">
-			<identifier name="I" />
-		</native>
-		<referential name="Class" relationship="R27">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R27">
-			<identifier name="I" />
-		</referential>
+		<nativeAttribute name="Number" type="String">
+			<identifier number="1" />
+		</nativeAttribute>
+		<referentialAttribute name="Class" relationship="27">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="27">
+			<identifier number="1" />
+		</referentialAttribute>
 	</class>
-	<class name="IdentifierAttribute" domain="xuml" relationship="R22">
-		<referential name="Identifier" otherName="Number"
-			relationship="R22">
-			<identifier name="I" />
-		</referential>
-		<referential name="Attribute" otherName="Name"
-			relationship="R22">
-			<identifier name="I" />
-		</referential>
-		<referential name="Class" relationship="R22">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R22">
-			<identifier name="I" />
-		</referential>
+	<class name="IdentifierAttribute" domain="xuml" relationship="22">
+		<referentialAttribute name="Identifier" otherName="Number"
+			relationship="22">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Attribute" otherName="Name"
+			relationship="22">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Class" relationship="22">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="22">
+			<identifier number="1" />
+		</referentialAttribute>
 	</class>
 
 	<class name="NativeAttribute" domain="xuml">
-		<referential name="Name" relationship="R21">
-			<identifier name="I" />
-		</referential>
-		<referential name="Class" relationship="R21">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R21">
-			<identifier name="I" />
-		</referential>
-		<referential name="Type" relationship="R24" />
+		<referentialAttribute name="Name" relationship="21">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Class" relationship="21">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="21">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Type" relationship="24" />
 	</class>
 
-	<class name="AttributeInDerivation" domain="xuml" relationship="R26">
-		<referential name="SourceAttribute" relationship="R26">
-			<identifier name="I" />
-		</referential>
-		<referential name="SourceClass" relationship="R26">
-			<identifier name="I" />
-		</referential>
-		<referential name="TargetAttribute" relationship="R26">
-			<identifier name="I" />
-		</referential>
-		<referential name="TargetClass" relationship="R26">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R26">
-			<identifier name="I"/>
-		</referential>
+	<class name="AttributeInDerivation" domain="xuml" relationship="26">
+		<referentialAttribute name="SourceAttribute" relationship="26">
+			<identifier number="1"/>
+		</referentialAttribute>
+		<referentialAttribute name="SourceClass" relationship="26">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="TargetAttribute" relationship="26">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="TargetClass" relationship="26">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="26">
+			<identifier number="1" />
+		</referentialAttribute>
 	</class>
 
 	<class name="IndependentAttribute" domain="xuml">
-		<referential name="Name" relationship="R25">
-			<identifier name="I" />
-		</referential>
-		<referential name="Class" relationship="R25">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R25">
-			<identifier name="I" />
-		</referential>
+		<referentialAttribute name="Name" relationship="25">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Class" relationship="25">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="25">
+			<identifier number="1" />
+		</referentialAttribute>
 	</class>
 	<class name="DerivedAttribute" domain="xuml">
-		<referential name="Name" relationship="R25">
-			<identifier name="I" />
-		</referential>
-		<referential name="Class" relationship="R25">
-			<identifier name="I" />
-		</referential>
-		<referential name="Domain" relationship="R25">
-			<identifier name="I" />
-		</referential>
-		<native name="Formula" type="String"/>
+		<referentialAttribute name="Name" relationship="25">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Class" relationship="25">
+			<identifier number="1" />
+		</referentialAttribute>
+		<referentialAttribute name="Domain" relationship="25">
+			<identifier number="1" />
+		</referentialAttribute>
+		<nativeAttribute name="Formula" type="String" />
 	</class>
-	<relationship name="R20">
+	<relationship number="20">
 		<class1 name="Class" domain="xuml" verbClause="characterizes"
 			multiplicity="ONE" />
 		<class2 name="Attribute" domain="xuml" verbClause="is characterized by"
 			multiplicity="ONE_MANY" />
 	</relationship>
-	<relationship name="R22">
+	<relationship number="22">
 		<class1 name="Identifier" domain="xuml" verbClause="is required in"
 			multiplicity="MANY" />
 		<class2 name="Attribute" domain="xuml" verbClause="requires"
 			multiplicity="ONE_MANY" />
 	</relationship>
-	<relationship name="R26">
+	<relationship number="26">
 		<class1 name="Attribute" domain="xuml" verbClause="is derived from"
 			multiplicity="ONE_MANY" />
-		<class2 name="DerivedAttribute" domain="xuml" verbClause="contributes to the value of"
-			multiplicity="MANY" />
+		<class2 name="DerivedAttribute" domain="xuml"
+			verbClause="contributes to the value of" multiplicity="MANY" />
 	</relationship>
-	<relationship name="R27">
+	<relationship number="27">
 		<class1 name="Class" domain="xuml" verbClause="uniquely distinguishes"
 			multiplicity="ONE" />
 		<class2 name="Identifier" domain="xuml" verbClause="is uniquely distinguished by"
 			multiplicity="ONE_MANY" />
 	</relationship>
-	<generalization name="R21">
+	<generalization number="21">
 		<superClass name="Attribute" domain="xuml" />
 		<class name="ReferentialAttribute" domain="xuml" />
 		<class name="NativeAttribute" domain="xuml" />
 	</generalization>
-	<generalization name="R25">
+	<generalization number="25">
 		<superClass name="NativeAttribute" domain="xuml" />
 		<class name="DerivedAttribute" domain="xuml" />
 		<class name="IndependentAttribute" domain="xuml" />
 	</generalization>
-	<generalization name="R23">
+	<generalization number="23">
 		<superClass name="Class" domain="xuml" />
 		<class name="SpecializedClass" domain="xuml" />
 		<class name="NonSpecializedClass" domain="xuml" />

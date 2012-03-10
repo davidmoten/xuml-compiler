@@ -363,12 +363,11 @@ function paintRelationships(c, ctx) {
 			setPosition(label, mid.left - 10, mid.top - 10);
 		});
 
-		var angle = 17;
 		rel.find(".verbClause1").each(function() {
 			placeVerbClause($(this), i1, mid);
 		});
 		rel.find(".verbClause2").each(function() {
-			placeVerbClause($(this), i2, mid)
+			placeVerbClause($(this), i2, mid);
 		});
 		rel.find(".multiplicity1").each(function() {
 			placeMultiplicity($(this), i1);
@@ -601,18 +600,27 @@ function restoreFromJSON(x) {
 	restoreFromObject(o);
 }
 
+function isUndefined(x) {
+	return (typeof x === "undefined");
+}
+
 function restoreFromObject(x) {
 	if (typeof x === "undefined" || x == null) return;
 	modelId = x.modelId;
 	$('.cls').each(function() {
 		var e = $(this);
 		var id = e.attr("id");
-		if (!(typeof id === "undefined")) {
-			if (!(typeof x.classPositions[id] === "undefined")) {
-				if (x.classPositions[id].left != null)
+		console.log(id);
+		if (!(isUndefined(id))) {
+			if (!(isUndefined( x.classPositions[id]))) {
+				if (!(isUndefined(x.classPositions[id].left)))
 				    e.css("left", x.classPositions[id].left);
-				if (x.classPositions[id].top !=null)
+				else {console.log("left undefined"); 
+					e.css("left", "0");}
+				if (!(isUndefined(x.classPositions[id].top)))
 				    e.css("top", x.classPositions[id].top);
+				else {console.log("top undefined");
+					e.css("top","0");}
 			}
 		}
 	});

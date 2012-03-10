@@ -21,7 +21,7 @@
 					<element name="operation" type="t:operation" maxOccurs="unbounded"
 						minOccurs="0" />
 				</sequence>
-				<attribute name="relationship" type="t:nonBlankString">
+				<attribute name="relationship" type="t:positiveInteger">
 					<annotation>
 						<documentation>If this is present then the class is an Association
 							Class</documentation>
@@ -32,8 +32,8 @@
 	</complexType>
 
 	<element name="attribute" type="t:attribute" />
-	<element name="native" substitutionGroup="t:attribute" type="t:nativeAttribute" />
-	<element name="referential" substitutionGroup="t:attribute"
+	<element name="nativeAttribute" substitutionGroup="t:attribute" type="t:nativeAttribute" />
+	<element name="referentialAttribute" substitutionGroup="t:attribute"
 		type="t:referentialAttribute" />
 
 	<complexType name="attribute">
@@ -45,7 +45,7 @@
 	</complexType>
 
 	<complexType name="identifier">
-		<attribute name="name" type="t:nonBlankString" />
+		<attribute name="number" type="t:positiveInteger" />
 	</complexType>
 
 	<complexType name="nativeAttribute">
@@ -75,7 +75,7 @@
 			<extension base="t:attribute">
 				<attribute name="otherName" type="t:nonBlankString"
 					use="optional" />
-				<attribute name="relationship" type="t:nonBlankString"
+				<attribute name="relationship" type="t:positiveInteger"
 					use="required" />
 			</extension>
 		</complexContent>
@@ -100,7 +100,7 @@
 			<element name="class1" type="t:relationshipEnd" />
 			<element name="class2" type="t:relationshipEnd" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString" use="required" />
+		<attribute name="number" type="t:positiveInteger" use="required" />
 	</complexType>
 
 	<complexType name="relationshipEnd">
@@ -126,7 +126,7 @@
 			<element name="superClass" type="t:classWithDomain" />
 			<element name="class" type="t:classWithDomain" maxOccurs="unbounded" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString" use="required" />
+		<attribute name="number" type="t:positiveInteger" use="required" />
 	</complexType>
 
 	<complexType name="classWithDomain">
@@ -137,6 +137,12 @@
 	<simpleType name="nonBlankString">
 		<restriction base="string">
 			<pattern value=".*[^\s].*" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="positiveInteger">
+		<restriction base="integer">
+			<minInclusive value="0"/>
 		</restriction>
 	</simpleType>
 
