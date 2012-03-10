@@ -603,16 +603,15 @@ function restoreFromJSON(x) {
 
 function restoreFromObject(x) {
 	if (typeof x === "undefined" || x == null) return;
+	modelId = x.modelId;
 	$('.cls').each(function() {
 		var e = $(this);
 		var id = e.attr("id");
 		if (!(typeof id === "undefined")) {
-			if (x[id].modelId != null)
-				modelId = x[id].modelId;
 			if (!(typeof x.classPositions[id] === "undefined")) {
 				if (x.classPositions[id].left != null)
 				    e.css("left", x.classPositions[id].left);
-				if (x[id].top !=null)
+				if (x.classPositions[id].top !=null)
 				    e.css("top", x.classPositions[id].top);
 			}
 		}

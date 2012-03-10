@@ -6,12 +6,12 @@
     src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css"
     href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
-    
+
 <script type="text/javascript"
     src="https://ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
 <script type="text/javascript"
     src="js/inlineEdit.v3.js"></script>
-    
+
 <style type="text/css">
 #presentation {min-height:5em;width:100%}
 #xml {min-height:10em;width:100%}
@@ -46,19 +46,6 @@ h3 {clear:left;}
 #found {  padding:5px;margin-bottom:5px;}
 </style>
 <script>
-function addEditEvents() {
-	$("div[id^=myaction-]").each(new function() {
-		var typ = $(this).attr("itemType");
-		var myId = $(this).attr("itemId");
-		var myName = $(this).attr("itemName");
-		$(this).click(function(){	
-			if (typ == "model") 
-				editXml(myId,myId + ": "+ myName);
-			else 
-				window.location="cd?id="+myId;
-		});
-	});
-}
 
 $(function() {
 	
@@ -98,8 +85,7 @@ $(function() {
 		});
 	};
 	
-	$("#find").click(function() {
-		var searchFor = $("searchFor").val();
+    var find = function(searchFor) {
 		var found = $("#found");
 		setStatus("searching...")
 		jQuery.get("find",{"text":searchFor},function(data){
@@ -127,7 +113,19 @@ $(function() {
 				console.log(html);
 			}
 			found.html(html);
-			addEditEvents();
+			for (var i=1;i<=result.count;i++) {
+				var type=result["type"+i];
+				var id = result["id"+i];
+				var name=result["name"+i];
+				$("#"+action(type,id)).click(function(type,id,name) {
+					return function(){	
+						if (type == "model") 
+							editXml(id,id + ": "+ name);
+						else 
+							window.location="cd?id="+id;
+					};
+				}(type,id,name));
+			};
 			window.addEvent('domready',function(){
 				$$('.name').each(function(el){
 					el.addEvent('click',function(){this.inlineEdit(); $(".input").css("width","30em");});
@@ -138,7 +136,13 @@ $(function() {
 		.error(function (request,status,error) {
 			setError(request.responseText);
 		});
+	};
+
+	$("#find").click(function () {
+		var searchFor = $("searchFor").val();
+		find(searchFor);
 	});
+	find("");
 });
 
 </script>
@@ -152,7 +156,7 @@ $(function() {
  <p>Here is an <a href="cd?id=47">example class diagram.</a></p>
 <p>The xml schema (XSD) for model definitions is <a href="schema">here</a>.</p>
 
-<label for="find"></label><input type="text" id="searchFor" value=""></input><input type="button" id="find" value="Find"></input>
+<!-- <label for="find"></label><input type="text" id="searchFor" value=""></input><input type="button" id="find" value="Find"></input>-->
 <div id="found"></div>
 <div id="status"></div>
 <div id="error"></div>
