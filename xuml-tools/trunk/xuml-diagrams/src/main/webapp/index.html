@@ -46,6 +46,20 @@ h3 {clear:left;}
 #found {  padding:5px;margin-bottom:5px;}
 </style>
 <script>
+function addEditEvents() {
+	$("div[id^=myaction-]").each(new function() {
+		var typ = $(this).attr("itemType");
+		var myId = $(this).attr("itemId");
+		var myName = $(this).attr("itemName");
+		$(this).click(function(){	
+			if (typ == "model") 
+				editXml(myId,myId + ": "+ myName);
+			else 
+				window.location="cd?id="+myId;
+		});
+	});
+}
+
 $(function() {
 	
 	var setStatus = function(s){
@@ -83,6 +97,7 @@ $(function() {
 			setError(request.responseText);
 		});
 	};
+	
 	$("#find").click(function() {
 		var searchFor = $("searchFor").val();
 		var found = $("#found");
@@ -91,7 +106,7 @@ $(function() {
 			var result = JSON.parse(data);
 			var html = "";
 			var action = function (t,id) {
-				return "action-"+t+"-"+id;
+				return "myaction-"+t+"-"+id;
 			}
 			for (var i=1;i<=result.count;i++){
 				var type=result["type"+i];
@@ -104,25 +119,15 @@ $(function() {
 					typeName = "Model";
 				}
 				html += "<div class='line'>"
-						+"<div class='type'>" +typeName+  "</div>"
+						+"<div class='type'>" + typeName +"</div>"
 						+"<div class='id'>"+id+"</div>"
 						+"<div class='name'>" + name + "</div>"
-						+"<div id='"+action(type,id)+"' itemId='"+ id +"' class='action "+style+"'></div>"
+						+"<div id='"+action(type,id)+"' itemId='"+ id + " itemType='"+type+"' itemName='" + name +"' class='action "+style+"'></div>"
 						+"</div>\n";
 				console.log(html);
 			}
 			found.html(html);
-			for (var i=1;i<=result.count;i++){
-				var type=result["type"+i];
-				var id = result["id"+i];
-				var name=result["name"+i];
-				$("#"+action(type,id)).click(function() {
-					if (type == "model") 
-						editXml(id,id + ": "+ name);
-					else 
-						window.location="cd?id="+id;
-				});
-			}
+			addEditEvents();
 			window.addEvent('domready',function(){
 				$$('.name').each(function(el){
 					el.addEvent('click',function(){this.inlineEdit(); $(".input").css("width","30em");});
