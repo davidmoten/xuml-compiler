@@ -6,6 +6,12 @@
     src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css"
     href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
+    
+<script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+<script type="text/javascript"
+    src="js/inlineEdit.v3.js"></script>
+    
 <style type="text/css">
 #presentation {min-height:5em;width:100%}
 #xml {min-height:10em;width:100%}
@@ -21,14 +27,15 @@ h3 {clear:left;}
 .label {clear:left;float:left;padding-top:3px;min-width:10em;}
 .buttons {float:left; padding-left:0.5em;}
 .button {float:left; padding-left:1.0em;color:blue;padding-top:3px;}
-.id {float:left; padding-left:10px;width:10em;border:1px solid grey; padding:0.5em;height:20px;}
+.id {float:left; padding-left:10px;width:5em;border:1px solid grey; padding:0.5em;height:20px;text-align: center;}
+.type {float:left; padding-left:10px;width:10em;border:1px solid grey; padding:0.5em;height:20px; text-align: center;}
 .name {float:left;color:brown;border-top:1px solid grey;border-bottom:1px solid grey;border-left:1px solid grey; width:30em;padding:0.5em;height:20px;}
 .action {float:left;border-top:1px solid grey;border-bottom:1px solid grey;border-right:1px solid grey; width:6em;padding:0.5em;height:20px;}
-.view {
+.view {float:left;
 	background-image: url(images/view.png);
 	background-repeat: no-repeat;
 	background-position: center center;}
-.edit {
+.edit {float:left;
 	background-image: url(images/edit.png);
 	background-repeat: no-repeat;
 	background-position: center center;}
@@ -49,11 +56,11 @@ $(function() {
 	}
 	var editXml = function (id,title) {
 		jQuery.get("model",{id:"1"},function(data) {
-			$('<div id="dialog" title="'+title+'"><textarea id="model-xml">'+data+'</textarea></div>').dialog({
+			var dialog = $('<div id="dialog" title="'+title+'"><textarea id="model-xml">'+data+'</textarea></div>').dialog({
 				autoOpen:true,
 		        maxWidth:"90%",
 		        maxHeight: "90%",
-		        width: "80%",
+		        width: 800,
 		        height: 600,
 		        modal: true,
 		        buttons: {
@@ -70,6 +77,7 @@ $(function() {
 			        }
 			    }
 	        });
+			//$("body").append(dialog);
 		},'text')
 		.error(function (request,status,error) {
 			setError(request.responseText);
@@ -90,12 +98,18 @@ $(function() {
 				var type=result["type"+i];
 				var id = result["id"+i];
 				var name=result["name"+i];
-				var style;
-				if (type == "model")
+				var style = "view";
+				var typeName ="Class Diagram";
+				if (type == "model") {
 					style = "edit";
-				else 
-					style = "view";
-				html += "<div class='line'><div class='id'>"+id+"</div><div class='name'>" + name + "</div><div id='"+action(type,id)+"' class='action "+style+"'></div></div>";
+					typeName = "Model";
+				}
+				html += "<div class='line'>"
+						+"<div class='type'>" +typeName+  "</div>"
+						+"<div class='id'>"+id+"</div>"
+						+"<div class='name'>" + name + "</div>"
+						+"<div id='"+action(type,id)+"' itemId='"+ id +"' class='action "+style+"'></div>"
+						+"</div>\n";
 				console.log(html);
 			}
 			found.html(html);
@@ -109,14 +123,20 @@ $(function() {
 					else 
 						window.location="cd?id="+id;
 				});
-			}			
+			}
+			window.addEvent('domready',function(){
+				$$('.name').each(function(el){
+					el.addEvent('click',function(){this.inlineEdit()});
+				});
+			});
 			setStatus("")
 		})
 		.error(function (request,status,error) {
 			setError(request.responseText);
 		});
-	})
+	});
 });
+
 </script>
 
 </head>
