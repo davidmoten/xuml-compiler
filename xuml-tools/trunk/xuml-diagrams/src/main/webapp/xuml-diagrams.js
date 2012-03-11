@@ -1,3 +1,65 @@
+CanvasRenderingContext2D.prototype.dashedLineTo = function(fromX, fromY, toX,
+		toY, pattern) {
+	// Our growth rate for our line can be one of the following:
+	// (+,+), (+,-), (-,+), (-,-)
+	// Because of this, our algorithm needs to understand if the x-coord
+	// and
+	// y-coord should be getting smaller or larger and properly cap the
+	// values
+	// based on (x,y).
+	var lt = function(a, b) {
+		return a <= b;
+	};
+	var gt = function(a, b) {
+		return a >= b;
+	};
+	var capmin = function(a, b) {
+		return Math.min(a, b);
+	};
+	var capmax = function(a, b) {
+		return Math.max(a, b);
+	};
+
+	var checkX = {
+		thereYet : gt,
+		cap : capmin
+	};
+	var checkY = {
+		thereYet : gt,
+		cap : capmin
+	};
+
+	if (fromY - toY > 0) {
+		checkY.thereYet = lt;
+		checkY.cap = capmax;
+	}
+	if (fromX - toX > 0) {
+		checkX.thereYet = lt;
+		checkX.cap = capmax;
+	}
+
+	this.moveTo(fromX, fromY);
+	var offsetX = fromX;
+	var offsetY = fromY;
+	var idx = 0, dash = true;
+	while (!(checkX.thereYet(offsetX, toX) && checkY.thereYet(offsetY, toY))) {
+		var ang = Math.atan2(toY - fromY, toX - fromX);
+		var len = pattern[idx];
+
+		offsetX = checkX.cap(toX, offsetX + (Math.cos(ang) * len));
+		offsetY = checkY.cap(toY, offsetY + (Math.sin(ang) * len));
+
+		if (dash)
+			this.lineTo(offsetX, offsetY);
+		else
+			this.moveTo(offsetX, offsetY);
+
+		idx = (idx + 1) % pattern.length;
+		dash = !dash;
+	}
+};
+
+
 function getParameterByName(name) {
 
     var match = RegExp('[?&]' + name + '=([^&]*)')
@@ -339,6 +401,8 @@ function placeMultiplicity(e, p) {
 		alert("should not get here");
 }
 
+var useMultiplicityArrowHeads = true;
+
 function paintRelationships(c, ctx) {
 	$(".relationship").each(function() {
 		var rel = $(this);
@@ -355,7 +419,10 @@ function paintRelationships(c, ctx) {
 		var p1 = minus(i1, c);
 		var p2 = minus(i2, c);
 		ctx.moveTo(p1.left, p1.top);
-		ctx.lineTo(p2.left, p2.top);
+		if (useMultiplicityArrowHeads)
+			paintArrowMany(ctx,p1,p2,25,10);
+		else 
+			ctx.lineTo(p2.left, p2.top);
 
 		rel.find(".relationshipName").each(function() {
 			var label = $(this);
@@ -378,66 +445,6 @@ function paintRelationships(c, ctx) {
 	});
 }
 
-CanvasRenderingContext2D.prototype.dashedLineTo = function(fromX, fromY, toX,
-		toY, pattern) {
-	// Our growth rate for our line can be one of the following:
-	// (+,+), (+,-), (-,+), (-,-)
-	// Because of this, our algorithm needs to understand if the x-coord
-	// and
-	// y-coord should be getting smaller or larger and properly cap the
-	// values
-	// based on (x,y).
-	var lt = function(a, b) {
-		return a <= b;
-	};
-	var gt = function(a, b) {
-		return a >= b;
-	};
-	var capmin = function(a, b) {
-		return Math.min(a, b);
-	};
-	var capmax = function(a, b) {
-		return Math.max(a, b);
-	};
-
-	var checkX = {
-		thereYet : gt,
-		cap : capmin
-	};
-	var checkY = {
-		thereYet : gt,
-		cap : capmin
-	};
-
-	if (fromY - toY > 0) {
-		checkY.thereYet = lt;
-		checkY.cap = capmax;
-	}
-	if (fromX - toX > 0) {
-		checkX.thereYet = lt;
-		checkX.cap = capmax;
-	}
-
-	this.moveTo(fromX, fromY);
-	var offsetX = fromX;
-	var offsetY = fromY;
-	var idx = 0, dash = true;
-	while (!(checkX.thereYet(offsetX, toX) && checkY.thereYet(offsetY, toY))) {
-		var ang = Math.atan2(toY - fromY, toX - fromX);
-		var len = pattern[idx];
-
-		offsetX = checkX.cap(toX, offsetX + (Math.cos(ang) * len));
-		offsetY = checkY.cap(toY, offsetY + (Math.sin(ang) * len));
-
-		if (dash)
-			this.lineTo(offsetX, offsetY);
-		else
-			this.moveTo(offsetX, offsetY);
-
-		idx = (idx + 1) % pattern.length;
-		dash = !dash;
-	}
-};
 
 function paintAssociationClasses(c, ctx) {
 	$(".associationClass").each(function() {
@@ -452,6 +459,42 @@ function paintAssociationClasses(c, ctx) {
 		ctx.moveTo(p1.left, p1.top);
 		ctx.dashedLineTo(p1.left, p1.top, p2.left, p2.top, [ 5, 5 ]);
 	});
+}
+
+function paintArrowMany(ctx,p1,p2,angle,arrowSize){
+	var len = arrowSize*Math.cos(angle*Math.PI/180.0);
+	var p2close = towards(p2, p1, 5+len);
+	var p3 = towards(p2close, p1, arrowSize);
+	ctx.moveTo(p1.left, p1.top);
+	var p4 = rotateAbout(p3, p2close, angle);
+	var p5 = rotateAbout(p3, p2close, -angle);
+	var midRear = midPoint(p4, p5);
+	ctx.beginPath();
+	ctx.lineTo(midRear.left, midRear.top);
+	ctx.closePath();
+	ctx.stroke();
+	
+	ctx.beginPath();
+	ctx.moveTo(midRear.left, midRear.top);
+	ctx.lineTo(p4.left, p4.top);
+	ctx.lineTo(p2close.left, p2close.top);
+	ctx.lineTo(p5.left, p5.top);
+	ctx.lineTo(midRear.left, midRear.top);
+	ctx.closePath();
+	ctx.fill();
+	var q2close = towards(p2,p1,5);
+	var q3 = towards(q2close,p1,arrowSize);
+	var q4 = rotateAbout(q3, q2close, angle);
+	var q5 = rotateAbout(q3, q2close, -angle);
+	var qMidRear = midPoint(q4,q5);
+	ctx.beginPath();
+	ctx.moveTo(qMidRear.left, qMidRear.top);
+	ctx.lineTo(q4.left, q4.top);
+	ctx.lineTo(q2close.left, q2close.top);
+	ctx.lineTo(q5.left, q5.top);
+	ctx.lineTo(qMidRear.left, qMidRear.top);
+	ctx.closePath();
+	ctx.fill();
 }
 
 function paintGeneralizations(c, ctx) {
