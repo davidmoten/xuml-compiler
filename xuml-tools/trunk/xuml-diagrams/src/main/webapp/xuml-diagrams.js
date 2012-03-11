@@ -419,8 +419,11 @@ function paintRelationships(c, ctx) {
 		var p1 = minus(i1, c);
 		var p2 = minus(i2, c);
 
-		if (useMultiplicityArrowHeads)
-			paintArrowMany(ctx,p1,p2,25,10);
+		var m = midPoint(p1,p2);
+		if (useMultiplicityArrowHeads) {
+			paintArrowMany(ctx,m,p2,25,10,true,false);
+			paintArrowMany(ctx,m,p1,25,10,false,true);
+		}
 		else {ctx.beginPath();
 			ctx.moveTo(p1.left, p1.top);
 			ctx.lineTo(p2.left, p2.top);
@@ -465,7 +468,7 @@ function paintAssociationClasses(c, ctx) {
 	});
 }
 
-function paintArrowMany(ctx,p1,p2,angle,arrowSize){
+function paintArrowMany(ctx,p1,p2,angle,arrowSize,doubleHead,filled){
 	var len = arrowSize*Math.cos(angle*Math.PI/180.0);
 	var p2close = towards(p2, p1, 5+len);
 	var p3 = towards(p2close, p1, arrowSize);
@@ -478,20 +481,32 @@ function paintArrowMany(ctx,p1,p2,angle,arrowSize){
 	ctx.closePath();
 	ctx.stroke();
 	
-	ctx.beginPath();
-	ctx.moveTo(midRear.left, midRear.top);
-	ctx.lineTo(p4.left, p4.top);
-	ctx.lineTo(p2close.left, p2close.top);
-	ctx.lineTo(p5.left, p5.top);
-	ctx.lineTo(midRear.left, midRear.top);
-	ctx.closePath();
-	ctx.fill();
-
 	var q2close = towards(p2,p1,5);
 	var q3 = towards(q2close,p1,arrowSize);
 	var q4 = rotateAbout(q3, q2close, angle);
 	var q5 = rotateAbout(q3, q2close, -angle);
 	var qMidRear = midPoint(q4,q5);
+	
+	if (doubleHead){
+		ctx.beginPath();
+		ctx.moveTo(midRear.left, midRear.top);
+		ctx.lineTo(p4.left, p4.top);
+		ctx.lineTo(p2close.left, p2close.top);
+		ctx.lineTo(p5.left, p5.top);
+		ctx.lineTo(midRear.left, midRear.top);
+		ctx.closePath();
+		if (filled)
+			ctx.fill();
+		else
+			ctx.stroke();
+	} else {
+		ctx.beginPath();
+		ctx.moveTo(midRear.left,midRear.top);
+		ctx.lineTo(qMidRear.left,qMidRear.top);
+		ctx.closePath();
+		ctx.stroke();
+	}
+
 	
 	ctx.beginPath();
 	ctx.moveTo(qMidRear.left, qMidRear.top);
@@ -500,7 +515,10 @@ function paintArrowMany(ctx,p1,p2,angle,arrowSize){
 	ctx.lineTo(q5.left, q5.top);
 	ctx.lineTo(qMidRear.left, qMidRear.top);
 	ctx.closePath();
-	ctx.fill();
+	if (filled)
+		ctx.fill();
+	else 
+		ctx.stroke();
 }
 
 function paintGeneralizations(c, ctx) {
