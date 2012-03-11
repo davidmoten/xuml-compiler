@@ -403,6 +403,25 @@ function placeMultiplicity(e, p) {
 
 var useMultiplicityArrowHeads = true;
 
+function paintRelationshipLineWithArrow(ctx,p1,p2,angle,arrowSize,mult) {
+	var doubleHead;
+	var filled;
+	if (mult=="*") {
+		doubleHead = true;
+		filled = false;
+	} else if (mult=="1..*"){
+		doubleHead = true;
+		filled = true;
+	} else if (mult=="1"){
+		doubleHead = false;
+		filled = true;
+	} else {//0..1
+		doubleHead = false;
+		filled=false;
+	} 
+	paintArrowMany(ctx,p1,p2,25,10,doubleHead,filled);
+}
+
 function paintRelationships(c, ctx) {
 	$(".relationship").each(function() {
 		var rel = $(this);
@@ -421,8 +440,10 @@ function paintRelationships(c, ctx) {
 
 		var m = midPoint(p1,p2);
 		if (useMultiplicityArrowHeads) {
-			paintArrowMany(ctx,m,p2,25,10,true,false);
-			paintArrowMany(ctx,m,p1,25,10,false,true);
+			paintRelationshipLineWithArrow(ctx,m,p1,25,20,rel.attr("multiplicity1"));
+			paintRelationshipLineWithArrow(ctx,m,p2,25,20,rel.attr("multiplicity2"));
+			//paintArrowMany(ctx,m,p2,25,10,true,false);
+			//paintArrowMany(ctx,m,p1,25,10,false,true);
 		}
 		else {ctx.beginPath();
 			ctx.moveTo(p1.left, p1.top);
@@ -443,12 +464,12 @@ function paintRelationships(c, ctx) {
 		rel.find(".verbClause2").each(function() {
 			placeVerbClause($(this), i2, mid);
 		});
-		rel.find(".multiplicity1").each(function() {
-			placeMultiplicity($(this), i1);
-		});
-		rel.find(".multiplicity2").each(function() {
-			placeMultiplicity($(this), i2);
-		});
+//		rel.find(".multiplicity1").each(function() {
+//			placeMultiplicity($(this), i1);
+//		});
+//		rel.find(".multiplicity2").each(function() {
+//			placeMultiplicity($(this), i2);
+//		});
 	});
 }
 
@@ -463,8 +484,11 @@ function paintAssociationClasses(c, ctx) {
 		var i1 = elementBorderIntersection(mid, w);
 
 		p1 = minus(i1, c);
+		ctx.beginPath();
 		ctx.moveTo(p1.left, p1.top);
 		ctx.dashedLineTo(p1.left, p1.top, p2.left, p2.top, [ 5, 5 ]);
+		ctx.closePath();
+		ctx.stroke();
 	});
 }
 
@@ -584,10 +608,10 @@ function createDivs() {
 						+ "</div>");
 				e.append('<div class="verbClause2">' + e.attr("verbClause2")
 						+ "</div>");
-				e.append('<div class="multiplicity1">'
-						+ e.attr("multiplicity1") + "</div>");
-				e.append('<div class="multiplicity2">'
-						+ e.attr("multiplicity2") + "</div>");
+//				e.append('<div class="multiplicity1">'
+//						+ e.attr("multiplicity1") + "</div>");
+//				e.append('<div class="multiplicity2">'
+//						+ e.attr("multiplicity2") + "</div>");
 			});
 	$(".cls").each(
 			function() {
