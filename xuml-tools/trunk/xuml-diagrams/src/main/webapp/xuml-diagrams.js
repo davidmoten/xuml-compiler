@@ -607,6 +607,7 @@ function isUndefined(x) {
 function restoreFromObject(x) {
 	if (typeof x === "undefined" || x == null) return;
 	modelId = x.modelId;
+	$("#title").text(x.title);
 	$('.cls').each(function() {
 		var e = $(this);
 		var id = e.attr("id");
@@ -688,7 +689,10 @@ function createOptions() {
 
 function createEdit() {
 	$("body").prepend("<div id='edit' class='edit noprint'>Edit</div>");
+}
 
+function createTitle() {
+	$("body").prepend("<div id='title'></div>");
 }
 
 function makeDraggable() {
@@ -726,6 +730,7 @@ function setup() {
 	createSave();
 	createRestore();
 	createEdit();
+	createTitle();
 	makeDraggable();
 	repaint();
 }
