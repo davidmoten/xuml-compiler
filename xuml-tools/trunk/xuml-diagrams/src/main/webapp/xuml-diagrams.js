@@ -418,11 +418,15 @@ function paintRelationships(c, ctx) {
 		relationshipMidpoints[rel.attr("id")] = midAdjusted;
 		var p1 = minus(i1, c);
 		var p2 = minus(i2, c);
-		ctx.moveTo(p1.left, p1.top);
+
 		if (useMultiplicityArrowHeads)
 			paintArrowMany(ctx,p1,p2,25,10);
-		else 
+		else {ctx.beginPath();
+			ctx.moveTo(p1.left, p1.top);
 			ctx.lineTo(p2.left, p2.top);
+			ctx.closePath();
+			ctx.stroke();
+		}
 
 		rel.find(".relationshipName").each(function() {
 			var label = $(this);
@@ -465,11 +469,11 @@ function paintArrowMany(ctx,p1,p2,angle,arrowSize){
 	var len = arrowSize*Math.cos(angle*Math.PI/180.0);
 	var p2close = towards(p2, p1, 5+len);
 	var p3 = towards(p2close, p1, arrowSize);
-	ctx.moveTo(p1.left, p1.top);
 	var p4 = rotateAbout(p3, p2close, angle);
 	var p5 = rotateAbout(p3, p2close, -angle);
 	var midRear = midPoint(p4, p5);
 	ctx.beginPath();
+	ctx.moveTo(p1.left, p1.top);
 	ctx.lineTo(midRear.left, midRear.top);
 	ctx.closePath();
 	ctx.stroke();
@@ -482,11 +486,13 @@ function paintArrowMany(ctx,p1,p2,angle,arrowSize){
 	ctx.lineTo(midRear.left, midRear.top);
 	ctx.closePath();
 	ctx.fill();
+
 	var q2close = towards(p2,p1,5);
 	var q3 = towards(q2close,p1,arrowSize);
 	var q4 = rotateAbout(q3, q2close, angle);
 	var q5 = rotateAbout(q3, q2close, -angle);
 	var qMidRear = midPoint(q4,q5);
+	
 	ctx.beginPath();
 	ctx.moveTo(qMidRear.left, qMidRear.top);
 	ctx.lineTo(q4.left, q4.top);
@@ -514,6 +520,7 @@ function paintGeneralizations(c, ctx) {
 		var arrowSize = 20;
 		var p2close = towards(p2, p1, 5);
 		var p3 = towards(p2close, p1, arrowSize);
+		ctx.beginPath();
 		ctx.moveTo(p1.left, p1.top);
 		// draw arrow
 		var angle = 30;
@@ -525,7 +532,9 @@ function paintGeneralizations(c, ctx) {
 		ctx.lineTo(p2close.left, p2close.top);
 		ctx.lineTo(p5.left, p5.top);
 		ctx.lineTo(midRear.left, midRear.top);
-
+		ctx.closePath();
+		ctx.stroke();
+		
 		var mid = plus(midPoint(p1, p2), c);
 
 		setPosition(gen, mid.left - 10, mid.top - 5);
@@ -541,13 +550,10 @@ function repaint() {
 	var c = $("#canvas").offset();
 	var ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	ctx.beginPath();
 	relationshipMidpoints = new Object();
 	paintRelationships(c, ctx);
 	paintGeneralizations(c, ctx);
 	paintAssociationClasses(c, ctx);
-	ctx.stroke();
-	ctx.closePath();
 }
 
 function createDivs() {
