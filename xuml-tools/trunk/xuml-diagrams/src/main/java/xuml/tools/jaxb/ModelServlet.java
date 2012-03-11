@@ -19,7 +19,7 @@ public class ModelServlet extends HttpServlet {
 		try {
 			String id = req.getParameter("id");
 			String result = ModelPersistence.instance().getXml(id);
-			resp.setContentType("text/xml");
+			resp.setContentType("text/plain");
 			if (result != null)
 				resp.getOutputStream().write(result.getBytes());
 		} catch (RuntimeException e) {

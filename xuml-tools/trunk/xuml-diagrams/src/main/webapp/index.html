@@ -60,7 +60,9 @@ $(function() {
 	var editXml = function (id,name) {
 		var title = id + ": "+ name;
 		jQuery.get("model",{id:id},function(data) {
-			var dialog = $('<div id="dialog" title="'+title+'"><textarea id="model-xml">'+data+'</textarea><br/><div id="modelError" class="error"></div></div>').dialog({
+			var dlg = $('<div id="dialog" title="'+title+'"><textarea id="model-xml"></textarea><br/><div id="modelError" class="error"></div></div>');
+			dlg.find('#model-xml').val(data);
+			dlg.dialog({
 				autoOpen:true,
 		        maxWidth:"90%",
 		        maxHeight: "90%",

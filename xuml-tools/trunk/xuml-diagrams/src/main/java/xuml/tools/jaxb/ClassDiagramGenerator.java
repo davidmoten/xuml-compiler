@@ -15,8 +15,8 @@ import xuml.metamodel.jaxb.ClassWithDomain;
 import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.Identifier;
+import xuml.metamodel.jaxb.IndependentAttribute;
 import xuml.metamodel.jaxb.Multiplicity;
-import xuml.metamodel.jaxb.NativeAttribute;
 import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.ReferentialAttribute;
 import xuml.metamodel.jaxb.Relationship;
@@ -88,13 +88,13 @@ public class ClassDiagramGenerator {
 					+ getRelationshipName(c.getRelationship()) + "\" ");
 		s.append(">\n");
 		s.append("  <div class=\"attributes\">\n");
-		for (JAXBElement<? extends Attribute> attr : c.getAttribute()) {
+		for (JAXBElement<? extends Attribute> attr : c.getAttributeBase()) {
 			System.out.println("attribute=" + attr.getValue().getName());
 			List<String> items = new ArrayList<String>();
 			for (Identifier id : attr.getValue().getIdentifier())
 				items.add(getIdentifierName(id.getNumber()));
-			if (attr.getValue() instanceof NativeAttribute) {
-				NativeAttribute a = (NativeAttribute) attr.getValue();
+			if (attr.getValue() instanceof IndependentAttribute) {
+				IndependentAttribute a = (IndependentAttribute) attr.getValue();
 				s.append("    <div class=\"attribute\">" + a.getName() + ": "
 						+ a.getType().value() + " ");
 				if (!a.isMandatory())

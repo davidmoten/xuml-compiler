@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://david.moten.org/xuml ../../../../xuml-jaxb/src/main/resources/xuml.xsd">
 
 	<class name="Class" domain="xuml">
-		<nativeAttribute name="Name" type="String">
+		<attribute name="Name" type="String">
 			<identifier number="1" />
-		</nativeAttribute>
+		</attribute>
 		<referentialAttribute name="Domain" relationship="14">
 			<identifier number="1" />
 			<identifier number="2" />
@@ -14,20 +14,20 @@
 		<referentialAttribute name="Element" relationship="14">
 			<identifier number="2" />
 		</referentialAttribute>
-		<nativeAttribute name="Cnum" type="String">
+		<attribute name="Cnum" type="String">
 			<identifier number="3" />
-		</nativeAttribute>
-		<nativeAttribute name="Alias" type="String">
+		</attribute>
+		<attribute name="Alias" type="String">
 			<identifier number="4" />
-		</nativeAttribute>
+		</attribute>
 		<operation name="validate"/>
 		<event name="Rename"/>
 	</class>
 
 	<class name="Attribute" domain="xuml">
-		<nativeAttribute name="Name" type="String">
+		<attribute name="Name" type="String">
 			<identifier number="1" />
-		</nativeAttribute>
+		</attribute>
 		<referentialAttribute name="Class" relationship="20">
 			<identifier number="1" />
 		</referentialAttribute>
@@ -66,9 +66,9 @@
 	</class>
 
 	<class name="Identifier" domain="xuml">
-		<nativeAttribute name="Number" type="String">
+		<attribute name="Number" type="String">
 			<identifier number="1" />
-		</nativeAttribute>
+		</attribute>
 		<referentialAttribute name="Class" relationship="27">
 			<identifier number="1" />
 		</referentialAttribute>
@@ -145,7 +145,7 @@
 		<referentialAttribute name="Domain" relationship="25">
 			<identifier number="1" />
 		</referentialAttribute>
-		<nativeAttribute name="Formula" type="String" />
+		<attribute name="Formula" type="String" />
 	</class>
 	<relationship number="20">
 		<class1 name="Class" domain="xuml" verbClause="characterizes"
