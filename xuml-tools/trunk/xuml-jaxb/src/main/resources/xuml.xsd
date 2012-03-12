@@ -20,7 +20,11 @@
 					<element ref="t:attributeBase" maxOccurs="unbounded" />
 					<element name="operation" type="t:operation" maxOccurs="unbounded"
 						minOccurs="0" />
+					<element name="state" type="t:state" maxOccurs="unbounded"
+						minOccurs="0" />
 					<element name="event" type="t:event" maxOccurs="unbounded"
+						minOccurs="0" />
+					<element name="transition" type="t:transition" maxOccurs="unbounded"
 						minOccurs="0" />
 				</sequence>
 				<attribute name="relationship" type="t:positiveInteger">
@@ -37,6 +41,9 @@
 	<element name="attributeBase" type="t:attribute" />
 	<element name="attribute" substitutionGroup="t:attributeBase"
 		type="t:independentAttribute" />
+	<element name="derivedAttribute" substitutionGroup="t:attributeBase"
+		type="t:derivedAttribute" />
+
 	<element name="referentialAttribute" substitutionGroup="t:attributeBase"
 		type="t:referentialAttribute" />
 
@@ -55,9 +62,20 @@
 	<complexType name="independentAttribute">
 		<complexContent>
 			<extension base="t:attribute">
-				<attribute name="type" type="t:independentAttributeType" use="required" />
+				<attribute name="type" type="t:independentAttributeType"
+					use="required" />
 				<attribute name="mandatory" type="boolean" use="optional"
 					default="true" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="derivedAttribute">
+		<complexContent>
+			<extension base="t:attribute">
+				<attribute name="type" type="t:independentAttributeType"
+					use="required" />
+				<attribute name="formula" type="t:nonBlankString" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -99,6 +117,33 @@
 				maxOccurs="unbounded" />
 		</sequence>
 		<attribute name="name" type="t:nonBlankString" use="required" />
+	</complexType>
+
+	<complexType name="state">
+		<sequence>
+			<element name="onEntry" type="t:onEvent" minOccurs="0" />
+		</sequence>
+		<attribute name="name" type="t:nonBlankString" use="required" />
+		<attribute name="number" type="t:positiveInteger" use="required" />
+	</complexType>
+
+	<complexType name="onEvent">
+		<sequence>
+			<element name="action" type="t:action" minOccurs="0" />
+		</sequence>
+		<attribute name="event" type="t:nonBlankString" />
+	</complexType>
+
+	<simpleType name="action">
+		<restriction base="string">
+			<whiteSpace value="preserve" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="transition">
+		<attribute name="from" type="t:nonBlankString" use="required" />
+		<attribute name="to" type="t:nonBlankString" use="required" />
+		<attribute name="event" type="t:nonBlankString" use="required" />
 	</complexType>
 
 	<complexType name="parameter">

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <system xmlns="http://david.moten.org/xuml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://david.moten.org/xuml ../../../../xuml-jaxb/src/main/resources/xuml.xsd">
+	xsi:schemaLocation="http://david.moten.org/xuml ../../../../../../xuml-jaxb/src/main/resources/xuml.xsd">
 
 	<class name="Class" domain="xuml">
 		<attribute name="Name" type="String">
@@ -21,7 +22,14 @@
 			<identifier number="4" />
 		</attribute>
 		<operation name="validate"/>
-		<event name="Rename"/>
+		<state name="Valid" number="1"/>
+		<state name="Invalid" number="2">
+		 	<onEntry event="ValidationError">
+		 		<action>do something here</action>
+		 	</onEntry>
+		</state>
+		<event name="ValidationError"/>
+		<transition from="Valid" to="Invalid" event="ValidationError"/>
 	</class>
 
 	<class name="Attribute" domain="xuml">
