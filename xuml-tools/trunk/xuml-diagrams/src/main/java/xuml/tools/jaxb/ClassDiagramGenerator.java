@@ -12,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.ClassWithDomain;
+import xuml.metamodel.jaxb.DerivedAttribute;
 import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.Identifier;
@@ -99,10 +100,14 @@ public class ClassDiagramGenerator {
 						+ a.getType().value() + " ");
 				if (!a.isMandatory())
 					items.add("O");
-			} else {
+			} else if (attr.getValue() instanceof ReferentialAttribute) {
 				ReferentialAttribute r = (ReferentialAttribute) attr.getValue();
 				items.add(getRelationshipName(r.getRelationship()));
 				s.append("<div class=\"attribute\">" + r.getName() + ": ");
+			} else if (attr.getValue() instanceof DerivedAttribute) {
+				DerivedAttribute d = (DerivedAttribute) attr.getValue();
+				s.append("<div class=\"attribute\">" + "/ " + d.getName()
+						+ ": " + d.getType().value());
 			}
 			StringBuilder b = new StringBuilder();
 			for (String item : items) {

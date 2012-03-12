@@ -46,6 +46,7 @@
 		<referentialAttribute name="Domain" relationship="21">
 			<identifier number="1" />
 		</referentialAttribute>
+		<derivedAttribute name="Type" type="String" formula="something"/>
 	</class>
 
 	<class name="SpecializedClass" domain="xuml">
