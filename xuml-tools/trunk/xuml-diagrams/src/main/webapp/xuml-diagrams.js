@@ -69,7 +69,7 @@ function getParameterByName(name) {
 
 }
 
-function midPoint(p1, p2) {
+function midpoint(p1, p2) {
 	return {
 		left : (p1.left + p2.left) / 2,
 		top : (p1.top + p2.top) / 2
@@ -92,11 +92,11 @@ function _testMidPoint() {
 		left : 40,
 		top : 100
 	};
-	var result = midPoint(p1, p2);
+	var result = midpoint(p1, p2);
 	if (result.left !== 25)
-		alert("midPoint failed unit test 1!");
+		alert("midpoint failed unit test 1!");
 	if (result.top !== 60)
-		alert("midPoint failed unit test 2!");
+		alert("midpoint failed unit test 2!");
 }
 
 _testMidPoint();
@@ -429,21 +429,18 @@ function paintRelationships(c, ctx) {
 		var w2 = $("#" + rel.attr("className2"));
 		var middle1 = middle(w1);
 		var middle2 = middle(w2);
-		var mid = midPoint(middle1, middle2);
+		var mid = midpoint(middle1, middle2);
 		var i1 = elementBorderIntersection(mid, w1);
 		var i2 = elementBorderIntersection(mid, w2);
-
 		var midAdjusted = minus(mid, c);
 		relationshipMidpoints[rel.attr("id")] = midAdjusted;
 		var p1 = minus(i1, c);
 		var p2 = minus(i2, c);
-
-		var m = midPoint(p1,p2);
+		var lineMiddle = midpoint(i1,i2);
+		var m = midpoint(p1,p2);
 		if (useMultiplicityArrowHeads) {
 			paintRelationshipLineWithArrow(ctx,m,p1,25,20,rel.attr("multiplicity1"));
 			paintRelationshipLineWithArrow(ctx,m,p2,25,20,rel.attr("multiplicity2"));
-			//paintArrowMany(ctx,m,p2,25,10,true,false);
-			//paintArrowMany(ctx,m,p1,25,10,false,true);
 		}
 		else {ctx.beginPath();
 			ctx.moveTo(p1.left, p1.top);
@@ -455,7 +452,7 @@ function paintRelationships(c, ctx) {
 		rel.find(".relationshipName").each(function() {
 			var label = $(this);
 			label.text(rel.attr("id"));
-			setPosition(label, mid.left - 10, mid.top - 10);
+			setPosition(label, lineMiddle.left - 10, lineMiddle.top - 10);
 		});
 
 		rel.find(".verbClause1").each(function() {
@@ -480,7 +477,7 @@ function paintAssociationClasses(c, ctx) {
 		var w = $("#" + e.attr("id"));
 		var p1 = middle(w);
 		var p2 = getRelationshipMidpoint(e.attr("relationshipName"));
-		var mid = midPoint(p1, p2);
+		var mid = midpoint(p1, p2);
 		var i1 = elementBorderIntersection(mid, w);
 
 		p1 = minus(i1, c);
@@ -498,7 +495,7 @@ function paintArrowMany(ctx,p1,p2,angle,arrowSize,doubleHead,filled){
 	var p3 = towards(p2close, p1, arrowSize);
 	var p4 = rotateAbout(p3, p2close, angle);
 	var p5 = rotateAbout(p3, p2close, -angle);
-	var midRear = midPoint(p4, p5);
+	var midRear = midpoint(p4, p5);
 	ctx.beginPath();
 	ctx.moveTo(p1.left, p1.top);
 	ctx.lineTo(midRear.left, midRear.top);
@@ -509,7 +506,7 @@ function paintArrowMany(ctx,p1,p2,angle,arrowSize,doubleHead,filled){
 	var q3 = towards(q2close,p1,arrowSize);
 	var q4 = rotateAbout(q3, q2close, angle);
 	var q5 = rotateAbout(q3, q2close, -angle);
-	var qMidRear = midPoint(q4,q5);
+	var qMidRear = midpoint(q4,q5);
 	
 	if (doubleHead){
 		ctx.beginPath();
@@ -552,7 +549,7 @@ function paintGeneralizations(c, ctx) {
 		var w2 = $("#" + gen.attr("superClassName"));
 		var p1 = middle(w1);
 		var p2 = middle(w2);
-		var mid = midPoint(p1, p2);
+		var mid = midpoint(p1, p2);
 		var i1 = elementBorderIntersection(mid, w1);
 		var i2 = elementBorderIntersection(mid, w2);
 
@@ -568,7 +565,7 @@ function paintGeneralizations(c, ctx) {
 		var angle = 30;
 		var p4 = rotateAbout(p3, p2close, angle);
 		var p5 = rotateAbout(p3, p2close, -angle);
-		var midRear = midPoint(p4, p5);
+		var midRear = midpoint(p4, p5);
 		ctx.lineTo(midRear.left, midRear.top);
 		ctx.lineTo(p4.left, p4.top);
 		ctx.lineTo(p2close.left, p2close.top);
@@ -577,7 +574,7 @@ function paintGeneralizations(c, ctx) {
 		ctx.closePath();
 		ctx.stroke();
 		
-		var mid = plus(midPoint(p1, p2), c);
+		var mid = plus(midpoint(p1, p2), c);
 
 		setPosition(gen, mid.left - 10, mid.top - 5);
 		gen.text(gen.attr("groupName"));
