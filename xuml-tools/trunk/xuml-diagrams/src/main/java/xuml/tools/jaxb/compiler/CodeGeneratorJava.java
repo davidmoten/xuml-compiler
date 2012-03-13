@@ -14,6 +14,7 @@ import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.IndependentAttribute;
 import xuml.metamodel.jaxb.IndependentAttributeType;
 import xuml.metamodel.jaxb.Multiplicity;
+import xuml.metamodel.jaxb.ReferentialAttribute;
 import xuml.metamodel.jaxb.Relationship;
 import xuml.metamodel.jaxb.RelationshipEnd;
 import xuml.metamodel.jaxb.System;
@@ -100,20 +101,21 @@ public class CodeGeneratorJava {
 		writeToFile(w.toString().getBytes(), file);
 	}
 
-	// private Type getType(Class cls, Attribute a) {
-	// if (a instanceof IndependentAttribute) {
-	// return new Type(toJavaType(((IndependentAttribute) a).getType()),
-	// null, false);
-	// } else if (a instanceof ReferentialAttribute) {
-	// ReferentialAttribute r = (ReferentialAttribute) a;
-	// Relationship rel = lookups.getRelationship(cls.getDomain(),
-	// r.getRelationship());
-	// Class other = getOtherClass(cls, rel);
-	//
-	// } else
-	// throw new RuntimeException("unexpected attribute type "
-	// + a.getClass().getName());
-	// }
+	private Type getType(Class cls, Attribute a) {
+		if (a instanceof IndependentAttribute) {
+			return new Type(toJavaType(((IndependentAttribute) a).getType()),
+					null, false);
+		} else if (a instanceof ReferentialAttribute) {
+			ReferentialAttribute r = (ReferentialAttribute) a;
+			// Relationship rel = lookups.getRelationship(cls.getDomain(),
+			// r.getRelationship());
+			// Class other = getOtherClass(cls, rel);
+			throw new RuntimeException("not implemented");
+
+		} else
+			throw new RuntimeException("unexpected attribute type "
+					+ a.getClass().getName());
+	}
 
 	private Class getOtherClass(Class cls, Relationship r) {
 		if (is(cls, r.getClass1()))
