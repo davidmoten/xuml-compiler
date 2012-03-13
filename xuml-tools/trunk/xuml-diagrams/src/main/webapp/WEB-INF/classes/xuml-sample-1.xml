@@ -130,41 +130,45 @@
 	<class name="NativeAttribute" domain="xuml">
 		<referentialAttribute name="Name">
 			<identifier number="1" />
-			<reference relationship="21" />
+			<superclassReference relationship="21" />
 		</referentialAttribute>
 		<referentialAttribute name="Class">
 			<identifier number="1" />
-			<reference relationship="21" />
+			<superclassReference relationship="21" />
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<reference relationship="21" />
+			<superclassReference relationship="21" />
 		</referentialAttribute>
-		<referentialAttribute name="Type">
+		<referentialAttribute name="Type" otherName="Name">
 			<reference relationship="24" />
 		</referentialAttribute>
 	</class>
+	
+	<class name="Type" domain="xuml">
+		<attribute name="Name" type="String"/>
+	</class>
 
 	<class name="AttributeInDerivation" domain="xuml" relationship="26">
-		<referentialAttribute name="SourceAttribute">
+		<referentialAttribute name="SourceAttribute" otherName="Name">
 			<identifier number="1" />
-			<reference relationship="26" />
+			<associativeReference relationship="26" side="1"/>
 		</referentialAttribute>
-		<referentialAttribute name="SourceClass">
+		<referentialAttribute name="SourceClass" otherName="Class">
 			<identifier number="1" />
-			<reference relationship="26" />
+			<associativeReference relationship="26" side="1"/>
 		</referentialAttribute>
-		<referentialAttribute name="TargetAttribute">
+		<referentialAttribute name="TargetAttribute" otherName="Name">
 			<identifier number="1" />
-			<reference relationship="26" />
+			<associativeReference relationship="26" side="2"/>
 		</referentialAttribute>
-		<referentialAttribute name="TargetClass">
+		<referentialAttribute name="TargetClass" otherName="Class">
 			<identifier number="1" />
-			<reference relationship="26" />
+			<associativeReference relationship="26" side="2"/>
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<reference relationship="26" />
+			<associativeReference relationship="26" side="1"/>
 		</referentialAttribute>
 	</class>
 
@@ -229,6 +233,14 @@
 		<class2 name="Identifier" verbClause="is uniquely distinguished by"
 			multiplicity="ONE_MANY" />
 	</association>
+
+	<association domain="xuml" number="24">
+		<class1 name="NativeAttribute" verbClause="uniquely distinguishes"
+			multiplicity="MANY" />
+		<class2 name="Type" verbClause="is uniquely distinguished by"
+			multiplicity="ONE" />
+	</association>
+
 
 	<generalization domain="xuml" number="21" superclass="Attribute"
 		subclass="ReferentialAttribute" />

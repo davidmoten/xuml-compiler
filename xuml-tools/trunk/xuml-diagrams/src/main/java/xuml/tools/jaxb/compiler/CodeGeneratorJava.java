@@ -137,8 +137,26 @@ public class CodeGeneratorJava {
 
 	private Type getAssociativeType(Class cls, Attribute a,
 			ReferentialAttribute r, AssociativeReference t) {
-		notImplemented();
-		return null;
+		Association ass = lookups.getAssociation(cls.getDomain(),
+				t.getRelationship());
+		Class other;
+		if (t.getSide().intValue() == 1)
+			other = lookups
+					.getClass(ass.getDomain(), ass.getClass1().getName());
+		else
+			other = lookups
+					.getClass(ass.getDomain(), ass.getClass2().getName());
+		String otherName;
+		if (r.getOtherName() == null)
+			otherName = r.getName();
+		else
+			otherName = r.getOtherName();
+		java.lang.System.out.format("looking up attribute %s %s %s\n",
+				other.getDomain(), other.getName(), otherName);
+		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
+				other.getName(), otherName);
+		Type otherType = getType(other, otherAttribute);
+		return otherType;
 	}
 
 	private Type getGeneralizationType(Class cls, Attribute a,
@@ -148,9 +166,11 @@ public class CodeGeneratorJava {
 		if (g == null)
 			throw new RuntimeException("did not find association");
 		Class other = getOtherClass(g);
-		String otherName = r.getOtherName();
-		if (otherName == null)
-			otherName = a.getName();
+		String otherName;
+		if (r.getOtherName() == null)
+			otherName = r.getName();
+		else
+			otherName = r.getOtherName();
 		java.lang.System.out.format("looking up attribute %s %s %s\n",
 				other.getDomain(), other.getName(), otherName);
 		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
