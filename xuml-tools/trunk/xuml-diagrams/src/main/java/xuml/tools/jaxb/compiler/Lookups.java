@@ -5,10 +5,10 @@ import java.util.Map;
 
 import javax.xml.bind.JAXBElement;
 
+import xuml.metamodel.jaxb.Association;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.Relationship;
-import xuml.metamodel.jaxb.RelationshipEnd;
 import xuml.metamodel.jaxb.System;
 
 import com.google.common.collect.Maps;
@@ -17,6 +17,7 @@ class Lookups {
 	private final Map<String, Class> classesByName = Maps.newHashMap();
 	private final Map<String, Relationship> relationshipsByName = Maps
 			.newHashMap();
+
 	private final Map<String, Attribute> attributesByName = Maps.newHashMap();
 
 	public Lookups(System system) {
@@ -32,9 +33,8 @@ class Lookups {
 		for (JAXBElement<? extends Relationship> r : system
 				.getRelationshipBase())
 			relationshipsByName.put(key(r.getValue()), r.getValue());
-
-		java.lang.System.out.println(attributesByName.toString().replace(",",
-				",\n"));
+		java.lang.System.out.println(relationshipsByName.toString().replaceAll(
+				",", ",\n"));
 	}
 
 	private static String attributeKey(String domain, String className,
@@ -70,8 +70,8 @@ class Lookups {
 		return relationshipsByName.get(relationshipKey(domain, number));
 	}
 
-	public Class getClass(RelationshipEnd e) {
-		return getClass(e.getDomain(), e.getName());
+	public Association getAssociation(String domain, BigInteger number) {
+		return (Association) getRelationship(domain, number);
 	}
 
 }

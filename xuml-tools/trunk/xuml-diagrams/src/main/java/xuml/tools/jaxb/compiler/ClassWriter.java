@@ -1,5 +1,8 @@
 package xuml.tools.jaxb.compiler;
 
+import static xuml.tools.jaxb.compiler.Util.capFirst;
+import static xuml.tools.jaxb.compiler.Util.lowerFirst;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.List;
@@ -12,6 +15,7 @@ public class ClassWriter {
 	private String className;
 	private final List<String> classAnnotations = Lists.newArrayList();
 	private final List<Member> members = Lists.newArrayList();
+	private final List<Method> methods = Lists.newArrayList();
 
 	/**
 	 * Full type name -> abbr (if possible)
@@ -31,6 +35,12 @@ public class ClassWriter {
 	public ClassWriter addMember(String name, Type type, boolean addSetter,
 			boolean addGetter) {
 		members.add(new Member(name, type, addSetter, addGetter));
+		return this;
+	}
+
+	public ClassWriter addMethod(String name, Type returnType,
+			List<Parameter> parameters) {
+		methods.add(new Method(name, returnType, parameters));
 		return this;
 	}
 
@@ -69,16 +79,8 @@ public class ClassWriter {
 		return bytes.toString();
 	}
 
-	private static String lowerFirst(String s) {
-		return s.substring(0, 1).toLowerCase() + s.substring(1);
-	}
-
-	private static String capFirst(String s) {
-		return s.substring(0, 1).toUpperCase() + s.substring(1);
-	}
-
 	private String addType(Type type) {
-		String result = addType(type.base);
+		String result = addType(type.getBase());
 		for (Type t : type.getGenerics())
 			addType(type);
 		return result;
@@ -104,10 +106,10 @@ public class ClassWriter {
 	}
 
 	private static class Member {
-		String name;
-		Type type;
-		boolean addSetter;
-		boolean addGetter;
+		private final String name;
+		private final Type type;
+		private final boolean addSetter;
+		private final boolean addGetter;
 
 		public Member(String name, Type type, boolean addSetter,
 				boolean addGetter) {
@@ -116,34 +118,6 @@ public class ClassWriter {
 			this.type = type;
 			this.addSetter = addSetter;
 			this.addGetter = addGetter;
-		}
-	}
-
-	public static class Type {
-		private final String base;
-		private final List<Type> generics;
-		private final boolean isArray;
-
-		public Type(String base, List<Type> generics, boolean isArray) {
-			super();
-			this.base = base;
-			if (generics != null)
-				this.generics = generics;
-			else
-				this.generics = Lists.newArrayList();
-			this.isArray = isArray;
-		}
-
-		public String getBase() {
-			return base;
-		}
-
-		public List<Type> getGenerics() {
-			return generics;
-		}
-
-		public boolean isArray() {
-			return isArray;
 		}
 	}
 

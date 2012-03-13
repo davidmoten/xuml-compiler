@@ -2,21 +2,28 @@
 <system xmlns="http://david.moten.org/xuml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://david.moten.org/xuml ../../../../../../xuml-jaxb/src/main/resources/xuml.xsd">
 
+	<class name="Domain" domain="xuml">
+		<attribute name="Name" type="String">
+			<identifier number="1" />
+		</attribute>
+		<attribute name="Alias" type="String">
+			<identifier number="2" />
+		</attribute>
+	</class>
+
 	<class name="Class" domain="xuml">
 		<attribute name="Name" type="String">
 			<identifier number="1" />
 		</attribute>
-		<referentialAttribute name="Domain">
+		<referentialAttribute name="Domain" otherName="Name">
 			<identifier number="1" />
 			<identifier number="2" />
 			<identifier number="3" />
 			<identifier number="4" />
 			<reference relationship="14" />
 		</referentialAttribute>
-		<referentialAttribute name="Element">
-			<identifier number="2" />
-			<reference relationship="14" />
-		</referentialAttribute>
+		<!-- <referentialAttribute name="Element"> <identifier number="2" /> <reference 
+			relationship="14" /> </referentialAttribute> -->
 		<attribute name="Cnum" type="String">
 			<identifier number="3" />
 		</attribute>
@@ -38,7 +45,7 @@
 		<attribute name="Name" type="String">
 			<identifier number="1" />
 		</attribute>
-		<referentialAttribute name="Class">
+		<referentialAttribute name="Class" otherName="Name">
 			<identifier number="1" />
 			<reference relationship="20" />
 		</referentialAttribute>
@@ -192,31 +199,34 @@
 		<attribute name="Formula" type="String" />
 	</class>
 
+	<association domain="xuml" number="14">
+		<class1 name="Class" verbClause="models" multiplicity="MANY" />
+		<class2 name="Domain" verbClause="is modelled in" multiplicity="ONE" />
+	</association>
+
 	<association domain="xuml" number="20">
-		<class1 name="Class" domain="xuml" verbClause="characterizes"
-			multiplicity="ONE" />
-		<class2 name="Attribute" domain="xuml" verbClause="is characterized by"
+		<class1 name="Class" verbClause="characterizes" multiplicity="ONE" />
+		<class2 name="Attribute" verbClause="is characterized by"
 			multiplicity="ONE_MANY" />
 	</association>
 
 	<association domain="xuml" number="22">
-		<class1 name="Identifier" domain="xuml" verbClause="is required in"
+		<class1 name="Identifier" verbClause="is required in"
 			multiplicity="MANY" />
-		<class2 name="Attribute" domain="xuml" verbClause="requires"
-			multiplicity="ONE_MANY" />
+		<class2 name="Attribute" verbClause="requires" multiplicity="ONE_MANY" />
 	</association>
 
 	<association domain="xuml" number="26">
-		<class1 name="Attribute" domain="xuml" verbClause="is derived from"
+		<class1 name="Attribute" verbClause="is derived from"
 			multiplicity="ONE_MANY" />
-		<class2 name="DerivedAttribute" domain="xuml"
-			verbClause="contributes to the value of" multiplicity="MANY" />
+		<class2 name="DerivedAttribute" verbClause="contributes to the value of"
+			multiplicity="MANY" />
 	</association>
 
 	<association domain="xuml" number="27">
-		<class1 name="Class" domain="xuml" verbClause="uniquely distinguishes"
+		<class1 name="Class" verbClause="uniquely distinguishes"
 			multiplicity="ONE" />
-		<class2 name="Identifier" domain="xuml" verbClause="is uniquely distinguished by"
+		<class2 name="Identifier" verbClause="is uniquely distinguished by"
 			multiplicity="ONE_MANY" />
 	</association>
 

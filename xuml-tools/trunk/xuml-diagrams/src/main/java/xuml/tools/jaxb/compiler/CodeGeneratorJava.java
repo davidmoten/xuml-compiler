@@ -1,24 +1,38 @@
 package xuml.tools.jaxb.compiler;
 
+import static xuml.tools.jaxb.compiler.Util.capFirst;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.JAXBElement;
 
+import org.datanucleus.sco.backed.Set;
+
+import xuml.metamodel.jaxb.Association;
+import xuml.metamodel.jaxb.AssociationEnd;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
+import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.IndependentAttribute;
 import xuml.metamodel.jaxb.IndependentAttributeType;
-import xuml.metamodel.jaxb.RelationshipEnd;
+import xuml.metamodel.jaxb.Multiplicity;
+import xuml.metamodel.jaxb.Reference;
+import xuml.metamodel.jaxb.ReferentialAttribute;
 import xuml.metamodel.jaxb.System;
-import xuml.tools.jaxb.compiler.ClassWriter.Type;
+import xuml.metamodel.jaxb.ToOneReference;
+
+import com.google.common.collect.Lists;
 
 public class CodeGeneratorJava {
 
+	private static final String UNEXPECTED = "unexpected";
 	private final System system;
 	private final Map<String, String> domainPackageNames;
 	private final Lookups lookups;
@@ -61,82 +75,127 @@ public class CodeGeneratorJava {
 				IndependentAttribute a = (IndependentAttribute) base.getValue();
 				w.addMember(a.getName(), new Type(toJavaType(a.getType()),
 						null, false), true, true);
+			} else if (base.getValue() instanceof ReferentialAttribute) {
+				ReferentialAttribute a = (ReferentialAttribute) base.getValue();
+				java.lang.System.out.println(cls.getName() + "." + a.getName()
+						+ " "
+						+ a.getReferenceBase().getValue().getRelationship());
+				Type type = getType(cls, a);
+				List<Parameter> parameters = Collections.emptyList();
+				w.addMethod("get" + capFirst(a.getName()), type, parameters);
 			}
 		}
 
-		// for (Relationship rel : system.getRelationship()) {
-		// Class class1 = getClassFromRelationshipEnd(rel.getClass1());
-		// Class class2 = getClassFromRelationshipEnd(rel.getClass1());
-		// if (class1 == cls || class2 == cls) {
-		// final RelationshipEnd meEnd;
-		// final RelationshipEnd otherEnd;
-		// final Class me;
-		// final Class other;
-		// if (class1 == cls) {
-		// meEnd = rel.getClass1();
-		// otherEnd = rel.getClass2();
-		// me = class1;
-		// other = class2;
-		// } else {
-		// meEnd = rel.getClass2();
-		// otherEnd = rel.getClass1();
-		// me = class2;
-		// other = class1;
-		// }
-		// String returnType;
-		// if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
-		// || otherEnd.getMultiplicity().equals(
-		// Multiplicity.ONE_MANY)) {
-		// java.lang.System.out.format(
-		// "looking up rel %s attribute %s,%s,%s",
-		// rel.getNumber(), other.getDomain(),
-		// other.getName(), otherEnd.getName());
-		//
-		// Attribute otherAttribute = lookups.getAttribute(
-		// other.getDomain(), other.getName(),
-		// otherEnd.getName());
-		// Type t = getType(other, otherAttribute);
-		// }
-		// }
+		// for (JAXBElement<? extends Relationship> rel : system
+		// .getRelationshipBase()) {
+		// if (rel.getValue() instanceof Association) {
+		// createAssociationMethod(w, cls, (Association) rel.getValue());
+		// } else if (rel.getValue() instanceof Generalization) {
+		// createGeneralizationMethod(w, cls,
+		// (Generalization) rel.getValue());
+		// } else
+		// unexpected();
 		// }
 
 		writeToFile(w.toString().getBytes(), file);
 	}
 
-	// private Type getType(Class cls, Attribute a) {
-	// if (a instanceof IndependentAttribute) {
-	// return new Type(toJavaType(((IndependentAttribute) a).getType()),
-	// null, false);
-	// } else if (a instanceof ReferentialAttribute) {
-	// ReferentialAttribute r = (ReferentialAttribute) a;
-	// Reference ref = r.getReferenceBase().getValue();
-	// if (ref instanceof ToOneReference) {
-	// ToOneReference t = (ToOneReference) ref;
-	// t.getRelationship();
-	// Relationship rel = lookups.getRelationship(cls.getDomain(),
-	// t.getRelationship());
-	//
-	// Class other = getOtherClass(cls, rel);
-	// return new Type("Dummy", null, false);
-	// } else {
-	// notImplemented();
-	// return new Type("Dummy", null, false);
-	// }
-	//
-	// } else
-	// throw new RuntimeException("unexpected attribute type "
-	// + a.getClass().getName());
-	// }
+	private Type getType(Class cls, Attribute a) {
+		if (a instanceof IndependentAttribute) {
+			return new Type(toJavaType(((IndependentAttribute) a).getType()),
+					null, false);
+		} else if (a instanceof ReferentialAttribute) {
+			ReferentialAttribute r = (ReferentialAttribute) a;
+			Reference ref = r.getReferenceBase().getValue();
+			if (ref instanceof ToOneReference) {
+				ToOneReference t = (ToOneReference) ref;
+				t.getRelationship();
+				Association ass = lookups.getAssociation(cls.getDomain(),
+						t.getRelationship());
+				if (ass == null)
+					throw new RuntimeException("did not find association");
+				Class other = getOtherClass(cls, ass);
+				AssociationEnd otherEnd = getOtherEnd(cls, ass);
+				String otherName = r.getOtherName();
+				if (otherName == null)
+					otherName = a.getName();
+				Attribute otherAttribute = lookups.getAttribute(
+						cls.getDomain(), other.getName(), r.getOtherName());
+				Type otherType = getType(other, otherAttribute);
+				if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
+						|| otherEnd.getMultiplicity().equals(
+								Multiplicity.ONE_MANY)) {
+					List<Type> types = Lists.newArrayList(otherType);
+					return new Type(Set.class.getName(), types, false);
+				} else
+					return otherType;
+			} else {
+				throw new RuntimeException(UNEXPECTED);
+			}
+		} else
+			throw new RuntimeException("unexpected attribute type " + a);
+	}
 
-	// private Class getOtherClass(Class cls, Relationship r) {
-	// if (is(cls, r.getClass1()))
-	// return lookups.getClass(r.getClass2());
-	// else
-	// return cls;
-	// }
+	private Class getOtherClass(Class cls, Association a) {
+		if (cls.getDomain().equals(a.getDomain())) {
+			if (cls.getName().equals(a.getClass1().getName()))
+				return lookups.getClass(a.getDomain(), a.getClass2().getName());
+			else
+				return lookups.getClass(a.getDomain(), a.getClass2().getName());
+		} else
+			throw new RuntimeException(UNEXPECTED);
+	}
 
-	private Class getClassFromRelationshipEnd(RelationshipEnd e) {
-		return lookups.getClass(e.getDomain(), e.getName());
+	private AssociationEnd getOtherEnd(Class cls, Association a) {
+		if (cls.getDomain().equals(a.getDomain())) {
+			if (cls.getName().equals(a.getClass1().getName()))
+				return a.getClass2();
+			else
+				return a.getClass1();
+		} else
+			throw new RuntimeException(UNEXPECTED);
+	}
+
+	private void createAssociationMethod(ClassWriter w, Class cls,
+			Association rel) {
+		Class class1 = lookups.getClass(rel.getDomain(), rel.getClass1()
+				.getName());
+		Class class2 = lookups.getClass(rel.getDomain(), rel.getClass2()
+				.getName());
+		if (class1 == cls || class2 == cls) {
+			final AssociationEnd meEnd;
+			final AssociationEnd otherEnd;
+			final Class me;
+			final Class other;
+			if (class1 == cls) {
+				meEnd = rel.getClass1();
+				otherEnd = rel.getClass2();
+				me = class1;
+				other = class2;
+			} else {
+				meEnd = rel.getClass2();
+				otherEnd = rel.getClass1();
+				me = class2;
+				other = class1;
+			}
+			String returnType;
+			if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
+					|| otherEnd.getMultiplicity().equals(Multiplicity.ONE_MANY)) {
+				java.lang.System.out.format(
+						"looking up rel %s attribute %s,%s,%s",
+						rel.getNumber(), other.getDomain(), other.getName(),
+						otherEnd.getName());
+
+				Attribute otherAttribute = lookups.getAttribute(
+						other.getDomain(), other.getName(), otherEnd.getName());
+				Type t = getType(other, otherAttribute);
+			}
+		}
+	}
+
+	private void createGeneralizationMethod(ClassWriter w, Class cls,
+			Generalization value) {
+		// TODO
 	}
 
 	private static String toJavaType(IndependentAttributeType type) {
@@ -186,11 +245,6 @@ public class CodeGeneratorJava {
 	// Static Utility Methods
 	// -----------------------------------------
 
-	private static boolean is(Class c, RelationshipEnd e) {
-		return c.getDomain().equals(e.getDomain())
-				&& c.getName().equals(e.getName());
-	}
-
 	private static void writeToFile(byte[] bytes, File file) {
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
@@ -207,6 +261,10 @@ public class CodeGeneratorJava {
 
 	private static void notImplemented() {
 		re("not  implemented");
+	}
+
+	private static void unexpected() {
+		re(UNEXPECTED);
 	}
 
 	private static void createDirectories(File file) {
