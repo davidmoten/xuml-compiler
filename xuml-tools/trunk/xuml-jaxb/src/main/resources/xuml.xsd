@@ -6,10 +6,7 @@
 	<complexType name="system">
 		<sequence>
 			<element name="class" type="t:class" minOccurs="0" maxOccurs="unbounded" />
-			<element name="relationship" type="t:relationship" minOccurs="0"
-				maxOccurs="unbounded" />
-			<element name="generalization" type="t:generalization"
-				minOccurs="0" maxOccurs="unbounded" />
+			<element ref="t:relationshipBase" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 
@@ -229,13 +226,35 @@
 		<attribute name="type" type="t:nonBlankString" use="required" />
 	</complexType>
 
+	<element name="relationshipBase" type="t:relationship" />
+	<element name="generalization" substitutionGroup="t:relationshipBase"
+		type="t:generalization" />
+	<element name="association" substitutionGroup="t:relationshipBase"
+		type="t:association" />
+
 	<complexType name="relationship">
-		<sequence>
-			<element name="class1" type="t:relationshipEnd" />
-			<element name="class2" type="t:relationshipEnd" />
-		</sequence>
 		<attribute name="domain" type="t:nonBlankString" use="required" />
 		<attribute name="number" type="t:positiveInteger" use="required" />
+	</complexType>
+
+	<complexType name="generalization">
+		<complexContent>
+			<extension base="t:relationship">
+				<attribute name="superclass" type="t:className" />
+				<attribute name="subclass" type="t:className" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="association">
+		<complexContent>
+			<extension base="t:relationship">
+				<sequence>
+					<element name="class1" type="t:relationshipEnd" />
+					<element name="class2" type="t:relationshipEnd" />
+				</sequence>
+			</extension>
+		</complexContent>
 	</complexType>
 
 	<complexType name="relationshipEnd">
@@ -255,15 +274,6 @@
 			<enumeration value="ONE_MANY" />
 		</restriction>
 	</simpleType>
-
-	<complexType name="generalization">
-		<sequence>
-			<element name="superClass" type="t:classWithDomain" />
-			<element name="class" type="t:classWithDomain" maxOccurs="unbounded" />
-		</sequence>
-		<attribute name="domain" type="t:domainName" use="required" />
-		<attribute name="number" type="t:relationshipNumber" use="required" />
-	</complexType>
 
 	<complexType name="classWithDomain">
 		<attribute name="domain" type="t:className" use="required" />
