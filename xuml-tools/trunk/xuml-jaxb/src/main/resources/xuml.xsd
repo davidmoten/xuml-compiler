@@ -174,13 +174,13 @@
 	<complexType name="associativeReference">
 		<complexContent>
 			<extension base="t:reference">
-				<attribute name="side" type="t:side" />
+				<attribute name="side" type="t:side" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
 
 	<simpleType name="side">
-		<restriction base="string">
+		<restriction base="integer">
 			<enumeration value="1" />
 			<enumeration value="2" />
 		</restriction>

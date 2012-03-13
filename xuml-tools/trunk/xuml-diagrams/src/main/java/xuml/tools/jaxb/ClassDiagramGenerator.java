@@ -22,7 +22,6 @@ import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.Reference;
 import xuml.metamodel.jaxb.ReferentialAttribute;
 import xuml.metamodel.jaxb.Relationship;
-import xuml.metamodel.jaxb.ToOneReference;
 
 public class ClassDiagramGenerator {
 
@@ -109,14 +108,8 @@ public class ClassDiagramGenerator {
 			} else if (attr.getValue() instanceof ReferentialAttribute) {
 				ReferentialAttribute r = (ReferentialAttribute) attr.getValue();
 				Reference ref = r.getReferenceBase().getValue();
-				if (ref instanceof ToOneReference) {
-					ToOneReference t = (ToOneReference) ref;
-					items.add(getRelationshipName(t.getRelationship()));
-					s.append("<div class=\"attribute\">" + r.getName() + ": ");
-				} else
-					throw new RuntimeException(
-							"other reference type not supported: "
-									+ ref.getClass().getName());
+				items.add(getRelationshipName(ref.getRelationship()));
+				s.append("<div class=\"attribute\">" + r.getName() + ": ");
 			} else if (attr.getValue() instanceof DerivedAttribute) {
 				DerivedAttribute d = (DerivedAttribute) attr.getValue();
 				s.append("<div class=\"attribute\">" + "/ " + d.getName()
