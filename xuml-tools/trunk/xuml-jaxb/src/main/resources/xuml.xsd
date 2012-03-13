@@ -27,7 +27,7 @@
 					<element name="transition" type="t:transition" maxOccurs="unbounded"
 						minOccurs="0" />
 				</sequence>
-				<attribute name="relationship" type="t:positiveInteger">
+				<attribute name="relationship" type="t:relationshipNumber">
 					<annotation>
 						<documentation>If this is present then the class is an Association
 							Class
@@ -37,6 +37,10 @@
 			</extension>
 		</complexContent>
 	</complexType>
+
+	<simpleType name="relationshipNumber">
+		<restriction base="t:positiveInteger" />
+	</simpleType>
 
 	<element name="attributeBase" type="t:attribute" />
 	<element name="attribute" substitutionGroup="t:attributeBase"
@@ -52,12 +56,20 @@
 			<element name="identifier" type="t:identifier" minOccurs="0"
 				maxOccurs="unbounded" />
 		</sequence>
-		<attribute name="name" type="t:nonBlankString" use="required" />
+		<attribute name="name" type="t:attributeName" use="required" />
 	</complexType>
 
+	<simpleType name="attributeName">
+		<restriction base="t:nonBlankString" />
+	</simpleType>
+
 	<complexType name="identifier">
-		<attribute name="number" type="t:positiveInteger" />
+		<attribute name="number" type="t:identifierNumber" />
 	</complexType>
+
+	<simpleType name="identifierNumber">
+		<restriction base="t:positiveInteger" />
+	</simpleType>
 
 	<complexType name="independentAttribute">
 		<complexContent>
@@ -75,10 +87,22 @@
 			<extension base="t:attribute">
 				<attribute name="type" type="t:independentAttributeType"
 					use="required" />
-				<attribute name="formula" type="t:nonBlankString" />
+				<attribute name="formula" type="t:formula" />
 			</extension>
 		</complexContent>
 	</complexType>
+
+	<simpleType name="formula">
+		<restriction base="t:nonBlankString" />
+	</simpleType>
+
+	<simpleType name="domainName">
+		<restriction base="t:nonBlankString" />
+	</simpleType>
+
+	<simpleType name="className">
+		<restriction base="t:nonBlankString" />
+	</simpleType>
 
 	<simpleType name="independentAttributeType">
 		<restriction base="string">
@@ -89,22 +113,72 @@
 			<enumeration value="Date" />
 			<enumeration value="String" />
 			<enumeration value="ArbitraryId" />
+			<enumeration value="TypeName" />
 		</restriction>
 	</simpleType>
 
 	<complexType name="referentialAttribute">
 		<complexContent>
 			<extension base="t:attribute">
-				<attribute name="otherName" type="t:nonBlankString" use="optional">
+				<sequence>
+					<element ref="t:referenceBase" />
+				</sequence>
+				<attribute name="otherName" type="t:attributeName" use="optional">
 					<annotation>
 						<documentation>if blank then name is used</documentation>
 					</annotation>
 				</attribute>
-				<attribute name="relationship" type="t:positiveInteger"
-					use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
+
+	<element name="referenceBase" type="t:reference" />
+
+	<element name="superclassReference" substitutionGroup="t:referenceBase"
+		type="t:superclassReference" />
+
+	<element name="reference" substitutionGroup="t:referenceBase"
+		type="t:toOneReference" />
+
+	<complexType name="reference">
+		<annotation>
+			<documentation>
+				note that reftype (See Reference on miUML Metamodel
+				Relationship subsystem Class Diagram) is not included as an
+				attribute as it is the object
+				type of this reference and can be
+				derived by a consumer of xml
+				complying with this schema.
+			</documentation>
+		</annotation>
+		<attribute name="relationship" type="t:relationshipNumber" />
+	</complexType>
+
+	<simpleType name="referenceType">
+		<restriction base="t:nonBlankString" />
+	</simpleType>
+
+	<complexType name="superclassReference">
+		<complexContent>
+			<extension base="t:reference">
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="toOneReference">
+		<complexContent>
+			<extension base="t:reference">
+				<attribute name="side" type="t:side" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<simpleType name="side">
+		<restriction base="string">
+			<enumeration value="first" />
+			<enumeration value="second" />
+		</restriction>
+	</simpleType>
 
 	<complexType name="operation">
 		<sequence>
@@ -160,14 +234,14 @@
 			<element name="class1" type="t:relationshipEnd" />
 			<element name="class2" type="t:relationshipEnd" />
 		</sequence>
-		<attribute name="domain" type="t:nonBlankString" use="required"/>
+		<attribute name="domain" type="t:nonBlankString" use="required" />
 		<attribute name="number" type="t:positiveInteger" use="required" />
 	</complexType>
 
 	<complexType name="relationshipEnd">
 		<complexContent>
 			<extension base="t:classWithDomain">
-				<attribute name="verbClause" type="t:nonBlankString" use="required" />
+				<attribute name="verbClause" type="t:verbClause" use="required" />
 				<attribute name="multiplicity" type="t:multiplicity" use="required" />
 			</extension>
 		</complexContent>
@@ -187,14 +261,18 @@
 			<element name="superClass" type="t:classWithDomain" />
 			<element name="class" type="t:classWithDomain" maxOccurs="unbounded" />
 		</sequence>
-		<attribute name="domain" type="t:nonBlankString" use="required"/>
-		<attribute name="number" type="t:positiveInteger" use="required" />
+		<attribute name="domain" type="t:domainName" use="required" />
+		<attribute name="number" type="t:relationshipNumber" use="required" />
 	</complexType>
 
 	<complexType name="classWithDomain">
-		<attribute name="name" type="t:nonBlankString" use="required" />
-		<attribute name="domain" type="t:nonBlankString" use="required" />
+		<attribute name="domain" type="t:className" use="required" />
+		<attribute name="name" type="t:domainName" use="required" />
 	</complexType>
+
+	<simpleType name="verbClause">
+		<restriction base="t:nonBlankString" />
+	</simpleType>
 
 	<simpleType name="nonBlankString">
 		<restriction base="string">
@@ -204,7 +282,7 @@
 
 	<simpleType name="positiveInteger">
 		<restriction base="integer">
-			<minInclusive value="0" />
+			<minInclusive value="1" />
 		</restriction>
 	</simpleType>
 
