@@ -101,6 +101,9 @@ public class CodeGeneratorJava {
 	}
 
 	private Type getType(Class cls, Attribute a) {
+		java.lang.System.out.format("getting type of %s.%s\n", cls.getName(),
+				a.getName());
+
 		if (a instanceof IndependentAttribute) {
 			return new Type(toJavaType(((IndependentAttribute) a).getType()),
 					null, false);
@@ -119,8 +122,10 @@ public class CodeGeneratorJava {
 				String otherName = r.getOtherName();
 				if (otherName == null)
 					otherName = a.getName();
+				java.lang.System.out.format("looking up attribute %s %s %s\n",
+						other.getDomain(), other.getName(), otherName);
 				Attribute otherAttribute = lookups.getAttribute(
-						cls.getDomain(), other.getName(), r.getOtherName());
+						other.getDomain(), other.getName(), otherName);
 				Type otherType = getType(other, otherAttribute);
 				if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
 						|| otherEnd.getMultiplicity().equals(
