@@ -235,12 +235,11 @@
 	</association>
 
 	<association domain="xuml" number="24">
-		<class1 name="NativeAttribute" verbClause="uniquely distinguishes"
+		<class1 name="NativeAttribute" verbClause="classifies"
 			multiplicity="MANY" />
-		<class2 name="Type" verbClause="is uniquely distinguished by"
+		<class2 name="Type" verbClause="is classified by"
 			multiplicity="ONE" />
 	</association>
-
 
 	<generalization domain="xuml" number="21" superclass="Attribute"
 		subclass="ReferentialAttribute" />
