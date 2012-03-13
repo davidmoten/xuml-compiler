@@ -250,20 +250,17 @@
 		<complexContent>
 			<extension base="t:relationship">
 				<sequence>
-					<element name="class1" type="t:relationshipEnd" />
-					<element name="class2" type="t:relationshipEnd" />
+					<element name="class1" type="t:associationEnd" />
+					<element name="class2" type="t:associationEnd" />
 				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
 
-	<complexType name="relationshipEnd">
-		<complexContent>
-			<extension base="t:classWithDomain">
-				<attribute name="verbClause" type="t:verbClause" use="required" />
-				<attribute name="multiplicity" type="t:multiplicity" use="required" />
-			</extension>
-		</complexContent>
+	<complexType name="associationEnd">
+		<attribute name="name" type="t:className" use="required" />
+		<attribute name="verbClause" type="t:verbClause" use="required" />
+		<attribute name="multiplicity" type="t:multiplicity" use="required" />
 	</complexType>
 
 	<simpleType name="multiplicity">
