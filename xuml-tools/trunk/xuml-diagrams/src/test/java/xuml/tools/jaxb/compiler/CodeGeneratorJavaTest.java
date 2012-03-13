@@ -16,6 +16,8 @@ public class CodeGeneratorJavaTest {
 
 	@Test
 	public void test() throws FileNotFoundException {
+		if ("false".equals(System.getProperty("generate")))
+			return;
 		xuml.metamodel.jaxb.System system = new Marshaller()
 				.unmarshal(new FileInputStream(TstUtil.SAMPLE_XML));
 		Map<String, String> domainPackageNames = Maps.newHashMap();
