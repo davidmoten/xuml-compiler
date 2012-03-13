@@ -58,15 +58,15 @@
 	<class name="ReferentialAttribute" domain="xuml">
 		<referentialAttribute name="Name">
 			<identifier number="1" />
-			<reference relationship="21" />
+			<superclassReference relationship="21" />
 		</referentialAttribute>
 		<referentialAttribute name="Class">
 			<identifier number="1" />
-			<reference relationship="21" />
+			<superclassReference relationship="21" />
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<reference relationship="21" />
+			<superclassReference relationship="21" />
 		</referentialAttribute>
 		<derivedAttribute name="Type" type="String" formula="something" />
 	</class>
@@ -74,22 +74,22 @@
 	<class name="SpecializedClass" domain="xuml">
 		<referentialAttribute name="Name">
 			<identifier number="1" />
-			<reference relationship="23" />
+			<superclassReference relationship="23" />
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<reference relationship="23" />
+			<superclassReference relationship="23" />
 		</referentialAttribute>
 	</class>
 
 	<class name="NonSpecializedClass" domain="xuml">
 		<referentialAttribute name="Name">
 			<identifier number="1" />
-			<reference relationship="23" />
+			<superclassReference relationship="23" />
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<reference relationship="23" />
+			<superclassReference relationship="23" />
 		</referentialAttribute>
 	</class>
 
@@ -97,7 +97,7 @@
 		<attribute name="Number" type="String">
 			<identifier number="1" />
 		</attribute>
-		<referentialAttribute name="Class">
+		<referentialAttribute name="Class" otherName="Name">
 			<identifier number="1" />
 			<reference relationship="27" />
 		</referentialAttribute>
@@ -111,19 +111,19 @@
 		<referentialAttribute name="Identifier"
 			otherName="Number">
 			<identifier number="1" />
-			<reference relationship="22" />
+			<associativeReference relationship="22" side="1"/>
 		</referentialAttribute>
 		<referentialAttribute name="Attribute" otherName="Name">
 			<identifier number="1" />
-			<reference relationship="22" />
+			<associativeReference relationship="22" side="2" />
 		</referentialAttribute>
 		<referentialAttribute name="Class">
 			<identifier number="1" />
-			<reference relationship="22" />
+			<associativeReference relationship="22" side="1"/>
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<reference relationship="22" />
+			<associativeReference relationship="22" side="1"/>
 		</referentialAttribute>
 	</class>
 
@@ -171,30 +171,30 @@
 	<class name="IndependentAttribute" domain="xuml">
 		<referentialAttribute name="Name">
 			<identifier number="1" />
-			<reference relationship="26" />
+			<superclassReference relationship="25" />
 		</referentialAttribute>
 		<referentialAttribute name="Class">
 			<identifier number="1" />
-			<reference relationship="26" />
+			<superclassReference relationship="25" />
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<reference relationship="25" />
+			<superclassReference relationship="25" />
 		</referentialAttribute>
 	</class>
 
 	<class name="DerivedAttribute" domain="xuml">
 		<referentialAttribute name="Name">
 			<identifier number="1" />
-			<reference relationship="25" />
+			<superclassReference relationship="25" />
 		</referentialAttribute>
 		<referentialAttribute name="Class">
 			<identifier number="1" />
-			<reference relationship="25" />
+			<superclassReference relationship="25" />
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<reference relationship="25" />
+			<superclassReference relationship="25" />
 		</referentialAttribute>
 		<attribute name="Formula" type="String" />
 	</class>

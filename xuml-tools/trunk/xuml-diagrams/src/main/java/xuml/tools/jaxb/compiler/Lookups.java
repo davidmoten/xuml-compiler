@@ -8,6 +8,7 @@ import javax.xml.bind.JAXBElement;
 import xuml.metamodel.jaxb.Association;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
+import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.Relationship;
 import xuml.metamodel.jaxb.System;
 
@@ -72,6 +73,10 @@ class Lookups {
 
 	public Association getAssociation(String domain, BigInteger number) {
 		return (Association) getRelationship(domain, number);
+	}
+
+	public Generalization getGeneralization(String domain, BigInteger number) {
+		return (Generalization) getRelationship(domain, number);
 	}
 
 }

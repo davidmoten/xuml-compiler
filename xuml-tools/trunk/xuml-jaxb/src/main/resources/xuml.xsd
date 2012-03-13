@@ -134,6 +134,8 @@
 	<element name="superclassReference" substitutionGroup="t:referenceBase"
 		type="t:superclassReference" />
 
+	<element name="associativeReference" substitutionGroup="t:referenceBase"
+		type="t:associativeReference" />
 	<element name="reference" substitutionGroup="t:referenceBase"
 		type="t:toOneReference" />
 
@@ -165,6 +167,13 @@
 	<complexType name="toOneReference">
 		<complexContent>
 			<extension base="t:reference">
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="associativeReference">
+		<complexContent>
+			<extension base="t:reference">
 				<attribute name="side" type="t:side" />
 			</extension>
 		</complexContent>
@@ -172,8 +181,8 @@
 
 	<simpleType name="side">
 		<restriction base="string">
-			<enumeration value="first" />
-			<enumeration value="second" />
+			<enumeration value="1" />
+			<enumeration value="2" />
 		</restriction>
 	</simpleType>
 

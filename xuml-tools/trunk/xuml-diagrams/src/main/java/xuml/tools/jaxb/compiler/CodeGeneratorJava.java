@@ -17,6 +17,7 @@ import org.datanucleus.sco.backed.Set;
 
 import xuml.metamodel.jaxb.Association;
 import xuml.metamodel.jaxb.AssociationEnd;
+import xuml.metamodel.jaxb.AssociativeReference;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.Generalization;
@@ -25,6 +26,7 @@ import xuml.metamodel.jaxb.IndependentAttributeType;
 import xuml.metamodel.jaxb.Multiplicity;
 import xuml.metamodel.jaxb.Reference;
 import xuml.metamodel.jaxb.ReferentialAttribute;
+import xuml.metamodel.jaxb.SuperclassReference;
 import xuml.metamodel.jaxb.System;
 import xuml.metamodel.jaxb.ToOneReference;
 
@@ -100,6 +102,10 @@ public class CodeGeneratorJava {
 		writeToFile(w.toString().getBytes(), file);
 	}
 
+	private void log(String s) {
+		java.lang.System.out.println(s);
+	}
+
 	private Type getType(Class cls, Attribute a) {
 		java.lang.System.out.format("getting type of %s.%s\n", cls.getName(),
 				a.getName());
@@ -112,28 +118,16 @@ public class CodeGeneratorJava {
 			Reference ref = r.getReferenceBase().getValue();
 			if (ref instanceof ToOneReference) {
 				ToOneReference t = (ToOneReference) ref;
-				t.getRelationship();
-				Association ass = lookups.getAssociation(cls.getDomain(),
-						t.getRelationship());
-				if (ass == null)
-					throw new RuntimeException("did not find association");
-				Class other = getOtherClass(cls, ass);
-				AssociationEnd otherEnd = getOtherEnd(cls, ass);
-				String otherName = r.getOtherName();
-				if (otherName == null)
-					otherName = a.getName();
-				java.lang.System.out.format("looking up attribute %s %s %s\n",
-						other.getDomain(), other.getName(), otherName);
-				Attribute otherAttribute = lookups.getAttribute(
-						other.getDomain(), other.getName(), otherName);
-				Type otherType = getType(other, otherAttribute);
-				if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
-						|| otherEnd.getMultiplicity().equals(
-								Multiplicity.ONE_MANY)) {
-					List<Type> types = Lists.newArrayList(otherType);
-					return new Type(Set.class.getName(), types, false);
-				} else
-					return otherType;
+				Type result = getToOneReferenceType(cls, a, r, t);
+				return result;
+			} else if (ref instanceof SuperclassReference) {
+				SuperclassReference t = (SuperclassReference) ref;
+				Type otherType = getGeneralizationType(cls, a, r, t);
+				return otherType;
+			} else if (ref instanceof AssociativeReference) {
+				AssociativeReference t = (AssociativeReference) ref;
+				Type otherType = getAssociativeType(cls, a, r, t);
+				return otherType;
 			} else {
 				throw new RuntimeException(UNEXPECTED);
 			}
@@ -141,12 +135,66 @@ public class CodeGeneratorJava {
 			throw new RuntimeException("unexpected attribute type " + a);
 	}
 
+	private Type getAssociativeType(Class cls, Attribute a,
+			ReferentialAttribute r, AssociativeReference t) {
+		notImplemented();
+		return null;
+	}
+
+	private Type getGeneralizationType(Class cls, Attribute a,
+			ReferentialAttribute r, SuperclassReference t) {
+		Generalization g = lookups.getGeneralization(cls.getDomain(),
+				t.getRelationship());
+		if (g == null)
+			throw new RuntimeException("did not find association");
+		Class other = getOtherClass(g);
+		String otherName = r.getOtherName();
+		if (otherName == null)
+			otherName = a.getName();
+		java.lang.System.out.format("looking up attribute %s %s %s\n",
+				other.getDomain(), other.getName(), otherName);
+		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
+				other.getName(), otherName);
+		Type otherType = getType(other, otherAttribute);
+		return otherType;
+	}
+
+	private Class getOtherClass(Generalization g) {
+		return lookups.getClass(g.getDomain(), g.getSuperclass());
+	}
+
+	private Type getToOneReferenceType(Class cls, Attribute a,
+			ReferentialAttribute r, ToOneReference t) {
+		Association ass = lookups.getAssociation(cls.getDomain(),
+				t.getRelationship());
+		if (ass == null)
+			throw new RuntimeException("did not find association");
+		Class other = getOtherClass(cls, ass);
+		AssociationEnd otherEnd = getOtherEnd(cls, ass);
+		String otherName = r.getOtherName();
+		if (otherName == null)
+			otherName = a.getName();
+		java.lang.System.out.format("looking up attribute %s %s %s\n",
+				other.getDomain(), other.getName(), otherName);
+		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
+				other.getName(), otherName);
+		Type otherType = getType(other, otherAttribute);
+		Type result;
+		if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
+				|| otherEnd.getMultiplicity().equals(Multiplicity.ONE_MANY)) {
+			List<Type> types = Lists.newArrayList(otherType);
+			result = new Type(Set.class.getName(), types, false);
+		} else
+			result = otherType;
+		return result;
+	}
+
 	private Class getOtherClass(Class cls, Association a) {
 		if (cls.getDomain().equals(a.getDomain())) {
 			if (cls.getName().equals(a.getClass1().getName()))
 				return lookups.getClass(a.getDomain(), a.getClass2().getName());
 			else
-				return lookups.getClass(a.getDomain(), a.getClass2().getName());
+				return lookups.getClass(a.getDomain(), a.getClass1().getName());
 		} else
 			throw new RuntimeException(UNEXPECTED);
 	}
@@ -159,48 +207,6 @@ public class CodeGeneratorJava {
 				return a.getClass1();
 		} else
 			throw new RuntimeException(UNEXPECTED);
-	}
-
-	private void createAssociationMethod(ClassWriter w, Class cls,
-			Association rel) {
-		Class class1 = lookups.getClass(rel.getDomain(), rel.getClass1()
-				.getName());
-		Class class2 = lookups.getClass(rel.getDomain(), rel.getClass2()
-				.getName());
-		if (class1 == cls || class2 == cls) {
-			final AssociationEnd meEnd;
-			final AssociationEnd otherEnd;
-			final Class me;
-			final Class other;
-			if (class1 == cls) {
-				meEnd = rel.getClass1();
-				otherEnd = rel.getClass2();
-				me = class1;
-				other = class2;
-			} else {
-				meEnd = rel.getClass2();
-				otherEnd = rel.getClass1();
-				me = class2;
-				other = class1;
-			}
-			String returnType;
-			if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
-					|| otherEnd.getMultiplicity().equals(Multiplicity.ONE_MANY)) {
-				java.lang.System.out.format(
-						"looking up rel %s attribute %s,%s,%s",
-						rel.getNumber(), other.getDomain(), other.getName(),
-						otherEnd.getName());
-
-				Attribute otherAttribute = lookups.getAttribute(
-						other.getDomain(), other.getName(), otherEnd.getName());
-				Type t = getType(other, otherAttribute);
-			}
-		}
-	}
-
-	private void createGeneralizationMethod(ClassWriter w, Class cls,
-			Generalization value) {
-		// TODO
 	}
 
 	private static String toJavaType(IndependentAttributeType type) {
