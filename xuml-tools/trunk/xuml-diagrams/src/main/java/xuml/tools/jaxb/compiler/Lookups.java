@@ -7,7 +7,6 @@ import javax.xml.bind.JAXBElement;
 
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
-import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.Relationship;
 import xuml.metamodel.jaxb.RelationshipEnd;
 import xuml.metamodel.jaxb.System;
@@ -17,8 +16,6 @@ import com.google.common.collect.Maps;
 class Lookups {
 	private final Map<String, Class> classesByName = Maps.newHashMap();
 	private final Map<String, Relationship> relationshipsByName = Maps
-			.newHashMap();
-	private final Map<String, Generalization> generalizationsByName = Maps
 			.newHashMap();
 	private final Map<String, Attribute> attributesByName = Maps.newHashMap();
 
@@ -32,10 +29,12 @@ class Lookups {
 			}
 		}
 
-		for (Relationship r : system.getRelationship())
-			relationshipsByName.put(key(r), r);
-		for (Generalization g : system.getGeneralization())
-			generalizationsByName.put(key(g), g);
+		for (JAXBElement<? extends Relationship> r : system
+				.getRelationshipBase())
+			relationshipsByName.put(key(r.getValue()), r.getValue());
+
+		java.lang.System.out.println(attributesByName.toString().replace(",",
+				",\n"));
 	}
 
 	private static String attributeKey(String domain, String className,
@@ -57,10 +56,6 @@ class Lookups {
 
 	private static String relationshipKey(String domain, BigInteger number) {
 		return domain + "._relationship_." + number;
-	}
-
-	private static String key(Generalization g) {
-		return g.getNumber() + "";
 	}
 
 	public Class getClass(String domain, String name) {

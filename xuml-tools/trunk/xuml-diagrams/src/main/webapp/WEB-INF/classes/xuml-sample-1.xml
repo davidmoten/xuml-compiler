@@ -192,50 +192,50 @@
 		<attribute name="Formula" type="String" />
 	</class>
 
-	<relationship domain="xuml" number="20">
+	<association domain="xuml" number="20">
 		<class1 name="Class" domain="xuml" verbClause="characterizes"
 			multiplicity="ONE" />
 		<class2 name="Attribute" domain="xuml" verbClause="is characterized by"
 			multiplicity="ONE_MANY" />
-	</relationship>
+	</association>
 
-	<relationship domain="xuml" number="22">
+	<association domain="xuml" number="22">
 		<class1 name="Identifier" domain="xuml" verbClause="is required in"
 			multiplicity="MANY" />
 		<class2 name="Attribute" domain="xuml" verbClause="requires"
 			multiplicity="ONE_MANY" />
-	</relationship>
+	</association>
 
-	<relationship domain="xuml" number="26">
+	<association domain="xuml" number="26">
 		<class1 name="Attribute" domain="xuml" verbClause="is derived from"
 			multiplicity="ONE_MANY" />
 		<class2 name="DerivedAttribute" domain="xuml"
 			verbClause="contributes to the value of" multiplicity="MANY" />
-	</relationship>
+	</association>
 
-	<relationship domain="xuml" number="27">
+	<association domain="xuml" number="27">
 		<class1 name="Class" domain="xuml" verbClause="uniquely distinguishes"
 			multiplicity="ONE" />
 		<class2 name="Identifier" domain="xuml" verbClause="is uniquely distinguished by"
 			multiplicity="ONE_MANY" />
-	</relationship>
+	</association>
 
-	<generalization domain="xuml" number="21">
-		<superClass name="Attribute" domain="xuml" />
-		<class name="ReferentialAttribute" domain="xuml" />
-		<class name="NativeAttribute" domain="xuml" />
-	</generalization>
+	<generalization domain="xuml" number="21" superclass="Attribute"
+		subclass="ReferentialAttribute" />
 
-	<generalization domain="xuml" number="25">
-		<superClass name="NativeAttribute" domain="xuml" />
-		<class name="DerivedAttribute" domain="xuml" />
-		<class name="IndependentAttribute" domain="xuml" />
-	</generalization>
+	<generalization domain="xuml" number="21" superclass="Attribute"
+		subclass="NativeAttribute" />
 
-	<generalization domain="xuml" number="23">
-		<superClass name="Class" domain="xuml" />
-		<class name="SpecializedClass" domain="xuml" />
-		<class name="NonSpecializedClass" domain="xuml" />
-	</generalization>
+	<generalization domain="xuml" number="25" superclass="NativeAttribute"
+		subclass="DerivedAttribute" />
+
+	<generalization domain="xuml" number="25" superclass="NativeAttribute"
+		subclass="IndependentAttribute" />
+
+	<generalization domain="xuml" number="23" superclass="Class"
+		subclass="SpecializedClass" />
+
+	<generalization domain="xuml" number="23" superclass="Class"
+		subclass="NonSpecializedClass" />
 
 </system>

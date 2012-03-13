@@ -13,9 +13,6 @@ import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.IndependentAttribute;
 import xuml.metamodel.jaxb.IndependentAttributeType;
-import xuml.metamodel.jaxb.Multiplicity;
-import xuml.metamodel.jaxb.ReferentialAttribute;
-import xuml.metamodel.jaxb.Relationship;
 import xuml.metamodel.jaxb.RelationshipEnd;
 import xuml.metamodel.jaxb.System;
 import xuml.tools.jaxb.compiler.ClassWriter.Type;
@@ -67,62 +64,76 @@ public class CodeGeneratorJava {
 			}
 		}
 
-		for (Relationship rel : system.getRelationship()) {
-			Class class1 = getClassFromRelationshipEnd(rel.getClass1());
-			Class class2 = getClassFromRelationshipEnd(rel.getClass1());
-			if (class1 == cls || class2 == cls) {
-				final RelationshipEnd meEnd;
-				final RelationshipEnd otherEnd;
-				final Class me;
-				final Class other;
-				if (class1 == cls) {
-					meEnd = rel.getClass1();
-					otherEnd = rel.getClass2();
-					me = class1;
-					other = class2;
-				} else {
-					meEnd = rel.getClass2();
-					otherEnd = rel.getClass1();
-					me = class2;
-					other = class1;
-				}
-				String returnType;
-				if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
-						|| otherEnd.getMultiplicity().equals(
-								Multiplicity.ONE_MANY)) {
-					Attribute otherAttribute = lookups.getAttribute(
-							other.getDomain(), other.getName(),
-							otherEnd.getName());
-					// Type t = getType(other, otherAttribute);
-				}
-			}
-		}
+		// for (Relationship rel : system.getRelationship()) {
+		// Class class1 = getClassFromRelationshipEnd(rel.getClass1());
+		// Class class2 = getClassFromRelationshipEnd(rel.getClass1());
+		// if (class1 == cls || class2 == cls) {
+		// final RelationshipEnd meEnd;
+		// final RelationshipEnd otherEnd;
+		// final Class me;
+		// final Class other;
+		// if (class1 == cls) {
+		// meEnd = rel.getClass1();
+		// otherEnd = rel.getClass2();
+		// me = class1;
+		// other = class2;
+		// } else {
+		// meEnd = rel.getClass2();
+		// otherEnd = rel.getClass1();
+		// me = class2;
+		// other = class1;
+		// }
+		// String returnType;
+		// if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
+		// || otherEnd.getMultiplicity().equals(
+		// Multiplicity.ONE_MANY)) {
+		// java.lang.System.out.format(
+		// "looking up rel %s attribute %s,%s,%s",
+		// rel.getNumber(), other.getDomain(),
+		// other.getName(), otherEnd.getName());
+		//
+		// Attribute otherAttribute = lookups.getAttribute(
+		// other.getDomain(), other.getName(),
+		// otherEnd.getName());
+		// Type t = getType(other, otherAttribute);
+		// }
+		// }
+		// }
 
 		writeToFile(w.toString().getBytes(), file);
 	}
 
-	private Type getType(Class cls, Attribute a) {
-		if (a instanceof IndependentAttribute) {
-			return new Type(toJavaType(((IndependentAttribute) a).getType()),
-					null, false);
-		} else if (a instanceof ReferentialAttribute) {
-			ReferentialAttribute r = (ReferentialAttribute) a;
-			// Relationship rel = lookups.getRelationship(cls.getDomain(),
-			// r.getRelationship());
-			// Class other = getOtherClass(cls, rel);
-			throw new RuntimeException("not implemented");
+	// private Type getType(Class cls, Attribute a) {
+	// if (a instanceof IndependentAttribute) {
+	// return new Type(toJavaType(((IndependentAttribute) a).getType()),
+	// null, false);
+	// } else if (a instanceof ReferentialAttribute) {
+	// ReferentialAttribute r = (ReferentialAttribute) a;
+	// Reference ref = r.getReferenceBase().getValue();
+	// if (ref instanceof ToOneReference) {
+	// ToOneReference t = (ToOneReference) ref;
+	// t.getRelationship();
+	// Relationship rel = lookups.getRelationship(cls.getDomain(),
+	// t.getRelationship());
+	//
+	// Class other = getOtherClass(cls, rel);
+	// return new Type("Dummy", null, false);
+	// } else {
+	// notImplemented();
+	// return new Type("Dummy", null, false);
+	// }
+	//
+	// } else
+	// throw new RuntimeException("unexpected attribute type "
+	// + a.getClass().getName());
+	// }
 
-		} else
-			throw new RuntimeException("unexpected attribute type "
-					+ a.getClass().getName());
-	}
-
-	private Class getOtherClass(Class cls, Relationship r) {
-		if (is(cls, r.getClass1()))
-			return lookups.getClass(r.getClass2());
-		else
-			return cls;
-	}
+	// private Class getOtherClass(Class cls, Relationship r) {
+	// if (is(cls, r.getClass1()))
+	// return lookups.getClass(r.getClass2());
+	// else
+	// return cls;
+	// }
 
 	private Class getClassFromRelationshipEnd(RelationshipEnd e) {
 		return lookups.getClass(e.getDomain(), e.getName());
@@ -192,6 +203,10 @@ public class CodeGeneratorJava {
 
 	private static void re(String string) {
 		throw new RuntimeException(string);
+	}
+
+	private static void notImplemented() {
+		re("not  implemented");
 	}
 
 	private static void createDirectories(File file) {

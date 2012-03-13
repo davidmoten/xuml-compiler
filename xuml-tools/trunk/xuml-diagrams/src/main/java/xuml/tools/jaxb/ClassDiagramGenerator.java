@@ -9,9 +9,9 @@ import javax.xml.bind.JAXBElement;
 
 import org.apache.commons.io.IOUtils;
 
+import xuml.metamodel.jaxb.Association;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
-import xuml.metamodel.jaxb.ClassWithDomain;
 import xuml.metamodel.jaxb.DerivedAttribute;
 import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Generalization;
@@ -41,22 +41,26 @@ public class ClassDiagramGenerator {
 		for (Class c : system.getClazz())
 			generateClass(s, c);
 
-		for (Relationship r : system.getRelationship())
-			generateRelationship(s, r);
+		for (JAXBElement<? extends Relationship> r : system
+				.getRelationshipBase())
+			if (r.getValue() instanceof Association)
+				generateAssociation(s, (Association) r.getValue());
+			else if (r.getValue() instanceof Generalization)
+				generateGeneralization(s, (Generalization) r.getValue());
 
-		for (Generalization g : system.getGeneralization())
-			for (ClassWithDomain cls : g.getClazz()) {
-				s.append("<div class=\"generalization\" id=\"" + cls.getName()
-						+ "-" + getRelationshipName(g.getNumber())
-						+ "\" groupName=\""
-						+ getRelationshipName(g.getNumber())
-						+ "\" superClassName=\"" + g.getSuperClass().getName()
-						+ "\" subClassName=\"" + cls.getName() + "\"></div>\n");
-			}
 		return s.toString();
 	}
 
-	private void generateRelationship(StringBuilder s, Relationship r) {
+	private void generateGeneralization(StringBuilder s, Generalization g) {
+		s.append("<div class=\"generalization\" id=\"" + g.getSubclass() + "-"
+				+ getRelationshipName(g.getNumber()) + "\" groupName=\""
+				+ getRelationshipName(g.getNumber()) + "\" superClassName=\""
+				+ g.getSuperclass() + "\" subClassName=\"" + g.getSubclass()
+				+ "\"></div>\n");
+	}
+
+	private void generateAssociation(StringBuilder s, Association r) {
+
 		s.append("<div class=\"relationship\" id=\""
 				+ getRelationshipName(r.getNumber()) + "\" className1=\""
 				+ r.getClass1().getName() + "\" className2=\""
