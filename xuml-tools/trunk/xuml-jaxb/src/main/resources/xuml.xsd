@@ -95,7 +95,11 @@
 	<complexType name="referentialAttribute">
 		<complexContent>
 			<extension base="t:attribute">
-				<attribute name="otherName" type="t:nonBlankString" use="optional" />
+				<attribute name="otherName" type="t:nonBlankString" use="optional">
+					<annotation>
+						<documentation>if blank then name is used</documentation>
+					</annotation>
+				</attribute>
 				<attribute name="relationship" type="t:positiveInteger"
 					use="required" />
 			</extension>
@@ -156,6 +160,7 @@
 			<element name="class1" type="t:relationshipEnd" />
 			<element name="class2" type="t:relationshipEnd" />
 		</sequence>
+		<attribute name="domain" type="t:nonBlankString" use="required"/>
 		<attribute name="number" type="t:positiveInteger" use="required" />
 	</complexType>
 
@@ -182,6 +187,7 @@
 			<element name="superClass" type="t:classWithDomain" />
 			<element name="class" type="t:classWithDomain" maxOccurs="unbounded" />
 		</sequence>
+		<attribute name="domain" type="t:nonBlankString" use="required"/>
 		<attribute name="number" type="t:positiveInteger" use="required" />
 	</complexType>
 
