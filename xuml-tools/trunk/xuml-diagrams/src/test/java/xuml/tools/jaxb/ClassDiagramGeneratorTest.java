@@ -15,7 +15,7 @@ public class ClassDiagramGeneratorTest {
 	public void testGenerate() throws IOException {
 		ClassDiagramGenerator g = new ClassDiagramGenerator();
 		xuml.metamodel.jaxb.System system = new Marshaller()
-				.unmarshal(getClass().getResourceAsStream(TstUtil.SAMPLE_XML));
+				.unmarshal(getClass().getResourceAsStream("/xuml-sample-1.xml"));
 		String s = g.generate(system);
 		System.out.println(s);
 		File webapp = new File("target/webapp");
