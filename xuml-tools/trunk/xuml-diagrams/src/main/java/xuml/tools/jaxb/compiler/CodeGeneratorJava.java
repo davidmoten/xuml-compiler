@@ -110,6 +110,7 @@ public class CodeGeneratorJava {
 
 		w.setEvents(cls.getEvent());
 		w.setTransitions(cls.getTransition());
+		w.setOperations(cls.getOperation());
 
 		for (JAXBElement<? extends Relationship> relationship : system
 				.getRelationshipBase()) {

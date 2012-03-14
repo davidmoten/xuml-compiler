@@ -36,4 +36,5 @@ public class Member {
 	public String getComment() {
 		return comment;
 	}
+
 }

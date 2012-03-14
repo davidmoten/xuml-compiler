@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import xuml.metamodel.jaxb.Event;
+import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.State;
 import xuml.metamodel.jaxb.Transition;
 
@@ -26,11 +27,7 @@ public class ClassWriter {
 	private List<Event> events;
 	private List<State> states;
 	private List<Transition> transitions;
-
-	public ClassWriter() {
-		addMember("state", new Type("String", null, false), true, true,
-				"internal state for state machine, made public so is persisted by jpa");
-	}
+	private List<Operation> operations;
 
 	/**
 	 * Full type name -> abbr (if possible)
@@ -76,14 +73,27 @@ public class ClassWriter {
 		out.format("\n");
 
 		// constructor
-		out.format("    public %1$s(%1$sBehaviour behaviour){\n", className);
-		out.format("        this.behaviour = behaviour;\n", className);
-		out.format("    }\n\n");
+		if (operations.size() > 0 || events.size() > 0) {
+			out.format(
+					"    public %1$s(%1$sBehaviourFactory behaviourFactory){\n",
+					className);
+			out.format(
+					"        this.behaviour = behaviourFactory.create(this);\n",
+					className);
+			out.format("    }\n\n");
 
-		out.format("    /**\n");
-		out.format("     * All actions like onEntry actions and defined operations are performed by this Behaviour class.\n");
-		out.format("     */\n");
-		out.format("    private final %sBehaviour behaviour;\n", className);
+			out.format("    /**\n");
+			out.format("     * All actions like onEntry actions and defined operations are performed by this Behaviour class.\n");
+			out.format("     */\n");
+			out.format("    private final %sBehaviour behaviour;\n\n",
+					className);
+
+			out.format("    /**\n");
+			out.format("     * For internal use only by the state machine but is persisted by the jpa provider.");
+			out.format("     */\n");
+			out.format("    private String _state;\n\n");
+
+		}
 
 		for (Member member : members) {
 			out.format("    /**\n");
@@ -93,6 +103,20 @@ public class ClassWriter {
 					lowerFirst(member.getName()));
 		}
 		out.format("\n");
+
+		out.format("    /**\n");
+		out.format("     * For internal use only by the state machine but is persisted by the jpa provider.");
+		out.format("     */\n");
+		out.format("    public String getState(){\n");
+		out.format("        return _state;\n");
+		out.format("    }\n\n");
+
+		out.format("    /**\n");
+		out.format("     * For internal use only by the state machine but is persisted by the jpa provider.");
+		out.format("     */\n");
+		out.format("    private void setState(String state){\n");
+		out.format("        this._state= state;\n");
+		out.format("    }\n\n");
 
 		for (Member member : members) {
 			if (member.isAddGetter()) {
@@ -118,12 +142,19 @@ public class ClassWriter {
 			}
 
 		}
+		out.format("    //////////////////////////////////////////////\n");
+		out.format("    //                     States                       //\n");
+		out.format("    //////////////////////////////////////////////\n\n");
 
 		for (State state : states) {
 			out.format("    private static final String STATE_%s = \"%s\";\n",
 					getStateIdentifier(state.getName()), state.getName());
 		}
 		out.println();
+
+		out.format("    //////////////////////////////////////////////\n");
+		out.format("    //                     Events                      //\n");
+		out.format("    //////////////////////////////////////////////\n\n");
 
 		for (Event event : events) {
 			out.format("    public static class %s {\n\n",
@@ -253,6 +284,10 @@ public class ClassWriter {
 
 	public void setTransitions(List<Transition> transitions) {
 		this.transitions = transitions;
+	}
+
+	public void setOperations(List<Operation> operations) {
+		this.operations = operations;
 	}
 
 }
