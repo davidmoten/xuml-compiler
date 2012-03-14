@@ -14,8 +14,6 @@ import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.State;
 import xuml.metamodel.jaxb.Transition;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
 
 public class ClassWriter {
@@ -28,11 +26,7 @@ public class ClassWriter {
 	private List<State> states;
 	private List<Transition> transitions;
 	private List<Operation> operations;
-
-	/**
-	 * Full type name -> abbr (if possible)
-	 */
-	private final BiMap<String, String> types = HashBiMap.create();
+	private final TypeRegister types = new TypeRegister();
 
 	public ClassWriter setClassName(String s) {
 		className = s;
@@ -46,6 +40,7 @@ public class ClassWriter {
 
 	public ClassWriter addMember(String name, Type type, boolean addSetter,
 			boolean addGetter, String comment) {
+		types.addType(type);
 		members.add(new Member(name, type, addSetter, addGetter, comment));
 		return this;
 	}
@@ -59,6 +54,9 @@ public class ClassWriter {
 	public ClassWriter addMethod(String name, Type returnType,
 			List<Parameter> parameters) {
 		methods.add(new Method(name, returnType, parameters));
+		types.addType(returnType);
+		for (Parameter p : parameters)
+			types.addType(p.getType());
 		return this;
 	}
 
@@ -74,6 +72,8 @@ public class ClassWriter {
 
 		// constructor
 		if (operations.size() > 0 || events.size() > 0) {
+			types.addType(pkg + ".behaviour." + className + "BehaviourFactory");
+			types.addType(pkg + ".behaviour." + className + "Behaviour");
 			out.format(
 					"    public %1$s(%1$sBehaviourFactory behaviourFactory){\n",
 					className);
@@ -99,7 +99,8 @@ public class ClassWriter {
 			out.format("    /**\n");
 			out.format("     * %s\n", member.getComment());
 			out.format("     */\n");
-			out.format("    private %s %s;\n", addType(member.getType()),
+			out.format("    private %s %s;\n\n",
+					types.addType(member.getType()),
 					lowerFirst(member.getName()));
 		}
 		out.format("\n");
@@ -123,8 +124,9 @@ public class ClassWriter {
 				out.format("    /**\n");
 				out.format("     * Returns %s\n", member.getComment());
 				out.format("     */\n");
-				out.format("    public %s  get%s() {\n",
-						addType(member.getType()), upperFirst(member.getName()));
+				out.format("    public %s get%s() {\n",
+						types.addType(member.getType()),
+						upperFirst(member.getName()));
 				out.format("        return %s;\n", lowerFirst(member.getName()));
 				out.format("    }\n\n");
 			}
@@ -135,7 +137,8 @@ public class ClassWriter {
 				out.format("     */\n");
 				out.format("    public void set%s(%s %s) {\n",
 						upperFirst(member.getName()),
-						addType(member.getType()), lowerFirst(member.getName()));
+						types.addType(member.getType()),
+						lowerFirst(member.getName()));
 				out.format("        this.%1$s=%1$s;\n",
 						lowerFirst(member.getName()));
 				out.format("    }\n\n");
@@ -197,10 +200,16 @@ public class ClassWriter {
 			out.format("    public void event(%s event){\n",
 					upperFirst(event.getName()));
 
+			boolean first = true;
 			for (Transition transition : transitions) {
 				// constraint is no event overloading
 				if (transition.getEvent().equals(event.getName())) {
-					out.format("        if (state.equals(%s)){\n",
+					if (first)
+						out.format("        if");
+					else
+						out.format("        else if");
+					first = false;
+					out.format(" (state.equals(%s)){\n",
 							getStateIdentifier(transition.getFrom()));
 					out.format("            state=%s;\n",
 							getStateIdentifier(transition.getTo()));
@@ -215,8 +224,8 @@ public class ClassWriter {
 		}
 
 		for (Method method : methods) {
-			out.format("    public %s %s(){\n", addType(method.getType()),
-					method.getName());
+			out.format("    public %s %s(){\n",
+					types.addType(method.getType()), method.getName());
 
 			out.format("    }\n\n");
 		}
@@ -225,49 +234,13 @@ public class ClassWriter {
 		out.close();
 		StringBuilder header = new StringBuilder();
 		header.append("package " + pkg + ";\n\n");
-		for (String t : types.keySet())
+		for (String t : types.getImports())
 			header.append("import " + t + ";\n");
 		return header.toString() + "\n" + bytes.toString();
 	}
 
 	private String getStateIdentifier(String state) {
 		return toJavaConstantIdentifier(state);
-	}
-
-	private String addType(Type type) {
-		StringBuilder result = new StringBuilder(addType(type.getBase()));
-		StringBuilder typeParams = new StringBuilder();
-		for (Type t : type.getGenerics()) {
-			String typeParameter = addType(t);
-			if (typeParams.length() > 0)
-				typeParams.append(",");
-			typeParams.append(typeParameter);
-		}
-		if (typeParams.length() > 0) {
-			result.append("<");
-			result.append(typeParams);
-			result.append(">");
-		}
-		return result.toString();
-	}
-
-	private String addType(String type) {
-		String abbr = types.get(type);
-		if (abbr != null)
-			return abbr;
-		else {
-			int i = type.lastIndexOf(".");
-			if (i >= 0) {
-				String last = type.substring(i + 1);
-				if (types.inverse().get(last) != null)
-					return type;
-				else {
-					types.put(type, last);
-					return last;
-				}
-			} else
-				return type;
-		}
 	}
 
 	public void setPackage(String string) {

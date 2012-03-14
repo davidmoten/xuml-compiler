@@ -1,11 +1,14 @@
 package xuml.tools.jaxb.compiler;
 
 import static xuml.tools.jaxb.Util.lowerFirst;
+import static xuml.tools.jaxb.Util.upperFirst;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,10 +25,12 @@ import xuml.metamodel.jaxb.AssociativeReference;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.DerivedAttribute;
+import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.IndependentAttribute;
 import xuml.metamodel.jaxb.IndependentAttributeType;
 import xuml.metamodel.jaxb.Multiplicity;
+import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.Reference;
 import xuml.metamodel.jaxb.ReferentialAttribute;
 import xuml.metamodel.jaxb.Relationship;
@@ -58,6 +63,7 @@ public class CodeGeneratorJava {
 			createImplementation(cls, destination);
 			// create behaviour interfaces
 			createBehaviourInterface(cls, destination);
+			createBehaviourFactoryInterface(cls, destination);
 		}
 
 		// create object factory
@@ -162,9 +168,9 @@ public class CodeGeneratorJava {
 				type = baseType;
 			}
 			String comment = other.getName() + " via association R"
-					+ ass.getNumber()
-					+ Util.getAbbreviation(thisEnd.getMultiplicity()) + " .. "
-					+ Util.getAbbreviation(otherEnd.getMultiplicity());
+					+ ass.getNumber() + " ("
+					+ Util.getAbbreviation(thisEnd.getMultiplicity()) + " -> "
+					+ Util.getAbbreviation(otherEnd.getMultiplicity()) + ")";
 			w.addMember(other.getName() + "ViaR" + ass.getNumber(), type, true,
 					true, comment);
 		}
@@ -342,15 +348,71 @@ public class CodeGeneratorJava {
 	}
 
 	private void createBehaviourInterface(Class cls, File destination) {
+
+		if (!hasBehaviour(cls))
+			return;
 		// add operations, performOnEntry methods
 		File file = new File(destination, getClassBehaviourFilename(cls));
 		createDirectories(file);
-		writeToFile("".getBytes(), file);
+		TypeRegister types = new TypeRegister();
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		PrintStream out = new PrintStream(bytes);
+		String pkg = getPackage(cls);
+		out.format("public interface %sBehaviour {\n\n", cls.getName());
+		for (Event event : cls.getEvent()) {
+			String typeName = types.addType(new Type(pkg + "." + cls.getName()
+					+ "." + upperFirst(event.getName()), null, false));
+			out.format("    void onEntry%s(%s event);\n\n",
+					upperFirst(event.getName()), typeName);
+		}
+
+		for (Operation op : cls.getOperation()) {
+			String returnType;
+			if (op.getReturns() == null)
+				returnType = "void";
+			else
+				returnType = op.getReturns();
+			StringBuilder params = new StringBuilder();
+			for (xuml.metamodel.jaxb.Parameter p : op.getParameter()) {
+				if (params.length() > 0)
+					params.append(",");
+				params.append(types.addType(p.getType()));
+				params.append(" ");
+				params.append(lowerFirst(p.getName()));
+			}
+
+			out.format("    %s %s(%s);\n\n", returnType, op.getName(),
+					params.toString());
+		}
+		out.format("}");
+		out.close();
+		String java = "package " + pkg + ".behaviour;\n\n";
+		for (String type : types.getImports())
+			java += "import " + type + ";\n";
+		java += "\n";
+		String all = java + bytes.toString();
+		writeToFile(all.getBytes(), file);
+	}
+
+	private void createBehaviourFactoryInterface(Class cls, File destination) {
+
+		if (!hasBehaviour(cls))
+			return;
+		String java = "package " + getPackage(cls) + ".behaviour;\n\n";
+		java += "public interface " + cls.getName() + "BehaviourFactory {\n\n";
+		java += "    " + cls.getName() + "Behaviour create(" + cls.getName()
+				+ " cls);\n";
+		java += "}";
+		File file = new File(destination, getClassBehaviourFactoryFilename(cls));
+		writeToFile(java.getBytes(), file);
 	}
 
 	// ----------------------------------------
 	// Utility Methods
 	// -----------------------------------------
+	private String getPackage(Class cls) {
+		return domainPackageNames.get(cls.getDomain());
+	}
 
 	private String getClassJavaSimpleName(Class cls) {
 		return cls.getName().replace(" ", "").replace("-", "");
@@ -378,9 +440,23 @@ public class CodeGeneratorJava {
 		return s.replace(".", "/") + "Behaviour.java";
 	}
 
+	private String getClassBehaviourFactoryFilename(Class cls) {
+		String s = getFullClassName(cls);
+		int i = s.lastIndexOf(".");
+		if (i == -1)
+			s = "behaviour." + s;
+		else
+			s = s.substring(0, i) + ".behaviour" + s.substring(i);
+		return s.replace(".", "/") + "BehaviourFactory.java";
+	}
+
 	// ----------------------------------------
 	// Static Utility Methods
 	// -----------------------------------------
+
+	private static boolean hasBehaviour(Class cls) {
+		return cls.getEvent().size() > 0 || cls.getOperation().size() > 0;
+	}
 
 	private static void writeToFile(byte[] bytes, File file) {
 		try {
