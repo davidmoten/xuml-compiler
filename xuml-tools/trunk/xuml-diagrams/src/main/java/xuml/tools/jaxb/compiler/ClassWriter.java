@@ -1,6 +1,7 @@
 package xuml.tools.jaxb.compiler;
 
 import static xuml.tools.jaxb.Util.lowerFirst;
+import static xuml.tools.jaxb.Util.toJavaConstantIdentifier;
 import static xuml.tools.jaxb.Util.upperFirst;
 
 import java.io.ByteArrayOutputStream;
@@ -8,7 +9,8 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import xuml.metamodel.jaxb.Event;
-import xuml.tools.jaxb.Util;
+import xuml.metamodel.jaxb.State;
+import xuml.metamodel.jaxb.Transition;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -21,6 +23,13 @@ public class ClassWriter {
 	private final List<Member> members = Lists.newArrayList();
 	private final List<Method> methods = Lists.newArrayList();
 	private List<Event> events;
+	private List<State> states;
+	private List<Transition> transitions;
+
+	public ClassWriter() {
+		addMember("state", new Type("String", null, false), true, true,
+				"internal state for state machine, made public so is persisted by jpa");
+	}
 
 	/**
 	 * Full type name -> abbr (if possible)
@@ -62,6 +71,16 @@ public class ClassWriter {
 		out.format("public class %s {\n", className);
 		out.format("\n");
 
+		// constructor
+		out.format("    public %1$s(%1$sBehaviour behaviour){\n", className);
+		out.format("        this.behaviour = behaviour;\n", className);
+		out.format("    }\n\n");
+
+		out.format("    /**\n");
+		out.format("     * All actions like onEntry actions and defined operations are performed by this Behaviour class.\n");
+		out.format("     */\n");
+		out.format("    private final %sBehaviour behaviour;\n", className);
+
 		for (Member member : members) {
 			out.format("    /**\n");
 			out.format("     * %s\n", member.getComment());
@@ -96,42 +115,67 @@ public class ClassWriter {
 
 		}
 
+		for (State state : states) {
+			out.format("    private static final String STATE_%s = \"%s\";\n",
+					getStateIdentifier(state.getName()), state.getName());
+		}
+		out.println();
+
 		for (Event event : events) {
-			out.format("    public static class %s {\n",
-					Util.upperFirst(event.getName()));
-			StringBuilder constructor = new StringBuilder();
+			out.format("    public static class %s {\n\n",
+					upperFirst(event.getName()));
+
 			StringBuilder constructorBody = new StringBuilder();
-			constructor.append("        public "
-					+ Util.upperFirst(event.getName()) + "(");
+			for (xuml.metamodel.jaxb.Parameter p : event.getParameter()) {
+				constructorBody.append("            this."
+						+ lowerFirst(p.getName()) + " = "
+						+ lowerFirst(p.getName()) + ";\n");
+			}
+
+			StringBuilder constructor = new StringBuilder();
+			constructor.append("        public " + upperFirst(event.getName())
+					+ "(");
 			for (xuml.metamodel.jaxb.Parameter p : event.getParameter()) {
 				out.format("        private final %s %s;\n",
-						Util.upperFirst(p.getType()),
-						Util.lowerFirst(p.getName()));
-				constructor.append(Util.upperFirst(p.getType()) + " "
-						+ Util.lowerFirst(p.getName()));
-				constructorBody.append("            this."
-						+ Util.lowerFirst(p.getName()) + " = "
-						+ Util.lowerFirst(p.getName()) + ";\n");
+						upperFirst(p.getType()), lowerFirst(p.getName()));
+				constructor.append(upperFirst(p.getType()) + " "
+						+ lowerFirst(p.getName()));
 			}
 			constructor.append("){\n");
 			constructor.append(constructorBody);
 			constructor.append("        }\n");
+			out.println();
+			out.println(constructor);
+
 			// getters
 			for (xuml.metamodel.jaxb.Parameter p : event.getParameter()) {
 				out.format("        public %s get%s(){\n",
-						Util.upperFirst(p.getType()),
-						Util.upperFirst(p.getName()));
+						upperFirst(p.getType()), upperFirst(p.getName()));
+				out.format("            return %s;\n", lowerFirst(p.getName()));
 				out.format("        }\n\n");
 			}
-			out.println(constructor);
 			out.format("    }\n\n");
 
 		}
 
 		for (Event event : events) {
 			out.format("    public void event(%s event){\n",
-					Util.upperFirst(event.getName()));
-			out.format("        //TODO state checks and onEntry calls\n");
+					upperFirst(event.getName()));
+
+			for (Transition transition : transitions) {
+				// constraint is no event overloading
+				if (transition.getEvent().equals(event.getName())) {
+					out.format("        if (state.equals(%s)){\n",
+							getStateIdentifier(transition.getFrom()));
+					out.format("            state=%s;\n",
+							getStateIdentifier(transition.getTo()));
+					out.format("            synchronized(this) {\n");
+					out.format("                behaviour.onEntry(event);\n");
+					out.format("            }\n");
+					out.format("        }\n");
+				}
+			}
+
 			out.format("    }\n\n");
 		}
 
@@ -149,6 +193,10 @@ public class ClassWriter {
 		for (String t : types.keySet())
 			header.append("import " + t + ";\n");
 		return header.toString() + "\n\n" + bytes.toString();
+	}
+
+	private String getStateIdentifier(String state) {
+		return toJavaConstantIdentifier(state);
 	}
 
 	private String addType(Type type) {
@@ -193,6 +241,14 @@ public class ClassWriter {
 
 	public void setEvents(List<Event> events) {
 		this.events = events;
+	}
+
+	public void setStates(List<State> states) {
+		this.states = states;
+	}
+
+	public void setTransitions(List<Transition> transitions) {
+		this.transitions = transitions;
 	}
 
 }

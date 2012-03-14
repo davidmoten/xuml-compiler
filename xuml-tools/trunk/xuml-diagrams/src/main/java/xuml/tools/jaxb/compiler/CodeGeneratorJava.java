@@ -109,6 +109,7 @@ public class CodeGeneratorJava {
 		}
 
 		w.setEvents(cls.getEvent());
+		w.setTransitions(cls.getTransition());
 
 		for (JAXBElement<? extends Relationship> relationship : system
 				.getRelationshipBase()) {
@@ -121,6 +122,8 @@ public class CodeGeneratorJava {
 			} else
 				unexpected();
 		}
+
+		w.setStates(cls.getState());
 
 		writeToFile(w.toString().getBytes(), file);
 	}
