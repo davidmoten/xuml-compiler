@@ -11,11 +11,13 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.JAXBElement;
 
 import xuml.metamodel.jaxb.Association;
@@ -46,11 +48,14 @@ public class CodeGeneratorJava {
 	private final System system;
 	private final Map<String, String> domainPackageNames;
 	private final Lookups lookups;
+	private final PersistenceDetails persistence;
 
 	public CodeGeneratorJava(xuml.metamodel.jaxb.System system,
-			Map<String, String> domainPackageNames) {
+			Map<String, String> domainPackageNames,
+			PersistenceDetails persistence) {
 		this.system = system;
 		this.domainPackageNames = domainPackageNames;
+		this.persistence = persistence;
 		// create maps for classes, relationships, generalizations
 		lookups = new Lookups(system);
 	}
@@ -85,8 +90,7 @@ public class CodeGeneratorJava {
 		ClassWriter w = new ClassWriter();
 		w.setPackage(domainPackageNames.get(cls.getDomain()));
 		w.setClassName(getClassJavaSimpleName(cls));
-		w.addClassAnnotation("@Entity");
-		w.addClassAnnotation("@Table(name=\"tablename\",uniqueConstraints=@UniqueConstraint(column_names))");
+		addClassAnnotations(w, cls);
 		for (JAXBElement<? extends Attribute> base : cls.getAttributeBase()) {
 			if (base.getValue() instanceof IndependentAttribute) {
 				IndependentAttribute a = (IndependentAttribute) base.getValue();
@@ -99,7 +103,6 @@ public class CodeGeneratorJava {
 						+ " "
 						+ a.getReferenceBase().getValue().getRelationship());
 				Type type = getType(cls, a);
-				List<Parameter> parameters = Collections.emptyList();
 				String comment = "referential attribute " + a.getName()
 						+ " via R"
 						+ a.getReferenceBase().getValue().getRelationship();
@@ -134,6 +137,18 @@ public class CodeGeneratorJava {
 		w.setStates(cls.getState());
 
 		writeToFile(w.toString().getBytes(), file);
+	}
+
+	private void addClassAnnotations(ClassWriter w, Class cls) {
+		w.addType(Entity.class);
+		w.addType(Table.class);
+		w.addType(UniqueConstraint.class);
+		String table = persistence.getTableName(cls);
+		String schema = persistence.getSchemaName(cls);
+		w.addClassAnnotation("@Entity");
+		w.addClassAnnotation("@Table(name=\"" + table + "\",schema=\"" + schema
+				+ "\",");
+		w.addClassAnnotation("               uniqueConstraints=@UniqueConstraint(column_names))");
 	}
 
 	private void addGeneralizationToWriter(ClassWriter w, Class cls,

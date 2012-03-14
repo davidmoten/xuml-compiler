@@ -61,4 +61,38 @@ public class Util {
 		}
 		return s.toString();
 	}
+
+	public static String camelCaseToLowerUnderscore(String s) {
+		StringBuilder b = new StringBuilder();
+		b.append(s.charAt(0));
+		boolean underscoreAdded = false;
+		for (int i = 1; i < s.length(); i++) {
+			char ch = s.charAt(i);
+			if (ch == '_') {
+				if (!underscoreAdded)
+					b.append(ch);
+				underscoreAdded = true;
+			} else if (Character.isUpperCase(ch)) {
+				if (!underscoreAdded) {
+					b.append("_");
+					b.append(ch);
+					underscoreAdded = true;
+				} else {
+					b.append(ch);
+				}
+			} else {
+				b.append(ch);
+				underscoreAdded = false;
+			}
+		}
+		return b.toString().toLowerCase();
+	}
+
+	public static String toTableName(String className) {
+		return camelCaseToLowerUnderscore(className);
+	}
+
+	public static String toColumnName(String attributeName) {
+		return camelCaseToLowerUnderscore(attributeName);
+	}
 }

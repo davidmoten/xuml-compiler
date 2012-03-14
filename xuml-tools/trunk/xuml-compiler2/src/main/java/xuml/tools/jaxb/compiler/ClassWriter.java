@@ -61,7 +61,12 @@ public class ClassWriter {
 	}
 
 	public ClassWriter addType(Type type) {
-		addType(type);
+		types.addType(type);
+		return this;
+	}
+
+	public ClassWriter addType(Class<?> cls) {
+		addType(new Type(cls.getName(), null, false));
 		return this;
 	}
 
@@ -152,19 +157,22 @@ public class ClassWriter {
 			}
 
 		}
-		out.format("    //////////////////////////////////////////////\n");
-		out.format("    //                     States                       //\n");
-		out.format("    //////////////////////////////////////////////\n\n");
-
+		if (!states.isEmpty()) {
+			out.format("    //////////////////////////////////////////////\n");
+			out.format("    //                     States                       //\n");
+			out.format("    //////////////////////////////////////////////\n\n");
+		}
 		for (State state : states) {
 			out.format("    private static final String STATE_%s = \"%s\";\n",
 					getStateIdentifier(state.getName()), state.getName());
 		}
 		out.println();
 
-		out.format("    //////////////////////////////////////////////\n");
-		out.format("    //                     Events                      //\n");
-		out.format("    //////////////////////////////////////////////\n\n");
+		if (!events.isEmpty()) {
+			out.format("    //////////////////////////////////////////////\n");
+			out.format("    //                     Events                      //\n");
+			out.format("    //////////////////////////////////////////////\n\n");
+		}
 
 		for (Event event : events) {
 			out.format("    public static class %s {\n\n",
