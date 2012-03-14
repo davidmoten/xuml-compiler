@@ -1,21 +1,26 @@
 package xuml.tools.jaxb.compiler;
 
-import static xuml.tools.jaxb.compiler.Util.capFirst;
-import static xuml.tools.jaxb.compiler.Util.lowerFirst;
+import static xuml.tools.jaxb.Util.capFirst;
+import static xuml.tools.jaxb.Util.lowerFirst;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.List;
+
+import xuml.metamodel.jaxb.Event;
+import xuml.tools.jaxb.Util;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
 
 public class ClassWriter {
+	private String pkg;
 	private String className;
 	private final List<String> classAnnotations = Lists.newArrayList();
 	private final List<Member> members = Lists.newArrayList();
 	private final List<Method> methods = Lists.newArrayList();
+	private List<Event> events;
 
 	/**
 	 * Full type name -> abbr (if possible)
@@ -88,6 +93,21 @@ public class ClassWriter {
 						lowerFirst(member.getName()));
 				out.format("    }\n\n");
 			}
+
+		}
+
+		for (Event event : events) {
+			out.format("    public static class %s {\n",
+					Util.capFirst(event.getName()));
+			out.format("        //TODO event parameters\n");
+			out.format("    }\n\n");
+		}
+
+		for (Event event : events) {
+			out.format("    public void event(%s event){\n",
+					Util.capFirst(event.getName()));
+			out.format("        //TODO state checks and onEntry calls\n");
+			out.format("    }\n\n");
 		}
 
 		for (Method method : methods) {
@@ -99,10 +119,11 @@ public class ClassWriter {
 
 		out.format("}");
 		out.close();
-		StringBuilder imports = new StringBuilder();
+		StringBuilder header = new StringBuilder();
+		header.append("package " + pkg + ";\n\n");
 		for (String t : types.keySet())
-			imports.append("import " + t + ";\n");
-		return imports.toString() + "\n\n" + bytes.toString();
+			header.append("import " + t + ";\n");
+		return header.toString() + "\n\n" + bytes.toString();
 	}
 
 	private String addType(Type type) {
@@ -139,6 +160,14 @@ public class ClassWriter {
 			} else
 				return type;
 		}
+	}
+
+	public void setPackage(String string) {
+		this.pkg = string;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
 	}
 
 }

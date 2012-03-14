@@ -1,6 +1,6 @@
 package xuml.tools.jaxb.compiler;
 
-import static xuml.tools.jaxb.compiler.Util.lowerFirst;
+import static xuml.tools.jaxb.Util.lowerFirst;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -78,12 +78,12 @@ public class CodeGeneratorJava {
 		createDirectories(file);
 
 		ClassWriter w = new ClassWriter();
+		w.setPackage(domainPackageNames.get(cls.getDomain()));
 		w.setClassName(getClassJavaSimpleName(cls));
 		for (JAXBElement<? extends Attribute> base : cls.getAttributeBase()) {
 			if (base.getValue() instanceof IndependentAttribute) {
 				IndependentAttribute a = (IndependentAttribute) base.getValue();
-				String comment = "independent attribute <code>" + a.getName()
-						+ "</code>.";
+				String comment = "independent attribute " + a.getName() + ".";
 				w.addMember(a.getName(), new Type(toJavaType(a.getType()),
 						null, false), true, true, comment);
 			} else if (base.getValue() instanceof ReferentialAttribute) {
@@ -100,14 +100,15 @@ public class CodeGeneratorJava {
 			} else if (base.getValue() instanceof DerivedAttribute) {
 				DerivedAttribute a = (DerivedAttribute) base.getValue();
 				Type type = getType(cls, a);
-				String comment = "derived attribute <code> " + a.getName()
-						+ "</code>. Formula is <code>" + a.getFormula()
-						+ "</code>";
+				String comment = "derived attribute " + a.getName()
+						+ ". Formula is <code>" + a.getFormula() + "</code>";
 				w.addMember(lowerFirst(a.getName()), type, false, true, comment);
 			} else
 				throw new RuntimeException("unimplemented "
 						+ base.getValue().getClass());
 		}
+
+		w.setEvents(cls.getEvent());
 
 		for (JAXBElement<? extends Relationship> relationship : system
 				.getRelationshipBase()) {
@@ -156,9 +157,10 @@ public class CodeGeneratorJava {
 			} else {
 				type = baseType;
 			}
-			String comment = Util.getAbbreviation(thisEnd.getMultiplicity())
-					+ " .. " + Util.getAbbreviation(otherEnd.getMultiplicity())
-					+ " via association R" + ass.getNumber();
+			String comment = other.getName() + " via association R"
+					+ ass.getNumber()
+					+ Util.getAbbreviation(thisEnd.getMultiplicity()) + " .. "
+					+ Util.getAbbreviation(otherEnd.getMultiplicity());
 			w.addMember(other.getName() + "ViaR" + ass.getNumber(), type, true,
 					true, comment);
 		}
