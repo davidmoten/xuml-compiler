@@ -18,6 +18,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.moten.david</groupId>
+			<artifactId>xuml-compiler2</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.moten.david</groupId>
 			<artifactId>gae</artifactId>
 			<version>${project.parent.version}</version>
 			<type>pom</type>
@@ -53,10 +58,18 @@
 				<version>${gae.plugin.version}</version>
 				<dependencies>
 					<dependency>
-						<groupId>net.kindleit</groupId>
-						<artifactId>gae-runtime</artifactId>
-						<version>${gae.version}</version>
-						<type>pom</type>
+						<groupId>
+							net.kindleit
+						</groupId>
+						<artifactId>
+							gae-runtime
+						</artifactId>
+						<version>
+							${gae.version}
+						</version>
+						<type>
+							pom
+						</type>
 					</dependency>
 				</dependencies>
 			</plugin>
