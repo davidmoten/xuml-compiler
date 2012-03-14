@@ -343,6 +343,9 @@ public class CodeGeneratorJava {
 
 	private void createBehaviourInterface(Class cls, File destination) {
 		// add operations, performOnEntry methods
+		File file = new File(destination, getClassBehaviourFilename(cls));
+		createDirectories(file);
+		writeToFile("".getBytes(), file);
 	}
 
 	// ----------------------------------------
@@ -363,6 +366,16 @@ public class CodeGeneratorJava {
 
 	private String getClassFilename(Class cls) {
 		return getFullClassName(cls).replace(".", "/") + ".java";
+	}
+
+	private String getClassBehaviourFilename(Class cls) {
+		String s = getFullClassName(cls);
+		int i = s.lastIndexOf(".");
+		if (i == -1)
+			s = "behaviour." + s;
+		else
+			s = s.substring(0, i) + ".behaviour" + s.substring(i);
+		return s.replace(".", "/") + "Behaviour.java";
 	}
 
 	// ----------------------------------------
