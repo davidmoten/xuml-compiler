@@ -19,6 +19,7 @@
 		<module>gae</module>
 		<module>xuml-jaxb</module>
 		<module>xuml-diagrams</module>
+		<module>xuml-compiler2</module>
 	</modules>
 	<build>
 		<plugins>
