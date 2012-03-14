@@ -37,7 +37,9 @@
 				<action>do something here</action>
 			</onEntry>
 		</state>
-		<event name="ValidationError" />
+		<event name="ValidationError" >
+		    <parameter name="message" type="String"/>
+		</event>
 		<transition from="Valid" to="Invalid" event="ValidationError" />
 	</class>
 

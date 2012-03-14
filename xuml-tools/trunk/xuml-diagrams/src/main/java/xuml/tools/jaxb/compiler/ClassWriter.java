@@ -1,7 +1,7 @@
 package xuml.tools.jaxb.compiler;
 
-import static xuml.tools.jaxb.Util.capFirst;
 import static xuml.tools.jaxb.Util.lowerFirst;
+import static xuml.tools.jaxb.Util.upperFirst;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
@@ -77,7 +77,7 @@ public class ClassWriter {
 				out.format("     * Returns %s\n", member.getComment());
 				out.format("     */\n");
 				out.format("    public %s  get%s() {\n",
-						addType(member.getType()), capFirst(member.getName()));
+						addType(member.getType()), upperFirst(member.getName()));
 				out.format("        return %s;\n", lowerFirst(member.getName()));
 				out.format("    }\n\n");
 			}
@@ -87,8 +87,8 @@ public class ClassWriter {
 				out.format("     * Sets %s\n", member.getComment());
 				out.format("     */\n");
 				out.format("    public void set%s(%s %s) {\n",
-						capFirst(member.getName()), addType(member.getType()),
-						lowerFirst(member.getName()));
+						upperFirst(member.getName()),
+						addType(member.getType()), lowerFirst(member.getName()));
 				out.format("        this.%1$s=%1$s;\n",
 						lowerFirst(member.getName()));
 				out.format("    }\n\n");
@@ -98,14 +98,39 @@ public class ClassWriter {
 
 		for (Event event : events) {
 			out.format("    public static class %s {\n",
-					Util.capFirst(event.getName()));
-			out.format("        //TODO event parameters\n");
+					Util.upperFirst(event.getName()));
+			StringBuilder constructor = new StringBuilder();
+			StringBuilder constructorBody = new StringBuilder();
+			constructor.append("        public "
+					+ Util.upperFirst(event.getName()) + "(");
+			for (xuml.metamodel.jaxb.Parameter p : event.getParameter()) {
+				out.format("        private final %s %s;\n",
+						Util.upperFirst(p.getType()),
+						Util.lowerFirst(p.getName()));
+				constructor.append(Util.upperFirst(p.getType()) + " "
+						+ Util.lowerFirst(p.getName()));
+				constructorBody.append("            this."
+						+ Util.lowerFirst(p.getName()) + " = "
+						+ Util.lowerFirst(p.getName()) + ";\n");
+			}
+			constructor.append("){\n");
+			constructor.append(constructorBody);
+			constructor.append("        }\n");
+			// getters
+			for (xuml.metamodel.jaxb.Parameter p : event.getParameter()) {
+				out.format("        public %s get%s(){\n",
+						Util.upperFirst(p.getType()),
+						Util.upperFirst(p.getName()));
+				out.format("        }\n\n");
+			}
+			out.println(constructor);
 			out.format("    }\n\n");
+
 		}
 
 		for (Event event : events) {
 			out.format("    public void event(%s event){\n",
-					Util.capFirst(event.getName()));
+					Util.upperFirst(event.getName()));
 			out.format("        //TODO state checks and onEntry calls\n");
 			out.format("    }\n\n");
 		}
