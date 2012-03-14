@@ -79,9 +79,16 @@
 		</complexContent>
 	</complexType>
 
+    <complexType name="derivedAttributeSource">
+    	<attribute name="name" type="t:attributeName"/>
+    </complexType>
+
 	<complexType name="derivedAttribute">
 		<complexContent>
 			<extension base="t:attribute">
+				<sequence>
+					<element name="attribute" type="t:derivedAttributeSource" maxOccurs="unbounded" />
+				</sequence>
 				<attribute name="type" type="t:independentAttributeType"
 					use="required" />
 				<attribute name="formula" type="t:formula" />
