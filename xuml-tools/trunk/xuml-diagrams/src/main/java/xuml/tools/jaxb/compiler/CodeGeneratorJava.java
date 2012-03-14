@@ -1,12 +1,13 @@
 package xuml.tools.jaxb.compiler;
 
-import static xuml.tools.jaxb.compiler.Util.capFirst;
+import static xuml.tools.jaxb.compiler.Util.lowerFirst;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -20,15 +21,18 @@ import xuml.metamodel.jaxb.AssociationEnd;
 import xuml.metamodel.jaxb.AssociativeReference;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
+import xuml.metamodel.jaxb.DerivedAttribute;
 import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.IndependentAttribute;
 import xuml.metamodel.jaxb.IndependentAttributeType;
 import xuml.metamodel.jaxb.Multiplicity;
 import xuml.metamodel.jaxb.Reference;
 import xuml.metamodel.jaxb.ReferentialAttribute;
+import xuml.metamodel.jaxb.Relationship;
 import xuml.metamodel.jaxb.SuperclassReference;
 import xuml.metamodel.jaxb.System;
 import xuml.metamodel.jaxb.ToOneReference;
+import xuml.tools.jaxb.Util;
 
 import com.google.common.collect.Lists;
 
@@ -58,6 +62,7 @@ public class CodeGeneratorJava {
 
 		// create object factory
 		createObjectFactory(system, destination);
+		log("finished generation");
 	}
 
 	private void createObjectFactory(System system, File destination) {
@@ -67,6 +72,8 @@ public class CodeGeneratorJava {
 	private void createImplementation(Class cls, File destination) {
 		// add getters and setters, operations, event methods, static Search
 		// class instance, validators
+		log("writing implementation of " + cls.getName());
+
 		File file = new File(destination, getClassFilename(cls));
 		createDirectories(file);
 
@@ -75,8 +82,10 @@ public class CodeGeneratorJava {
 		for (JAXBElement<? extends Attribute> base : cls.getAttributeBase()) {
 			if (base.getValue() instanceof IndependentAttribute) {
 				IndependentAttribute a = (IndependentAttribute) base.getValue();
+				String comment = "independent attribute <code>" + a.getName()
+						+ "</code>.";
 				w.addMember(a.getName(), new Type(toJavaType(a.getType()),
-						null, false), true, true);
+						null, false), true, true, comment);
 			} else if (base.getValue() instanceof ReferentialAttribute) {
 				ReferentialAttribute a = (ReferentialAttribute) base.getValue();
 				java.lang.System.out.println(cls.getName() + "." + a.getName()
@@ -84,35 +93,103 @@ public class CodeGeneratorJava {
 						+ a.getReferenceBase().getValue().getRelationship());
 				Type type = getType(cls, a);
 				List<Parameter> parameters = Collections.emptyList();
-				w.addMethod("get" + capFirst(a.getName()), type, parameters);
-			}
+				String comment = "referential attribute " + a.getName()
+						+ " via R"
+						+ a.getReferenceBase().getValue().getRelationship();
+				w.addMember(lowerFirst(a.getName()), type, true, true, comment);
+			} else if (base.getValue() instanceof DerivedAttribute) {
+				DerivedAttribute a = (DerivedAttribute) base.getValue();
+				Type type = getType(cls, a);
+				String comment = "derived attribute <code> " + a.getName()
+						+ "</code>. Formula is <code>" + a.getFormula()
+						+ "</code>";
+				w.addMember(lowerFirst(a.getName()), type, false, true, comment);
+			} else
+				throw new RuntimeException("unimplemented "
+						+ base.getValue().getClass());
 		}
 
-		// for (JAXBElement<? extends Relationship> rel : system
-		// .getRelationshipBase()) {
-		// if (rel.getValue() instanceof Association) {
-		// createAssociationMethod(w, cls, (Association) rel.getValue());
-		// } else if (rel.getValue() instanceof Generalization) {
-		// createGeneralizationMethod(w, cls,
-		// (Generalization) rel.getValue());
-		// } else
-		// unexpected();
-		// }
+		for (JAXBElement<? extends Relationship> relationship : system
+				.getRelationshipBase()) {
+			if (relationship.getValue() instanceof Association) {
+				addAssociationToWriter(w, cls,
+						(Association) relationship.getValue());
+			} else if (relationship.getValue() instanceof Generalization) {
+				addGeneralizationToWriter(w, cls,
+						(Generalization) relationship.getValue());
+			} else
+				unexpected();
+		}
 
 		writeToFile(w.toString().getBytes(), file);
 	}
 
-	private void log(String s) {
-		java.lang.System.out.println(s);
+	private void addGeneralizationToWriter(ClassWriter w, Class cls,
+			Generalization g) {
+		if (g.getDomain().equals(cls.getDomain())
+				&& g.getSubclass().equals(cls.getName())) {
+			log("adding generalization " + g.getNumber());
+			Class superClass = lookups.getClass(g.getDomain(),
+					g.getSuperclass());
+			Type type = new Type(getFullClassName(superClass),
+					new ArrayList<Type>(), false);
+			String comment = "generalization via R" + g.getNumber() + ".";
+			w.addMember(superClass.getName() + "ViaR" + g.getNumber(), type,
+					true, true, comment);
+		}
 	}
 
+	private void addAssociationToWriter(ClassWriter w, Class cls,
+			Association ass) {
+		if (ass.getDomain().equals(cls.getDomain())
+				&& ass.getClass1().getName().equals(cls.getName())
+				|| ass.getClass2().getName().equals(cls.getName())) {
+			log("adding association " + ass.getNumber());
+			Class other = getOtherClass(cls, ass);
+			AssociationEnd otherEnd = getOtherEnd(cls, ass);
+			AssociationEnd thisEnd = getThisEnd(cls, ass);
+			Type baseType = new Type(getFullClassName(other), null, false);
+			Type type;
+			if (isMany(otherEnd.getMultiplicity())) {
+				type = new Type("java.util.Set", Lists.newArrayList(baseType),
+						false);
+			} else {
+				type = baseType;
+			}
+			String comment = Util.getAbbreviation(thisEnd.getMultiplicity())
+					+ " .. " + Util.getAbbreviation(otherEnd.getMultiplicity())
+					+ " via association R" + ass.getNumber();
+			w.addMember(other.getName() + "ViaR" + ass.getNumber(), type, true,
+					true, comment);
+		}
+
+	}
+
+	private static boolean isMany(Multiplicity m) {
+		return m.equals(Multiplicity.MANY) || m.equals(Multiplicity.ONE_MANY);
+	}
+
+	private void log(String s, Object... objects) {
+		java.lang.System.out.format(s + "\n", objects);
+	}
+
+	/**
+	 * Recursively travels relationship paths and returns the type of a referred
+	 * attribute.
+	 * 
+	 * @param cls
+	 * @param a
+	 * @return
+	 */
 	private Type getType(Class cls, Attribute a) {
-		java.lang.System.out.format("getting type of %s.%s\n", cls.getName(),
-				a.getName());
+		log("getting type of %s.%s", cls.getName(), a.getName());
 
 		if (a instanceof IndependentAttribute) {
 			return new Type(toJavaType(((IndependentAttribute) a).getType()),
 					null, false);
+		} else if (a instanceof DerivedAttribute) {
+			return new Type(toJavaType(((DerivedAttribute) a).getType()), null,
+					false);
 		} else if (a instanceof ReferentialAttribute) {
 			ReferentialAttribute r = (ReferentialAttribute) a;
 			Reference ref = r.getReferenceBase().getValue();
@@ -151,8 +228,8 @@ public class CodeGeneratorJava {
 			otherName = r.getName();
 		else
 			otherName = r.getOtherName();
-		java.lang.System.out.format("looking up attribute %s %s %s\n",
-				other.getDomain(), other.getName(), otherName);
+		log("looking up attribute %s %s %s", other.getDomain(),
+				other.getName(), otherName);
 		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
 				other.getName(), otherName);
 		Type otherType = getType(other, otherAttribute);
@@ -171,8 +248,8 @@ public class CodeGeneratorJava {
 			otherName = r.getName();
 		else
 			otherName = r.getOtherName();
-		java.lang.System.out.format("looking up attribute %s %s %s\n",
-				other.getDomain(), other.getName(), otherName);
+		log("looking up attribute %s %s %s", other.getDomain(),
+				other.getName(), otherName);
 		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
 				other.getName(), otherName);
 		Type otherType = getType(other, otherAttribute);
@@ -194,8 +271,8 @@ public class CodeGeneratorJava {
 		String otherName = r.getOtherName();
 		if (otherName == null)
 			otherName = a.getName();
-		java.lang.System.out.format("looking up attribute %s %s %s\n",
-				other.getDomain(), other.getName(), otherName);
+		log("looking up attribute %s %s %s", other.getDomain(),
+				other.getName(), otherName);
 		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
 				other.getName(), otherName);
 		Type otherType = getType(other, otherAttribute);
@@ -225,6 +302,16 @@ public class CodeGeneratorJava {
 				return a.getClass2();
 			else
 				return a.getClass1();
+		} else
+			throw new RuntimeException(UNEXPECTED);
+	}
+
+	private AssociationEnd getThisEnd(Class cls, Association a) {
+		if (cls.getDomain().equals(a.getDomain())) {
+			if (cls.getName().equals(a.getClass1().getName()))
+				return a.getClass1();
+			else
+				return a.getClass2();
 		} else
 			throw new RuntimeException(UNEXPECTED);
 	}

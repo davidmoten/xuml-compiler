@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 
 import xuml.metamodel.jaxb.System;
-import xuml.tools.gae.Datastore;
+import xuml.tools.gae.DatastoreText;
 
 public class ClassDiagramServlet extends HttpServlet{
 
@@ -20,7 +20,7 @@ public class ClassDiagramServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String id = req.getParameter("id");
-		String xml = Datastore.instance().get("diagram", id+"-model", "model");
+		String xml = DatastoreText.instance().get("diagram", id+"-model", "model");
 		System system = new Marshaller().unmarshal(IOUtils.toInputStream(xml));
 		String html = new ClassDiagramGenerator().generate(system);
 		resp.setContentType("text/html");

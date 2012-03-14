@@ -68,7 +68,10 @@
 			<identifier number="1" />
 			<superclassReference relationship="21" />
 		</referentialAttribute>
-		<derivedAttribute name="Type" type="String" formula="something" />
+		<derivedAttribute name="Type" type="String" formula="class + '.' + domain" >
+			<attribute name="Class"/>
+			<attribute name="Domain"/>
+		</derivedAttribute>
 	</class>
 
 	<class name="SpecializedClass" domain="xuml">

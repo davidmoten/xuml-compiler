@@ -1,6 +1,6 @@
 package xuml.tools.jaxb;
 
-import xuml.tools.gae.Datastore;
+import xuml.tools.gae.DatastoreText;
 
 public class PresentationPersistence {
 	private static final String KEY_KIND = "diagram";
@@ -12,7 +12,7 @@ public class PresentationPersistence {
 	public String get(String id){
 		String entity = id + "-presentation";
 		String property = "presentation";
-		Datastore ds = new Datastore();
+		DatastoreText ds = new DatastoreText();
 		String result = ds.get(KEY_KIND, entity, property);
 		return result;
 	}
@@ -20,7 +20,7 @@ public class PresentationPersistence {
 	public void save(String id, String xml){
 		String entity = id+"-presentation";
 		String property = "presentation";
-		Datastore ds = new Datastore();
+		DatastoreText ds = new DatastoreText();
 		ds.put(KEY_KIND, entity, property, xml);
 	}
 }

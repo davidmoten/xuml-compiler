@@ -8,11 +8,11 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
 
-public class Datastore {
+public class DatastoreText {
 	
-	private static Datastore datastore = new Datastore();
+	private static DatastoreText datastore = new DatastoreText();
 	
-	public static Datastore instance(){
+	public static DatastoreText instance(){
 		return datastore;
 	}
 

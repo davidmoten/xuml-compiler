@@ -21,7 +21,7 @@ public class DatastoreServlet extends HttpServlet {
 			String property = req.getParameter("property");
 			String mime = req.getParameter("mime");
 			resp.setContentType(mime);
-			Datastore ds = new Datastore();
+			DatastoreText ds = new DatastoreText();
 			String result = ds.get(keyKind, entity, property);
 			if (result != null)
 				resp.getOutputStream().write(result.getBytes());
@@ -37,7 +37,7 @@ public class DatastoreServlet extends HttpServlet {
 		String entity = req.getParameter("entity");
 		String property = req.getParameter("property");
 		String value = req.getParameter("value");
-		Datastore ds = new Datastore();
+		DatastoreText ds = new DatastoreText();
 		ds.put(keyKind, entity, property, value);
 	}
 

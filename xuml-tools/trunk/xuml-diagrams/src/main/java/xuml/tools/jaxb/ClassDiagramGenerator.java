@@ -17,7 +17,6 @@ import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.Identifier;
 import xuml.metamodel.jaxb.IndependentAttribute;
-import xuml.metamodel.jaxb.Multiplicity;
 import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.Reference;
 import xuml.metamodel.jaxb.ReferentialAttribute;
@@ -66,9 +65,9 @@ public class ClassDiagramGenerator {
 				+ r.getClass2().getName() + "\" verbClause1=\""
 				+ r.getClass1().getVerbClause() + "\" verbClause2=\""
 				+ r.getClass2().getVerbClause() + "\" multiplicity1=\""
-				+ getAbbreviation(r.getClass1().getMultiplicity())
+				+ Util.getAbbreviation(r.getClass1().getMultiplicity())
 				+ "\" multiplicity2=\""
-				+ getAbbreviation(r.getClass2().getMultiplicity())
+				+ Util.getAbbreviation(r.getClass2().getMultiplicity())
 				+ "\"></div>\n");
 	}
 
@@ -148,18 +147,4 @@ public class ClassDiagramGenerator {
 		s.append("</div>\n");
 	}
 
-	private static String getAbbreviation(Multiplicity m) {
-		if (Multiplicity.MANY.equals(m))
-			return "*";
-		else if (Multiplicity.ONE.equals(m))
-			return "1";
-		else if (Multiplicity.ZERO_ONE.equals(m))
-			return "0..1";
-		else if (Multiplicity.ONE_MANY.equals(m))
-			return "1..*";
-		else if (Multiplicity.ONE.equals(m))
-			return "1";
-		else
-			throw new RuntimeException("unexpected");
-	}
 }

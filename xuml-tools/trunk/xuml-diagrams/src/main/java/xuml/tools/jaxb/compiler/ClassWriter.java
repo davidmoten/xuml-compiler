@@ -33,11 +33,17 @@ public class ClassWriter {
 	}
 
 	public ClassWriter addMember(String name, Type type, boolean addSetter,
-			boolean addGetter) {
-		members.add(new Member(name, type, addSetter, addGetter));
+			boolean addGetter, String comment) {
+		members.add(new Member(name, type, addSetter, addGetter, comment));
 		return this;
 	}
 
+	/**
+	 * @param name
+	 * @param returnType
+	 * @param parameters
+	 * @return
+	 */
 	public ClassWriter addMethod(String name, Type returnType,
 			List<Parameter> parameters) {
 		methods.add(new Method(name, returnType, parameters));
@@ -52,38 +58,68 @@ public class ClassWriter {
 		out.format("\n");
 
 		for (Member member : members) {
-			out.format("    private %s %s;\n", addType(member.type),
-					lowerFirst(member.name));
+			out.format("    /**\n");
+			out.format("     * %s\n", member.getComment());
+			out.format("     */\n");
+			out.format("    private %s %s;\n", addType(member.getType()),
+					lowerFirst(member.getName()));
 		}
 		out.format("\n");
 
 		for (Member member : members) {
-			if (member.addGetter) {
-				out.format("    public %s  get%s() {\n", addType(member.type),
-						capFirst(member.name));
-				out.format("        return %s;\n", lowerFirst(member.name));
+			if (member.isAddGetter()) {
+				out.format("    /**\n");
+				out.format("     * Returns %s\n", member.getComment());
+				out.format("     */\n");
+				out.format("    public %s  get%s() {\n",
+						addType(member.getType()), capFirst(member.getName()));
+				out.format("        return %s;\n", lowerFirst(member.getName()));
 				out.format("    }\n\n");
 			}
 
-			if (member.addSetter) {
+			if (member.isAddSetter()) {
+				out.format("    /**\n");
+				out.format("     * Sets %s\n", member.getComment());
+				out.format("     */\n");
 				out.format("    public void set%s(%s %s) {\n",
-						capFirst(member.name), addType(member.type),
-						lowerFirst(member.name));
-				out.format("        this.%1$s=%1$s;\n", lowerFirst(member.name));
+						capFirst(member.getName()), addType(member.getType()),
+						lowerFirst(member.getName()));
+				out.format("        this.%1$s=%1$s;\n",
+						lowerFirst(member.getName()));
 				out.format("    }\n\n");
 			}
 		}
 
+		for (Method method : methods) {
+			out.format("    public %s %s(){\n", addType(method.getType()),
+					method.getName());
+
+			out.format("    }\n\n");
+		}
+
 		out.format("}");
 		out.close();
-		return bytes.toString();
+		StringBuilder imports = new StringBuilder();
+		for (String t : types.keySet())
+			imports.append("import " + t + ";\n");
+		return imports.toString() + "\n\n" + bytes.toString();
 	}
 
 	private String addType(Type type) {
-		String result = addType(type.getBase());
-		for (Type t : type.getGenerics())
-			addType(type);
-		return result;
+		StringBuilder result = new StringBuilder(addType(type.getBase()));
+		StringBuilder typeParams = new StringBuilder();
+		for (Type t : type.getGenerics()) {
+			String typeParameter = addType(t);
+			if (typeParams.length() > 0)
+				typeParams.append(",");
+			typeParams.append(typeParameter);
+		}
+		if (typeParams.length() > 0) {
+			result.append("<");
+			result.append(typeParams);
+			result.append(">");
+		}
+		return result.toString();
 	}
 
 	private String addType(String type) {
@@ -102,22 +138,6 @@ public class ClassWriter {
 				}
 			} else
 				return type;
-		}
-	}
-
-	private static class Member {
-		private final String name;
-		private final Type type;
-		private final boolean addSetter;
-		private final boolean addGetter;
-
-		public Member(String name, Type type, boolean addSetter,
-				boolean addGetter) {
-			super();
-			this.name = name;
-			this.type = type;
-			this.addSetter = addSetter;
-			this.addGetter = addGetter;
 		}
 	}
 

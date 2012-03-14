@@ -1,6 +1,6 @@
 package xuml.tools.jaxb;
 
-import xuml.tools.gae.Datastore;
+import xuml.tools.gae.DatastoreText;
 
 public class ModelPersistence {
 	
@@ -13,7 +13,7 @@ public class ModelPersistence {
 	public String getXml(String id){
 		String entity = id + "-model";
 		String property = "model";
-		Datastore ds = new Datastore();
+		DatastoreText ds = new DatastoreText();
 		String result = ds.get(KEY_KIND, entity, property);
 		return result;
 	}
@@ -21,7 +21,7 @@ public class ModelPersistence {
 	public void save(String id, String xml){
 		String entity = id+"-model";
 		String property = "model";
-		Datastore ds = new Datastore();
+		DatastoreText ds = new DatastoreText();
 		ds.put(KEY_KIND, entity, property, xml);
 	}
 }
