@@ -190,11 +190,13 @@ public class CodeGeneratorJava {
 			ClassWriter w, Class cls, ReferentialAttribute a,
 			SuperclassReference t) {
 		// This corresponds to a 0..1 -> 1 association to the superclass
-		// TODO
 		w.addType(OneToOne.class);
 		w.addType(CascadeType.class);
 		w.addType(FetchType.class);
 		StringBuilder s = new StringBuilder();
+		Generalization g = (Generalization) lookups.getRelationship(
+				cls.getDomain(), a.getReferenceBase().getValue()
+						.getRelationship());
 		s.append("@OneToOne(targetEntity=otherClass, cascade=CascadeType.ALL, fetch=FetchType.LAZY)");
 		s.append("@JoinColumn(name=\"otherColumn\",nullable = false)");
 		return s.toString();
