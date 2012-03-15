@@ -159,7 +159,6 @@ public class CodeGeneratorJava {
 
 	private String getReferentialAttributeAnnotation(ClassWriter w, Class cls,
 			ReferentialAttribute a) {
-		BigInteger rnum = a.getReferenceBase().getValue().getRelationship();
 
 		Reference ref = a.getReferenceBase().getValue();
 		if (ref instanceof ToOneReference) {
@@ -197,8 +196,14 @@ public class CodeGeneratorJava {
 		Generalization g = (Generalization) lookups.getRelationship(
 				cls.getDomain(), a.getReferenceBase().getValue()
 						.getRelationship());
-		s.append("@OneToOne(targetEntity=otherClass, cascade=CascadeType.ALL, fetch=FetchType.LAZY)");
-		s.append("@JoinColumn(name=\"otherColumn\",nullable = false)");
+		s.append("    @OneToOne(targetEntity=" + upperFirst(g.getSuperclass())
+				+ ", cascade=CascadeType.ALL, fetch=FetchType.LAZY)\n");
+		Class superclass = lookups.getClass(cls.getDomain(), g.getSuperclass());
+		Attribute otherAttribute = lookups.getAttribute(superclass.getDomain(),
+				superclass.getName(), a.getName());
+		s.append("    @JoinColumn(name=\""
+				+ persistence.getColumnName(superclass, otherAttribute)
+				+ " \",nullable = false)");
 		return s.toString();
 	}
 
