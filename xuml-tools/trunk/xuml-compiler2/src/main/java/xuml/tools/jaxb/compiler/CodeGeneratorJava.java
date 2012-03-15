@@ -112,15 +112,17 @@ public class CodeGeneratorJava {
 				String comment = "referential attribute " + a.getName()
 						+ " via R"
 						+ a.getReferenceBase().getValue().getRelationship();
+				String annotation = getReferentialAttributeAnnotation(w, cls, a);
 				w.addMember(lowerFirst(a.getName()), type, true, true, comment,
-						null);
+						annotation);
 			} else if (base.getValue() instanceof DerivedAttribute) {
 				DerivedAttribute a = (DerivedAttribute) base.getValue();
 				Type type = getType(cls, a);
 				String comment = "derived attribute " + a.getName()
 						+ ". Formula is <code>" + a.getFormula() + "</code>";
+				String annotation = getDerivedAttributeAnnotation(w, cls, a);
 				w.addMember(lowerFirst(a.getName()), type, false, true,
-						comment, null);
+						comment, annotation);
 			} else
 				throw new RuntimeException("unimplemented "
 						+ base.getValue().getClass());
@@ -147,8 +149,25 @@ public class CodeGeneratorJava {
 		writeToFile(w.toString().getBytes(), file);
 	}
 
+	private String getDerivedAttributeAnnotation(ClassWriter w, Class cls,
+			DerivedAttribute a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String getReferentialAttributeAnnotation(ClassWriter w, Class cls,
+			ReferentialAttribute a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private String getIndependentAttributeAnnotation(ClassWriter w, Class cls,
 			IndependentAttribute a) {
+		return getNativeAttributeAnnotation(w, cls, a);
+	}
+
+	private String getNativeAttributeAnnotation(ClassWriter w, Class cls,
+			Attribute a) {
 		StringBuilder s = new StringBuilder();
 		w.addType(Column.class);
 		s.append("@Column(name=\"" + persistence.getColumnName(cls, a) + "\")");
