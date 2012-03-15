@@ -101,7 +101,7 @@ public class CodeGeneratorJava {
 				IndependentAttribute a = (IndependentAttribute) base.getValue();
 				String comment = "independent attribute " + a.getName() + ".";
 				w.addMember(a.getName(), new Type(toJavaType(a.getType()),
-						null, false), true, true, comment);
+						null, false), true, true, comment, null);
 			} else if (base.getValue() instanceof ReferentialAttribute) {
 				ReferentialAttribute a = (ReferentialAttribute) base.getValue();
 				java.lang.System.out.println(cls.getName() + "." + a.getName()
@@ -111,13 +111,15 @@ public class CodeGeneratorJava {
 				String comment = "referential attribute " + a.getName()
 						+ " via R"
 						+ a.getReferenceBase().getValue().getRelationship();
-				w.addMember(lowerFirst(a.getName()), type, true, true, comment);
+				w.addMember(lowerFirst(a.getName()), type, true, true, comment,
+						null);
 			} else if (base.getValue() instanceof DerivedAttribute) {
 				DerivedAttribute a = (DerivedAttribute) base.getValue();
 				Type type = getType(cls, a);
 				String comment = "derived attribute " + a.getName()
 						+ ". Formula is <code>" + a.getFormula() + "</code>";
-				w.addMember(lowerFirst(a.getName()), type, false, true, comment);
+				w.addMember(lowerFirst(a.getName()), type, false, true,
+						comment, null);
 			} else
 				throw new RuntimeException("unimplemented "
 						+ base.getValue().getClass());
@@ -214,7 +216,7 @@ public class CodeGeneratorJava {
 					new ArrayList<Type>(), false);
 			String comment = "generalization via R" + g.getNumber() + ".";
 			w.addMember(superClass.getName() + "ViaR" + g.getNumber(), type,
-					true, true, comment);
+					true, true, comment, null);
 		}
 	}
 
@@ -240,7 +242,7 @@ public class CodeGeneratorJava {
 					+ Util.getAbbreviation(thisEnd.getMultiplicity()) + " -> "
 					+ Util.getAbbreviation(otherEnd.getMultiplicity()) + ")";
 			w.addMember(other.getName() + "ViaR" + ass.getNumber(), type, true,
-					true, comment);
+					true, comment, null);
 		}
 
 	}

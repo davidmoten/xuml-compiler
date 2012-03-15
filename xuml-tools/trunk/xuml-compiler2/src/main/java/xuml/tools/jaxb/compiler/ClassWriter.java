@@ -53,9 +53,10 @@ public class ClassWriter {
 	}
 
 	public ClassWriter addMember(String name, Type type, boolean addSetter,
-			boolean addGetter, String comment) {
+			boolean addGetter, String comment, String annotation) {
 		types.addType(type);
-		members.add(new Member(name, type, addSetter, addGetter, comment));
+		members.add(new Member(name, type, addSetter, addGetter, comment,
+				annotation));
 		return this;
 	}
 
@@ -115,7 +116,7 @@ public class ClassWriter {
 					className);
 
 			out.format("    /**\n");
-			out.format("     * For internal use only by the state machine but is persisted by the jpa provider.");
+			out.format("     * For internal use only by the state machine but is persisted by the jpa provider.\n");
 			out.format("     */\n");
 			out.format("    private String _state;\n\n");
 
@@ -131,6 +132,8 @@ public class ClassWriter {
 				out.format("    /**\n");
 				out.format("     * %s\n", member.getComment());
 				out.format("     */\n");
+				if (member.getAnnotation() != null)
+					out.format("    %s\n", member.getAnnotation());
 				out.format("    private %s %s;\n\n",
 						types.addType(member.getType()),
 						lowerFirst(member.getName()));
@@ -163,7 +166,7 @@ public class ClassWriter {
 			out.format("    }\n\n");
 
 			out.format("    @EmbeddedId\n");
-			out.format("    private PrimaryKey id;\n");
+			out.format("    private PrimaryKey id;\n\n");
 
 			out.format("    public PrimaryKey getId(){\n");
 			out.format("        return id;\n");

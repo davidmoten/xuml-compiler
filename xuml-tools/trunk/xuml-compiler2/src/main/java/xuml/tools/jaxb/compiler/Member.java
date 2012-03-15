@@ -6,15 +6,17 @@ public class Member {
 	private final boolean addSetter;
 	private final boolean addGetter;
 	private final String comment;
+	private final String annotation;
 
 	public Member(String name, Type type, boolean addSetter, boolean addGetter,
-			String comment) {
+			String comment, String annotation) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.addSetter = addSetter;
 		this.addGetter = addGetter;
 		this.comment = comment;
+		this.annotation = annotation;
 	}
 
 	public String getName() {
@@ -35,6 +37,10 @@ public class Member {
 
 	public String getComment() {
 		return comment;
+	}
+
+	public String getAnnotation() {
+		return annotation;
 	}
 
 }
