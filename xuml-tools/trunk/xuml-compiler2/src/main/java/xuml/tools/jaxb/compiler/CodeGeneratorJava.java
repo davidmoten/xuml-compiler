@@ -151,21 +151,20 @@ public class CodeGeneratorJava {
 			IndependentAttribute a) {
 		StringBuilder s = new StringBuilder();
 		w.addType(Column.class);
-		s.append("    @Column(name=\"" + persistence.getColumnName(cls, a)
-				+ "\")");
+		s.append("@Column(name=\"" + persistence.getColumnName(cls, a) + "\")");
 		MyAttributeType t = getMyAttributeType(cls, a);
 		if (t.type.equals(IndependentAttributeType.DATE)) {
 			w.addType(Temporal.class);
 			w.addType(TemporalType.class);
-			s.append("    @Temporal(TemporalType.DATE)\n");
+			s.append("@Temporal(TemporalType.DATE)\n");
 		} else if (t.type.equals(IndependentAttributeType.TIME)) {
 			w.addType(Temporal.class);
 			w.addType(TemporalType.class);
-			s.append("    @Temporal(TemporalType.TIME)\n");
+			s.append("@Temporal(TemporalType.TIME)\n");
 		} else if (t.type.equals(IndependentAttributeType.TIMESTAMP)) {
 			w.addType(Temporal.class);
 			w.addType(TemporalType.class);
-			s.append("    @Temporal(TemporalType.TIMESTAMP)\n");
+			s.append("@Temporal(TemporalType.TIMESTAMP)\n");
 		}
 
 		return s.toString();
