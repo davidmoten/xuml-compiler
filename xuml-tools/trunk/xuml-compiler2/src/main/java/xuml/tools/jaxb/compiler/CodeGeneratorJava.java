@@ -100,10 +100,10 @@ public class CodeGeneratorJava {
 		w.setClassName(getClassJavaSimpleName(cls));
 		addClassAnnotations(w, cls);
 		for (JAXBElement<? extends Attribute> base : cls.getAttributeBase()) {
+			String annotation = getAttributeAnnotation(w, cls, base.getValue());
 			if (base.getValue() instanceof IndependentAttribute) {
 				IndependentAttribute a = (IndependentAttribute) base.getValue();
 				String comment = "independent attribute " + a.getName() + ".";
-				String annotation = getIndependentAttributeAnnotation(w, cls, a);
 				w.addMember(a.getName(), new Type(toJavaType(a.getType()),
 						null, false), true, true, comment, annotation);
 			} else if (base.getValue() instanceof ReferentialAttribute) {
@@ -115,7 +115,6 @@ public class CodeGeneratorJava {
 				String comment = "referential attribute " + a.getName()
 						+ " via R"
 						+ a.getReferenceBase().getValue().getRelationship();
-				String annotation = getReferentialAttributeAnnotation(w, cls, a);
 				w.addMember(lowerFirst(a.getName()), type, true, true, comment,
 						annotation);
 			} else if (base.getValue() instanceof DerivedAttribute) {
@@ -123,7 +122,6 @@ public class CodeGeneratorJava {
 				Type type = getType(cls, a);
 				String comment = "derived attribute " + a.getName()
 						+ ". Formula is <code>" + a.getFormula() + "</code>";
-				String annotation = getDerivedAttributeAnnotation(w, cls, a);
 				w.addMember(lowerFirst(a.getName()), type, false, true,
 						comment, annotation);
 			} else
@@ -150,6 +148,20 @@ public class CodeGeneratorJava {
 		w.setStates(cls.getState());
 
 		writeToFile(w.toString().getBytes(), file);
+	}
+
+	private String getAttributeAnnotation(ClassWriter w, Class cls, Attribute a) {
+		if (a instanceof IndependentAttribute) {
+			IndependentAttribute t = (IndependentAttribute) a;
+			return getIndependentAttributeAnnotation(w, cls, t);
+		} else if (a instanceof ReferentialAttribute) {
+			ReferentialAttribute t = (ReferentialAttribute) a;
+			return getReferentialAttributeAnnotation(w, cls, t);
+		} else if (a instanceof DerivedAttribute) {
+			DerivedAttribute t = (DerivedAttribute) a;
+			return getDerivedAttributeAnnotation(w, cls, t);
+		} else
+			throw new RuntimeException("unimplemented " + a);
 	}
 
 	private String getDerivedAttributeAnnotation(ClassWriter w, Class cls,
@@ -280,7 +292,8 @@ public class CodeGeneratorJava {
 		w.addClassAnnotation(annotation.toString());
 		Set<AttributeInfo> set = Sets.newHashSet();
 		for (Attribute attribute : ids.get(BigInteger.ONE)) {
-			set.add(new AttributeInfo(cls, attribute, getType(cls, attribute)));
+			set.add(new AttributeInfo(cls, attribute, getType(cls, attribute),
+					getAttributeAnnotation(w, cls, attribute)));
 		}
 
 		w.setIds(set);
@@ -290,8 +303,10 @@ public class CodeGeneratorJava {
 		Class cls;
 		Attribute attribute;
 		Type type;
+		String annotaion;
 
-		public AttributeInfo(Class cls, Attribute attribute, Type type) {
+		public AttributeInfo(Class cls, Attribute attribute, Type type,
+				String annotation) {
 			super();
 			this.cls = cls;
 			this.attribute = attribute;
