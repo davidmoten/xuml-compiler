@@ -29,7 +29,6 @@ public class ClassWriter {
 	private String className;
 	private final List<String> classAnnotations = Lists.newArrayList();
 	private final List<Member> members = Lists.newArrayList();
-	private final List<Method> methods = Lists.newArrayList();
 	private List<Event> events;
 	private List<State> states;
 	private List<Transition> transitions;
@@ -57,21 +56,6 @@ public class ClassWriter {
 		types.addType(type);
 		members.add(new Member(name, type, addSetter, addGetter, comment,
 				annotation));
-		return this;
-	}
-
-	/**
-	 * @param name
-	 * @param returnType
-	 * @param parameters
-	 * @return
-	 */
-	public ClassWriter addMethod(String name, Type returnType,
-			List<Parameter> parameters) {
-		methods.add(new Method(name, returnType, parameters));
-		types.addType(returnType);
-		for (Parameter p : parameters)
-			types.addType(p.getType());
 		return this;
 	}
 
@@ -123,6 +107,10 @@ public class ClassWriter {
 			out.format("    private String _state;\n\n");
 
 		}
+
+		// need to know
+		// all independent attributes and if toOneRef
+		//
 
 		Set<String> idAttributes = Sets.newHashSet();
 		for (AttributeInfo a : ids)
@@ -314,14 +302,6 @@ public class ClassWriter {
 					out.format("        }\n");
 				}
 			}
-
-			out.format("    }\n\n");
-		}
-
-		// don't need this?
-		for (Method method : methods) {
-			out.format("    public %s %s(){\n",
-					types.addType(method.getType()), method.getName());
 
 			out.format("    }\n\n");
 		}
