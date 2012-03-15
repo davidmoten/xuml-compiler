@@ -37,8 +37,8 @@
 				<action>do something here</action>
 			</onEntry>
 		</state>
-		<event name="ValidationError" >
-		    <parameter name="message" type="String"/>
+		<event name="ValidationError">
+			<parameter name="message" type="String" />
 		</event>
 		<transition from="Valid" to="Invalid" event="ValidationError" />
 	</class>
@@ -70,9 +70,10 @@
 			<identifier number="1" />
 			<superclassReference relationship="21" />
 		</referentialAttribute>
-		<derivedAttribute name="Type" type="String" formula="class + '.' + domain" >
-			<attribute name="Class"/>
-			<attribute name="Domain"/>
+		<derivedAttribute name="Type" type="String"
+			formula="class + '.' + domain">
+			<attribute name="Class" />
+			<attribute name="Domain" />
 		</derivedAttribute>
 	</class>
 
@@ -116,7 +117,7 @@
 		<referentialAttribute name="Identifier"
 			otherName="Number">
 			<identifier number="1" />
-			<associativeReference relationship="22" side="1"/>
+			<associativeReference relationship="22" side="1" />
 		</referentialAttribute>
 		<referentialAttribute name="Attribute" otherName="Name">
 			<identifier number="1" />
@@ -124,11 +125,11 @@
 		</referentialAttribute>
 		<referentialAttribute name="Class">
 			<identifier number="1" />
-			<associativeReference relationship="22" side="1"/>
+			<associativeReference relationship="22" side="1" />
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<associativeReference relationship="22" side="1"/>
+			<associativeReference relationship="22" side="1" />
 		</referentialAttribute>
 	</class>
 
@@ -149,31 +150,37 @@
 			<reference relationship="24" />
 		</referentialAttribute>
 	</class>
-	
+
 	<class name="Type" domain="xuml">
-		<attribute name="Name" type="String"/>
+		<attribute name="Name" type="String">
+			<identifier number="1" />
+		</attribute>
 	</class>
 
 	<class name="AttributeInDerivation" domain="xuml" relationship="26">
-		<referentialAttribute name="SourceAttribute" otherName="Name">
+		<referentialAttribute name="SourceAttribute"
+			otherName="Name">
 			<identifier number="1" />
-			<associativeReference relationship="26" side="1"/>
+			<associativeReference relationship="26" side="1" />
 		</referentialAttribute>
-		<referentialAttribute name="SourceClass" otherName="Class">
+		<referentialAttribute name="SourceClass"
+			otherName="Class">
 			<identifier number="1" />
-			<associativeReference relationship="26" side="1"/>
+			<associativeReference relationship="26" side="1" />
 		</referentialAttribute>
-		<referentialAttribute name="TargetAttribute" otherName="Name">
+		<referentialAttribute name="TargetAttribute"
+			otherName="Name">
 			<identifier number="1" />
-			<associativeReference relationship="26" side="2"/>
+			<associativeReference relationship="26" side="2" />
 		</referentialAttribute>
-		<referentialAttribute name="TargetClass" otherName="Class">
+		<referentialAttribute name="TargetClass"
+			otherName="Class">
 			<identifier number="1" />
-			<associativeReference relationship="26" side="2"/>
+			<associativeReference relationship="26" side="2" />
 		</referentialAttribute>
 		<referentialAttribute name="Domain">
 			<identifier number="1" />
-			<associativeReference relationship="26" side="1"/>
+			<associativeReference relationship="26" side="1" />
 		</referentialAttribute>
 	</class>
 
@@ -242,8 +249,7 @@
 	<association domain="xuml" number="24">
 		<class1 name="NativeAttribute" verbClause="classifies"
 			multiplicity="MANY" />
-		<class2 name="Type" verbClause="is classified by"
-			multiplicity="ONE" />
+		<class2 name="Type" verbClause="is classified by" multiplicity="ONE" />
 	</association>
 
 	<generalization domain="xuml" number="21" superclass="Attribute"

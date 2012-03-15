@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.DerivedAttribute;
 import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Generalization;
+import xuml.metamodel.jaxb.Identifier;
 import xuml.metamodel.jaxb.IndependentAttribute;
 import xuml.metamodel.jaxb.IndependentAttributeType;
 import xuml.metamodel.jaxb.Multiplicity;
@@ -40,7 +42,10 @@ import xuml.metamodel.jaxb.System;
 import xuml.metamodel.jaxb.ToOneReference;
 import xuml.tools.jaxb.Util;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 
 public class CodeGeneratorJava {
 
@@ -87,7 +92,7 @@ public class CodeGeneratorJava {
 		File file = new File(destination, getClassFilename(cls));
 		createDirectories(file);
 
-		ClassWriter w = new ClassWriter();
+		ClassWriter w = new ClassWriter(persistence);
 		w.setPackage(domainPackageNames.get(cls.getDomain()));
 		w.setClassName(getClassJavaSimpleName(cls));
 		addClassAnnotations(w, cls);
@@ -146,9 +151,56 @@ public class CodeGeneratorJava {
 		String table = persistence.getTableName(cls);
 		String schema = persistence.getSchemaName(cls);
 		w.addClassAnnotation("@Entity");
-		w.addClassAnnotation("@Table(name=\"" + table + "\",schema=\"" + schema
-				+ "\",");
-		w.addClassAnnotation("               uniqueConstraints=@UniqueConstraint(column_names))");
+		StringBuilder annotation = new StringBuilder();
+		annotation.append("@Table(name=\"" + table + "\",schema=\"" + schema
+				+ "\",\n");
+		// w.addClassAnnotation("               uniqueConstraints={))");
+		Multimap<BigInteger, Attribute> ids = HashMultimap.create();
+		for (JAXBElement<? extends Attribute> a : cls.getAttributeBase()) {
+			Attribute attribute = a.getValue();
+			for (Identifier id : attribute.getIdentifier()) {
+				ids.put(id.getNumber(), attribute);
+			}
+		}
+
+		StringBuilder constraints = new StringBuilder();
+		for (BigInteger number : ids.keySet()) {
+			StringBuilder s = new StringBuilder();
+			for (Attribute attribute : ids.get(number)) {
+				if (s.length() > 0)
+					s.append(",");
+				s.append('"');
+				s.append(persistence.getColumnName(cls, attribute));
+				s.append('"');
+			}
+			String constraint = "@UniqueConstraint(columnNames= {" + s + "})";
+			if (constraints.length() > 0)
+				constraints.append(",\n");
+			constraints.append(constraint);
+			annotation.append("        uniqueConstraints={ " + constraint
+					+ "}\n");
+		}
+		annotation.append(")");
+		w.addClassAnnotation(annotation.toString());
+		Set<AttributeInfo> set = Sets.newHashSet();
+		for (Attribute attribute : ids.get(BigInteger.ONE)) {
+			set.add(new AttributeInfo(cls, attribute, getType(cls, attribute)));
+		}
+
+		w.setIds(set);
+	}
+
+	static class AttributeInfo {
+		Class cls;
+		Attribute attribute;
+		Type type;
+
+		public AttributeInfo(Class cls, Attribute attribute, Type type) {
+			super();
+			this.cls = cls;
+			this.attribute = attribute;
+			this.type = type;
+		}
 	}
 
 	private void addGeneralizationToWriter(ClassWriter w, Class cls,

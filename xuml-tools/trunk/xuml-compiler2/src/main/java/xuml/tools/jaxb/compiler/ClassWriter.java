@@ -6,15 +6,23 @@ import static xuml.tools.jaxb.Util.upperFirst;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 
 import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.State;
 import xuml.metamodel.jaxb.Transition;
+import xuml.tools.jaxb.compiler.CodeGeneratorJava.AttributeInfo;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class ClassWriter {
 	private String pkg;
@@ -27,6 +35,12 @@ public class ClassWriter {
 	private List<Transition> transitions;
 	private List<Operation> operations;
 	private final TypeRegister types = new TypeRegister();
+	private Set<AttributeInfo> ids;
+	private final PersistenceDetails persistence;
+
+	public ClassWriter(PersistenceDetails persistence) {
+		this.persistence = persistence;
+	}
 
 	public ClassWriter setClassName(String s) {
 		className = s;
@@ -65,7 +79,7 @@ public class ClassWriter {
 		return this;
 	}
 
-	public ClassWriter addType(Class<?> cls) {
+	public ClassWriter addType(java.lang.Class<?> cls) {
 		addType(new Type(cls.getName(), null, false));
 		return this;
 	}
@@ -107,14 +121,62 @@ public class ClassWriter {
 
 		}
 
+		Set<String> idAttributes = Sets.newHashSet();
+		for (AttributeInfo a : ids)
+			idAttributes.add(a.attribute.getName().toUpperCase());
+
+		// members
 		for (Member member : members) {
-			out.format("    /**\n");
-			out.format("     * %s\n", member.getComment());
-			out.format("     */\n");
-			out.format("    private %s %s;\n\n",
-					types.addType(member.getType()),
-					lowerFirst(member.getName()));
+			if (!idAttributes.contains(member.getName().toUpperCase())) {
+				out.format("    /**\n");
+				out.format("     * %s\n", member.getComment());
+				out.format("     */\n");
+				out.format("    private %s %s;\n\n",
+						types.addType(member.getType()),
+						lowerFirst(member.getName()));
+			}
 		}
+
+		// ids
+		if (ids.size() > 1) {
+			addType(Embeddable.class);
+			addType(Serializable.class);
+			addType(Column.class);
+			addType(EmbeddedId.class);
+			out.format("    @Embeddable\n");
+			out.format("    public static class PrimaryKey implements Serializable {\n\n");
+			for (AttributeInfo a : ids) {
+				out.format("        @Column(name=\"%s\", nullable=false)\n",
+						persistence.getColumnName(a.cls, a.attribute));
+				out.format("        private %s %s;\n\n", types.addType(a.type),
+						lowerFirst(a.attribute.getName()));
+			}
+			for (AttributeInfo a : ids) {
+				out.format("        public %s get%s(){\n",
+						types.addType(a.type),
+						upperFirst(a.attribute.getName()));
+				out.format("            return %s;\n",
+						lowerFirst(a.attribute.getName()));
+				out.format("        }\n\n");
+			}
+
+			out.format("    }\n\n");
+
+			out.format("    @EmbeddedId\n");
+			out.format("    private PrimaryKey id;\n");
+
+			out.format("    public PrimaryKey getId(){\n");
+			out.format("        return id;\n");
+			out.format("    }\n\n");
+
+		} else {
+			if (ids.size() == 0)
+				throw new RuntimeException("class '" + className
+						+ "' does not have an identifier: ");
+			idAttributes.add(ids.iterator().next().attribute.getName());
+		}
+
+		// state member
 		out.format("\n");
 
 		out.format("    /**\n");
@@ -131,32 +193,37 @@ public class ClassWriter {
 		out.format("        this._state= state;\n");
 		out.format("    }\n\n");
 
+		// add member getters and setters
 		for (Member member : members) {
-			if (member.isAddGetter()) {
-				out.format("    /**\n");
-				out.format("     * Returns %s\n", member.getComment());
-				out.format("     */\n");
-				out.format("    public %s get%s() {\n",
-						types.addType(member.getType()),
-						upperFirst(member.getName()));
-				out.format("        return %s;\n", lowerFirst(member.getName()));
-				out.format("    }\n\n");
-			}
+			if (!idAttributes.contains(member.getName().toUpperCase())) {
+				if (member.isAddGetter()) {
+					out.format("    /**\n");
+					out.format("     * Returns %s\n", member.getComment());
+					out.format("     */\n");
+					out.format("    public %s get%s() {\n",
+							types.addType(member.getType()),
+							upperFirst(member.getName()));
+					out.format("        return %s;\n",
+							lowerFirst(member.getName()));
+					out.format("    }\n\n");
+				}
 
-			if (member.isAddSetter()) {
-				out.format("    /**\n");
-				out.format("     * Sets %s\n", member.getComment());
-				out.format("     */\n");
-				out.format("    public void set%s(%s %s) {\n",
-						upperFirst(member.getName()),
-						types.addType(member.getType()),
-						lowerFirst(member.getName()));
-				out.format("        this.%1$s=%1$s;\n",
-						lowerFirst(member.getName()));
-				out.format("    }\n\n");
+				if (member.isAddSetter()) {
+					out.format("    /**\n");
+					out.format("     * Sets %s\n", member.getComment());
+					out.format("     */\n");
+					out.format("    public void set%s(%s %s) {\n",
+							upperFirst(member.getName()),
+							types.addType(member.getType()),
+							lowerFirst(member.getName()));
+					out.format("        this.%1$s=%1$s;\n",
+							lowerFirst(member.getName()));
+					out.format("    }\n\n");
+				}
 			}
-
 		}
+
+		// add state constants
 		if (!states.isEmpty()) {
 			out.format("    //////////////////////////////////////////////\n");
 			out.format("    //                     States                       //\n");
@@ -168,6 +235,7 @@ public class ClassWriter {
 		}
 		out.println();
 
+		// add event classes
 		if (!events.isEmpty()) {
 			out.format("    //////////////////////////////////////////////\n");
 			out.format("    //                     Events                      //\n");
@@ -211,6 +279,7 @@ public class ClassWriter {
 
 		}
 
+		// add event call methods
 		for (Event event : events) {
 			out.format("    public void event(%s event){\n",
 					upperFirst(event.getName()));
@@ -238,6 +307,7 @@ public class ClassWriter {
 			out.format("    }\n\n");
 		}
 
+		// don't need this?
 		for (Method method : methods) {
 			out.format("    public %s %s(){\n",
 					types.addType(method.getType()), method.getName());
@@ -276,6 +346,10 @@ public class ClassWriter {
 
 	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
+	}
+
+	public void setIds(Set<AttributeInfo> ids) {
+		this.ids = ids;
 	}
 
 }
