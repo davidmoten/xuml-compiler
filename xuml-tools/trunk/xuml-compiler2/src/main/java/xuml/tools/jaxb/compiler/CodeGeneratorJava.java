@@ -158,6 +158,29 @@ public class CodeGeneratorJava {
 			ReferentialAttribute a) {
 		BigInteger rnum = a.getReferenceBase().getValue().getRelationship();
 		Relationship rel = lookups.getRelationship(cls.getDomain(), rnum);
+
+		String result;
+		if (rel instanceof Association) {
+			result = getReferentialAttributeAnnotationViaAssociation(w, cls, a);
+		} else if (rel instanceof Generalization) {
+			result = getReferentialAttributeAnnotationViaGeneralization(w, cls,
+					a);
+		} else
+			throw new RuntimeException("unexpected");
+
+		return result;
+	}
+
+	private String getReferentialAttributeAnnotationViaGeneralization(
+			ClassWriter w, Class cls, ReferentialAttribute a) {
+		// This corresponds to a 0..1 -> 1 association to the superclass
+		// TODO
+		return null;
+	}
+
+	private String getReferentialAttributeAnnotationViaAssociation(
+			ClassWriter w, Class cls, ReferentialAttribute a) {
+		// TODO
 		return null;
 	}
 
