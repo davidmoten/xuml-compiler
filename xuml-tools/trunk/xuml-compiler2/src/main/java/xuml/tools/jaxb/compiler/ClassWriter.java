@@ -117,6 +117,7 @@ public class ClassWriter {
 
 			out.format("    /**\n");
 			out.format("     * For internal use only by the state machine but is persisted by the jpa provider.\n");
+			out.format("     */\n");
 			out.format("    private String _state;\n\n");
 
 		}
@@ -145,6 +146,9 @@ public class ClassWriter {
 			addType(Serializable.class);
 			addType(Column.class);
 			addType(EmbeddedId.class);
+			out.format("    /**\n");
+			out.format("     * Composite primary key.\n");
+			out.format("     */\n");
 			out.format("    @Embeddable\n");
 			out.format("    public static class PrimaryKey implements Serializable {\n\n");
 			for (AttributeInfo a : ids) {
@@ -169,7 +173,7 @@ public class ClassWriter {
 
 			out.format("    public PrimaryKey getId(){\n");
 			out.format("        return id;\n");
-			out.format("    }\n\n");
+			out.format("    }\n");
 
 		} else {
 			if (ids.size() == 0)
