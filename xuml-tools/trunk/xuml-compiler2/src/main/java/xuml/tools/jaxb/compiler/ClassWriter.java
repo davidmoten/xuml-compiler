@@ -156,6 +156,8 @@ public class ClassWriter {
 			for (AttributeInfo a : ids) {
 				out.format("        @Column(name=\"%s\", nullable=false)\n",
 						persistence.getColumnName(a.cls, a.attribute));
+				if (a.annotation != null)
+					out.format(a.annotation);
 				out.format("        private %s %s;\n\n", types.addType(a.type),
 						lowerFirst(a.attribute.getName()));
 			}

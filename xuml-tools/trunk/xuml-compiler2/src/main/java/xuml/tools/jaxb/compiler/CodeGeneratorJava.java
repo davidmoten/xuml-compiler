@@ -303,7 +303,7 @@ public class CodeGeneratorJava {
 		Class cls;
 		Attribute attribute;
 		Type type;
-		String annotaion;
+		String annotation;
 
 		public AttributeInfo(Class cls, Attribute attribute, Type type,
 				String annotation) {
