@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -157,30 +160,48 @@ public class CodeGeneratorJava {
 	private String getReferentialAttributeAnnotation(ClassWriter w, Class cls,
 			ReferentialAttribute a) {
 		BigInteger rnum = a.getReferenceBase().getValue().getRelationship();
-		Relationship rel = lookups.getRelationship(cls.getDomain(), rnum);
 
-		String result;
-		if (rel instanceof Association) {
-			result = getReferentialAttributeAnnotationViaAssociation(w, cls, a);
-		} else if (rel instanceof Generalization) {
-			result = getReferentialAttributeAnnotationViaGeneralization(w, cls,
-					a);
+		Reference ref = a.getReferenceBase().getValue();
+		if (ref instanceof ToOneReference) {
+			ToOneReference t = (ToOneReference) ref;
+			return getReferentialAttributeAnnotationViaToOneReference(w, cls,
+					a, t);
+		} else if (ref instanceof SuperclassReference) {
+			SuperclassReference t = (SuperclassReference) ref;
+			return getReferentialAttributeAnnotationViaToSuperclassReference(w,
+					cls, a, t);
+		} else if (ref instanceof AssociativeReference) {
+			AssociativeReference t = (AssociativeReference) ref;
+			return getReferentialAttributeAnnotationViaAssociativeReference(w,
+					cls, a, t);
 		} else
-			throw new RuntimeException("unexpected");
+			throw new RuntimeException(UNEXPECTED);
 
-		return result;
 	}
 
-	private String getReferentialAttributeAnnotationViaGeneralization(
-			ClassWriter w, Class cls, ReferentialAttribute a) {
-		// This corresponds to a 0..1 -> 1 association to the superclass
-		// TODO
+	private String getReferentialAttributeAnnotationViaAssociativeReference(
+			ClassWriter w, Class cls, ReferentialAttribute a,
+			AssociativeReference t) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private String getReferentialAttributeAnnotationViaAssociation(
-			ClassWriter w, Class cls, ReferentialAttribute a) {
+	private String getReferentialAttributeAnnotationViaToSuperclassReference(
+			ClassWriter w, Class cls, ReferentialAttribute a,
+			SuperclassReference t) {
+		// This corresponds to a 0..1 -> 1 association to the superclass
 		// TODO
+		w.addType(OneToOne.class);
+		w.addType(CascadeType.class);
+		w.addType(FetchType.class);
+		StringBuilder s = new StringBuilder();
+		s.append("@OneToOne(targetEntity=otherClass, cascade=CascadeType.ALL, fetch=FetchType.LAZY)");
+		s.append("@JoinColumn(name=\"otherColumn\",nullable = false)");
+		return s.toString();
+	}
+
+	private String getReferentialAttributeAnnotationViaToOneReference(
+			ClassWriter w, Class cls, ReferentialAttribute a, ToOneReference r) {
 		return null;
 	}
 
