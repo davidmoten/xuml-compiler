@@ -115,9 +115,11 @@ public class ClassWriter {
 			out.format("    private final %sBehaviour behaviour;\n\n",
 					className);
 
+			// state member
 			out.format("    /**\n");
 			out.format("     * For internal use only by the state machine but is persisted by the jpa provider.\n");
 			out.format("     */\n");
+			out.format("    @Column(name=\"state\",nullable=false\")\n");
 			out.format("    private String _state;\n\n");
 
 		}
@@ -182,11 +184,13 @@ public class ClassWriter {
 			idAttributes.add(ids.iterator().next().attribute.getName());
 		}
 
-		// state member
+		// state getter and setter
 
+		addType(Column.class);
 		out.format("    /**\n");
 		out.format("     * For internal use only by the state machine but is persisted by the jpa provider.\n");
 		out.format("     */\n");
+
 		out.format("    public String getState(){\n");
 		out.format("        return _state;\n");
 		out.format("    }\n\n");
