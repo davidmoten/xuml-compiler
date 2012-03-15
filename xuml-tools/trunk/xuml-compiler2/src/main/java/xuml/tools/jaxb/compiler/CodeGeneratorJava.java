@@ -7,9 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -542,20 +540,12 @@ public class CodeGeneratorJava {
 		throw new RuntimeException(string);
 	}
 
-	private static void notImplemented() {
-		re("not  implemented");
-	}
-
 	private static void unexpected() {
 		re(UNEXPECTED);
 	}
 
 	private static void createDirectories(File file) {
 		file.getParentFile().mkdirs();
-	}
-
-	private static PrintWriter createPrintWriter(OutputStream os) {
-		return new PrintWriter(os);
 	}
 
 }

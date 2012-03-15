@@ -173,7 +173,7 @@ public class ClassWriter {
 
 			out.format("    public PrimaryKey getId(){\n");
 			out.format("        return id;\n");
-			out.format("    }\n");
+			out.format("    }\n\n");
 
 		} else {
 			if (ids.size() == 0)
@@ -183,7 +183,6 @@ public class ClassWriter {
 		}
 
 		// state member
-		out.format("\n");
 
 		out.format("    /**\n");
 		out.format("     * For internal use only by the state machine but is persisted by the jpa provider.\n");
