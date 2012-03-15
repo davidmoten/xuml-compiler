@@ -311,6 +311,7 @@ public class CodeGeneratorJava {
 			this.cls = cls;
 			this.attribute = attribute;
 			this.type = type;
+			this.annotation = annotation;
 		}
 	}
 
