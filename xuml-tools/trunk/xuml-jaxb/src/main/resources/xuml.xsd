@@ -115,6 +115,7 @@
 			<enumeration value="Boolean" />
 			<enumeration value="Timestamp" />
 			<enumeration value="Date" />
+			<enumeration value="Time"/>
 			<enumeration value="String" />
 			<enumeration value="ArbitraryId" />
 			<enumeration value="TypeName" />
