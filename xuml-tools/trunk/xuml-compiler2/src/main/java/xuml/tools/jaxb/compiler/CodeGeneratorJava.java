@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -98,6 +98,7 @@ public class CodeGeneratorJava {
 			if (base.getValue() instanceof IndependentAttribute) {
 				IndependentAttribute a = (IndependentAttribute) base.getValue();
 				String comment = "independent attribute " + a.getName() + ".";
+				String annotation = getIndependentAttributeAnnotation(w, cls, a);
 				w.addMember(a.getName(), new Type(toJavaType(a.getType()),
 						null, false), true, true, comment, null);
 			} else if (base.getValue() instanceof ReferentialAttribute) {
@@ -142,6 +143,16 @@ public class CodeGeneratorJava {
 		w.setStates(cls.getState());
 
 		writeToFile(w.toString().getBytes(), file);
+	}
+
+	private String getIndependentAttributeAnnotation(ClassWriter w, Class cls,
+			IndependentAttribute a) {
+		StringBuilder s = new StringBuilder();
+		w.addType(Column.class);
+		s.append("    @Column(name=\"" + persistence.getColumnName(cls, a)
+				+ "\")");
+
+		return s.toString();
 	}
 
 	private void addClassAnnotations(ClassWriter w, Class cls) {
@@ -253,6 +264,25 @@ public class CodeGeneratorJava {
 		java.lang.System.out.format(s + "\n", objects);
 	}
 
+	private Type getType(Class cls, Attribute a) {
+		MyAttributeType t = getMyAttributeType(cls, a);
+		if (t.multiple)
+			return new Type(Set.class.getName(), Lists.newArrayList(new Type(
+					toJavaType(t.type), null, false)), false);
+		return new Type(toJavaType(t.type), null, false);
+	}
+
+	private static class MyAttributeType {
+		IndependentAttributeType type;
+		boolean multiple;
+
+		public MyAttributeType(IndependentAttributeType type, boolean multiple) {
+			super();
+			this.type = type;
+			this.multiple = multiple;
+		}
+	}
+
 	/**
 	 * Recursively travels relationship paths and returns the type of a referred
 	 * attribute.
@@ -261,29 +291,28 @@ public class CodeGeneratorJava {
 	 * @param a
 	 * @return
 	 */
-	private Type getType(Class cls, Attribute a) {
+	private MyAttributeType getMyAttributeType(Class cls, Attribute a) {
 		log("getting type of %s.%s", cls.getName(), a.getName());
 
 		if (a instanceof IndependentAttribute) {
-			return new Type(toJavaType(((IndependentAttribute) a).getType()),
-					null, false);
-		} else if (a instanceof DerivedAttribute) {
-			return new Type(toJavaType(((DerivedAttribute) a).getType()), null,
+			return new MyAttributeType(((IndependentAttribute) a).getType(),
 					false);
+		} else if (a instanceof DerivedAttribute) {
+			return new MyAttributeType(((DerivedAttribute) a).getType(), false);
 		} else if (a instanceof ReferentialAttribute) {
 			ReferentialAttribute r = (ReferentialAttribute) a;
 			Reference ref = r.getReferenceBase().getValue();
 			if (ref instanceof ToOneReference) {
 				ToOneReference t = (ToOneReference) ref;
-				Type result = getToOneReferenceType(cls, a, r, t);
+				MyAttributeType result = getToOneReferenceType(cls, a, r, t);
 				return result;
 			} else if (ref instanceof SuperclassReference) {
 				SuperclassReference t = (SuperclassReference) ref;
-				Type otherType = getGeneralizationType(cls, a, r, t);
+				MyAttributeType otherType = getGeneralizationType(cls, a, r, t);
 				return otherType;
 			} else if (ref instanceof AssociativeReference) {
 				AssociativeReference t = (AssociativeReference) ref;
-				Type otherType = getAssociativeType(cls, a, r, t);
+				MyAttributeType otherType = getAssociativeType(cls, a, r, t);
 				return otherType;
 			} else {
 				throw new RuntimeException(UNEXPECTED);
@@ -292,7 +321,7 @@ public class CodeGeneratorJava {
 			throw new RuntimeException("unexpected attribute type " + a);
 	}
 
-	private Type getAssociativeType(Class cls, Attribute a,
+	private MyAttributeType getAssociativeType(Class cls, Attribute a,
 			ReferentialAttribute r, AssociativeReference t) {
 		Association ass = lookups.getAssociation(cls.getDomain(),
 				t.getRelationship());
@@ -312,11 +341,11 @@ public class CodeGeneratorJava {
 				other.getName(), otherName);
 		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
 				other.getName(), otherName);
-		Type otherType = getType(other, otherAttribute);
+		MyAttributeType otherType = getMyAttributeType(other, otherAttribute);
 		return otherType;
 	}
 
-	private Type getGeneralizationType(Class cls, Attribute a,
+	private MyAttributeType getGeneralizationType(Class cls, Attribute a,
 			ReferentialAttribute r, SuperclassReference t) {
 		Generalization g = lookups.getGeneralization(cls.getDomain(),
 				t.getRelationship());
@@ -332,7 +361,7 @@ public class CodeGeneratorJava {
 				other.getName(), otherName);
 		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
 				other.getName(), otherName);
-		Type otherType = getType(other, otherAttribute);
+		MyAttributeType otherType = getMyAttributeType(other, otherAttribute);
 		return otherType;
 	}
 
@@ -340,7 +369,7 @@ public class CodeGeneratorJava {
 		return lookups.getClass(g.getDomain(), g.getSuperclass());
 	}
 
-	private Type getToOneReferenceType(Class cls, Attribute a,
+	private MyAttributeType getToOneReferenceType(Class cls, Attribute a,
 			ReferentialAttribute r, ToOneReference t) {
 		Association ass = lookups.getAssociation(cls.getDomain(),
 				t.getRelationship());
@@ -355,12 +384,11 @@ public class CodeGeneratorJava {
 				other.getName(), otherName);
 		Attribute otherAttribute = lookups.getAttribute(other.getDomain(),
 				other.getName(), otherName);
-		Type otherType = getType(other, otherAttribute);
-		Type result;
+		MyAttributeType otherType = getMyAttributeType(other, otherAttribute);
+		MyAttributeType result;
 		if (otherEnd.getMultiplicity().equals(Multiplicity.MANY)
 				|| otherEnd.getMultiplicity().equals(Multiplicity.ONE_MANY)) {
-			List<Type> types = Lists.newArrayList(otherType);
-			result = new Type(Set.class.getName(), types, false);
+			result = new MyAttributeType(otherType.type, true);
 		} else
 			result = otherType;
 		return result;
