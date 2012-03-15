@@ -151,13 +151,13 @@ public class CodeGeneratorJava {
 
 	private String getDerivedAttributeAnnotation(ClassWriter w, Class cls,
 			DerivedAttribute a) {
-		// TODO Auto-generated method stub
-		return null;
+		return getNativeAttributeAnnotation(w, cls, a);
 	}
 
 	private String getReferentialAttributeAnnotation(ClassWriter w, Class cls,
 			ReferentialAttribute a) {
-		// TODO Auto-generated method stub
+		BigInteger rnum = a.getReferenceBase().getValue().getRelationship();
+		Relationship rel = lookups.getRelationship(cls.getDomain(), rnum);
 		return null;
 	}
 
