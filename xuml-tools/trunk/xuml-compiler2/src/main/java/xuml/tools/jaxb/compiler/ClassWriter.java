@@ -117,7 +117,6 @@ public class ClassWriter {
 
 			out.format("    /**\n");
 			out.format("     * For internal use only by the state machine but is persisted by the jpa provider.\n");
-			out.format("     */\n");
 			out.format("    private String _state;\n\n");
 
 		}
@@ -183,14 +182,14 @@ public class ClassWriter {
 		out.format("\n");
 
 		out.format("    /**\n");
-		out.format("     * For internal use only by the state machine but is persisted by the jpa provider.");
+		out.format("     * For internal use only by the state machine but is persisted by the jpa provider.\n");
 		out.format("     */\n");
 		out.format("    public String getState(){\n");
 		out.format("        return _state;\n");
 		out.format("    }\n\n");
 
 		out.format("    /**\n");
-		out.format("     * For internal use only by the state machine but is persisted by the jpa provider.");
+		out.format("     * For internal use only by the state machine but is persisted by the jpa provider.\n");
 		out.format("     */\n");
 		out.format("    private void setState(String state){\n");
 		out.format("        this._state= state;\n");
