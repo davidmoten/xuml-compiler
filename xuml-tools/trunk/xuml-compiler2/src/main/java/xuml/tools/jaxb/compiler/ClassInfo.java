@@ -374,6 +374,9 @@ public class ClassInfo {
 		list.add(new MyReferenceMember("Ant", getPackage() + ".Ant",
 				Mult.ZERO_ONE, Mult.ZERO_ONE, "nibbles", "is nibbled by",
 				"ant", "ant_id", null, null));
+		list.add(new MyReferenceMember("Aircraft", getPackage() + ".Aircraft",
+				Mult.ZERO_ONE, Mult.MANY, "flies", "is flown by", "aircraft",
+				null, "class", null));
 		return list;
 	}
 }

@@ -150,6 +150,9 @@ public class ClassWriter2 {
 							info.addType(ref.getFullClassName()));
 				} else {
 					// secondary
+					info.addType(OneToOne.class);
+					info.addType(JoinColumn.class);
+					info.addType(FetchType.class);
 					out.format(
 							"    @OneToOne(targetEntity=%s.class,fetch=FetchType.LAZY)\n",
 							info.addType(ref.getFullClassName()));
@@ -157,6 +160,14 @@ public class ClassWriter2 {
 							ref.getOtherColumnName());
 				}
 				writeField(out, ref);
+			} else if (isRelationship(ref, Mult.ZERO_ONE, Mult.MANY)) {
+				info.addType(OneToMany.class);
+				info.addType(CascadeType.class);
+				info.addType(FetchType.class);
+				out.format(
+						"    @OneToMany(mappedBy=\"%s\",cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=%s.class)\n",
+						ref.getThisName(), info.addType(ref.getFullClassName()));
+				writeMultipleField(out, ref);
 			}
 		}
 	}
