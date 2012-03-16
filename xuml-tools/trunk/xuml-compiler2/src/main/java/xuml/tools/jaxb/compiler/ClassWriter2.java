@@ -130,6 +130,33 @@ public class ClassWriter2 {
 						"    @OneToMany(mappedBy=\"%s\",cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=%s.class",
 						ref.getThisName(), info.addType(ref.getFullClassName()));
 				writeMultipleField(out, ref);
+			} else if (isRelationship(ref, Mult.ONE_MANY, Mult.ONE)) {
+				info.addType(ManyToOne.class);
+				info.addType(JoinColumn.class);
+				out.format("    @ManyToOne(targetEntity=%s)\n",
+						info.addType(ref.getFullClassName()));
+				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
+						ref.getOtherColumnName());
+				writeField(out, ref);
+			} else if (isRelationship(ref, Mult.ZERO_ONE, Mult.ZERO_ONE)) {
+				if (info.getJavaClassSimpleName().compareTo(
+						ref.getSimpleClassName()) < 0) {
+					// primary
+					info.addType(OneToOne.class);
+					info.addType(FetchType.class);
+					out.format(
+							"    @OneToOne(mappedBy=\"%s\",fetch=FetchType.LAZY,targetEntity=%s.class)\n",
+							ref.getThisName(),
+							info.addType(ref.getFullClassName()));
+				} else {
+					// secondary
+					out.format(
+							"    @OneToOne(targetEntity=%s.class,fetch=FetchType.LAZY)\n",
+							info.addType(ref.getFullClassName()));
+					out.format("    @JoinColumn(name=\"%s\",nullable=true)\n",
+							ref.getOtherColumnName());
+				}
+				writeField(out, ref);
 			}
 		}
 	}

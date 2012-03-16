@@ -362,7 +362,18 @@ public class ClassInfo {
 		list.add(new MyReferenceMember("Insect", getPackage() + ".Insect",
 				Mult.MANY, Mult.ONE, "bites", "is bitten by", "insect",
 				"insect_id", null, null));
-
+		list.add(new MyReferenceMember("Train", getPackage() + ".Train",
+				Mult.ONE, Mult.ONE_MANY, "carries", "is carried by", "train",
+				null, "class", null));
+		list.add(new MyReferenceMember("Light", getPackage() + ".Light",
+				Mult.ONE_MANY, Mult.ONE, "lights", "is lit by", "light",
+				"light_id", null, null));
+		list.add(new MyReferenceMember("Mouse", getPackage() + ".Mouse",
+				Mult.ZERO_ONE, Mult.ZERO_ONE, "scares", "is scared by",
+				"mouse", null, "class", null));
+		list.add(new MyReferenceMember("Ant", getPackage() + ".Ant",
+				Mult.ZERO_ONE, Mult.ZERO_ONE, "nibbles", "is nibbled by",
+				"ant", "ant_id", null, null));
 		return list;
 	}
 }
