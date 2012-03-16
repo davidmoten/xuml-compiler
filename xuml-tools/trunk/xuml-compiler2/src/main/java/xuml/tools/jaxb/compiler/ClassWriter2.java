@@ -91,9 +91,7 @@ public class ClassWriter2 {
 				out.format(
 						"    @OneToOne(mappedBy=\"%s\",fetch=FetchType.LAZY,targetEntity=%s.class)\n",
 						ref.getThisName(), info.addType(ref.getFullClassName()));
-				out.format("    private %s %s;\n\n",
-						info.addType(ref.getFullClassName()),
-						ref.getFieldName());
+				writeField(out, ref);
 			} else if (isRelationship(ref, Mult.ZERO_ONE, Mult.ONE)) {
 				info.addType(OneToOne.class);
 				info.addType(FetchType.class);
@@ -104,9 +102,7 @@ public class ClassWriter2 {
 						info.addType(ref.getFullClassName()));
 				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
 						ref.getOtherColumnName());
-				out.format("    private %s %s;\n\n",
-						info.addType(ref.getFullClassName()),
-						ref.getFieldName());
+				writeField(out, ref);
 			} else if (isRelationship(ref, Mult.ONE, Mult.MANY)) {
 				info.addType(OneToMany.class);
 				info.addType(CascadeType.class);
@@ -114,10 +110,7 @@ public class ClassWriter2 {
 				out.format(
 						"    @OneToMany(mappedBy=\"%s\",cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=%s.class)\n",
 						ref.getThisName(), info.addType(ref.getFullClassName()));
-				List<Type> types = Lists.newArrayList();
-				types.add(new Type(ref.getFullClassName(), null, false));
-				out.format("    private %s %s;\n\n", info.addType(new Type(
-						Set.class.getName(), types, false)), ref.getFieldName());
+				writeMultipleField(out, ref);
 			} else if (isRelationship(ref, Mult.MANY, Mult.ONE)) {
 				info.addType(ManyToOne.class);
 				info.addType(FetchType.class);
@@ -127,11 +120,32 @@ public class ClassWriter2 {
 						ref.getSimpleClassName());
 				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
 						ref.getOtherColumnName());
-				out.format("    private %s %s;\n\n",
-						info.addType(ref.getFullClassName()),
-						ref.getFieldName());
+				writeField(out, ref);
+			} else if (isRelationship(ref, Mult.ONE, Mult.ONE_MANY)) {
+				info.addType(OneToMany.class);
+				info.addType(FetchType.class);
+				info.addType(JoinColumn.class);
+				info.addType(CascadeType.class);
+				out.format(
+						"    @OneToMany(mappedBy=\"%s\",cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=%s.class",
+						ref.getThisName(), info.addType(ref.getFullClassName()));
+				writeMultipleField(out, ref);
 			}
 		}
+	}
+
+	private void writeField(PrintStream out, MyReferenceMember ref) {
+		out.format("    private %s %s;\n\n",
+				info.addType(ref.getFullClassName()), ref.getFieldName());
+	}
+
+	private void writeMultipleField(PrintStream out, MyReferenceMember ref) {
+		List<Type> types = Lists.newArrayList();
+		types.add(new Type(ref.getFullClassName(), null, false));
+		out.format("    private %s %s;\n\n",
+				info.addType(new Type(Set.class.getName(), types, false)),
+				ref.getFieldName());
+
 	}
 
 	private void writeStates(PrintStream out, ClassInfo info2) {
