@@ -80,6 +80,11 @@ public class ClassInfo {
 		return types.addType(cls);
 	}
 
+	public void addTypes(Class<?>... classes) {
+		for (Class<?> cls : classes)
+			addType(cls);
+	}
+
 	public String addType(String fullClassName) {
 		return types.addType(fullClassName);
 	}
@@ -287,11 +292,13 @@ public class ClassInfo {
 		private final String otherColumnName;
 		private final String thisName;
 		private final String otherName;
+		private final MyManyToMany manyToMany;
 
 		public MyReferenceMember(String simpleClassName, String fullClassName,
 				Mult thisMult, Mult thatMult, String thisVerbClause,
 				String thatVerbClause, String fieldName,
-				String otherColumnName, String thisName, String otherName) {
+				String otherColumnName, String thisName, String otherName,
+				MyManyToMany manyToMany) {
 			this.simpleClassName = simpleClassName;
 			this.fullClassName = fullClassName;
 			this.thisMult = thisMult;
@@ -302,6 +309,7 @@ public class ClassInfo {
 			this.otherColumnName = otherColumnName;
 			this.thisName = thisName;
 			this.otherName = otherName;
+			this.manyToMany = manyToMany;
 		}
 
 		public String getFieldName() {
@@ -344,39 +352,100 @@ public class ClassInfo {
 			return thatVerbClause;
 		}
 
+		public MyManyToMany getManyToMany() {
+			return manyToMany;
+		}
+
+	}
+
+	public static class MyManyToMany {
+		private final String joinTable;
+		private final String joinTableSchema;
+		private final String thisColumnName;
+		private final String thatColumnName;
+
+		public String getThatColumnName() {
+			return thatColumnName;
+		}
+
+		public MyManyToMany(String joinTable, String joinTableSchema,
+				String thisColumnName, String thatColumnName) {
+			super();
+			this.joinTable = joinTable;
+			this.joinTableSchema = joinTableSchema;
+			this.thisColumnName = thisColumnName;
+			this.thatColumnName = thatColumnName;
+		}
+
+		public String getJoinTable() {
+			return joinTable;
+		}
+
+		public String getJoinTableSchema() {
+			return joinTableSchema;
+		}
+
+		public String getThisColumnName() {
+			return thisColumnName;
+		}
 	}
 
 	public List<MyReferenceMember> getReferenceMembers() {
 
-		// String otherColumnName, String thisName, String otherName
+		// otherColumnName,thisName,otherName,manyToMany
 		List<MyReferenceMember> list = newArrayList();
 		list.add(new MyReferenceMember("Domain", getPackage() + ".Domain",
 				Mult.ONE, Mult.ZERO_ONE, "models", "is modelled in", "domain",
-				null, "class", null));
+				null, "class", null, null));
 		list.add(new MyReferenceMember("Barge", getPackage() + ".Barge",
 				Mult.ZERO_ONE, Mult.ONE, "carries", "is carried by", "barge",
-				"barge_id", null, null));
+				"barge_id", null, null, null));
 		list.add(new MyReferenceMember("Wheel", getPackage() + ".Wheel",
 				Mult.ONE, Mult.MANY, "helps move", "moves on", "wheel", null,
-				"class", null));
+				"class", null, null));
 		list.add(new MyReferenceMember("Insect", getPackage() + ".Insect",
 				Mult.MANY, Mult.ONE, "bites", "is bitten by", "insect",
-				"insect_id", null, null));
+				"insect_id", null, null, null));
 		list.add(new MyReferenceMember("Train", getPackage() + ".Train",
 				Mult.ONE, Mult.ONE_MANY, "carries", "is carried by", "train",
-				null, "class", null));
+				null, "class", null, null));
 		list.add(new MyReferenceMember("Light", getPackage() + ".Light",
 				Mult.ONE_MANY, Mult.ONE, "lights", "is lit by", "light",
-				"light_id", null, null));
+				"light_id", null, null, null));
 		list.add(new MyReferenceMember("Mouse", getPackage() + ".Mouse",
 				Mult.ZERO_ONE, Mult.ZERO_ONE, "scares", "is scared by",
-				"mouse", null, "class", null));
+				"mouse", null, "class", null, null));
 		list.add(new MyReferenceMember("Ant", getPackage() + ".Ant",
 				Mult.ZERO_ONE, Mult.ZERO_ONE, "nibbles", "is nibbled by",
-				"ant", "ant_id", null, null));
+				"ant", "ant_id", null, null, null));
 		list.add(new MyReferenceMember("Aircraft", getPackage() + ".Aircraft",
 				Mult.ZERO_ONE, Mult.MANY, "flies", "is flown by", "aircraft",
-				null, "class", null));
+				null, "class", null, null));
+		list.add(new MyReferenceMember("Balloon", getPackage() + ".Balloon",
+				Mult.MANY, Mult.ZERO_ONE, "floats", "is floated by", "balloon",
+				"balloon_id", null, null, null));
+		list.add(new MyReferenceMember("Mower", getPackage() + ".Mower",
+				Mult.ZERO_ONE, Mult.MANY, "mows", "is mown by", "mower", null,
+				"class", null, null));
+		list.add(new MyReferenceMember("Chair", getPackage() + ".Chair",
+				Mult.ONE_MANY, Mult.ZERO_ONE, "is sat on by", "sits on",
+				"chair", "chair_id", null, null, null));
+		list.add(new MyReferenceMember("Lemon", getPackage() + ".Lemon",
+				Mult.MANY, Mult.MANY, "is sucked by", "sucks", "lemon", null,
+				null, null, new MyManyToMany("class_lemon", getSchema(),
+						"class_id", "lemon_id")));
+		list.add(new MyReferenceMember("Abacus", getPackage() + ".Abacus",
+				Mult.MANY, Mult.MANY, "is clicked by", "clicks", "abacus",
+				null, "class", null, new MyManyToMany("class_lemon",
+						getSchema(), "class_id", "abacus_id")));
+		list.add(new MyReferenceMember("Lemon", getPackage() + ".Lemon",
+				Mult.ONE_MANY, Mult.ONE_MANY, "is sucked by", "sucks", "lemon",
+				null, null, null, new MyManyToMany("class_lemon", getSchema(),
+						"class_id", "lemon_id")));
+		list.add(new MyReferenceMember("Abacus", getPackage() + ".Abacus",
+				Mult.ONE_MANY, Mult.ONE_MANY, "is clicked by", "clicks",
+				"abacus", null, "class", null, new MyManyToMany("class_lemon",
+						getSchema(), "class_id", "abacus_id")));
 		return list;
 	}
 }

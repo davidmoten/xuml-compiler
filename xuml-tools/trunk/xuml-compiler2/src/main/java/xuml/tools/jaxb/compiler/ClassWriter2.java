@@ -19,6 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -142,6 +144,7 @@ public class ClassWriter2 {
 				if (info.getJavaClassSimpleName().compareTo(
 						ref.getSimpleClassName()) < 0) {
 					// primary
+					out.format("    //primary side of relationship\n");
 					info.addType(OneToOne.class);
 					info.addType(FetchType.class);
 					out.format(
@@ -150,6 +153,7 @@ public class ClassWriter2 {
 							info.addType(ref.getFullClassName()));
 				} else {
 					// secondary
+					out.format("    //secondary side of relationship\n");
 					info.addType(OneToOne.class);
 					info.addType(JoinColumn.class);
 					info.addType(FetchType.class);
@@ -168,8 +172,92 @@ public class ClassWriter2 {
 						"    @OneToMany(mappedBy=\"%s\",cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=%s.class)\n",
 						ref.getThisName(), info.addType(ref.getFullClassName()));
 				writeMultipleField(out, ref);
+			} else if (isRelationship(ref, Mult.MANY, Mult.ZERO_ONE)) {
+				info.addTypes(ManyToOne.class);
+				info.addType(FetchType.class);
+				info.addType(JoinColumn.class);
+				out.format(
+						"    @ManyToOne(targetEntity=%s.class,fetch=FetchType.LAZY)\n",
+						info.addType(ref.getFullClassName()));
+				out.format("    @JoinColumn(name=\"%s\",nullable=true)",
+						ref.getOtherColumnName());
+				writeField(out, ref);
+			} else if (isRelationship(ref, Mult.ZERO_ONE, Mult.ONE_MANY)) {
+				info.addType(OneToMany.class);
+				info.addType(CascadeType.class);
+				info.addType(FetchType.class);
+				out.format(
+						"    @OneToMany(mappedBy=\"%s\",cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=%s.class)\n",
+						ref.getThisName(), info.addType(ref.getFullClassName()));
+				writeMultipleField(out, ref);
+			} else if (isRelationship(ref, Mult.ONE_MANY, Mult.ZERO_ONE)) {
+				info.addType(ManyToOne.class);
+				info.addType(FetchType.class);
+				info.addType(JoinColumn.class);
+				out.format(
+						"    @ManyToOne(targetEntity=%s.class,fetch=FetchType.LAZY)\n",
+						info.addType(ref.getFullClassName()));
+				out.format("    @JoinColumn(name=\"%s\",nullable=true)\n",
+						ref.getOtherColumnName());
+				writeField(out, ref);
+			} else if (isRelationship(ref, Mult.MANY, Mult.MANY)) {
+				writeManyToMany(out, info, ref);
+			} else if (isRelationship(ref, Mult.ONE_MANY, Mult.ONE_MANY)) {
+				// TODO validation for the one side
+				writeManyToMany(out, info, ref);
+			} else if (isRelationship(ref, Mult.ONE_MANY, Mult.MANY)) {
+				// TODO validation for the one side
+				writeManyToManySecondarySide(out, info, ref);
+			} else if (isRelationship(ref, Mult.MANY, Mult.ONE_MANY)) {
+				// TODO validation for the one side
+				writeManyToManyPrimarySide(out, info, ref);
 			}
 		}
+	}
+
+	private void writeManyToMany(PrintStream out, ClassInfo info,
+			MyReferenceMember ref) {
+		if (info.getJavaClassSimpleName().compareTo(ref.getSimpleClassName()) < 0) {
+			// primary
+			writeManyToManyPrimarySide(out, info, ref);
+		} else {
+			// secondary
+			writeManyToManySecondarySide(out, info, ref);
+		}
+	}
+
+	private void writeManyToManyPrimarySide(PrintStream out, ClassInfo info,
+			MyReferenceMember ref) {
+		out.format("    //primary side of relationship\n");
+		info.addType(ManyToMany.class);
+		info.addType(CascadeType.class);
+		info.addType(FetchType.class);
+		info.addType(JoinTable.class);
+		info.addType(JoinColumn.class);
+		out.format(
+				"    @ManyToMany(targetEntity=%s,cascade=CascadeType.ALL,fetchType=FetchType.LAZY,\n",
+				info.addType(ref.getFullClassName()));
+		out.format("        @JoinTable(name=\"%s\",schema=\"%s\",\n", ref
+				.getManyToMany().getJoinTable(), ref.getManyToMany()
+				.getJoinTableSchema());
+		out.format("            joinColumns=@JoinColumn(name=\"%s\"),\n", ref
+				.getManyToMany().getThisColumnName());
+		out.format(
+				"            inverseJoinColumns=@JoinColumn(name=\"%s\")))\n",
+				ref.getManyToMany().getThatColumnName());
+		writeMultipleField(out, ref);
+	}
+
+	private void writeManyToManySecondarySide(PrintStream out, ClassInfo info,
+			MyReferenceMember ref) {
+		out.format("    //secondary side of relationship\n");
+		info.addType(ManyToMany.class);
+		info.addType(CascadeType.class);
+		info.addType(FetchType.class);
+		out.format(
+				"    @ManyToMany(mappedBy=\"%s\",targetEntity=%s.class,cascade=CascadeType.ALL,fetch=FetchType.LAZY)\n",
+				ref.getThisName(), info.addType(ref.getFullClassName()));
+		writeMultipleField(out, ref);
 	}
 
 	private void writeField(PrintStream out, MyReferenceMember ref) {
