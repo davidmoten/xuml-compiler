@@ -271,4 +271,61 @@ public class ClassInfo {
 		return new MySubclassRole(getPackage() + ".Element",
 				getJavaClassSimpleName());
 	}
+
+	public static enum Mult {
+		ONE, ZERO_ONE, MANY, ONE_MANY;
+	}
+
+	public static class MyReferenceMember {
+		private final String simpleClassName;
+		private final String fullClassName;
+		private final Mult thisMult;
+		private final Mult thatMult;
+		private final String thisVerbClause;
+		private final String thatVerbClause;
+
+		public MyReferenceMember(String simpleClassName, String fullClassName,
+				Mult thisMult, Mult thatMult, String thisVerbClause,
+				String thatVerbClause) {
+			super();
+			this.simpleClassName = simpleClassName;
+			this.fullClassName = fullClassName;
+			this.thisMult = thisMult;
+			this.thatMult = thatMult;
+			this.thisVerbClause = thisVerbClause;
+			this.thatVerbClause = thatVerbClause;
+		}
+
+		public String getSimpleClassName() {
+			return simpleClassName;
+		}
+
+		public String getFullClassName() {
+			return fullClassName;
+		}
+
+		public Mult getThisMult() {
+			return thisMult;
+		}
+
+		public Mult getThatMult() {
+			return thatMult;
+		}
+
+		public String getThisVerbClause() {
+			return thisVerbClause;
+		}
+
+		public String getThatVerbClause() {
+			return thatVerbClause;
+		}
+
+	}
+
+	public List<MyReferenceMember> getReferenceMembers() {
+		List<MyReferenceMember> list = newArrayList();
+		list.add(new MyReferenceMember("Domain", getPackage() + ".Domain",
+				Mult.MANY, Mult.ONE, "models", "is modelled in"));
+		return list;
+	}
 }

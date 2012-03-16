@@ -18,9 +18,11 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import xuml.tools.jaxb.compiler.ClassInfo.Mult;
 import xuml.tools.jaxb.compiler.ClassInfo.MyEvent;
 import xuml.tools.jaxb.compiler.ClassInfo.MyIndependentAttribute;
 import xuml.tools.jaxb.compiler.ClassInfo.MyParameter;
+import xuml.tools.jaxb.compiler.ClassInfo.MyReferenceMember;
 import xuml.tools.jaxb.compiler.ClassInfo.MySubclassRole;
 import xuml.tools.jaxb.compiler.ClassInfo.MyTransition;
 
@@ -49,6 +51,7 @@ public class ClassWriter2 {
 		writeStateMember(out, info);
 		writeIdGetterAndSetter(out, info);
 		writeNonIdIndependentAttributeGettersAndSetters(out, info);
+		writeReferenceMembers(out, info);
 		writeStateGetterAndSetter(out, info);
 		writeStates(out, info);
 		writeEvents(out, info);
@@ -61,6 +64,25 @@ public class ClassWriter2 {
 		out.close();
 		header.close();
 		return headerBytes.toString() + bytes.toString();
+	}
+
+	private boolean isRelationship(MyReferenceMember ref, Mult here, Mult there) {
+		return ref.getThisMult().equals(here)
+				&& ref.getThatMult().equals(there);
+	}
+
+	private void writeReferenceMembers(PrintStream out, ClassInfo info) {
+		for (MyReferenceMember ref : info.getReferenceMembers()) {
+			jd(out,
+					ref.getThisMult() + " to " + ref.getThatMult() + "\n"
+							+ ref.getThisMult() + " "
+							+ info.getJavaClassSimpleName() + " "
+							+ ref.getThatVerbClause() + " " + ref.getThatMult()
+							+ " " + ref.getSimpleClassName(), "    ");
+			if (isRelationship(ref, Mult.MANY, Mult.ONE)) {
+
+			}
+		}
 	}
 
 	private void writeStates(PrintStream out, ClassInfo info2) {

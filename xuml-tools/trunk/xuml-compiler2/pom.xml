@@ -6,7 +6,6 @@
 		<groupId>org.moten.david</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>org.moten.david</groupId>
 	<artifactId>xuml-compiler2</artifactId>
 	<name>${project.artifactId}</name>
 	<dependencies>
