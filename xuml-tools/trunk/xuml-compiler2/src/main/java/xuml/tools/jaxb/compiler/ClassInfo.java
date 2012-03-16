@@ -283,17 +283,41 @@ public class ClassInfo {
 		private final Mult thatMult;
 		private final String thisVerbClause;
 		private final String thatVerbClause;
+		private final String fieldName;
+		private final String otherColumnName;
+		private final String thisName;
+		private final String otherName;
 
 		public MyReferenceMember(String simpleClassName, String fullClassName,
 				Mult thisMult, Mult thatMult, String thisVerbClause,
-				String thatVerbClause) {
-			super();
+				String thatVerbClause, String fieldName,
+				String otherColumnName, String thisName, String otherName) {
 			this.simpleClassName = simpleClassName;
 			this.fullClassName = fullClassName;
 			this.thisMult = thisMult;
 			this.thatMult = thatMult;
 			this.thisVerbClause = thisVerbClause;
 			this.thatVerbClause = thatVerbClause;
+			this.fieldName = fieldName;
+			this.otherColumnName = otherColumnName;
+			this.thisName = thisName;
+			this.otherName = otherName;
+		}
+
+		public String getFieldName() {
+			return fieldName;
+		}
+
+		public String getThisName() {
+			return thisName;
+		}
+
+		public String getOtherName() {
+			return otherName;
+		}
+
+		public String getOtherColumnName() {
+			return otherColumnName;
 		}
 
 		public String getSimpleClassName() {
@@ -323,9 +347,22 @@ public class ClassInfo {
 	}
 
 	public List<MyReferenceMember> getReferenceMembers() {
+
+		// String otherColumnName, String thisName, String otherName
 		List<MyReferenceMember> list = newArrayList();
 		list.add(new MyReferenceMember("Domain", getPackage() + ".Domain",
-				Mult.MANY, Mult.ONE, "models", "is modelled in"));
+				Mult.ONE, Mult.ZERO_ONE, "models", "is modelled in", "domain",
+				null, "class", null));
+		list.add(new MyReferenceMember("Barge", getPackage() + ".Barge",
+				Mult.ZERO_ONE, Mult.ONE, "carries", "is carried by", "barge",
+				"barge_id", null, null));
+		list.add(new MyReferenceMember("Wheel", getPackage() + ".Wheel",
+				Mult.ONE, Mult.MANY, "helps move", "moves on", "wheel", null,
+				"class", null));
+		list.add(new MyReferenceMember("Insect", getPackage() + ".Insect",
+				Mult.MANY, Mult.ONE, "bites", "is bitten by", "insect",
+				"insect_id", null, null));
+
 		return list;
 	}
 }

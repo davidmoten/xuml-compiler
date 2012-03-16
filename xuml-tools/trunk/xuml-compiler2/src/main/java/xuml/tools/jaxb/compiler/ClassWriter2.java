@@ -6,16 +6,24 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import xuml.tools.jaxb.compiler.ClassInfo.Mult;
@@ -27,6 +35,7 @@ import xuml.tools.jaxb.compiler.ClassInfo.MySubclassRole;
 import xuml.tools.jaxb.compiler.ClassInfo.MyTransition;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 
 public class ClassWriter2 {
 
@@ -73,14 +82,54 @@ public class ClassWriter2 {
 
 	private void writeReferenceMembers(PrintStream out, ClassInfo info) {
 		for (MyReferenceMember ref : info.getReferenceMembers()) {
-			jd(out,
-					ref.getThisMult() + " to " + ref.getThatMult() + "\n"
-							+ ref.getThisMult() + " "
-							+ info.getJavaClassSimpleName() + " "
-							+ ref.getThatVerbClause() + " " + ref.getThatMult()
-							+ " " + ref.getSimpleClassName(), "    ");
-			if (isRelationship(ref, Mult.MANY, Mult.ONE)) {
-
+			jd(out, ref.getThisMult() + " " + info.getJavaClassSimpleName()
+					+ " " + ref.getThatVerbClause() + " " + ref.getThatMult()
+					+ " " + ref.getSimpleClassName(), "    ");
+			if (isRelationship(ref, Mult.ONE, Mult.ZERO_ONE)) {
+				info.addType(OneToOne.class);
+				info.addType(FetchType.class);
+				out.format(
+						"    @OneToOne(mappedBy=\"%s\",fetch=FetchType.LAZY,targetEntity=%s.class)\n",
+						ref.getThisName(), info.addType(ref.getFullClassName()));
+				out.format("    private %s %s;\n\n",
+						info.addType(ref.getFullClassName()),
+						ref.getFieldName());
+			} else if (isRelationship(ref, Mult.ZERO_ONE, Mult.ONE)) {
+				info.addType(OneToOne.class);
+				info.addType(FetchType.class);
+				info.addType(JoinColumn.class);
+				info.addType(CascadeType.class);
+				out.format(
+						"    @OneToOne(targetEntity=%s.class,cascade=CascadeType.ALL,fetch=FetchType.LAZY\n",
+						info.addType(ref.getFullClassName()));
+				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
+						ref.getOtherColumnName());
+				out.format("    private %s %s;\n\n",
+						info.addType(ref.getFullClassName()),
+						ref.getFieldName());
+			} else if (isRelationship(ref, Mult.ONE, Mult.MANY)) {
+				info.addType(OneToMany.class);
+				info.addType(CascadeType.class);
+				info.addType(FetchType.class);
+				out.format(
+						"    @OneToMany(mappedBy=\"%s\",cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=%s.class)\n",
+						ref.getThisName(), info.addType(ref.getFullClassName()));
+				List<Type> types = Lists.newArrayList();
+				types.add(new Type(ref.getFullClassName(), null, false));
+				out.format("    private %s %s;\n\n", info.addType(new Type(
+						Set.class.getName(), types, false)), ref.getFieldName());
+			} else if (isRelationship(ref, Mult.MANY, Mult.ONE)) {
+				info.addType(ManyToOne.class);
+				info.addType(FetchType.class);
+				info.addType(JoinColumn.class);
+				out.format(
+						"    @ManyToOne(targetEntity=%s.class,fetch=FetchType.LAZY)\n",
+						ref.getSimpleClassName());
+				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
+						ref.getOtherColumnName());
+				out.format("    private %s %s;\n\n",
+						info.addType(ref.getFullClassName()),
+						ref.getFieldName());
 			}
 		}
 	}
@@ -153,6 +202,8 @@ public class ClassWriter2 {
 			List<MyEvent> events) {
 		// add event call methods
 		for (MyEvent event : events) {
+			info.addType(Transient.class);
+			out.format("    @Transient\n");
 			out.format("    public void event(Events.%s event){\n",
 					event.getSimpleClassName());
 
