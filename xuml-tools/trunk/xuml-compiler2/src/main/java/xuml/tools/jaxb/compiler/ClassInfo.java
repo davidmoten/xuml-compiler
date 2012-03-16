@@ -5,6 +5,9 @@ import static xuml.tools.jaxb.Util.toJavaConstantIdentifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import com.google.common.collect.Sets;
 
 public class ClassInfo {
 
@@ -448,4 +451,13 @@ public class ClassInfo {
 						getSchema(), "class_id", "abacus_id")));
 		return list;
 	}
+
+	public Set<String> getAtLeastOneFieldChecks() {
+		Set<String> set = Sets.newTreeSet();
+		set.add("train");
+		set.add("lemon");
+		set.add("abacus");
+		return set;
+	}
+
 }

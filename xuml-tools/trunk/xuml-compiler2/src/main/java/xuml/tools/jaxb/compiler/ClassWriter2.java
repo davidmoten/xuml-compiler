@@ -24,6 +24,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -60,9 +61,10 @@ public class ClassWriter2 {
 		writeIdMember(out, info);
 		writeNonIdIndependentAttributeMembers(out, info);
 		writeStateMember(out, info);
+		writeReferenceMembers(out, info);
+		writeFieldChecks(out, info);
 		writeIdGetterAndSetter(out, info);
 		writeNonIdIndependentAttributeGettersAndSetters(out, info);
-		writeReferenceMembers(out, info);
 		writeStateGetterAndSetter(out, info);
 		writeStates(out, info);
 		writeEvents(out, info);
@@ -75,6 +77,22 @@ public class ClassWriter2 {
 		out.close();
 		header.close();
 		return headerBytes.toString() + bytes.toString();
+	}
+
+	private void writeFieldChecks(PrintStream out, ClassInfo info) {
+		for (String fieldName : info.getAtLeastOneFieldChecks()) {
+			writeAtLeastOneCheck(out, fieldName);
+		}
+
+		info.addType(Transient.class);
+		info.addType(PreUpdate.class);
+		out.format("    @Transient\n");
+		out.format("    @PreUpdate\n");
+		out.format("    private validateBeforeUpdate(){\n");
+		for (String fieldName : info.getAtLeastOneFieldChecks()) {
+			out.format("        check%sValid();\n", upperFirst(fieldName));
+		}
+		out.format("    }\n\n");
 	}
 
 	private boolean isRelationship(MyReferenceMember ref, Mult here, Mult there) {
@@ -203,16 +221,24 @@ public class ClassWriter2 {
 			} else if (isRelationship(ref, Mult.MANY, Mult.MANY)) {
 				writeManyToMany(out, info, ref);
 			} else if (isRelationship(ref, Mult.ONE_MANY, Mult.ONE_MANY)) {
-				// TODO validation for the one side
 				writeManyToMany(out, info, ref);
 			} else if (isRelationship(ref, Mult.ONE_MANY, Mult.MANY)) {
-				// TODO validation for the one side
 				writeManyToManySecondarySide(out, info, ref);
 			} else if (isRelationship(ref, Mult.MANY, Mult.ONE_MANY)) {
-				// TODO validation for the one side
 				writeManyToManyPrimarySide(out, info, ref);
 			}
 		}
+	}
+
+	private void writeAtLeastOneCheck(PrintStream out, String fieldName) {
+		info.addType(Transient.class);
+		out.format("    @Transient\n");
+		out.format("    private void check%sValid() {\n", upperFirst(fieldName));
+		out.format("         if (this.%s.size()==0)\n", fieldName);
+		out.format(
+				"             throw new RuntimeException(\"%s collection cannot be empty\");\n",
+				fieldName);
+		out.format("     }\n\n");
 	}
 
 	private void writeManyToMany(PrintStream out, ClassInfo info,
