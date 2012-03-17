@@ -1,5 +1,10 @@
 package xuml.tools.jaxb.compiler;
 
+import static xuml.tools.jaxb.Util.toColumnName;
+import static xuml.tools.jaxb.Util.toJavaConstantIdentifier;
+import static xuml.tools.jaxb.Util.toJavaIdentifier;
+import static xuml.tools.jaxb.Util.upperFirst;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,19 +20,24 @@ import xuml.metamodel.jaxb.AssociativeReference;
 import xuml.metamodel.jaxb.Attribute;
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.DerivedAttribute;
+import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Generalization;
 import xuml.metamodel.jaxb.Identifier;
 import xuml.metamodel.jaxb.IndependentAttribute;
 import xuml.metamodel.jaxb.IndependentAttributeType;
 import xuml.metamodel.jaxb.Multiplicity;
+import xuml.metamodel.jaxb.Parameter;
 import xuml.metamodel.jaxb.Reference;
 import xuml.metamodel.jaxb.ReferentialAttribute;
 import xuml.metamodel.jaxb.Relationship;
+import xuml.metamodel.jaxb.State;
 import xuml.metamodel.jaxb.SuperclassReference;
 import xuml.metamodel.jaxb.ToOneReference;
+import xuml.metamodel.jaxb.Transition;
 import xuml.tools.jaxb.Util;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyEvent;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyIndependentAttribute;
+import xuml.tools.jaxb.compiler.ClassInfoSample.MyParameter;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyReferenceMember;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MySubclassRole;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyTransition;
@@ -229,32 +239,70 @@ public class ClassInfoFromJaxb implements ClassInfo {
 
 	@Override
 	public List<MyIndependentAttribute> getNonIdIndependentAttributeMembers() {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<MyIndependentAttribute> list = Lists.newArrayList();
+
+		for (JAXBElement<? extends Attribute> element : cls.getAttributeBase()) {
+			Attribute attribute = element.getValue();
+			if (attribute instanceof IndependentAttribute) {
+				IndependentAttribute a = (IndependentAttribute) attribute;
+				boolean inPrimaryIdentifier = false;
+				for (Identifier id : attribute.getIdentifier())
+					if (id.getNumber().equals(BigInteger.ONE))
+						inPrimaryIdentifier = true;
+				// if primary id has more than one field then arbitrary id is
+				// used as the id
+				if (getIdentifiers().get(BigInteger.ONE).size() > 1)
+					inPrimaryIdentifier = false;
+				if (!inPrimaryIdentifier) {
+					list.add(new MyIndependentAttribute(
+							toJavaIdentifier(attribute.getName()),
+							toColumnName(attribute.getName()), getType(cls,
+									attribute), !a.isMandatory(),
+							"attribute description here"));
+				}
+			}
+		}
+
+		return list;
 	}
 
 	@Override
 	public List<MyEvent> getEvents() {
-		// TODO Auto-generated method stub
-		return null;
+		List<MyEvent> list = Lists.newArrayList();
+		for (Event event : cls.getEvent()) {
+			List<MyParameter> params = Lists.newArrayList();
+			for (Parameter p : event.getParameter()) {
+				params.add(new MyParameter(toJavaIdentifier(p.getName()), p
+						.getType()));
+			}
+			list.add(new MyEvent(event.getName(),
+					upperFirst(toJavaIdentifier(event.getName())), params));
+		}
+		return list;
 	}
 
 	@Override
 	public List<String> getStateNames() {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> list = Lists.newArrayList();
+		for (State state : cls.getState()) {
+			list.add(state.getName());
+		}
+		return list;
 	}
 
 	@Override
 	public List<MyTransition> getTransitions() {
-		// TODO Auto-generated method stub
-		return null;
+		List<MyTransition> list = Lists.newArrayList();
+		for (Transition t : cls.getTransition()) {
+			list.add(new MyTransition(t.getEvent(), t.getFrom(), t.getTo()));
+		}
+		return list;
 	}
 
 	@Override
 	public String getStateIdentifier(String state) {
-		// TODO Auto-generated method stub
-		return null;
+		return toJavaConstantIdentifier(state);
 	}
 
 	@Override
