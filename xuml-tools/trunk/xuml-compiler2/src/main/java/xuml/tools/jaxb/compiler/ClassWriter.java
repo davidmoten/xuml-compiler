@@ -68,6 +68,7 @@ public class ClassWriter {
 		writeStateGetterAndSetter(out, info);
 		writeStates(out, info);
 		writeEvents(out, info);
+		writeEventCallMethods(out, info);
 
 		writeClassClose(out);
 		ByteArrayOutputStream headerBytes = new ByteArrayOutputStream();
@@ -130,8 +131,15 @@ public class ClassWriter {
 					+ info.addType(subclass.getSuperclassJavaFullClassName());
 		} else
 			extension = "";
-		out.format("public class %s %s{\n\n", info.getJavaClassSimpleName(),
-				extension);
+		String implement;
+		if (info.getEvents().size() > 0)
+			implement = " implements " + info.addType(ReceivesSignal.class)
+					+ "<" + info.getJavaClassSimpleName() + ">";
+		else
+			implement = "";
+
+		out.format("public class %s %s%s {\n\n", info.getJavaClassSimpleName(),
+				extension, implement);
 	}
 
 	private void writeConstructors(PrintStream out, ClassInfo info) {
@@ -366,8 +374,9 @@ public class ClassWriter {
 		// create Events static class and each Event declared within
 		out.format("    public static class Events {\n\n");
 		for (MyEvent event : info.getEvents()) {
-			out.format("        public static class %s {\n\n",
-					event.getSimpleClassName());
+			out.format("        public static class %s implements %s<%s>{\n\n",
+					event.getSimpleClassName(), info.addType(Event.class),
+					info.getJavaClassSimpleName());
 
 			StringBuilder constructorBody = new StringBuilder();
 			for (MyParameter p : event.getParameters()) {
@@ -402,7 +411,6 @@ public class ClassWriter {
 		}
 		out.format("    }\n\n");
 
-		addEventCallMethods(out, info, events);
 	}
 
 	private void writePreUpdateCheck(PrintStream out, ClassInfo info) {
@@ -496,10 +504,9 @@ public class ClassWriter {
 
 	}
 
-	private void addEventCallMethods(PrintStream out, ClassInfo info2,
-			List<MyEvent> events) {
+	private void writeEventCallMethods(PrintStream out, ClassInfo info) {
 		// add event call methods
-		for (MyEvent event : events) {
+		for (MyEvent event : info.getEvents()) {
 			info.addType(Transient.class);
 			out.format("    @Transient\n");
 			out.format("    public void event(Events.%s event){\n",
