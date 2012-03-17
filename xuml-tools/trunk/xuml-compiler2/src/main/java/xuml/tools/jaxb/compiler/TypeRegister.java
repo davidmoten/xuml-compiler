@@ -56,4 +56,10 @@ public class TypeRegister {
 	public Set<String> getImports() {
 		return new TreeSet<String>(types.keySet());
 	}
+
+	public void addTypes(java.lang.Class<?>... classes) {
+		for (Class<?> cls : classes) {
+			addType(cls);
+		}
+	}
 }

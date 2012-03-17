@@ -92,6 +92,10 @@ public class Util {
 		return camelCaseToLowerUnderscore(className);
 	}
 
+	public static String toTableIdName(String className) {
+		return toTableName(className) + "_id";
+	}
+
 	public static String toColumnName(String attributeName) {
 		return camelCaseToLowerUnderscore(attributeName);
 	}
