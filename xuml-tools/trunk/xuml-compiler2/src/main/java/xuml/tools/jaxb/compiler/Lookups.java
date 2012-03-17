@@ -20,8 +20,10 @@ class Lookups {
 			.newHashMap();
 
 	private final Map<String, Attribute> attributesByName = Maps.newHashMap();
+	private final System system;
 
 	public Lookups(System system) {
+		this.system = system;
 		for (Class c : system.getClazz()) {
 			classesByName.put(key(c), c);
 			for (JAXBElement<? extends Attribute> a : c.getAttributeBase()) {
@@ -36,6 +38,10 @@ class Lookups {
 			relationshipsByName.put(key(r.getValue()), r.getValue());
 		java.lang.System.out.println(relationshipsByName.toString().replaceAll(
 				",", ",\n"));
+	}
+
+	public System getSystem() {
+		return system;
 	}
 
 	private static String attributeKey(String domain, String className,

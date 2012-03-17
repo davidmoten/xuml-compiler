@@ -307,13 +307,32 @@ public class ClassInfoFromJaxb implements ClassInfo {
 
 	@Override
 	public boolean isSuperclass() {
-		// TODO Auto-generated method stub
+
+		for (JAXBElement<? extends Relationship> element : lookups.getSystem()
+				.getRelationshipBase()) {
+			Relationship rel = element.getValue();
+			if (rel instanceof Generalization) {
+				Generalization g = (Generalization) rel;
+				if (g.getDomain().equals(cls.getDomain())
+						&& g.getSuperclass().equals(cls.getName()))
+					return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isSubclass() {
-		// TODO Auto-generated method stub
+		for (JAXBElement<? extends Relationship> element : lookups.getSystem()
+				.getRelationshipBase()) {
+			Relationship rel = element.getValue();
+			if (rel instanceof Generalization) {
+				Generalization g = (Generalization) rel;
+				if (g.getDomain().equals(cls.getDomain())
+						&& g.getSubclass().equals(cls.getName()))
+					return true;
+			}
+		}
 		return false;
 	}
 
