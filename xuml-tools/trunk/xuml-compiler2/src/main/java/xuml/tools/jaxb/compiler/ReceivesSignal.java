@@ -1,5 +1,5 @@
 package xuml.tools.jaxb.compiler;
 
-public interface ReceivesSignal<T> {
+public interface ReceivesSignal<T extends Entity<?>> {
 
 }

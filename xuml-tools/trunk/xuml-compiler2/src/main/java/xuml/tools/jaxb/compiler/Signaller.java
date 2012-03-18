@@ -1,11 +1,15 @@
 package xuml.tools.jaxb.compiler;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 
 public class Signaller {
 
 	private static final ActorSystem actorSystem = ActorSystem.create();
+	private static Set<String> actorPaths = new HashSet<String>();
 
 	/**
 	 * Asynchronously signals an object (defined by the cls and id pair) with
@@ -16,9 +20,11 @@ public class Signaller {
 	 * @param id
 	 * @param event
 	 */
-	public <T> void signal(Class<? extends ReceivesSignal<T>> cls, Object id,
-			Event<T> event) {
+	public <T extends Entity<?>> void signal(
+			Class<? extends ReceivesSignal<T>> cls, Object id, Event<T> event) {
+
 		String path = "akka://xuml-compiler/" + cls.getName() + "/" + id;
+		actorSystem.actorOf(null, path);
 		ActorRef ref = actorSystem.actorFor(path);
 		ref.tell(event);
 	}
@@ -30,7 +36,8 @@ public class Signaller {
 	 * @param self
 	 * @param event
 	 */
-	public <T> void signalSelf(ReceivesSignal<T> self, Event<T> event) {
+	public <T extends Entity<?>> void signalSelf(ReceivesSignal<T> self,
+			Event<T> event) {
 
 	}
 

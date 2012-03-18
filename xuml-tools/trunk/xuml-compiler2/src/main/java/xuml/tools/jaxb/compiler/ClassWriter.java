@@ -133,13 +133,14 @@ public class ClassWriter {
 			extension = "";
 		String implement;
 		if (info.getEvents().size() > 0)
-			implement = " implements " + info.addType(ReceivesSignal.class)
-					+ "<" + info.getJavaClassSimpleName() + ">";
+			implement = "," + info.addType(ReceivesSignal.class) + "<"
+					+ info.getJavaClassSimpleName() + ">";
 		else
 			implement = "";
 
-		out.format("public class %s %s%s {\n\n", info.getJavaClassSimpleName(),
-				extension, implement);
+		out.format("public class %s %s implements %s<%1$s>%s {\n\n",
+				info.getJavaClassSimpleName(), extension,
+				info.addType(Entity.class), implement);
 	}
 
 	private void writeConstructors(PrintStream out, ClassInfo info) {

@@ -4,7 +4,8 @@ import org.junit.Test;
 
 public class SignallerTest {
 
-	private static class MyTest implements ReceivesSignal<MyTest> {
+	private static class MyTest implements Entity<MyTest>,
+			ReceivesSignal<MyTest> {
 	}
 
 	private static class MyEvent implements Event<MyTest> {
