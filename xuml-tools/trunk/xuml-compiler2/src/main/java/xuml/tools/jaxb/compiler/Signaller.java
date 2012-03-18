@@ -1,6 +1,11 @@
 package xuml.tools.jaxb.compiler;
 
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+
 public class Signaller {
+
+	private static final ActorSystem actorSystem = ActorSystem.create();
 
 	/**
 	 * Asynchronously signals an object (defined by the cls and id pair) with
@@ -11,9 +16,11 @@ public class Signaller {
 	 * @param id
 	 * @param event
 	 */
-	public <T> void signal(Class<ReceivesSignal<T>> cls, Object id,
+	public <T> void signal(Class<? extends ReceivesSignal<T>> cls, Object id,
 			Event<T> event) {
-
+		String path = "akka://xuml-compiler/" + cls.getName() + "/" + id;
+		ActorRef ref = actorSystem.actorFor(path);
+		ref.tell(event);
 	}
 
 	/**

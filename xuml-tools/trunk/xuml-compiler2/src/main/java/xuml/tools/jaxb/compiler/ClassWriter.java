@@ -526,7 +526,13 @@ public class ClassWriter {
 					out.format("            state=State.%s.toString();\n",
 							info.getStateIdentifier(transition.getToState()));
 					out.format("            synchronized(this) {\n");
+					out.format("                EntityManager em = emf.createEntityManager();\n");
+					out.format(
+							"                %1$s = em.find(%1$s.class,%s);\n",
+							info.getJavaClassSimpleName(), info.getPrimaryId()
+									.getFieldName());
 					out.format("                behaviour.onEntry(event);\n");
+					out.format("                em.commit();\n");
 					out.format("            }\n");
 					out.format("        }\n");
 				}
