@@ -147,7 +147,7 @@ public class ClassWriter {
 			jd(out, BEHAVIOUR_COMMENT, "    ");
 			String behaviourTypeName = info.addType(info
 					.getBehaviourFullClassName());
-			out.format("    private %s behaviour;\n\n", behaviourTypeName);
+			out.format("    private final %s behaviour;\n\n", behaviourTypeName);
 
 			jd(out, "Constructor using BehaviourFactory", "    ");
 			out.format("    public %s(%s behaviourFactory){\n",
@@ -159,16 +159,27 @@ public class ClassWriter {
 		out.format("    public %s(){\n", info.getJavaClassSimpleName());
 		String behaviourSingleton = info.addType(info
 				.getBehaviourSingletonFullClassName());
-		out.format("        this(%s.get(%s);\n", behaviourSingleton,
+		out.format("        this(%1$s.get(%2$s.class);\n", behaviourSingleton,
 				info.getBehaviourFactorySimpleName());
 		out.format("    }\n\n");
 	}
 
 	private void writeSignaller(PrintStream out, ClassInfo info) {
-		out.format(
-				"    private static Signaller<%1$s,%2$s> signaller = new Signaller<%1$s,%2$s>(Context.getEntityManagerFactory(),%1$s.class);\n\n",
+		jd(out,
+				"Used for signalling instances of "
+						+ info.getJavaClassSimpleName(), "    ");
+		out.format("    private static Signaller<%1$s,%2$s> signaller =\n"
+				+ "        new Signaller<%1$s,%2$s>(%1$s.class);\n\n",
 				info.addType(info.getJavaClassSimpleName()),
 				info.addType(info.getPrimaryId().getType()));
+
+		jd(out, "Find the " + info.getJavaClassSimpleName()
+				+ " with id and send the event to it as a signal.", "    ");
+		out.format("    public static void signal(%s id, Event<%s> event){\n",
+				info.addType(info.getPrimaryId().getType()),
+				info.addType(info.getJavaClassSimpleName()));
+		out.format("        signaller.signal(id,event);\n");
+		out.format("    }\n\n");
 	}
 
 	private void writeIdMember(PrintStream out, ClassInfo info) {
