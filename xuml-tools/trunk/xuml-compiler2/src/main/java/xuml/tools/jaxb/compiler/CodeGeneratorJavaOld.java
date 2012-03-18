@@ -150,7 +150,8 @@ public class CodeGeneratorJavaOld {
 		writeToFile(w.toString().getBytes(), file);
 	}
 
-	private String getAttributeAnnotation(ClassWriterOld w, Class cls, Attribute a) {
+	private String getAttributeAnnotation(ClassWriterOld w, Class cls,
+			Attribute a) {
 		if (a instanceof IndependentAttribute) {
 			IndependentAttribute t = (IndependentAttribute) a;
 			return getIndependentAttributeAnnotation(w, cls, t);
@@ -169,8 +170,8 @@ public class CodeGeneratorJavaOld {
 		return getNativeAttributeAnnotation(w, cls, a);
 	}
 
-	private String getReferentialAttributeAnnotation(ClassWriterOld w, Class cls,
-			ReferentialAttribute a) {
+	private String getReferentialAttributeAnnotation(ClassWriterOld w,
+			Class cls, ReferentialAttribute a) {
 
 		Reference ref = a.getReferenceBase().getValue();
 		if (ref instanceof ToOneReference) {
@@ -220,12 +221,13 @@ public class CodeGeneratorJavaOld {
 	}
 
 	private String getReferentialAttributeAnnotationViaToOneReference(
-			ClassWriterOld w, Class cls, ReferentialAttribute a, ToOneReference r) {
+			ClassWriterOld w, Class cls, ReferentialAttribute a,
+			ToOneReference r) {
 		return null;
 	}
 
-	private String getIndependentAttributeAnnotation(ClassWriterOld w, Class cls,
-			IndependentAttribute a) {
+	private String getIndependentAttributeAnnotation(ClassWriterOld w,
+			Class cls, IndependentAttribute a) {
 		return getNativeAttributeAnnotation(w, cls, a);
 	}
 
@@ -584,8 +586,7 @@ public class CodeGeneratorJavaOld {
 		out.format("}");
 		out.close();
 		String java = "package " + pkg + ".behaviour;\n\n";
-		for (String type : types.getImports())
-			java += "import " + type + ";\n";
+		java += types.getImports();
 		java += "\n";
 		String all = java + bytes.toString();
 		writeToFile(all.getBytes(), file);

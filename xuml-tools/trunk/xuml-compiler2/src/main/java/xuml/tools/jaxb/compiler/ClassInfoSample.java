@@ -613,13 +613,18 @@ public class ClassInfoSample implements ClassInfo {
 	 * @see xuml.tools.jaxb.compiler.IClassInfo#getImports()
 	 */
 	@Override
-	public Set<String> getImports() {
+	public String getImports() {
 		return types.getImports();
 	}
 
 	@Override
 	public String getIdColumnName() {
 		return "cls_id";
+	}
+
+	@Override
+	public String getContextPackageName() {
+		return "xuml";
 	}
 
 }

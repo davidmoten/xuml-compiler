@@ -63,8 +63,10 @@ public interface ClassInfo {
 
 	Set<String> getAtLeastOneFieldChecks();
 
-	Set<String> getImports();
+	String getImports();
 
 	String getIdColumnName();
+
+	String getContextPackageName();
 
 }

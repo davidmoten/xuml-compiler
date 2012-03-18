@@ -1,6 +1,5 @@
 package xuml.tools.jaxb.compiler;
 
-import java.util.Set;
 import java.util.TreeSet;
 
 import com.google.common.collect.BiMap;
@@ -53,8 +52,13 @@ public class TypeRegister {
 		}
 	}
 
-	public Set<String> getImports() {
-		return new TreeSet<String>(types.keySet());
+	public String getImports() {
+		TreeSet<String> set = new TreeSet<String>(types.keySet());
+		StringBuilder s = new StringBuilder();
+		for (String t : set) {
+			s.append("import " + t + ";\n");
+		}
+		return s.toString();
 	}
 
 	public void addTypes(java.lang.Class<?>... classes) {

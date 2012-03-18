@@ -28,6 +28,7 @@ public class EntityActor<T extends Entity<T, R>, R> extends UntypedActor {
 			tx.begin();
 			t.event(event);
 			tx.commit();
+			em.close();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			// TODO use logger

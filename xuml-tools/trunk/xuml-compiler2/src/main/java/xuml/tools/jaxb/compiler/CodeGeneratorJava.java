@@ -21,12 +21,14 @@ public class CodeGeneratorJava {
 	private final Map<String, String> domainPackageNames;
 	private final Lookups lookups;
 	private final PersistenceDetails persistence;
+	private final String contextPackageName;
 
 	public CodeGeneratorJava(xuml.metamodel.jaxb.System system,
 			Map<String, String> domainPackageNames,
-			PersistenceDetails persistence) {
+			PersistenceDetails persistence, String contextPackageName) {
 		this.system = system;
 		this.domainPackageNames = domainPackageNames;
+		this.contextPackageName = contextPackageName;
 		this.persistence = persistence;
 		// create maps for classes, relationships, generalizations
 		lookups = new Lookups(system);
@@ -40,20 +42,21 @@ public class CodeGeneratorJava {
 			// create behaviour interfaces
 			createBehaviourInterface(cls, destination);
 			createBehaviourFactoryInterface(cls, destination);
-			createSignallerFactory(cls, destination);
 		}
+
+		createContext(destination);
 
 		// create object factory
 		createObjectFactory(system, destination);
 		log("finished generation");
 	}
 
-	private void createSignallerFactory(Class cls, File destination) {
+	private void createContext(File destination) {
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		PrintStream out = new PrintStream(bytes);
-		out.format("package %s;\n\n", getPackage(cls));
+		out.format("package %s;\n\n", contextPackageName);
 		out.format("import javax.persistence.EntityManagerFactory;\n\n");
-		out.format("public class SignallerFactory {\n\n");
+		out.format("public class Context {\n\n");
 		out.format("    private static EntityManagerFactory emf;\n\n");
 		out.format("    public EntityManagerFactory getEntityManagerFactory() {\n");
 		out.format("        return emf;\n");
@@ -64,20 +67,21 @@ public class CodeGeneratorJava {
 		out.format("}\n");
 		out.close();
 
-		File file = new File(destination.getParent(), "SignallerFactory");
+		File file = new File(destination, contextPackageName.replace(".", "/")
+				+ "/Context.java");
 		writeToFile(bytes.toByteArray(), file);
+
 	}
 
 	private void createImplementation(Class cls, File destination) {
 		ClassWriter w = new ClassWriter(new ClassInfoFromJaxb(cls,
-				domainPackageNames, lookups));
+				domainPackageNames, lookups, contextPackageName));
 		String java = w.generate();
 		File file = new File(destination, getClassFilename(cls));
 		writeToFile(java.getBytes(), file);
 	}
 
 	private void createObjectFactory(System system2, File destination) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -126,21 +130,22 @@ public class CodeGeneratorJava {
 		out.format("}");
 		out.close();
 		String java = "package " + pkg + ".behaviour;\n\n";
-		for (String type : types.getImports())
-			java += "import " + type + ";\n";
+		java += types.getImports();
 		java += "\n";
 		String all = java + bytes.toString();
 		writeToFile(all.getBytes(), file);
 	}
 
 	private void createBehaviourFactoryInterface(Class cls, File destination) {
-
+		TypeRegister types = new TypeRegister();
 		if (!hasBehaviour(cls))
 			return;
 		String java = "package " + getPackage(cls) + ".behaviour;\n\n";
 		java += "public interface " + cls.getName() + "BehaviourFactory {\n\n";
-		java += "    " + cls.getName() + "Behaviour create(" + cls.getName()
-				+ " cls);\n";
+		types.addType(getFullClassName(cls) + "Behaviour");
+		types.addType(getFullClassName(cls));
+		java += "    " + getClassJavaSimpleName(cls) + "Behaviour create("
+				+ getClassJavaSimpleName(cls) + " cls);\n";
 		java += "}";
 		File file = new File(destination, getClassBehaviourFactoryFilename(cls));
 		writeToFile(java.getBytes(), file);

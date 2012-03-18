@@ -54,12 +54,19 @@ public class ClassInfoFromJaxb implements ClassInfo {
 	private final String packageName;
 	private final Lookups lookups;
 	private final TypeRegister types = new TypeRegister();
+	private final String contextPackageName;
 
 	public ClassInfoFromJaxb(Class cls, Map<String, String> domainPackageNames,
-			Lookups lookups) {
+			Lookups lookups, String contextPackageName) {
+		this.contextPackageName = contextPackageName;
 		this.cls = cls;
 		this.lookups = lookups;
 		this.packageName = domainPackageNames.get(cls.getDomain());
+	}
+
+	@Override
+	public String getContextPackageName() {
+		return contextPackageName;
 	}
 
 	@Override
@@ -187,7 +194,7 @@ public class ClassInfoFromJaxb implements ClassInfo {
 	@Override
 	public String getBehaviourFullClassName() {
 		return getBehaviourPackage() + "." + getJavaClassSimpleName()
-				+ "Factory";
+				+ "Behaviour";
 	}
 
 	@Override
@@ -355,9 +362,8 @@ public class ClassInfoFromJaxb implements ClassInfo {
 	}
 
 	@Override
-	public Set<String> getImports() {
-		// TODO
-		return Sets.newHashSet();
+	public String getImports() {
+		return types.getImports();
 	}
 
 	private Type getType(Class cls, Attribute a) {

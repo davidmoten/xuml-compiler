@@ -101,7 +101,7 @@ public class ClassWriter {
 				if (s.length() > 0)
 					s.append(",\n");
 				s.append("        @UniqueConstraint(columnNames={"
-						+ getCommaDelimitedQuoted(list) + "}");
+						+ getCommaDelimitedQuoted(list) + "})");
 			}
 			out.format("    uniqueConstraints={\n");
 			out.format("%s})\n", s);
@@ -138,7 +138,7 @@ public class ClassWriter {
 
 		out.format("public class %s%s implements %s<%1$s,%s> {\n\n",
 				info.getJavaClassSimpleName(), extension,
-				info.addType(Entity.class),
+				info.addType(xuml.tools.jaxb.compiler.Entity.class),
 				info.addType(info.getPrimaryId().getType()));
 	}
 
@@ -171,10 +171,13 @@ public class ClassWriter {
 		jd(out,
 				"Used for signalling instances of "
 						+ info.getJavaClassSimpleName(), "    ");
-		out.format("    private static Signaller<%1$s,%2$s> signaller =\n"
-				+ "        new Signaller<%1$s,%2$s>(%1$s.class);\n\n",
+		String signaller = info.addType(Signaller.class);
+		out.format(
+				"    private static %3$s<%1$s,%2$s> signaller =\n"
+						+ "        new %3$s<%1$s,%2$s>(%4$s.getEntityManagerFactory(),%1$s.class);\n\n",
 				info.addType(info.getJavaClassSimpleName()),
-				info.addType(info.getPrimaryId().getType()));
+				info.addType(info.getPrimaryId().getType()), signaller,
+				info.addType(info.getContextPackageName() + ".Context"));
 
 		jd(out, "Find the " + info.getJavaClassSimpleName()
 				+ " with id and send the event to it as a signal.", "    ");
@@ -359,11 +362,11 @@ public class ClassWriter {
 	private void writeStateGetterAndSetter(PrintStream out, ClassInfo info) {
 		jd(out, STATE_COMMENT, "    ");
 		out.format("    public String getState(){\n");
-		out.format("        return _state;\n");
+		out.format("        return state;\n");
 		out.format("    }\n\n");
 		jd(out, STATE_COMMENT, "    ");
 		out.format("    private void setState(String state){\n");
-		out.format("        this._state= state;\n");
+		out.format("        this.state= state;\n");
 		out.format("    }\n\n");
 	}
 
@@ -437,7 +440,7 @@ public class ClassWriter {
 		info.addType(PreUpdate.class);
 		out.format("    @Transient\n");
 		out.format("    @PreUpdate\n");
-		out.format("    private validateBeforeUpdate(){\n");
+		out.format("    private void validateBeforeUpdate(){\n");
 		for (String fieldName : info.getAtLeastOneFieldChecks()) {
 			out.format("        check%sValid();\n", upperFirst(fieldName));
 		}
@@ -525,15 +528,18 @@ public class ClassWriter {
 
 	private void writeEventCallMethods(PrintStream out, ClassInfo info) {
 		// add event call methods
+
+		out.format("    public void event(%s<%s> event){\n",
+				info.addType(Event.class), info.getJavaClassSimpleName());
+		out.format("    }\n\n");
 		for (MyEvent event : info.getEvents()) {
 			info.addType(Transient.class);
 			jd(out,
 					"Synchronously perform the change. This method should be considered\nfor internal use only. Use the signal method instead.",
 					"    ");
 			out.format("    @Transient\n");
-			out.format("    public void event(Events.%s event){\n",
+			out.format("    private void processEvent(Events.%s event){\n",
 					event.getSimpleClassName());
-
 			boolean first = true;
 			for (MyTransition transition : info.getTransitions()) {
 				// constraint is no event overloading
@@ -555,7 +561,6 @@ public class ClassWriter {
 			}
 
 		}
-		out.format("    }\n\n");
 
 	}
 
@@ -599,10 +604,7 @@ public class ClassWriter {
 	}
 
 	private void writeImports(PrintStream out, ClassInfo info) {
-		for (String fullClassName : info.getImports()) {
-			out.format("import %s;\n", fullClassName);
-		}
-		out.println();
+		out.println(info.getImports());
 	}
 
 	// ///////////////////////////////////////

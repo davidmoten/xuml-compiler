@@ -310,8 +310,7 @@ public class ClassWriterOld {
 		out.close();
 		StringBuilder header = new StringBuilder();
 		header.append("package " + pkg + ";\n\n");
-		for (String t : types.getImports())
-			header.append("import " + t + ";\n");
+		header.append(types.getImports());
 		return header.toString() + "\n" + bytes.toString();
 	}
 
