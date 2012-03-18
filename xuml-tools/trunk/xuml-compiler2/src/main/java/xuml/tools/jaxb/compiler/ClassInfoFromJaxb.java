@@ -331,7 +331,19 @@ public class ClassInfoFromJaxb extends ClassInfo {
 
 	@Override
 	public MySubclassRole getSubclassRole() {
-		return new MySubclassRole("something.Superclass", "discriminator");
+		for (JAXBElement<? extends Relationship> element : lookups.getSystem()
+				.getRelationshipBase()) {
+			Relationship rel = element.getValue();
+			if (rel instanceof Generalization) {
+				Generalization g = (Generalization) rel;
+				if (cls.getDomain().equals(g.getDomain())
+						&& cls.getName().equals(g.getSubclass())) {
+					return new MySubclassRole(g.getSuperclass(),
+							"discriminator");
+				}
+			}
+		}
+		return null;
 	}
 
 	@Override

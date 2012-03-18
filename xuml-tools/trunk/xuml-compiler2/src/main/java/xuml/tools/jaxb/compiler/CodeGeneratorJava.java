@@ -72,7 +72,6 @@ public class CodeGeneratorJava {
 			ClassInfo info = createClassInfo(cls);
 			String behaviourFactory = types.addType(info
 					.getBehaviourFactoryFullName());
-
 			out.format("    private static %s %s;\n\n", behaviourFactory,
 					info.getBehaviourFactoryFieldName());
 			out.format("    public static void set%s(%s factory){\n",
