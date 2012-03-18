@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
 
+import javax.persistence.EntityManagerFactory;
+
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Operation;
@@ -52,33 +54,60 @@ public class CodeGeneratorJava {
 	}
 
 	private void createContext(File destination) {
+		TypeRegister types = new TypeRegister();
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		PrintStream out = new PrintStream(bytes);
+		types.addType(EntityManagerFactory.class);
 		out.format("package %s;\n\n", contextPackageName);
-		out.format("import javax.persistence.EntityManagerFactory;\n\n");
+		out.format("IMPORTS_HERE\n");
 		out.format("public class Context {\n\n");
 		out.format("    private static EntityManagerFactory emf;\n\n");
-		out.format("    public EntityManagerFactory getEntityManagerFactory() {\n");
+		out.format("    public static EntityManagerFactory getEntityManagerFactory() {\n");
 		out.format("        return emf;\n");
 		out.format("    }\n\n");
-		out.format("    public void setEntityManagerFactory(EntityManagerFactory value){\n");
+		out.format("    public static void setEntityManagerFactory(EntityManagerFactory value){\n");
 		out.format("        emf = value;\n");
 		out.format("    }\n");
+		for (Class cls : system.getClazz()) {
+			ClassInfo info = createClassInfo(cls);
+			String behaviourFactory = types.addType(info
+					.getBehaviourFactoryFullName());
+
+			out.format("    private static %s %s;\n\n", behaviourFactory,
+					info.getBehaviourFactoryFieldName());
+			out.format("    public static void set%s(%s factory){\n",
+					info.getBehaviourFactorySimpleName(), behaviourFactory);
+			out.format("        %s=factory;\n",
+					info.getBehaviourFactoryFieldName());
+			out.format("    }\n\n");
+			out.format("    public static %s get%s(){\n", behaviourFactory,
+					info.getBehaviourFactorySimpleName());
+			out.format("        return %s;\n",
+					info.getBehaviourFactoryFieldName());
+			out.format("    }\n\n");
+		}
+
 		out.format("}\n");
 		out.close();
 
 		File file = new File(destination, contextPackageName.replace(".", "/")
 				+ "/Context.java");
-		writeToFile(bytes.toByteArray(), file);
+		String java = bytes.toString().replace("IMPORTS_HERE",
+				types.getImports());
+		writeToFile(java.getBytes(), file);
 
 	}
 
 	private void createImplementation(Class cls, File destination) {
-		ClassWriter w = new ClassWriter(new ClassInfoFromJaxb(cls,
-				domainPackageNames, lookups, contextPackageName));
+		ClassWriter w = new ClassWriter(createClassInfo(cls));
 		String java = w.generate();
 		File file = new File(destination, getClassFilename(cls));
 		writeToFile(java.getBytes(), file);
+	}
+
+	private ClassInfo createClassInfo(Class cls) {
+		return new ClassInfoFromJaxb(cls, domainPackageNames, lookups,
+				contextPackageName);
 	}
 
 	private void createObjectFactory(System system2, File destination) {
@@ -91,8 +120,6 @@ public class CodeGeneratorJava {
 
 	private void createBehaviourInterface(Class cls, File destination) {
 
-		if (!hasBehaviour(cls))
-			return;
 		destination.mkdirs();
 		// add operations, performOnEntry methods
 		File file = new File(destination, getClassBehaviourFilename(cls));
@@ -104,9 +131,8 @@ public class CodeGeneratorJava {
 		out.format("public interface %sBehaviour {\n\n", cls.getName());
 		for (Event event : cls.getEvent()) {
 			String typeName = types.addType(new Type(pkg + "." + cls.getName()
-					+ "." + upperFirst(event.getName()), null, false));
-			out.format("    void onEntry%s(%s event);\n\n",
-					upperFirst(event.getName()), typeName);
+					+ ".Events." + upperFirst(event.getName()), null, false));
+			out.format("    void onEntry(%s event);\n\n", typeName);
 		}
 
 		for (Operation op : cls.getOperation()) {
@@ -138,15 +164,16 @@ public class CodeGeneratorJava {
 
 	private void createBehaviourFactoryInterface(Class cls, File destination) {
 		TypeRegister types = new TypeRegister();
-		if (!hasBehaviour(cls))
-			return;
+		ClassInfo info = createClassInfo(cls);
 		String java = "package " + getPackage(cls) + ".behaviour;\n\n";
+		java += "IMPORTS_HERE\n";
 		java += "public interface " + cls.getName() + "BehaviourFactory {\n\n";
 		types.addType(getFullClassName(cls) + "Behaviour");
 		types.addType(getFullClassName(cls));
 		java += "    " + getClassJavaSimpleName(cls) + "Behaviour create("
-				+ getClassJavaSimpleName(cls) + " cls);\n";
+				+ info.addType(info.getClassFullName()) + " cls);\n";
 		java += "}";
+		java = java.replace("IMPORTS_HERE", info.getImports());
 		File file = new File(destination, getClassBehaviourFactoryFilename(cls));
 		writeToFile(java.getBytes(), file);
 	}

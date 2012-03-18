@@ -47,7 +47,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
-public class ClassInfoFromJaxb implements ClassInfo {
+public class ClassInfoFromJaxb extends ClassInfo {
 
 	private static final String UNEXPECTED = "unexpected";
 	private final Class cls;
@@ -187,24 +187,10 @@ public class ClassInfoFromJaxb implements ClassInfo {
 		return getBehaviourPackage() + "." + getBehaviourFactorySimpleName();
 	}
 
-	private String getBehaviourPackage() {
-		return getPackage() + ".behaviour";
-	}
-
 	@Override
 	public String getBehaviourFullClassName() {
 		return getBehaviourPackage() + "." + getJavaClassSimpleName()
 				+ "Behaviour";
-	}
-
-	@Override
-	public String getBehaviourSingletonFullClassName() {
-		return getPackage() + ".BehaviourFactory";
-	}
-
-	@Override
-	public String getBehaviourFactorySimpleName() {
-		return getJavaClassSimpleName() + "BehaviourFactory";
 	}
 
 	@Override

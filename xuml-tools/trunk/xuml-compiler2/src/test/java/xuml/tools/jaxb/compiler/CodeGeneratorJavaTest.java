@@ -21,7 +21,7 @@ public class CodeGeneratorJavaTest {
 		Map<String, String> domainPackageNames = Maps.newHashMap();
 		domainPackageNames.put("xuml", "miuml");
 		new CodeGeneratorJava(system, domainPackageNames,
-				new PersistenceDetails(), "xuml").generate(new File(
+				new PersistenceDetails(), "miuml").generate(new File(
 				"target/generated/"));
 	}
 }

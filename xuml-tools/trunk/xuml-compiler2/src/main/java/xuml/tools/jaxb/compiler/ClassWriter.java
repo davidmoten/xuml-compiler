@@ -68,8 +68,10 @@ public class ClassWriter {
 		writeNonIdIndependentAttributeGettersAndSetters(out, info);
 		writeStateGetterAndSetter(out, info);
 		writeStates(out, info);
+		writeEventsStart(out, info);
 		writeEvents(out, info);
 		writeEventCallMethods(out, info);
+		writeEventsFinish(out, info);
 
 		writeClassClose(out);
 		ByteArrayOutputStream headerBytes = new ByteArrayOutputStream();
@@ -144,25 +146,22 @@ public class ClassWriter {
 
 	private void writeConstructors(PrintStream out, ClassInfo info) {
 		// constructor
-		if (info.getOperations().size() > 0 || info.getEvents().size() > 0) {
-			String factoryTypeName = info.addType(info
-					.getBehaviourFactoryFullClassName());
-			jd(out, BEHAVIOUR_COMMENT, "    ");
-			String behaviourTypeName = info.addType(info
-					.getBehaviourFullClassName());
-			out.format("    private final %s behaviour;\n\n", behaviourTypeName);
+		String factoryTypeName = info.addType(info
+				.getBehaviourFactoryFullClassName());
+		jd(out, BEHAVIOUR_COMMENT, "    ");
+		String behaviourTypeName = info.addType(info
+				.getBehaviourFullClassName());
+		out.format("    private final %s behaviour;\n\n", behaviourTypeName);
 
-			jd(out, "Constructor using BehaviourFactory.", "    ");
-			out.format("    public %s(%s behaviourFactory){\n",
-					info.getJavaClassSimpleName(), factoryTypeName);
-			out.format("        this.behaviour = behaviourFactory.create(this);\n");
-			out.format("    }\n\n");
-		}
+		jd(out, "Constructor using BehaviourFactory.", "    ");
+		out.format("    public %s(%s behaviourFactory){\n",
+				info.getJavaClassSimpleName(), factoryTypeName);
+		out.format("        this.behaviour = behaviourFactory.create(this);\n");
+		out.format("    }\n\n");
 		jd(out, "No argument constructor required by JPA.", "    ");
 		out.format("    public %s(){\n", info.getJavaClassSimpleName());
-		String behaviourSingleton = info.addType(info
-				.getBehaviourSingletonFullClassName());
-		out.format("        this(%1$s.get(%2$s.class);\n", behaviourSingleton,
+		out.format("        this(%s.get%s());\n",
+				info.addType(info.getContextFullClassName()),
 				info.getBehaviourFactorySimpleName());
 		out.format("    }\n\n");
 	}
@@ -387,14 +386,19 @@ public class ClassWriter {
 		out.format("    }\n\n");
 	}
 
+	private void writeEventsStart(PrintStream out, ClassInfo info) {
+		if (info.getEvents().size() == 0)
+			return;
+		// create Events static class and each Event declared within
+		jd(out, "Event declarations.", "    ");
+		out.format("    public static class Events {\n\n");
+	}
+
 	private void writeEvents(PrintStream out, ClassInfo info) {
 		List<MyEvent> events = info.getEvents();
 		if (events.size() == 0)
 			return;
 
-		// create Events static class and each Event declared within
-		jd(out, "Event declarations.", "    ");
-		out.format("    public static class Events {\n\n");
 		for (MyEvent event : info.getEvents()) {
 			out.format("        public static class %s implements %s<%s>{\n\n",
 					event.getSimpleClassName(), info.addType(Event.class),
@@ -432,7 +436,6 @@ public class ClassWriter {
 
 		}
 		out.format("    }\n\n");
-
 	}
 
 	private void writePreUpdateCheck(PrintStream out, ClassInfo info) {
@@ -559,9 +562,13 @@ public class ClassWriter {
 					out.format("        }\n");
 				}
 			}
-
 		}
+	}
 
+	private void writeEventsFinish(PrintStream out, ClassInfo info) {
+		if (info.getEvents().size() == 0)
+			return;
+		out.format("    }\n\n");
 	}
 
 	private void writeIndependentAttributeMember(PrintStream out,

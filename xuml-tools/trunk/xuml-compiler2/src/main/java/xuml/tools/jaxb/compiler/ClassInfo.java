@@ -3,70 +3,91 @@ package xuml.tools.jaxb.compiler;
 import java.util.List;
 import java.util.Set;
 
+import xuml.tools.jaxb.Util;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyEvent;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyIndependentAttribute;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyReferenceMember;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MySubclassRole;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyTransition;
 
-public interface ClassInfo {
+public abstract class ClassInfo {
 
-	String getPackage();
+	abstract String getPackage();
 
-	String getClassDescription();
+	abstract String getClassDescription();
 
-	List<List<String>> getUniqueConstraintColumnNames();
+	abstract List<List<String>> getUniqueConstraintColumnNames();
 
-	String getSchema();
+	abstract String getSchema();
 
-	String getTable();
+	abstract String getTable();
 
-	String getJavaClassSimpleName();
+	abstract String getJavaClassSimpleName();
 
-	List<String> getOperations();
+	abstract List<String> getOperations();
 
-	String getBehaviourFactoryFullClassName();
+	final public String getBehaviourPackage() {
+		return getPackage() + ".behaviour";
+	}
 
-	String getBehaviourFullClassName();
+	abstract String getBehaviourFactoryFullClassName();
 
-	String getBehaviourSingletonFullClassName();
+	abstract String getBehaviourFullClassName();
 
-	String getBehaviourFactorySimpleName();
+	final public String getBehaviourFactorySimpleName() {
+		return getJavaClassSimpleName() + "BehaviourFactory";
+	}
 
-	String addType(java.lang.Class<?> cls);
+	abstract String addType(java.lang.Class<?> cls);
 
-	void addTypes(java.lang.Class<?>... classes);
+	abstract void addTypes(java.lang.Class<?>... classes);
 
-	String addType(String fullClassName);
+	abstract String addType(String fullClassName);
 
-	String addType(Type type);
+	abstract String addType(Type type);
 
-	MyIndependentAttribute getPrimaryId();
+	abstract MyIndependentAttribute getPrimaryId();
 
-	List<MyIndependentAttribute> getNonIdIndependentAttributeMembers();
+	abstract List<MyIndependentAttribute> getNonIdIndependentAttributeMembers();
 
-	List<MyEvent> getEvents();
+	abstract List<MyEvent> getEvents();
 
-	List<String> getStateNames();
+	abstract List<String> getStateNames();
 
-	List<MyTransition> getTransitions();
+	abstract List<MyTransition> getTransitions();
 
-	String getStateIdentifier(String state);
+	abstract String getStateIdentifier(String state);
 
-	boolean isSuperclass();
+	abstract boolean isSuperclass();
 
-	boolean isSubclass();
+	abstract boolean isSubclass();
 
-	MySubclassRole getSubclassRole();
+	abstract MySubclassRole getSubclassRole();
 
-	List<MyReferenceMember> getReferenceMembers();
+	abstract List<MyReferenceMember> getReferenceMembers();
 
-	Set<String> getAtLeastOneFieldChecks();
+	abstract Set<String> getAtLeastOneFieldChecks();
 
-	String getImports();
+	abstract String getImports();
 
-	String getIdColumnName();
+	abstract String getIdColumnName();
 
-	String getContextPackageName();
+	abstract String getContextPackageName();
 
+	final public String getContextFullClassName() {
+		return getContextPackageName() + ".Context";
+	}
+
+	final public String getBehaviourFactoryFullName() {
+		return getBehaviourPackage() + "." + getBehaviourFactorySimpleName();
+	}
+
+	final public String getBehaviourFactoryFieldName() {
+		return Util.toJavaIdentifier(getBehaviourFactorySimpleName());
+	}
+
+	final public String getClassFullName() {
+
+		return getPackage() + "." + getJavaClassSimpleName();
+	}
 }

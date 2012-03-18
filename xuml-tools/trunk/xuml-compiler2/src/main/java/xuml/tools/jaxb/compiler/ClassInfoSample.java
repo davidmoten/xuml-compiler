@@ -9,7 +9,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-public class ClassInfoSample implements ClassInfo {
+public class ClassInfoSample extends ClassInfo {
 
 	private static final String DOT = ".";
 	private final TypeRegister types = new TypeRegister();
@@ -105,31 +105,6 @@ public class ClassInfoSample implements ClassInfo {
 	@Override
 	public String getBehaviourFullClassName() {
 		return getBehaviourPackage() + DOT + getBehaviourFactorySimpleName();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * xuml.tools.jaxb.compiler.IClassInfo#getBehaviourSingletonFullClassName()
-	 */
-	@Override
-	public String getBehaviourSingletonFullClassName() {
-		return getBehaviourPackage() + DOT + "BehaviourFactory";
-	}
-
-	private String getBehaviourPackage() {
-		return getPackage() + ".behaviour";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see xuml.tools.jaxb.compiler.IClassInfo#getBehaviourFactorySimpleName()
-	 */
-	@Override
-	public String getBehaviourFactorySimpleName() {
-		return getJavaClassSimpleName() + "Behaviour";
 	}
 
 	/*
