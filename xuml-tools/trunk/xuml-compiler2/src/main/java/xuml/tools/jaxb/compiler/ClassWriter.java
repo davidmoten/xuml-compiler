@@ -367,7 +367,7 @@ public class ClassWriter {
 		out.format("    }\n\n");
 	}
 
-	private void writeStates(PrintStream out, ClassInfo info2) {
+	private void writeStates(PrintStream out, ClassInfo info) {
 		jd(out,
 				"The list of all states from the state machine for this entity.",
 				"    ");
