@@ -63,15 +63,17 @@ public class CodeGeneratorJava {
 		out.format("    }\n");
 		out.format("}\n");
 		out.close();
-		writeToFile(bytes.toByteArray(), new File(destination,
-				"SignallerFactory"));
+
+		File file = new File(destination.getParent(), "SignallerFactory");
+		writeToFile(bytes.toByteArray(), file);
 	}
 
 	private void createImplementation(Class cls, File destination) {
 		ClassWriter w = new ClassWriter(new ClassInfoFromJaxb(cls,
 				domainPackageNames, lookups));
 		String java = w.generate();
-		writeToFile(java.getBytes(), destination);
+		File file = new File(destination, getClassFilename(cls));
+		writeToFile(java.getBytes(), file);
 	}
 
 	private void createObjectFactory(System system2, File destination) {
@@ -87,9 +89,10 @@ public class CodeGeneratorJava {
 
 		if (!hasBehaviour(cls))
 			return;
+		destination.mkdirs();
 		// add operations, performOnEntry methods
 		File file = new File(destination, getClassBehaviourFilename(cls));
-		createDirectories(file);
+
 		TypeRegister types = new TypeRegister();
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		PrintStream out = new PrintStream(bytes);
@@ -172,6 +175,11 @@ public class CodeGeneratorJava {
 		return s.replace(".", "/") + "Behaviour.java";
 	}
 
+	private String getClassFilename(Class cls) {
+		String s = getFullClassName(cls);
+		return s.replace(".", "/") + ".java";
+	}
+
 	private String getClassBehaviourFactoryFilename(Class cls) {
 		String s = getFullClassName(cls);
 		int i = s.lastIndexOf(".");
@@ -192,6 +200,8 @@ public class CodeGeneratorJava {
 
 	private static void writeToFile(byte[] bytes, File file) {
 		try {
+			file.getParentFile().mkdirs();
+			java.lang.System.out.println("writing to " + file);
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(bytes);
 			fos.close();
@@ -202,10 +212,6 @@ public class CodeGeneratorJava {
 
 	private static void re(String string) {
 		throw new RuntimeException(string);
-	}
-
-	private static void createDirectories(File file) {
-		file.getParentFile().mkdirs();
 	}
 
 }

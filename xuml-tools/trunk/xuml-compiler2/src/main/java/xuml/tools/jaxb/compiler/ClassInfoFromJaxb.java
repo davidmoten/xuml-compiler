@@ -338,26 +338,26 @@ public class ClassInfoFromJaxb implements ClassInfo {
 
 	@Override
 	public MySubclassRole getSubclassRole() {
-		// TODO Auto-generated method stub
-		return null;
+		return new MySubclassRole("something.Superclass", "discriminator");
 	}
 
 	@Override
 	public List<MyReferenceMember> getReferenceMembers() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO
+		return Lists.newArrayList();
 	}
 
 	@Override
 	public Set<String> getAtLeastOneFieldChecks() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO
+		return Sets.newHashSet();
+
 	}
 
 	@Override
 	public Set<String> getImports() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO
+		return Sets.newHashSet();
 	}
 
 	private Type getType(Class cls, Attribute a) {
@@ -380,7 +380,7 @@ public class ClassInfoFromJaxb implements ClassInfo {
 	}
 
 	private void log(String message, Object... objects) {
-		java.lang.System.out.format(message, objects);
+		java.lang.System.out.format(message + "\n", objects);
 	}
 
 	/**

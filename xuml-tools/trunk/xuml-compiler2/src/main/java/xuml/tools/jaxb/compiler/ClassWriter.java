@@ -105,6 +105,9 @@ public class ClassWriter {
 			}
 			out.format("    uniqueConstraints={\n");
 			out.format("%s})\n", s);
+		} else {
+			out.format("@Table(schema=\"%s\",name=\"%s\")\n", info.getSchema(),
+					info.getTable());
 		}
 		if (info.isSuperclass()) {
 			info.addType(Inheritance.class);
@@ -128,12 +131,12 @@ public class ClassWriter {
 		String extension;
 		if (info.isSubclass()) {
 			MySubclassRole subclass = info.getSubclassRole();
-			extension = "extends "
+			extension = " extends "
 					+ info.addType(subclass.getSuperclassJavaFullClassName());
 		} else
 			extension = "";
 
-		out.format("public class %s %s implements %s<%1$s,%s> {\n\n",
+		out.format("public class %s%s implements %s<%1$s,%s> {\n\n",
 				info.getJavaClassSimpleName(), extension,
 				info.addType(Entity.class),
 				info.addType(info.getPrimaryId().getType()));
@@ -201,7 +204,7 @@ public class ClassWriter {
 		info.addType(Column.class);
 		jd(out, STATE_COMMENT, "    ");
 		out.format("    @Column(name=\"state\",nullable=false)\n");
-		out.format("    private String _state;\n\n");
+		out.format("    private String state;\n\n");
 	}
 
 	private void writeReferenceMembers(PrintStream out, ClassInfo info) {
@@ -387,6 +390,7 @@ public class ClassWriter {
 			return;
 
 		// create Events static class and each Event declared within
+		jd(out, "Event declarations.", "    ");
 		out.format("    public static class Events {\n\n");
 		for (MyEvent event : info.getEvents()) {
 			out.format("        public static class %s implements %s<%s>{\n\n",
@@ -523,6 +527,9 @@ public class ClassWriter {
 		// add event call methods
 		for (MyEvent event : info.getEvents()) {
 			info.addType(Transient.class);
+			jd(out,
+					"Synchronously perform the change. This method should be considered\nfor internal use only. Use the signal method instead.",
+					"    ");
 			out.format("    @Transient\n");
 			out.format("    public void event(Events.%s event){\n",
 					event.getSimpleClassName());

@@ -22,6 +22,6 @@ public class CodeGeneratorJavaTest {
 		domainPackageNames.put("xuml", "miuml");
 		new CodeGeneratorJava(system, domainPackageNames,
 				new PersistenceDetails())
-				.generate(new File("target/generated"));
+				.generate(new File("target/generated/"));
 	}
 }
