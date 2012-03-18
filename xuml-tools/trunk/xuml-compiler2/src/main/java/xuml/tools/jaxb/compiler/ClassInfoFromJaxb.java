@@ -226,7 +226,7 @@ public class ClassInfoFromJaxb implements ClassInfo {
 		if (attributes.size() == 1) {
 			Attribute attribute = attributes.iterator().next();
 			String fieldName = Util.toJavaIdentifier(attribute.getName());
-			return new MyIndependentAttribute(fieldName,
+			return new MyIndependentAttribute("id",
 					Util.toColumnName(fieldName), getType(cls, attribute),
 					false, null);
 		} else

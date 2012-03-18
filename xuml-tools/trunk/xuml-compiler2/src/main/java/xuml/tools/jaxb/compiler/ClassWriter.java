@@ -131,16 +131,11 @@ public class ClassWriter {
 					+ info.addType(subclass.getSuperclassJavaFullClassName());
 		} else
 			extension = "";
-		String implement;
-		if (info.getEvents().size() > 0)
-			implement = "," + info.addType(ReceivesSignal.class) + "<"
-					+ info.getJavaClassSimpleName() + ">";
-		else
-			implement = "";
 
-		out.format("public class %s %s implements %s<%1$s>%s {\n\n",
+		out.format("public class %s %s implements %s<%1$s,%s> {\n\n",
 				info.getJavaClassSimpleName(), extension,
-				info.addType(Entity.class), implement);
+				info.addType(Entity.class),
+				info.addType(info.getPrimaryId().getType()));
 	}
 
 	private void writeConstructors(PrintStream out, ClassInfo info) {
@@ -527,13 +522,7 @@ public class ClassWriter {
 					out.format("            state=State.%s.toString();\n",
 							info.getStateIdentifier(transition.getToState()));
 					out.format("            synchronized(this) {\n");
-					out.format("                EntityManager em = emf.createEntityManager();\n");
-					out.format(
-							"                %1$s = em.find(%1$s.class,%s);\n",
-							info.getJavaClassSimpleName(), info.getPrimaryId()
-									.getFieldName());
 					out.format("                behaviour.onEntry(event);\n");
-					out.format("                em.commit();\n");
 					out.format("            }\n");
 					out.format("        }\n");
 				}
@@ -557,6 +546,10 @@ public class ClassWriter {
 			MyIndependentAttribute attribute) {
 		String type = info.addType(attribute.getType());
 		jd(out, "Returns " + attribute.getFieldName() + ".", "    ");
+		if (attribute.getFieldName().equals("id")) {
+			info.addType(Override.class);
+			out.format("    @Override\n");
+		}
 		out.format("    public %s get%s(){\n", type,
 				upperFirst(attribute.getFieldName()));
 		out.format("        return %s;\n", attribute.getFieldName());

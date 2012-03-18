@@ -1,15 +1,24 @@
 package xuml.tools.jaxb.compiler;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Map;
 
-import akka.actor.ActorRef;
+import javax.persistence.EntityManagerFactory;
+
 import akka.actor.ActorSystem;
 
-public class Signaller {
+import com.google.common.collect.Maps;
 
-	private static final ActorSystem actorSystem = ActorSystem.create();
-	private static Set<String> actorPaths = new HashSet<String>();
+public class Signaller<T extends Entity<T, R>, R> {
+
+	private final static ActorSystem actorSystem = ActorSystem.create();
+	private final Class<T> cls;
+	private final Map<R, EntityActor<T, R>> actors = Maps.newHashMap();
+	private final EntityManagerFactory emf;
+
+	public Signaller(EntityManagerFactory emf, Class<T> cls) {
+		this.emf = emf;
+		this.cls = cls;
+	}
 
 	/**
 	 * Asynchronously signals an object (defined by the cls and id pair) with
@@ -20,13 +29,10 @@ public class Signaller {
 	 * @param id
 	 * @param event
 	 */
-	public <T extends Entity<?>> void signal(
-			Class<? extends ReceivesSignal<T>> cls, Object id, Event<T> event) {
-
-		String path = "akka://xuml-compiler/" + cls.getName() + "/" + id;
-		actorSystem.actorOf(null, path);
-		ActorRef ref = actorSystem.actorFor(path);
-		ref.tell(event);
+	public synchronized void signal(R id, Event<T> event) {
+		if (actors.get(id) == null)
+			actors.put(id, new EntityActor<T, R>(emf, cls, id));
+		actors.get(id).self().tell(event);
 	}
 
 	/**
@@ -36,7 +42,7 @@ public class Signaller {
 	 * @param self
 	 * @param event
 	 */
-	public <T extends Entity<?>> void signalSelf(ReceivesSignal<T> self,
+	public <T extends Entity<?, ?>> void signalSelf(Entity<T, ?> self,
 			Event<T> event) {
 
 	}

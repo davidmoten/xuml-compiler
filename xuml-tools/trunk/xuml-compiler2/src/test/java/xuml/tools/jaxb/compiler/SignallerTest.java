@@ -4,8 +4,17 @@ import org.junit.Test;
 
 public class SignallerTest {
 
-	private static class MyTest implements Entity<MyTest>,
-			ReceivesSignal<MyTest> {
+	private static class MyTest implements Entity<MyTest, Long> {
+
+		@Override
+		public Long getId() {
+			return null;
+		}
+
+		@Override
+		public void event(Event<MyTest> event) {
+			// do nothing
+		}
 	}
 
 	private static class MyEvent implements Event<MyTest> {
@@ -14,6 +23,8 @@ public class SignallerTest {
 	@Test
 	public void testSignaller() {
 
-		new Signaller().signal(MyTest.class, 1, new MyEvent());
+		Signaller<MyTest, Long> s = new Signaller<MyTest, Long>(null,
+				MyTest.class);
+		s.signal(1L, new MyEvent());
 	}
 }
