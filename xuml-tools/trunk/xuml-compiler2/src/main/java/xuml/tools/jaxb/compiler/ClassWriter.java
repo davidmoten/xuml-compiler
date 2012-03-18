@@ -149,7 +149,7 @@ public class ClassWriter {
 					.getBehaviourFullClassName());
 			out.format("    private final %s behaviour;\n\n", behaviourTypeName);
 
-			jd(out, "Constructor using BehaviourFactory", "    ");
+			jd(out, "Constructor using BehaviourFactory.", "    ");
 			out.format("    public %s(%s behaviourFactory){\n",
 					info.getJavaClassSimpleName(), factoryTypeName);
 			out.format("        this.behaviour = behaviourFactory.create(this);\n");

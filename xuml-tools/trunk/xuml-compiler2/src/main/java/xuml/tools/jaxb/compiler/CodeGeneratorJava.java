@@ -40,11 +40,31 @@ public class CodeGeneratorJava {
 			// create behaviour interfaces
 			createBehaviourInterface(cls, destination);
 			createBehaviourFactoryInterface(cls, destination);
+			createSignallerFactory(cls, destination);
 		}
 
 		// create object factory
 		createObjectFactory(system, destination);
 		log("finished generation");
+	}
+
+	private void createSignallerFactory(Class cls, File destination) {
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		PrintStream out = new PrintStream(bytes);
+		out.format("package %s;\n\n", getPackage(cls));
+		out.format("import javax.persistence.EntityManagerFactory;\n\n");
+		out.format("public class SignallerFactory {\n\n");
+		out.format("    private static EntityManagerFactory emf;\n\n");
+		out.format("    public EntityManagerFactory getEntityManagerFactory() {\n");
+		out.format("        return emf;\n");
+		out.format("    }\n\n");
+		out.format("    public void setEntityManagerFactory(EntityManagerFactory value){\n");
+		out.format("        emf = value;\n");
+		out.format("    }\n");
+		out.format("}\n");
+		out.close();
+		writeToFile(bytes.toByteArray(), new File(destination,
+				"SignallerFactory"));
 	}
 
 	private void createImplementation(Class cls, File destination) {

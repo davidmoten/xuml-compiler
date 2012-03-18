@@ -4,13 +4,20 @@ import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;
 
+import akka.actor.Actor;
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.actor.Props;
+import akka.actor.UntypedActorFactory;
+
 import com.google.common.collect.Maps;
 
 public class Signaller<T extends Entity<T, R>, R> {
 
 	private final Class<T> cls;
-	private final Map<R, EntityActor<T, R>> actors = Maps.newHashMap();
+	private final Map<R, ActorRef> actors = Maps.newHashMap();
 	private final EntityManagerFactory emf;
+	private static ActorSystem system = ActorSystem.create();
 
 	public Signaller(EntityManagerFactory emf, Class<T> cls) {
 		this.emf = emf;
@@ -25,10 +32,21 @@ public class Signaller<T extends Entity<T, R>, R> {
 	 * @param id
 	 * @param event
 	 */
-	public synchronized void signal(R id, Event<T> event) {
-		if (actors.get(id) == null)
-			actors.put(id, new EntityActor<T, R>(emf, cls, id));
-		actors.get(id).self().tell(event);
+	public synchronized void signal(final R id, final Event<T> event) {
+		if (actors.get(id) == null) {
+			ActorRef actor = createActor(id, event);
+			actors.put(id, actor);
+		}
+		actors.get(id).tell(event);
 	}
 
+	private ActorRef createActor(final R id, final Event<T> event) {
+		return system.actorOf(new Props(new UntypedActorFactory() {
+
+			@Override
+			public Actor create() {
+				return new EntityActor<T, R>(emf, cls, id);
+			}
+		}));
+	}
 }
