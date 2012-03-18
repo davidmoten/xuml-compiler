@@ -58,6 +58,7 @@ public class ClassWriter {
 		writeClassAnnotation(out, info);
 		writeClassDeclaration(out, info);
 		writeConstructors(out, info);
+		writeSignaller(out, info);
 		writeIdMember(out, info);
 		writeNonIdIndependentAttributeMembers(out, info);
 		writeStateMember(out, info);
@@ -161,6 +162,13 @@ public class ClassWriter {
 		out.format("        this(%s.get(%s);\n", behaviourSingleton,
 				info.getBehaviourFactorySimpleName());
 		out.format("    }\n\n");
+	}
+
+	private void writeSignaller(PrintStream out, ClassInfo info) {
+		out.format(
+				"    private static Signaller<%1$s,%2$s> signaller = new Signaller<%1$s,%2$s>(Context.getEntityManagerFactory(),%1$s.class);\n\n",
+				info.addType(info.getJavaClassSimpleName()),
+				info.addType(info.getPrimaryId().getType()));
 	}
 
 	private void writeIdMember(PrintStream out, ClassInfo info) {
