@@ -85,4 +85,14 @@ class Lookups {
 		return (Generalization) getRelationship(domain, number);
 	}
 
+	public Class getAssociationClassForAssociation(BigInteger number) {
+		if (number == null)
+			return null;
+		for (Class cls : system.getClazz()) {
+			if (number.equals(cls.getRelationship()))
+				return cls;
+		}
+		return null;
+	}
+
 }

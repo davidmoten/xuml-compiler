@@ -199,7 +199,7 @@
 		</referentialAttribute>
 	</class>
 
-	<class name="DerivedAttribute" domain="xuml">
+	<class name="DerivedAttribute" domain="xuml" >
 		<referentialAttribute name="Name">
 			<identifier number="1" />
 			<superclassReference relationship="25" />

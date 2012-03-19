@@ -38,6 +38,7 @@ import xuml.tools.jaxb.Util;
 import xuml.tools.jaxb.compiler.ClassInfoSample.Mult;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyEvent;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyIndependentAttribute;
+import xuml.tools.jaxb.compiler.ClassInfoSample.MyManyToMany;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyParameter;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyReferenceMember;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MySubclassRole;
@@ -356,37 +357,109 @@ public class ClassInfoFromJaxb extends ClassInfo {
 				.getRelationshipBase()) {
 			Relationship rel = element.getValue();
 			if (rel instanceof Generalization) {
-				Generalization g = (Generalization) rel;
-				if (cls.getDomain().equals(g.getDomain())
-						&& cls.getName().equals(g.getSuperclass())) {
-					Class subclass = lookups.getClass(g.getDomain(),
-							g.getSubclass());
-					ClassInfo si = createClassInfo(subclass);
-					String fieldName = Util.lowerFirst(si
-							.getJavaClassSimpleName()) + "ViaR" + g.getNumber();
-					MyReferenceMember ref = new MyReferenceMember(
-							si.getJavaClassSimpleName(), si.getClassFullName(),
-							Mult.ONE, Mult.ZERO_ONE, "has generalization",
-							"has specialization", fieldName, null, fieldName,
-							null, null);
-					list.add(ref);
-				}
-				if (cls.getDomain().equals(g.getDomain())
-						&& cls.getName().equals(g.getSubclass())) {
-					Class superclass = lookups.getClass(g.getDomain(),
-							g.getSuperclass());
-					ClassInfo si = createClassInfo(superclass);
-					String fieldName = Util.lowerFirst(si
-							.getJavaClassSimpleName()) + "R" + g.getNumber();
-					MyReferenceMember ref = new MyReferenceMember(
-							si.getJavaClassSimpleName(), si.getClassFullName(),
-							Mult.ZERO_ONE, Mult.ONE, "has specialization",
-							"has generalization", fieldName,
-							Util.toColumnName(fieldName), fieldName, null, null);
-					list.add(ref);
-
-				}
+				list.addAll(getReferenceMembersFromGeneralizations(rel));
+			} else if (rel instanceof Association) {
+				list.addAll(getReferenceMembersFromAssociation(rel));
 			}
+		}
+		return list;
+	}
+
+	private List<MyReferenceMember> getReferenceMembersFromAssociation(
+			Relationship rel) {
+		List<MyReferenceMember> list = Lists.newArrayList();
+		Association ass = (Association) rel;
+		if (cls.getDomain().equals(ass.getDomain())
+				&& cls.getName().equals(ass.getClass1().getName())
+				|| cls.getName().equals(ass.getClass2().getName())) {
+			AssociationEnd thisEnd;
+			AssociationEnd otherEnd;
+			if (cls.getName().equals(ass.getClass1().getName())) {
+				thisEnd = ass.getClass1();
+				otherEnd = ass.getClass2();
+			} else {
+				thisEnd = ass.getClass2();
+				otherEnd = ass.getClass1();
+			}
+			Class other = lookups.getClass(ass.getDomain(), otherEnd.getName());
+			ClassInfo otherInfo = createClassInfo(other);
+			String fieldName = Util.lowerFirst(otherInfo
+					.getJavaClassSimpleName()) + "ViaR" + ass.getNumber();
+			String otherFieldName = Util.lowerFirst(getJavaClassSimpleName())
+					+ "ViaR" + ass.getNumber();
+			String otherColumnName = Util.toColumnName(getJavaClassSimpleName()
+					+ "ViaR" + ass.getNumber());
+			// TODO ManyToMany
+			Class assoc = lookups.getAssociationClassForAssociation(rel
+					.getNumber());
+			MyManyToMany manyToMany;
+			if (assoc != null) {
+				ClassInfo ai = createClassInfo(assoc);
+				manyToMany = new MyManyToMany(
+						Util.toTableName(assoc.getName()), ai.getSchema(),
+						Util.toColumnName(fieldName), otherColumnName);
+			} else
+				manyToMany = null;
+			MyReferenceMember ref = new MyReferenceMember(
+					otherInfo.getJavaClassSimpleName(),
+					otherInfo.getClassFullName(),
+					convert(thisEnd.getMultiplicity()),
+					convert(otherEnd.getMultiplicity()),
+					thisEnd.getVerbClause(), otherEnd.getVerbClause(),
+					fieldName, otherColumnName, fieldName, otherFieldName,
+					manyToMany);
+			list.add(ref);
+		}
+		return list;
+	}
+
+	private Mult convert(Multiplicity m) {
+		if (m.equals(Multiplicity.ZERO_ONE))
+			return Mult.ZERO_ONE;
+		else if (m.equals(Multiplicity.ONE))
+			return Mult.ONE;
+		else if (m.equals(Multiplicity.ONE_MANY))
+			return Mult.ONE_MANY;
+		else if (m.equals(Multiplicity.MANY))
+			return Mult.MANY;
+		else
+			throw new RuntimeException("unexpected");
+	}
+
+	private List<MyReferenceMember> getReferenceMembersFromGeneralizations(
+			Relationship rel) {
+		List<MyReferenceMember> list = Lists.newArrayList();
+		Generalization g = (Generalization) rel;
+		if (cls.getDomain().equals(g.getDomain())
+				&& cls.getName().equals(g.getSuperclass())) {
+			Class subclass = lookups.getClass(g.getDomain(), g.getSubclass());
+			ClassInfo si = createClassInfo(subclass);
+			String fieldName = Util.lowerFirst(si.getJavaClassSimpleName())
+					+ "ViaR" + g.getNumber();
+			MyReferenceMember ref = new MyReferenceMember(
+					si.getJavaClassSimpleName(), si.getClassFullName(),
+					Mult.ONE, Mult.ZERO_ONE, "has generalization",
+					"has specialization", fieldName, null, fieldName, null,
+					null);
+			list.add(ref);
+		}
+		if (cls.getDomain().equals(g.getDomain())
+				&& cls.getName().equals(g.getSubclass())) {
+			Class superclass = lookups.getClass(g.getDomain(),
+					g.getSuperclass());
+			ClassInfo si = createClassInfo(superclass);
+			String fieldName = Util.lowerFirst(si.getJavaClassSimpleName())
+					+ "R" + g.getNumber();
+			String otherColumnName = Util.toColumnName(Util
+					.lowerFirst(getJavaClassSimpleName())
+					+ "ViaR"
+					+ g.getNumber());
+			MyReferenceMember ref = new MyReferenceMember(
+					si.getJavaClassSimpleName(), si.getClassFullName(),
+					Mult.ZERO_ONE, Mult.ONE, "has specialization",
+					"has generalization", fieldName,
+					Util.toColumnName(fieldName), fieldName, null, null);
+			list.add(ref);
 		}
 		return list;
 	}
