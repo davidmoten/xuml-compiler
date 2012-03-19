@@ -17,6 +17,7 @@
 
 	<modules>
 		<module>gae</module>
+		<module>hibernate</module>
 		<module>xuml-jaxb</module>
 		<module>xuml-diagrams</module>
 		<module>xuml-compiler2</module>
