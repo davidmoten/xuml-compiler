@@ -35,6 +35,7 @@ import xuml.metamodel.jaxb.SuperclassReference;
 import xuml.metamodel.jaxb.ToOneReference;
 import xuml.metamodel.jaxb.Transition;
 import xuml.tools.jaxb.Util;
+import xuml.tools.jaxb.compiler.ClassInfoSample.Mult;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyEvent;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyIndependentAttribute;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyParameter;
@@ -55,9 +56,11 @@ public class ClassInfoFromJaxb extends ClassInfo {
 	private final Lookups lookups;
 	private final TypeRegister types = new TypeRegister();
 	private final String contextPackageName;
+	private final Map<String, String> domainPackageNames;
 
 	public ClassInfoFromJaxb(Class cls, Map<String, String> domainPackageNames,
 			Lookups lookups, String contextPackageName) {
+		this.domainPackageNames = domainPackageNames;
 		this.contextPackageName = contextPackageName;
 		this.cls = cls;
 		this.lookups = lookups;
@@ -348,8 +351,34 @@ public class ClassInfoFromJaxb extends ClassInfo {
 
 	@Override
 	public List<MyReferenceMember> getReferenceMembers() {
-		// TODO
-		return Lists.newArrayList();
+		List<MyReferenceMember> list = Lists.newArrayList();
+		for (JAXBElement<? extends Relationship> element : lookups.getSystem()
+				.getRelationshipBase()) {
+			Relationship rel = element.getValue();
+			if (rel instanceof Generalization) {
+				Generalization g = (Generalization) rel;
+				if (cls.getDomain().equals(g.getDomain())
+						&& cls.getName().equals(g.getSuperclass())) {
+					Class subclass = lookups.getClass(g.getDomain(),
+							g.getSubclass());
+					ClassInfo si = createClassInfo(subclass);
+					String fieldName = Util.lowerFirst(si
+							.getJavaClassSimpleName()) + "R" + g.getNumber();
+					MyReferenceMember ref = new MyReferenceMember(
+							si.getJavaClassSimpleName(), si.getClassFullName(),
+							Mult.ONE, Mult.ZERO_ONE, "has generalization",
+							"has specialization", fieldName, null, fieldName,
+							null, null);
+					list.add(ref);
+				}
+			}
+		}
+		return list;
+	}
+
+	private ClassInfo createClassInfo(Class cls) {
+		return new ClassInfoFromJaxb(cls, domainPackageNames, lookups,
+				contextPackageName);
 	}
 
 	@Override

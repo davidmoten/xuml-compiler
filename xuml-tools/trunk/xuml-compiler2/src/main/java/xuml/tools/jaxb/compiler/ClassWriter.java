@@ -45,6 +45,7 @@ public class ClassWriter {
 	private static final String BEHAVIOUR_COMMENT = "All actions like onEntry actions and defined operations are performed by this Behaviour class.";
 	private static final String STATE_COMMENT = "For internal use only by the state machine but is persisted by the jpa provider.";
 	private static final String NO_IDENTIFIERS = "no identifiers";
+	private static final boolean modelInheritanceWithZeroOneToOneAssociations = true;
 	private final ClassInfo info;
 
 	public ClassWriter(ClassInfo info) {
@@ -63,7 +64,8 @@ public class ClassWriter {
 		writeNonIdIndependentAttributeMembers(out, info);
 		writeStateMember(out, info);
 		writeReferenceMembers(out, info);
-		writeFieldChecks(out, info);
+		writeSuperclassValidationCheck(out, info);
+		writeAtLeastOneFieldChecks(out, info);
 		writeIdGetterAndSetter(out, info);
 		writeNonIdIndependentAttributeGettersAndSetters(out, info);
 		writeStateGetterAndSetter(out, info);
@@ -81,6 +83,12 @@ public class ClassWriter {
 		out.close();
 		header.close();
 		return headerBytes.toString() + bytes.toString();
+	}
+
+	private void writeSuperclassValidationCheck(PrintStream out, ClassInfo info) {
+		if (info.isSuperclass()) {
+			// TODO
+		}
 	}
 
 	private void writeClassJavadoc(PrintStream out, ClassInfo info) {
@@ -111,6 +119,13 @@ public class ClassWriter {
 			out.format("@Table(schema=\"%s\",name=\"%s\")\n", info.getSchema(),
 					info.getTable());
 		}
+
+		if (!modelInheritanceWithZeroOneToOneAssociations)
+			writeJpaInheritanceAnnotations(out, info);
+	}
+
+	private void writeJpaInheritanceAnnotations(PrintStream out, ClassInfo info2) {
+
 		if (info.isSuperclass()) {
 			info.addType(Inheritance.class);
 			info.addType(InheritanceType.class);
@@ -339,7 +354,7 @@ public class ClassWriter {
 		}
 	}
 
-	private void writeFieldChecks(PrintStream out, ClassInfo info) {
+	private void writeAtLeastOneFieldChecks(PrintStream out, ClassInfo info) {
 		for (String fieldName : info.getAtLeastOneFieldChecks()) {
 			writeAtLeastOneCheck(out, fieldName);
 		}

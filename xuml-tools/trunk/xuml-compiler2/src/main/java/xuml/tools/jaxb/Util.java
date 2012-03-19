@@ -26,6 +26,10 @@ public class Util {
 		return s.substring(0, 1).toUpperCase() + s.substring(1);
 	}
 
+	public static String toClassSimpleName(String name) {
+		return upperFirst(toJavaIdentifier(name));
+	}
+
 	public static String toJavaIdentifier(String name) {
 
 		StringBuilder s = new StringBuilder();
