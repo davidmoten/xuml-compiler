@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -104,8 +103,8 @@ public class CodeGeneratorJavaOld {
 			if (base.getValue() instanceof IndependentAttribute) {
 				IndependentAttribute a = (IndependentAttribute) base.getValue();
 				String comment = "independent attribute " + a.getName() + ".";
-				w.addMember(a.getName(), new Type(toJavaType(a.getType()),
-						null, false), true, true, comment, annotation);
+				w.addMember(a.getName(), new Type(toJavaType(a.getType())),
+						true, true, comment, annotation);
 			} else if (base.getValue() instanceof ReferentialAttribute) {
 				ReferentialAttribute a = (ReferentialAttribute) base.getValue();
 				java.lang.System.out.println(cls.getName() + "." + a.getName()
@@ -324,8 +323,7 @@ public class CodeGeneratorJavaOld {
 			log("adding generalization " + g.getNumber());
 			Class superClass = lookups.getClass(g.getDomain(),
 					g.getSuperclass());
-			Type type = new Type(getFullClassName(superClass),
-					new ArrayList<Type>(), false);
+			Type type = new Type(getFullClassName(superClass));
 			String comment = "generalization via R" + g.getNumber() + ".";
 			w.addMember(superClass.getName() + "ViaR" + g.getNumber(), type,
 					true, true, comment, null);
@@ -341,11 +339,10 @@ public class CodeGeneratorJavaOld {
 			Class other = getOtherClass(cls, ass);
 			AssociationEnd otherEnd = getOtherEnd(cls, ass);
 			AssociationEnd thisEnd = getThisEnd(cls, ass);
-			Type baseType = new Type(getFullClassName(other), null, false);
+			Type baseType = new Type(getFullClassName(other));
 			Type type;
 			if (isMany(otherEnd.getMultiplicity())) {
-				type = new Type("java.util.Set", Lists.newArrayList(baseType),
-						false);
+				type = new Type("java.util.Set", baseType);
 			} else {
 				type = baseType;
 			}
@@ -371,8 +368,8 @@ public class CodeGeneratorJavaOld {
 		MyAttributeType t = getMyAttributeType(cls, a);
 		if (t.multiple)
 			return new Type(Set.class.getName(), Lists.newArrayList(new Type(
-					toJavaType(t.type), null, false)), false);
-		return new Type(toJavaType(t.type), null, false);
+					toJavaType(t.type))), false);
+		return new Type(toJavaType(t.type));
 	}
 
 	private static class MyAttributeType {
@@ -560,7 +557,7 @@ public class CodeGeneratorJavaOld {
 		out.format("public interface %sBehaviour {\n\n", cls.getName());
 		for (Event event : cls.getEvent()) {
 			String typeName = types.addType(new Type(pkg + "." + cls.getName()
-					+ "." + upperFirst(event.getName()), null, false));
+					+ "." + upperFirst(event.getName())));
 			out.format("    void onEntry%s(%s event);\n\n",
 					upperFirst(event.getName()), typeName);
 		}

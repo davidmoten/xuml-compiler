@@ -130,7 +130,7 @@ public class CodeGeneratorJava {
 		out.format("public interface %sBehaviour {\n\n", cls.getName());
 		for (Event event : cls.getEvent()) {
 			String typeName = types.addType(new Type(pkg + "." + cls.getName()
-					+ ".Events." + upperFirst(event.getName()), null, false));
+					+ ".Events." + upperFirst(event.getName())));
 			out.format("    void onEntry(%s event);\n\n", typeName);
 		}
 

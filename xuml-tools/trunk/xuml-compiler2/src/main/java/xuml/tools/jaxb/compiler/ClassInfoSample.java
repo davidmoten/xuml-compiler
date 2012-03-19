@@ -195,8 +195,8 @@ public class ClassInfoSample extends ClassInfo {
 	 */
 	@Override
 	public MyIndependentAttribute getPrimaryId() {
-		return new MyIndependentAttribute("id", "class_id", new Type("Long",
-				null, false), false, null);
+		return new MyIndependentAttribute("id", "class_id", new Type("Long"),
+				false, null);
 	}
 
 	/*
@@ -209,7 +209,7 @@ public class ClassInfoSample extends ClassInfo {
 	public List<MyIndependentAttribute> getNonIdIndependentAttributeMembers() {
 		List<MyIndependentAttribute> list = newArrayList();
 		list.add(new MyIndependentAttribute("description", "desc", new Type(
-				"String", null, false), true,
+				"String"), true,
 				"a description of the class in terms of its role in the xuml domain"));
 		return list;
 	}

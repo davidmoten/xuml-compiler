@@ -230,8 +230,8 @@ public class ClassInfoFromJaxb extends ClassInfo {
 			// don't use embedded id but rather create an arbitrary id
 			return new MyIndependentAttribute("id", Util.toTableIdName(cls
 					.getName()), new Type(
-					toJavaType(IndependentAttributeType.ARBITRARY_ID), null,
-					false), false, "");
+					toJavaType(IndependentAttributeType.ARBITRARY_ID)), false,
+					"");
 	}
 
 	@Override
@@ -484,9 +484,8 @@ public class ClassInfoFromJaxb extends ClassInfo {
 	private Type getType(Class cls, Attribute a) {
 		MyAttributeType t = getMyAttributeType(cls, a);
 		if (t.multiple)
-			return new Type(Set.class.getName(), Lists.newArrayList(new Type(
-					toJavaType(t.type), null, false)), false);
-		return new Type(toJavaType(t.type), null, false);
+			return new Type(Set.class.getName(), new Type(toJavaType(t.type)));
+		return new Type(toJavaType(t.type));
 	}
 
 	private static class MyAttributeType {

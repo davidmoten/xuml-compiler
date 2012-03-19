@@ -65,7 +65,7 @@ public class ClassWriterOld {
 	}
 
 	public ClassWriterOld addType(java.lang.Class<?> cls) {
-		addType(new Type(cls.getName(), null, false));
+		addType(new Type(cls.getName()));
 		return this;
 	}
 

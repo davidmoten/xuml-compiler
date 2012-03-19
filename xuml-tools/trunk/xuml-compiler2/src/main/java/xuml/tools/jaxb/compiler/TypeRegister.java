@@ -13,7 +13,7 @@ public class TypeRegister {
 	private final BiMap<String, String> types = HashBiMap.create();
 
 	public String addType(java.lang.Class<?> clsWithoutGenerics) {
-		return addType(new Type(clsWithoutGenerics.getName(), null, false));
+		return addType(new Type(clsWithoutGenerics.getName()));
 	}
 
 	public String addType(Type type) {

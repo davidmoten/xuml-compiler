@@ -38,7 +38,6 @@ import xuml.tools.jaxb.compiler.ClassInfoSample.MySubclassRole;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyTransition;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 
 public class ClassWriter {
 
@@ -272,13 +271,13 @@ public class ClassWriter {
 				info.addType(JoinColumn.class);
 				info.addType(CascadeType.class);
 				out.format(
-						"    @OneToMany(mappedBy=\"%s\",cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=%s.class",
+						"    @OneToMany(mappedBy=\"%s\",cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=%s.class)\n",
 						ref.getThisName(), info.addType(ref.getFullClassName()));
 				writeMultipleField(out, ref);
 			} else if (isRelationship(ref, Mult.ONE_MANY, Mult.ONE)) {
 				info.addType(ManyToOne.class);
 				info.addType(JoinColumn.class);
-				out.format("    @ManyToOne(targetEntity=%s)\n",
+				out.format("    @ManyToOne(targetEntity=%s.class)\n",
 						info.addType(ref.getFullClassName()));
 				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
 						ref.getOtherColumnName());
@@ -506,7 +505,7 @@ public class ClassWriter {
 		info.addType(JoinTable.class);
 		info.addType(JoinColumn.class);
 		out.format(
-				"    @ManyToMany(targetEntity=%s,cascade=CascadeType.ALL,fetchType=FetchType.LAZY,\n",
+				"    @ManyToMany(targetEntity=%s.class,cascade=CascadeType.ALL,fetch=FetchType.LAZY)\n",
 				info.addType(ref.getFullClassName()));
 		out.format("        @JoinTable(name=\"%s\",schema=\"%s\",\n", ref
 				.getManyToMany().getJoinTable(), ref.getManyToMany()
@@ -514,7 +513,7 @@ public class ClassWriter {
 		out.format("            joinColumns=@JoinColumn(name=\"%s\"),\n", ref
 				.getManyToMany().getThisColumnName());
 		out.format(
-				"            inverseJoinColumns=@JoinColumn(name=\"%s\")))\n",
+				"            inverseJoinColumns=@JoinColumn(name=\"%s\"))\n",
 				ref.getManyToMany().getThatColumnName());
 		writeMultipleField(out, ref);
 	}
@@ -534,15 +533,35 @@ public class ClassWriter {
 	private void writeField(PrintStream out, MyReferenceMember ref) {
 		out.format("    private %s %s;\n\n",
 				info.addType(ref.getFullClassName()), ref.getFieldName());
+		writeGetterAndSetter(out, info, ref.getSimpleClassName(),
+				ref.getFullClassName(), ref.getFieldName(), false);
+	}
+
+	private void writeGetterAndSetter(PrintStream out, ClassInfo info,
+			String simpleClassName, String fullClassName, String fieldName,
+			boolean isMultiple) {
+		String type;
+		if (isMultiple)
+			type = info.addType(new Type(Set.class.getName(), new Type(
+					fullClassName)));
+		else
+			type = info.addType(fullClassName);
+		// write getter and setter
+		out.format("    public %s get%s(){\n", type, upperFirst(fieldName));
+		out.format("        return %s;\n", fieldName);
+		out.format("    }\n");
+		out.format("    public void set%s(%s %s){\n", upperFirst(fieldName),
+				type, fieldName);
+		out.format("        this.%1$s=%1$s;\n", fieldName);
+		out.format("    }\n");
 	}
 
 	private void writeMultipleField(PrintStream out, MyReferenceMember ref) {
-		List<Type> types = Lists.newArrayList();
-		types.add(new Type(ref.getFullClassName(), null, false));
-		out.format("    private %s %s;\n\n",
-				info.addType(new Type(Set.class.getName(), types, false)),
-				ref.getFieldName());
-
+		out.format("    private %s %s;\n\n", info.addType(new Type(Set.class
+				.getName(), new Type(ref.getFullClassName()))), ref
+				.getFieldName());
+		writeGetterAndSetter(out, info, ref.getSimpleClassName(),
+				ref.getFullClassName(), ref.getFieldName(), true);
 	}
 
 	private void writeEventCallMethods(PrintStream out, ClassInfo info) {
