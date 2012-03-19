@@ -21,6 +21,7 @@ import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.Reference;
 import xuml.metamodel.jaxb.ReferentialAttribute;
 import xuml.metamodel.jaxb.Relationship;
+import xuml.tools.jaxb.compiler.Util;
 
 public class ClassDiagramGenerator {
 

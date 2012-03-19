@@ -34,14 +34,6 @@ import xuml.metamodel.jaxb.State;
 import xuml.metamodel.jaxb.SuperclassReference;
 import xuml.metamodel.jaxb.ToOneReference;
 import xuml.metamodel.jaxb.Transition;
-import xuml.tools.jaxb.compiler.ClassInfoSample.Mult;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyEvent;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyIndependentAttribute;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyManyToMany;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyParameter;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyReferenceMember;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MySubclassRole;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyTransition;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;

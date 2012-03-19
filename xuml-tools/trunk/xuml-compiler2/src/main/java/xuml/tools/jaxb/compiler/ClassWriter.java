@@ -29,13 +29,13 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
-import xuml.tools.jaxb.compiler.ClassInfoSample.Mult;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyEvent;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyIndependentAttribute;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyParameter;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyReferenceMember;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MySubclassRole;
-import xuml.tools.jaxb.compiler.ClassInfoSample.MyTransition;
+import xuml.tools.jaxb.compiler.ClassInfo.Mult;
+import xuml.tools.jaxb.compiler.ClassInfo.MyEvent;
+import xuml.tools.jaxb.compiler.ClassInfo.MyIndependentAttribute;
+import xuml.tools.jaxb.compiler.ClassInfo.MyParameter;
+import xuml.tools.jaxb.compiler.ClassInfo.MyReferenceMember;
+import xuml.tools.jaxb.compiler.ClassInfo.MySubclassRole;
+import xuml.tools.jaxb.compiler.ClassInfo.MyTransition;
 
 import com.google.common.base.Preconditions;
 
