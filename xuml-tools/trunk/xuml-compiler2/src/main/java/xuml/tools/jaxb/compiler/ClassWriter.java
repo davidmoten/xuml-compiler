@@ -146,7 +146,8 @@ public class ClassWriter {
 
 	private void writeClassDeclaration(PrintStream out, ClassInfo info) {
 		String extension;
-		if (info.isSubclass()) {
+		if (!this.modelInheritanceWithZeroOneToOneAssociations
+				&& info.isSubclass()) {
 			MySubclassRole subclass = info.getSubclassRole();
 			extension = " extends "
 					+ info.addType(subclass.getSuperclassJavaFullClassName());
@@ -242,7 +243,7 @@ public class ClassWriter {
 				info.addType(JoinColumn.class);
 				info.addType(CascadeType.class);
 				out.format(
-						"    @OneToOne(targetEntity=%s.class,cascade=CascadeType.ALL,fetch=FetchType.LAZY\n",
+						"    @OneToOne(targetEntity=%s.class,cascade=CascadeType.ALL,fetch=FetchType.LAZY)\n",
 						info.addType(ref.getFullClassName()));
 				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
 						ref.getOtherColumnName());

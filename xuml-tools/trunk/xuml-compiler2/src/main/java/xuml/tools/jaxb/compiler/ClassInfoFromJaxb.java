@@ -363,13 +363,28 @@ public class ClassInfoFromJaxb extends ClassInfo {
 							g.getSubclass());
 					ClassInfo si = createClassInfo(subclass);
 					String fieldName = Util.lowerFirst(si
-							.getJavaClassSimpleName()) + "R" + g.getNumber();
+							.getJavaClassSimpleName()) + "ViaR" + g.getNumber();
 					MyReferenceMember ref = new MyReferenceMember(
 							si.getJavaClassSimpleName(), si.getClassFullName(),
 							Mult.ONE, Mult.ZERO_ONE, "has generalization",
 							"has specialization", fieldName, null, fieldName,
 							null, null);
 					list.add(ref);
+				}
+				if (cls.getDomain().equals(g.getDomain())
+						&& cls.getName().equals(g.getSubclass())) {
+					Class superclass = lookups.getClass(g.getDomain(),
+							g.getSuperclass());
+					ClassInfo si = createClassInfo(superclass);
+					String fieldName = Util.lowerFirst(si
+							.getJavaClassSimpleName()) + "R" + g.getNumber();
+					MyReferenceMember ref = new MyReferenceMember(
+							si.getJavaClassSimpleName(), si.getClassFullName(),
+							Mult.ZERO_ONE, Mult.ONE, "has specialization",
+							"has generalization", fieldName,
+							Util.toColumnName(fieldName), fieldName, null, null);
+					list.add(ref);
+
 				}
 			}
 		}
