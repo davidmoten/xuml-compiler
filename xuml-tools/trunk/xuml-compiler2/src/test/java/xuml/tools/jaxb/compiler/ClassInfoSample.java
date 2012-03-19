@@ -1,7 +1,7 @@
 package xuml.tools.jaxb.compiler;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static xuml.tools.jaxb.Util.toJavaConstantIdentifier;
+import static xuml.tools.jaxb.compiler.Util.toJavaConstantIdentifier;
 
 import java.util.ArrayList;
 import java.util.List;

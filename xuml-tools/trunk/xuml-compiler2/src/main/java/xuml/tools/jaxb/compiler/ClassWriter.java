@@ -1,6 +1,6 @@
 package xuml.tools.jaxb.compiler;
 
-import static xuml.tools.jaxb.Util.upperFirst;
+import static xuml.tools.jaxb.compiler.Util.upperFirst;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -44,7 +44,7 @@ public class ClassWriter {
 	private static final String BEHAVIOUR_COMMENT = "All actions like onEntry actions and defined operations are performed by this Behaviour class.";
 	private static final String STATE_COMMENT = "For internal use only by the state machine but is persisted by the jpa provider.";
 	private static final String NO_IDENTIFIERS = "no identifiers";
-	private static final boolean modelInheritanceWithZeroOneToOneAssociations = true;
+	public static boolean modelInheritanceWithZeroOneToOneAssociations = true;
 	private final ClassInfo info;
 
 	public ClassWriter(ClassInfo info) {
@@ -86,7 +86,7 @@ public class ClassWriter {
 
 	private void writeSuperclassValidationCheck(PrintStream out, ClassInfo info) {
 		if (info.isSuperclass()) {
-			// TODO
+			// TODO write superclass validation check
 		}
 	}
 
@@ -145,8 +145,7 @@ public class ClassWriter {
 
 	private void writeClassDeclaration(PrintStream out, ClassInfo info) {
 		String extension;
-		if (!this.modelInheritanceWithZeroOneToOneAssociations
-				&& info.isSubclass()) {
+		if (!modelInheritanceWithZeroOneToOneAssociations && info.isSubclass()) {
 			MySubclassRole subclass = info.getSubclassRole();
 			extension = " extends "
 					+ info.addType(subclass.getSuperclassJavaFullClassName());

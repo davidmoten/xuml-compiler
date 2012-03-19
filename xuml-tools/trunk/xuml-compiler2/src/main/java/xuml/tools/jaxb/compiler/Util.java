@@ -1,4 +1,4 @@
-package xuml.tools.jaxb;
+package xuml.tools.jaxb.compiler;
 
 import xuml.metamodel.jaxb.Multiplicity;
 

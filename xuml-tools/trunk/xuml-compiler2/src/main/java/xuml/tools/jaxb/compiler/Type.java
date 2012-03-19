@@ -21,6 +21,7 @@ public class Type {
 		this.isArray = isArray;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Type(String base, Type generic) {
 		this(base, Arrays.asList(new Type[] { generic }), false);
 	}

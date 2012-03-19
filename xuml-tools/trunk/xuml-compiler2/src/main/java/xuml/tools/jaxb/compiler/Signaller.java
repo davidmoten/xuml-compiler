@@ -42,6 +42,7 @@ public class Signaller<T extends Entity<T, R>, R> {
 
 	private ActorRef createActor(final R id, final Event<T> event) {
 		return system.actorOf(new Props(new UntypedActorFactory() {
+			private static final long serialVersionUID = 2036603134850456388L;
 
 			@Override
 			public Actor create() {

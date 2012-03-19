@@ -1,8 +1,10 @@
-package xuml.tools.jaxb;
+package xuml.tools.jaxb.compiler;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import xuml.tools.jaxb.compiler.Util;
 
 public class UtilTest {
 

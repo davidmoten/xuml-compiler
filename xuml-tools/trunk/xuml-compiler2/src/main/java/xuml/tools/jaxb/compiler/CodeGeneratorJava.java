@@ -1,7 +1,7 @@
 package xuml.tools.jaxb.compiler;
 
-import static xuml.tools.jaxb.Util.lowerFirst;
-import static xuml.tools.jaxb.Util.upperFirst;
+import static xuml.tools.jaxb.compiler.Util.lowerFirst;
+import static xuml.tools.jaxb.compiler.Util.upperFirst;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -22,16 +22,13 @@ public class CodeGeneratorJava {
 	private final System system;
 	private final Map<String, String> domainPackageNames;
 	private final Lookups lookups;
-	private final PersistenceDetails persistence;
 	private final String contextPackageName;
 
 	public CodeGeneratorJava(xuml.metamodel.jaxb.System system,
-			Map<String, String> domainPackageNames,
-			PersistenceDetails persistence, String contextPackageName) {
+			Map<String, String> domainPackageNames, String contextPackageName) {
 		this.system = system;
 		this.domainPackageNames = domainPackageNames;
 		this.contextPackageName = contextPackageName;
-		this.persistence = persistence;
 		// create maps for classes, relationships, generalizations
 		lookups = new Lookups(system);
 	}
@@ -224,10 +221,6 @@ public class CodeGeneratorJava {
 	// ----------------------------------------
 	// Static Utility Methods
 	// -----------------------------------------
-
-	private static boolean hasBehaviour(Class cls) {
-		return cls.getEvent().size() > 0 || cls.getOperation().size() > 0;
-	}
 
 	private static void writeToFile(byte[] bytes, File file) {
 		try {

@@ -20,8 +20,7 @@ public class CodeGeneratorJavaTest {
 				.unmarshal(getClass().getResourceAsStream("/xuml-sample-1.xml"));
 		Map<String, String> domainPackageNames = Maps.newHashMap();
 		domainPackageNames.put("xuml", "miuml");
-		new CodeGeneratorJava(system, domainPackageNames,
-				new PersistenceDetails(), "miuml").generate(new File(
-				"target/generated/"));
+		new CodeGeneratorJava(system, domainPackageNames, "miuml")
+				.generate(new File("target/generated/"));
 	}
 }

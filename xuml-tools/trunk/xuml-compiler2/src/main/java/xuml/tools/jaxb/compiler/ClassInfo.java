@@ -3,7 +3,6 @@ package xuml.tools.jaxb.compiler;
 import java.util.List;
 import java.util.Set;
 
-import xuml.tools.jaxb.Util;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyEvent;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyIndependentAttribute;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyReferenceMember;

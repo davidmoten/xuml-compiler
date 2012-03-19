@@ -21,6 +21,7 @@ public class EntityActor<T extends Entity<T, R>, R> extends UntypedActor {
 	@Override
 	public void onReceive(Object o) throws Exception {
 		try {
+			@SuppressWarnings("unchecked")
 			Event<T> event = (Event<T>) o;
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction tx = em.getTransaction();

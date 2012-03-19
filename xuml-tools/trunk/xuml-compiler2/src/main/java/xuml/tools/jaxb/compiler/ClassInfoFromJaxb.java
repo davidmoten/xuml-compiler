@@ -1,9 +1,9 @@
 package xuml.tools.jaxb.compiler;
 
-import static xuml.tools.jaxb.Util.toColumnName;
-import static xuml.tools.jaxb.Util.toJavaConstantIdentifier;
-import static xuml.tools.jaxb.Util.toJavaIdentifier;
-import static xuml.tools.jaxb.Util.upperFirst;
+import static xuml.tools.jaxb.compiler.Util.toColumnName;
+import static xuml.tools.jaxb.compiler.Util.toJavaConstantIdentifier;
+import static xuml.tools.jaxb.compiler.Util.toJavaIdentifier;
+import static xuml.tools.jaxb.compiler.Util.upperFirst;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -34,7 +34,6 @@ import xuml.metamodel.jaxb.State;
 import xuml.metamodel.jaxb.SuperclassReference;
 import xuml.metamodel.jaxb.ToOneReference;
 import xuml.metamodel.jaxb.Transition;
-import xuml.tools.jaxb.Util;
 import xuml.tools.jaxb.compiler.ClassInfoSample.Mult;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyEvent;
 import xuml.tools.jaxb.compiler.ClassInfoSample.MyIndependentAttribute;
@@ -389,7 +388,7 @@ public class ClassInfoFromJaxb extends ClassInfo {
 					+ "ViaR" + ass.getNumber();
 			String otherColumnName = Util.toColumnName(getJavaClassSimpleName()
 					+ "ViaR" + ass.getNumber());
-			// TODO ManyToMany
+
 			Class assoc = lookups.getAssociationClassForAssociation(rel
 					.getNumber());
 			MyManyToMany manyToMany;
@@ -450,10 +449,6 @@ public class ClassInfoFromJaxb extends ClassInfo {
 			ClassInfo si = createClassInfo(superclass);
 			String fieldName = Util.lowerFirst(si.getJavaClassSimpleName())
 					+ "R" + g.getNumber();
-			String otherColumnName = Util.toColumnName(Util
-					.lowerFirst(getJavaClassSimpleName())
-					+ "ViaR"
-					+ g.getNumber());
 			MyReferenceMember ref = new MyReferenceMember(
 					si.getJavaClassSimpleName(), si.getClassFullName(),
 					Mult.ZERO_ONE, Mult.ONE, "has specialization",
@@ -471,9 +466,8 @@ public class ClassInfoFromJaxb extends ClassInfo {
 
 	@Override
 	public Set<String> getAtLeastOneFieldChecks() {
-		// TODO
+		// TODO implement getAtLeastOneFieldChecks
 		return Sets.newHashSet();
-
 	}
 
 	@Override
@@ -620,16 +614,6 @@ public class ClassInfoFromJaxb extends ClassInfo {
 				return lookups.getClass(a.getDomain(), a.getClass2().getName());
 			else
 				return lookups.getClass(a.getDomain(), a.getClass1().getName());
-		} else
-			throw new RuntimeException(UNEXPECTED);
-	}
-
-	private AssociationEnd getThisEnd(Class cls, Association a) {
-		if (cls.getDomain().equals(a.getDomain())) {
-			if (cls.getName().equals(a.getClass1().getName()))
-				return a.getClass1();
-			else
-				return a.getClass2();
 		} else
 			throw new RuntimeException(UNEXPECTED);
 	}
