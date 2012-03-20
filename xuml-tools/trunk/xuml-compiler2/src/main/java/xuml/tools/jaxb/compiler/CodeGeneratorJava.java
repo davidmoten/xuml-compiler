@@ -8,14 +8,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;
+
+import org.apache.commons.io.FileUtils;
 
 import xuml.metamodel.jaxb.Class;
 import xuml.metamodel.jaxb.Event;
 import xuml.metamodel.jaxb.Operation;
 import xuml.metamodel.jaxb.System;
+
+import com.google.common.collect.Lists;
 
 public class CodeGeneratorJava {
 
@@ -23,12 +28,15 @@ public class CodeGeneratorJava {
 	private final Map<String, String> domainPackageNames;
 	private final Lookups lookups;
 	private final String contextPackageName;
+	private final File resourcesDirectory;
 
 	public CodeGeneratorJava(xuml.metamodel.jaxb.System system,
-			Map<String, String> domainPackageNames, String contextPackageName) {
+			Map<String, String> domainPackageNames, String contextPackageName,
+			File resourcesDirectory) {
 		this.system = system;
 		this.domainPackageNames = domainPackageNames;
 		this.contextPackageName = contextPackageName;
+		this.resourcesDirectory = resourcesDirectory;
 		// create maps for classes, relationships, generalizations
 		lookups = new Lookups(system);
 	}
@@ -47,7 +55,26 @@ public class CodeGeneratorJava {
 
 		// create object factory
 		createObjectFactory(system, destination);
+
+		createPersistenceXml(system.getClazz(), resourcesDirectory);
+
 		log("finished generation");
+	}
+
+	private void createPersistenceXml(List<Class> clazz, File resourcesDirectory) {
+		List<String> list = Lists.newArrayList();
+		for (Class cls : clazz) {
+			ClassInfo info = createClassInfo(cls);
+			list.add(info.getClassFullName());
+		}
+		String xml = new PersistenceXmlWriter().generate(list);
+		try {
+			File file = new File(resourcesDirectory, "META-INF/persistence.xml");
+			file.getParentFile().mkdirs();
+			FileUtils.write(file, xml);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void createContext(File destination) {
