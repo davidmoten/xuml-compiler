@@ -13,7 +13,7 @@ public class PersistenceXmlWriter {
 			s.append("\t\t<class>" + cls + "</class>\n");
 		try {
 			String xml = IOUtils.toString(PersistenceXmlWriter.class
-					.getResourceAsStream("/persistence-template.xml"));
+					.getResourceAsStream("/persistence-template.txt"));
 			return xml.replace("CLASSES HERE", s.toString());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
