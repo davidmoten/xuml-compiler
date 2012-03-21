@@ -25,8 +25,8 @@
 				</annotation>
 			</element>
 		</sequence>
-		<attribute name="Name" type="t:Name" use="required"/>
-		<attribute name="Alias" type="t:Alias" use="required"/>
+		<attribute name="Name" type="t:Name" use="required" />
+		<attribute name="Alias" type="t:Alias" use="required" />
 	</complexType>
 
 	<element name="ModeledDomain" substitutionGroup="t:Domain"
@@ -69,13 +69,24 @@
 	<!-- Bridge -->
 
 	<complexType name="Bridge">
-		<attribute name="Domain" type="t:Name" use="required"/>
+		<attribute name="Domain" type="t:Name" use="required" />
 	</complexType>
 
 	<!-- Subsystem -->
+	
 	<complexType name="Subsystem">
-		<attribute name="Name" type="t:Name" use="required"/>
-		<attribute name="Alias" type="t:Name" use="required"/>
+		<attribute name="Name" type="t:Name" use="required" />
+		<attribute name="Alias" type="t:Name" use="required" />
+		<attribute name="Floor" type="t:PositiveInteger" use="required">
+			<annotation>
+				<documentation>R3</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="Ceiling" type="t:PositiveInteger" use="required">
+			<annotation>
+				<documentation>R3</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 
 	<!-- Element and specializations -->
@@ -83,7 +94,7 @@
 	<element name="Element" type="t:Element" />
 
 	<complexType name="Element">
-		<attribute name="Number" type="t:Number" use="required"/>
+		<attribute name="Number" type="t:Number" use="required" />
 	</complexType>
 
 	<element name="SpanningElement" substitutionGroup="t:Element"
@@ -107,7 +118,7 @@
 				<annotation>
 					<documentation>R16</documentation>
 				</annotation>
-				<attribute name="Subsystem" type="t:Name" use="required"/>
+				<attribute name="Subsystem" type="t:Name" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -164,7 +175,7 @@
 				<annotation>
 					<documentation>R14</documentation>
 				</annotation>
-				<attribute name="Rnum" type="t:Rnum" use="required"/>
+				<attribute name="Rnum" type="t:Rnum" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -178,9 +189,9 @@
 				<sequence>
 					<element ref="t:Attribute" maxOccurs="unbounded" />
 				</sequence>
-				<attribute name="Name" type="t:Name" use="required"/>
-				<attribute name="Cnum" type="t:Cnum" use="required"/>
-				<attribute name="Alias" type="t:Alias" use="required"/>
+				<attribute name="Name" type="t:Name" use="required" />
+				<attribute name="Cnum" type="t:Cnum" use="required" />
+				<attribute name="Alias" type="t:Alias" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -216,7 +227,7 @@
 	<element name="Attribute" type="t:Attribute" />
 
 	<complexType name="Attribute">
-		<attribute name="Name" type="t:Name" use="required"/>
+		<attribute name="Name" type="t:Name" use="required" />
 	</complexType>
 
 	<element name="NativeAttribute" substitutionGroup="t:Attribute"
@@ -248,7 +259,7 @@
 	</complexType>
 
 	<complexType name="IdentifierAttribute">
-		<attribute name="Number" type="t:Number" use="required"/>
+		<attribute name="Number" type="t:Number" use="required" />
 		<!-- TODO add referential roles -->
 	</complexType>
 
@@ -292,7 +303,7 @@
 				<annotation>
 					<documentation>R25</documentation>
 				</annotation>
-				<attribute name="Formula" type="t:Formula" use="required"/>
+				<attribute name="Formula" type="t:Formula" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -302,7 +313,7 @@
 	<element name="Identifier" type="t:Identifier" />
 
 	<complexType name="Identifier">
-		<attribute name="Number" type="t:Number" use="required"/>
+		<attribute name="Number" type="t:Number" use="required" />
 	</complexType>
 
 	<element name="ModeledIdentifier" substitutionGroup="t:Identifier"
