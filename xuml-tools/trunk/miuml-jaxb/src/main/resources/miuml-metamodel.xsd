@@ -1,0 +1,81 @@
+<schema targetNamespace="http://david.moten.org/xuml" xmlns:t="http://david.moten.org/xuml"
+	xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<!-- Domain and specializations -->
+
+	<element name="Domain" type="t:Domain" />
+
+	<complexType name="Domain">
+		<attribute name="Name" type="t:nonBlankString" />
+		<attribute name="Alias" type="t:nonBlankString" />
+	</complexType>
+
+	<element name="ModeledDomain" substitutionGroup="t:Domain"
+		type="t:ModeledDomain" />
+	<element name="RealizedDomain" substitutionGroup="t:Domain"
+		type="t:RealizedDomain" />
+
+	<complexType name="ModeledDomain">
+		<complexContent>
+			<extension base="t:Domain">
+				<sequence>
+					<element ref="t:Element" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R15</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="RealizedDomain">
+		<complexContent>
+			<extension base="t:Domain">
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- Element and specializations -->
+
+	<element name="Element" type="t:Element" />
+
+	<complexType name="Element">
+		<attribute name="Number" type="integer" />
+	</complexType>
+
+	<element name="SpanningElement" substitutionGroup="t:Element"
+		type="t:SpanningElement" />
+		<element name="SubsystemElement" substitutionGroup="t:Element"
+		type="t:SubsystemElement" />
+
+	<complexType name="SpanningElement">
+		<complexContent>
+			<extension base="t:Element">
+				<annotation>
+					<documentation>R16</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="SubsystemElement">
+		<complexContent>
+			<extension base="t:Element">
+				<annotation>
+					<documentation>R16</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+
+	<!-- Utility types -->
+
+	<simpleType name="nonBlankString">
+		<restriction base="string">
+			<pattern value=".*[^\s].*" />
+		</restriction>
+	</simpleType>
+
+</schema>
