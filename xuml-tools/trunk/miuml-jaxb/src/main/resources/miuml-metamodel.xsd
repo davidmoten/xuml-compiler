@@ -6,8 +6,8 @@
 	<element name="Domain" type="t:Domain" />
 
 	<complexType name="Domain">
-		<attribute name="Name" type="t:nonBlankString" />
-		<attribute name="Alias" type="t:nonBlankString" />
+		<attribute name="Name" type="t:Name" />
+		<attribute name="Alias" type="t:Alias" />
 	</complexType>
 
 	<element name="ModeledDomain" substitutionGroup="t:Domain"
@@ -41,12 +41,12 @@
 	<element name="Element" type="t:Element" />
 
 	<complexType name="Element">
-		<attribute name="Number" type="integer" />
+		<attribute name="Number" type="t:Number" />
 	</complexType>
 
 	<element name="SpanningElement" substitutionGroup="t:Element"
 		type="t:SpanningElement" />
-		<element name="SubsystemElement" substitutionGroup="t:Element"
+	<element name="SubsystemElement" substitutionGroup="t:Element"
 		type="t:SubsystemElement" />
 
 	<complexType name="SpanningElement">
@@ -58,7 +58,7 @@
 			</extension>
 		</complexContent>
 	</complexType>
-	
+
 	<complexType name="SubsystemElement">
 		<complexContent>
 			<extension base="t:Element">
@@ -69,13 +69,58 @@
 		</complexContent>
 	</complexType>
 
+	<!-- Subsystem Element specializations -->
 
-	<!-- Utility types -->
+	<element name="Relationship" substitutionGroup="t:SubsystemElement"
+		type="t:Relationship" />
+	<element name="Class" substitutionGroup="t:SubsystemElement"
+		type="t:Class" />
 
-	<simpleType name="nonBlankString">
+	<complexType name="Relationship">
+		<complexContent>
+			<extension base="t:SubsystemElement">
+				<attribute name="Rnum" type="t:Rnum" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Class">
+		<complexContent>
+			<extension base="t:SubsystemElement">
+
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- Simple types -->
+	
+	<simpleType name="Number">
+		<restriction base="t:PositiveInteger"/>
+	</simpleType>
+
+	<simpleType name="Rnum">
+		<restriction base="t:PositiveInteger" />
+	</simpleType>
+
+	<simpleType name="Name">
+		<restriction base="t:NonBlankString" />
+	</simpleType>
+	
+	<simpleType name="Alias">
+		<restriction base="t:NonBlankString" />
+	</simpleType>
+
+	<simpleType name="NonBlankString">
 		<restriction base="string">
 			<pattern value=".*[^\s].*" />
 		</restriction>
 	</simpleType>
+
+	<simpleType name="PositiveInteger">
+		<restriction base="integer">
+			<minInclusive value="1" />
+		</restriction>
+	</simpleType>
+
 
 </schema>
