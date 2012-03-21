@@ -8,9 +8,14 @@
 			class diagrams available at http://www.miUML.org. Exactly the same
 			terminology is being used and the superclass heirarchies are being
 			implemented where possible. To reduce verbosity in xml compliant with
-			the schema attributes are preferred over elements. 
+			the schema attributes are preferred over elements when convenient.
 		</documentation>
 	</annotation>
+
+
+	<!--++++++++++++++++++++++++-->
+	<!-- DOMAIN SUBSYSTEM ++++++-->
+	<!--++++++++++++++++++++++++-->
 
 	<!-- Domain and specializations -->
 
@@ -73,7 +78,7 @@
 	</complexType>
 
 	<!-- Subsystem -->
-	
+
 	<complexType name="Subsystem">
 		<attribute name="Name" type="t:Name" use="required" />
 		<attribute name="Alias" type="t:Name" use="required" />
@@ -195,6 +200,10 @@
 			</extension>
 		</complexContent>
 	</complexType>
+
+	<!--++++++++++++++++++++++++-->
+	<!-- CLASS SUBSYSTEM +++++++-->
+	<!--++++++++++++++++++++++++-->
 
 	<!-- Class specializations -->
 
@@ -341,6 +350,70 @@
 		</complexContent>
 	</complexType>
 
+
+
+	<!--++++++++++++++++++++++++++++++-->
+	<!-- RELATIONSHIP SUBSYSTEM ++++++-->
+	<!--++++++++++++++++++++++++++++++-->
+
+	<!--  Relationship specializations -->
+	
+	<element name="Generalization" substitutionGroup="t:Relationship"
+		type="t:Generalization" />
+	<element name="Association"
+		substitutionGroup="t:Relationship" type="t:Association" />
+
+	<complexType name="Generalization">
+		<complexContent>
+			<extension base="t:Relationship">
+				<annotation>
+					<documentation>R100</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Association">
+		<complexContent>
+			<extension base="t:Relationship">
+				<annotation>
+					<documentation>R100</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!--  Association specializations -->
+	
+	<element name="UnaryAssociation" substitutionGroup="t:Association"
+		type="t:UnaryAssociation" />
+	<element name="BinaryAssociation"
+		substitutionGroup="t:Association" type="t:BinaryAssociation" />
+
+	<complexType name="UnaryAssociation">
+		<complexContent>
+			<extension base="t:Association">
+				<annotation>
+					<documentation>R119</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="BinaryAssociation">
+		<complexContent>
+			<extension base="t:Association">
+				<annotation>
+					<documentation>R119</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<!--   -->
+
+
+	
 
 	<!-- TODO -->
 
