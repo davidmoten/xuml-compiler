@@ -69,6 +69,45 @@
 		</complexContent>
 	</complexType>
 
+	<!-- Spanning Element specializations -->
+
+	<element name="DomainType" substitutionGroup="t:SpanningElement"
+		type="t:DomainType" />
+	<element name="Lineage" substitutionGroup="t:SpanningElement"
+		type="t:Lineage" />
+	<element name="ConstrainedLoop" substitutionGroup="t:SpanningElement"
+		type="t:ConstrainedLoop" />
+
+	<complexType name="DomainType">
+		<complexContent>
+			<extension base="t:SpanningElement">
+				<annotation>
+					<documentation>R17</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Lineage">
+		<complexContent>
+			<extension base="t:SpanningElement">
+				<annotation>
+					<documentation>R17</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ConstrainedLoop">
+		<complexContent>
+			<extension base="t:SpanningElement">
+				<annotation>
+					<documentation>R17</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
 	<!-- Subsystem Element specializations -->
 
 	<element name="Relationship" substitutionGroup="t:SubsystemElement"
@@ -79,6 +118,9 @@
 	<complexType name="Relationship">
 		<complexContent>
 			<extension base="t:SubsystemElement">
+				<annotation>
+					<documentation>R14</documentation>
+				</annotation>
 				<attribute name="Rnum" type="t:Rnum" />
 			</extension>
 		</complexContent>
@@ -87,15 +129,17 @@
 	<complexType name="Class">
 		<complexContent>
 			<extension base="t:SubsystemElement">
-
+				<annotation>
+					<documentation>R14</documentation>
+				</annotation>
 			</extension>
 		</complexContent>
 	</complexType>
 
 	<!-- Simple types -->
-	
+
 	<simpleType name="Number">
-		<restriction base="t:PositiveInteger"/>
+		<restriction base="t:PositiveInteger" />
 	</simpleType>
 
 	<simpleType name="Rnum">
@@ -105,7 +149,7 @@
 	<simpleType name="Name">
 		<restriction base="t:NonBlankString" />
 	</simpleType>
-	
+
 	<simpleType name="Alias">
 		<restriction base="t:NonBlankString" />
 	</simpleType>
