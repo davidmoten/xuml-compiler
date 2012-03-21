@@ -1,6 +1,17 @@
 <schema targetNamespace="http://david.moten.org/xuml" xmlns:t="http://david.moten.org/xuml"
 	xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
+	<annotation>
+		<documentation>
+			This schema describes the information of an miUML model
+			in xml form. The schema is being created directly from the miUML
+			class diagrams available at http://www.miUML.org. Exactly the same
+			terminology is being used and the superclass heirarchies are being
+			implemented where possible. To reduce verbosity in xml compliant with
+			the schema 
+		</documentation>
+	</annotation>
+
 	<!-- Domain and specializations -->
 
 	<element name="Domain" type="t:Domain" />
@@ -132,11 +143,48 @@
 				<annotation>
 					<documentation>R14</documentation>
 				</annotation>
+				<attribute name="Name" type="t:Name" />
+				<attribute name="Cnum" type="t:Cnum" />
+				<attribute name="Alias" type="t:Alias" />
 			</extension>
 		</complexContent>
 	</complexType>
 
+	<!-- Class specializations -->
+
+	<element name="NonSpecializedClass" substitutionGroup="t:Class"
+		type="t:NonSpecializedClass" />
+	<element name="SpecializedClass" substitutionGroup="t:Class"
+		type="t:SpecializedClass" />
+		
+	<complexType name="NonSpecializedClass">
+		<complexContent>
+			<extension base="t:Class">
+				<annotation>
+					<documentation>R23</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="SpecializedClass">
+		<complexContent>
+			<extension base="t:Class">
+				<annotation>
+					<documentation>R23</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+
+
 	<!-- Simple types -->
+
+
+	<simpleType name="Cnum">
+		<restriction base="t:PositiveInteger" />
+	</simpleType>
 
 	<simpleType name="Number">
 		<restriction base="t:PositiveInteger" />
