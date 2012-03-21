@@ -1,4 +1,4 @@
-<schema targetNamespace="http://david.moten.org/xuml" xmlns:t="http://david.moten.org/xuml"
+<schema targetNamespace="http://www.miuml.org/metamodel" xmlns:t="http://www.miuml.org/metamodel"
 	xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
 	<annotation>
@@ -214,10 +214,10 @@
 			</extension>
 		</complexContent>
 	</complexType>
-	
+
 	<complexType name="IdentifierAttribute">
-		<attribute name="Number" type="t:Number"/>
-		<!--  TODO add referential roles -->
+		<attribute name="Number" type="t:Number" />
+		<!-- TODO add referential roles -->
 	</complexType>
 
 	<complexType name="ReferentialAttribute">
