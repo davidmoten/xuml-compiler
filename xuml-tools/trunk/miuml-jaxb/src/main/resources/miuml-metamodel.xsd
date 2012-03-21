@@ -15,10 +15,16 @@
 				<p>Every relationship on the class diagrams should eventually appear
 					in this document in the documentation annotations on types or
 					elements.</p>
+				<p>Some classes and relationships from the metamodel may add no data
+					to this schema. There existence may be purely to represent
+					uniqueness constraints on the data which is outside the scope of
+					the schema. The miUML approach is to provide a program/service to
+					perform this sort of validation. All relationships that are
+					identified as not being required in the schema should eventually be
+					mentioned in documentation annotations so that it is clear they have been considered.</p>
 			</html>
 		</documentation>
 	</annotation>
-
 
 	<!--++++++++++++++++++++++++ -->
 	<!-- DOMAIN SUBSYSTEM ++++++ -->
@@ -159,7 +165,8 @@
 			<extension base="t:SpanningElement">
 				<annotation>
 					<documentation>R17. R131 is for uniqueness purposes only so is not
-						present in the schema.</documentation>
+						present in the schema.
+					</documentation>
 				</annotation>
 			</extension>
 		</complexContent>
@@ -186,7 +193,9 @@
 		<complexContent>
 			<extension base="t:SubsystemElement">
 				<annotation>
-					<documentation>R14. R160 is for uniqueness purposes only and so is not in the schema.</documentation>
+					<documentation>R14. R160 is for uniqueness purposes only and so is
+						not in the schema.
+					</documentation>
 				</annotation>
 				<attribute name="Rnum" type="t:Rnum" use="required" />
 			</extension>
@@ -381,7 +390,8 @@
 			<extension base="t:Relationship">
 				<annotation>
 					<documentation>R100. R103,R102,R118,R117 add uniqueness constraints
-						only and thus do not appear in this schema.</documentation>
+						only and thus do not appear in this schema.
+					</documentation>
 				</annotation>
 				<sequence>
 					<element name="SpecializedClass" type="t:Name" maxOccurs="unbounded">
@@ -528,13 +538,46 @@
 		</complexContent>
 	</complexType>
 
+	<!--+++++++++++++++++++++++++++++++ -->
+	<!-- FORMALIZATION SUBSYSTEM ++++++ -->
+	<!--+++++++++++++++++++++++++++++++ -->
+
+	<element name="Reference" type="t:Reference" />
+	<element name="AssocativeReference" type="t:AssociativeReference"
+		substitutionGroup="t:Reference" />
+	<element name="ToOneReference" type="t:ToOneReference"
+		substitutionGroup="t:Reference" />
+	<element name="SuperclassReference" type="t:SuperclassReference"
+		substitutionGroup="t:Reference" />
+
+	<complexType name="Reference">
+
+	</complexType>
+
+	<complexType name="AssociativeReference">
+		<complexContent>
+			<extension base="t:Reference"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ToOneReference">
+		<complexContent>
+			<extension base="t:Reference"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="SuperclassReference">
+		<complexContent>
+			<extension base="t:Reference"></extension>
+		</complexContent>
+	</complexType>
+
 	<!-- TODO -->
 
 
 
 	<complexType name="ConstrainedType" />
 
-	<complexType name="Reference" />
 
 
 	<!-- Simple types -->
