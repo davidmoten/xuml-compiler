@@ -8,7 +8,7 @@
 			class diagrams available at http://www.miUML.org. Exactly the same
 			terminology is being used and the superclass heirarchies are being
 			implemented where possible. To reduce verbosity in xml compliant with
-			the schema 
+			the schema attributes are preferred over elements.
 		</documentation>
 	</annotation>
 
@@ -143,6 +143,9 @@
 				<annotation>
 					<documentation>R14</documentation>
 				</annotation>
+				<sequence>
+					<element ref="t:Attribute" maxOccurs="unbounded" />
+				</sequence>
 				<attribute name="Name" type="t:Name" />
 				<attribute name="Cnum" type="t:Cnum" />
 				<attribute name="Alias" type="t:Alias" />
@@ -156,7 +159,7 @@
 		type="t:NonSpecializedClass" />
 	<element name="SpecializedClass" substitutionGroup="t:Class"
 		type="t:SpecializedClass" />
-		
+
 	<complexType name="NonSpecializedClass">
 		<complexContent>
 			<extension base="t:Class">
@@ -166,7 +169,7 @@
 			</extension>
 		</complexContent>
 	</complexType>
-	
+
 	<complexType name="SpecializedClass">
 		<complexContent>
 			<extension base="t:Class">
@@ -176,11 +179,53 @@
 			</extension>
 		</complexContent>
 	</complexType>
+
+	<!-- Attribute specializations -->
+	<element name="Attribute" type="t:Attribute" />
+
+	<complexType name="Attribute"  >
+		<attribute name="Name" type="t:Name" />
+	</complexType>
+
+	<element name="NativeAttribute" substitutionGroup="t:Attribute"
+		type="t:NativeAttribute" />
+	<element name="ReferentialAttribute" substitutionGroup="t:Attribute"
+		type="t:ReferentialAttribute" />
+
+	<complexType name="NativeAttribute">
+		<complexContent>
+			<extension base="t:Attribute">
+				<annotation>
+					<documentation>R21</documentation>
+				</annotation>
+				<sequence>
+					<element name="Type" type="t:ConstrainedType" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ReferentialAttribute">
+		<complexContent>
+			<extension base="t:Attribute">
+				<annotation>
+					<documentation>R21</documentation>
+				</annotation>
+				<sequence>
+					<element name="Reference" type="t:Reference" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+ <!-- TODO  -->
+ 
+	<complexType name="ConstrainedType"/>
 	
+	<complexType name="Reference"/>
 
 
 	<!-- Simple types -->
-
 
 	<simpleType name="Cnum">
 		<restriction base="t:PositiveInteger" />
