@@ -183,7 +183,7 @@
 	<!-- Attribute specializations -->
 	<element name="Attribute" type="t:Attribute" />
 
-	<complexType name="Attribute"  >
+	<complexType name="Attribute">
 		<attribute name="Name" type="t:Name" />
 	</complexType>
 
@@ -218,14 +218,46 @@
 		</complexContent>
 	</complexType>
 
- <!-- TODO  -->
- 
-	<complexType name="ConstrainedType"/>
-	
-	<complexType name="Reference"/>
+	<!-- Native Attribute specializations -->
+
+	<element name="IndependentAttribute" substitutionGroup="t:NativeAttribute"
+		type="t:NativeAttribute" />
+	<element name="DerivedAttribute" substitutionGroup="t:NativeAttribute"
+		type="t:DerivedAttribute" />
+
+	<complexType name="IndependentAttribute">
+		<complexContent>
+			<extension base="t:NativeAttribute">
+				<annotation>
+					<documentation>R25</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="DerivedAttribute">
+		<complexContent>
+			<extension base="t:NativeAttribute">
+				<annotation>
+					<documentation>R25</documentation>
+				</annotation>
+				<attribute name="Formula" type="t:Formula" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- TODO -->
+
+	<complexType name="ConstrainedType" />
+
+	<complexType name="Reference" />
 
 
 	<!-- Simple types -->
+
+	<simpleType name="Formula">
+		<restriction base="t:NonBlankString" />
+	</simpleType>
 
 	<simpleType name="Cnum">
 		<restriction base="t:PositiveInteger" />
