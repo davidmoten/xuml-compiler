@@ -199,10 +199,25 @@
 					<documentation>R21</documentation>
 				</annotation>
 				<sequence>
-					<element name="Type" type="t:ConstrainedType" />
+					<element name="Type" type="t:ConstrainedType">
+						<annotation>
+							<documentation>R24</documentation>
+						</annotation>
+					</element>
+					<element name="Identifier" type="t:IdentifierAttribute"
+						minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R22</documentation>
+						</annotation>
+					</element>
 				</sequence>
 			</extension>
 		</complexContent>
+	</complexType>
+	
+	<complexType name="IdentifierAttribute">
+		<attribute name="Number" type="t:Number"/>
+		<!--  TODO add referential roles -->
 	</complexType>
 
 	<complexType name="ReferentialAttribute">
@@ -212,7 +227,11 @@
 					<documentation>R21</documentation>
 				</annotation>
 				<sequence>
-					<element name="Reference" type="t:Reference" maxOccurs="unbounded" />
+					<element name="Reference" type="t:Reference" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R31</documentation>
+						</annotation>
+					</element>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -256,8 +275,8 @@
 
 	<element name="ModeledIdentifier" substitutionGroup="t:Identifier"
 		type="t:ModeledIdentifier" />
-	<element name="RequiredReferentialIdentifier" substitutionGroup="t:Identifier"
-		type="t:RequiredReferentialIdentifier" />
+	<element name="RequiredReferentialIdentifier"
+		substitutionGroup="t:Identifier" type="t:RequiredReferentialIdentifier" />
 
 	<complexType name="ModeledIdentifier">
 		<complexContent>
@@ -281,8 +300,8 @@
 
 
 	<!-- TODO -->
-	
-	
+
+
 
 	<complexType name="ConstrainedType" />
 
