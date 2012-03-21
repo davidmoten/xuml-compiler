@@ -3,12 +3,19 @@
 
 	<annotation>
 		<documentation>
-			This schema describes the information of a miUML model
-			in xml form. The schema is being created directly from the miUML
-			class diagrams available at http://www.miUML.org. Exactly the same
-			terminology is being used and the superclass heirarchies are being
-			implemented where possible. To reduce verbosity in xml compliant with
-			the schema attributes are preferred over elements when convenient.
+			<html>
+				<p>This schema describes the information of a miUML model in xml
+					form. The schema is being created directly from the miUML class
+					diagrams available at http://www.miUML.org.
+				</p>
+				<p>Exactly the same terminology is being used and the superclass
+					heirarchies are being implemented where possible.</p>
+				<p> To reduce verbosity in xml compliant with the schema attributes
+					are preferred over elements when convenient.</p>
+				<p>Every relationship on the class diagrams should eventually appear
+					in this document in the documentation annotations on types or
+					elements.</p>
+			</html>
 		</documentation>
 	</annotation>
 
