@@ -406,6 +406,18 @@
 				<annotation>
 					<documentation>R119</documentation>
 				</annotation>
+				<sequence>
+					<element name="ActivePerspective" type="t:ActivePerspective">
+						<annotation>
+							<documentation>R124</documentation>
+						</annotation>
+					</element>
+					<element name="PassivePerspective" type="t:PassivePerspective">
+						<annotation>
+							<documentation>R125</documentation>
+						</annotation>
+					</element>
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
