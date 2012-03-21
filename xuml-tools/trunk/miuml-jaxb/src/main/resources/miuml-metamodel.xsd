@@ -197,6 +197,11 @@
 				<attribute name="Name" type="t:Name" use="required" />
 				<attribute name="Cnum" type="t:Cnum" use="required" />
 				<attribute name="Alias" type="t:Alias" use="required" />
+				<attribute name="Association" type="t:Rnum" use="optional">
+					<annotation>
+						<documentation>R120</documentation>
+					</annotation>
+				</attribute>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -396,6 +401,13 @@
 				<annotation>
 					<documentation>R119</documentation>
 				</annotation>
+				<sequence>
+					<element name="SymmetricPerspective" type="t:SymmetricPerspective">
+						<annotation>
+							<documentation>R123</documentation>
+						</annotation>
+					</element>
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
