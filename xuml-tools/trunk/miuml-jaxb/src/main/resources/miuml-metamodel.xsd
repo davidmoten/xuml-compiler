@@ -246,7 +246,43 @@
 		</complexContent>
 	</complexType>
 
+	<!-- Identifier and specializations -->
+
+	<element name="Identifier" type="t:Identifier" />
+
+	<complexType name="Identifier">
+		<attribute name="Number" type="t:Number" />
+	</complexType>
+
+	<element name="ModeledIdentifier" substitutionGroup="t:Identifier"
+		type="t:ModeledIdentifier" />
+	<element name="RequiredReferentialIdentifier" substitutionGroup="t:Identifier"
+		type="t:RequiredReferentialIdentifier" />
+
+	<complexType name="ModeledIdentifier">
+		<complexContent>
+			<extension base="t:Identifier">
+				<annotation>
+					<documentation>R30</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="RequiredReferentialIdentifier">
+		<complexContent>
+			<extension base="t:Identifier">
+				<annotation>
+					<documentation>R30</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+
 	<!-- TODO -->
+	
+	
 
 	<complexType name="ConstrainedType" />
 
