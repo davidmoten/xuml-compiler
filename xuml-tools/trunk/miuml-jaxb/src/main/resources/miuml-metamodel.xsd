@@ -186,7 +186,7 @@
 		<complexContent>
 			<extension base="t:SubsystemElement">
 				<annotation>
-					<documentation>R14</documentation>
+					<documentation>R14. R160 is for uniqueness purposes only and so is not in the schema.</documentation>
 				</annotation>
 				<attribute name="Rnum" type="t:Rnum" use="required" />
 			</extension>
