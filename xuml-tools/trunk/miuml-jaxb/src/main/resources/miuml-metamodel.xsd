@@ -13,9 +13,9 @@
 	</annotation>
 
 
-	<!--++++++++++++++++++++++++-->
-	<!-- DOMAIN SUBSYSTEM ++++++-->
-	<!--++++++++++++++++++++++++-->
+	<!--++++++++++++++++++++++++ -->
+	<!-- DOMAIN SUBSYSTEM ++++++ -->
+	<!--++++++++++++++++++++++++ -->
 
 	<!-- Domain and specializations -->
 
@@ -201,9 +201,9 @@
 		</complexContent>
 	</complexType>
 
-	<!--++++++++++++++++++++++++-->
-	<!-- CLASS SUBSYSTEM +++++++-->
-	<!--++++++++++++++++++++++++-->
+	<!--++++++++++++++++++++++++ -->
+	<!-- CLASS SUBSYSTEM +++++++ -->
+	<!--++++++++++++++++++++++++ -->
 
 	<!-- Class specializations -->
 
@@ -352,16 +352,16 @@
 
 
 
-	<!--++++++++++++++++++++++++++++++-->
-	<!-- RELATIONSHIP SUBSYSTEM ++++++-->
-	<!--++++++++++++++++++++++++++++++-->
+	<!--++++++++++++++++++++++++++++++ -->
+	<!-- RELATIONSHIP SUBSYSTEM ++++++ -->
+	<!--++++++++++++++++++++++++++++++ -->
 
-	<!--  Relationship specializations -->
-	
+	<!-- Relationship specializations -->
+
 	<element name="Generalization" substitutionGroup="t:Relationship"
 		type="t:Generalization" />
-	<element name="Association"
-		substitutionGroup="t:Relationship" type="t:Association" />
+	<element name="Association" substitutionGroup="t:Relationship"
+		type="t:Association" />
 
 	<complexType name="Generalization">
 		<complexContent>
@@ -383,12 +383,12 @@
 		</complexContent>
 	</complexType>
 
-	<!--  Association specializations -->
-	
+	<!-- Association specializations -->
+
 	<element name="UnaryAssociation" substitutionGroup="t:Association"
 		type="t:UnaryAssociation" />
-	<element name="BinaryAssociation"
-		substitutionGroup="t:Association" type="t:BinaryAssociation" />
+	<element name="BinaryAssociation" substitutionGroup="t:Association"
+		type="t:BinaryAssociation" />
 
 	<complexType name="UnaryAssociation">
 		<complexContent>
@@ -409,11 +409,84 @@
 			</extension>
 		</complexContent>
 	</complexType>
-	
-	<!--   -->
+
+	<!-- Perspective and specializations -->
+
+	<element name="Perspective" type="t:Perspective" />
+
+	<complexType name="Perspective">
+		<attribute name="Side" type="t:Number" use="required" />
+		<attribute name="Rnum" type="t:Rnum" use="required" />
+		<attribute name="ViewedClass" type="t:Name" use="required">
+			<annotation>
+				<documentation>Represents the R104 specialization group because
+					schema cannot handle multiple specialization groups one complexType
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="Phrase" type="t:Phrase" use="required" />
+		<attribute name="Conditional" type="boolean" use="required" />
+		<attribute name="OnePerspective" type="boolean" use="required">
+			<annotation>
+				<documentation>Represents the R104 specialization group because
+					schema cannot handle multiple specialization groups one complexType
+				</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+
+	<element name="SymmetricPerspective" substitutionGroup="t:Perspective"
+		type="t:SymmetricPerspective" />
+	<element name="AsymmetricPerspective" substitutionGroup="t:Perspective"
+		type="t:AsymmetricPerspective" />
+
+	<complexType name="SymmetricPerspective">
+		<complexContent>
+			<extension base="t:Perspective">
+				<annotation>
+					<documentation>R121</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="AsymmetricPerspective">
+		<complexContent>
+			<extension base="t:Perspective">
+				<annotation>
+					<documentation>R121</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- AsymmetricPerspective specializations -->
+
+	<element name="ActivePerspective" substitutionGroup="t:AsymmetricPerspective"
+		type="t:ActivePerspective" />
+	<element name="PassivePerspective" substitutionGroup="t:AsymmetricPerspective"
+		type="t:PassivePerspective" />
 
 
-	
+	<complexType name="ActivePerspective">
+		<complexContent>
+			<extension base="t:AsymmetricPerspective">
+				<annotation>
+					<documentation>R105</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="PassivePerspective">
+		<complexContent>
+			<extension base="t:AsymmetricPerspective">
+				<annotation>
+					<documentation>R105</documentation>
+				</annotation>
+			</extension>
+		</complexContent>
+	</complexType>
 
 	<!-- TODO -->
 
@@ -447,6 +520,10 @@
 	</simpleType>
 
 	<simpleType name="Alias">
+		<restriction base="t:NonBlankString" />
+	</simpleType>
+
+	<simpleType name="Phrase">
 		<restriction base="t:NonBlankString" />
 	</simpleType>
 
