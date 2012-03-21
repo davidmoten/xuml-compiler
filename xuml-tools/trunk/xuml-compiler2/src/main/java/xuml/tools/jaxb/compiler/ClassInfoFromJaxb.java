@@ -376,10 +376,10 @@ public class ClassInfoFromJaxb extends ClassInfo {
 			ClassInfo otherInfo = createClassInfo(other);
 			String fieldName = Util.lowerFirst(otherInfo
 					.getJavaClassSimpleName()) + "ViaR" + ass.getNumber();
-			String otherFieldName = Util.lowerFirst(getJavaClassSimpleName())
-					+ "ViaR" + ass.getNumber();
-			String otherColumnName = Util.toColumnName(getJavaClassSimpleName()
-					+ "ViaR" + ass.getNumber());
+			String otherFieldName = Util.lowerFirst(otherInfo
+					.getJavaClassSimpleName()) + "ViaR" + ass.getNumber();
+			String otherColumnName = Util.toColumnName(otherInfo
+					.getJavaClassSimpleName() + "ViaR" + ass.getNumber());
 
 			Class assoc = lookups.getAssociationClassForAssociation(rel
 					.getNumber());
