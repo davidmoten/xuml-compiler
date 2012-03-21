@@ -8,7 +8,7 @@
 			class diagrams available at http://www.miUML.org. Exactly the same
 			terminology is being used and the superclass heirarchies are being
 			implemented where possible. To reduce verbosity in xml compliant with
-			the schema attributes are preferred over elements.
+			the schema attributes are preferred over elements. 
 		</documentation>
 	</annotation>
 
@@ -17,8 +17,16 @@
 	<element name="Domain" type="t:Domain" />
 
 	<complexType name="Domain">
-		<attribute name="Name" type="t:Name" />
-		<attribute name="Alias" type="t:Alias" />
+		<sequence>
+			<element name="Bridge" type="t:Bridge" minOccurs="0"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation>R7</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="Name" type="t:Name" use="required"/>
+		<attribute name="Alias" type="t:Alias" use="required"/>
 	</complexType>
 
 	<element name="ModeledDomain" substitutionGroup="t:Domain"
@@ -29,10 +37,18 @@
 	<complexType name="ModeledDomain">
 		<complexContent>
 			<extension base="t:Domain">
+				<annotation>
+					<documentation>R4</documentation>
+				</annotation>
 				<sequence>
 					<element ref="t:Element" minOccurs="0" maxOccurs="unbounded">
 						<annotation>
 							<documentation>R15</documentation>
+						</annotation>
+					</element>
+					<element name="Subsystem" type="t:Subsystem" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R1</documentation>
 						</annotation>
 					</element>
 				</sequence>
@@ -43,8 +59,23 @@
 	<complexType name="RealizedDomain">
 		<complexContent>
 			<extension base="t:Domain">
+				<annotation>
+					<documentation>R4</documentation>
+				</annotation>
 			</extension>
 		</complexContent>
+	</complexType>
+
+	<!-- Bridge -->
+
+	<complexType name="Bridge">
+		<attribute name="Domain" type="t:Name" use="required"/>
+	</complexType>
+
+	<!-- Subsystem -->
+	<complexType name="Subsystem">
+		<attribute name="Name" type="t:Name" use="required"/>
+		<attribute name="Alias" type="t:Name" use="required"/>
 	</complexType>
 
 	<!-- Element and specializations -->
@@ -52,7 +83,7 @@
 	<element name="Element" type="t:Element" />
 
 	<complexType name="Element">
-		<attribute name="Number" type="t:Number" />
+		<attribute name="Number" type="t:Number" use="required"/>
 	</complexType>
 
 	<element name="SpanningElement" substitutionGroup="t:Element"
@@ -76,6 +107,7 @@
 				<annotation>
 					<documentation>R16</documentation>
 				</annotation>
+				<attribute name="Subsystem" type="t:Name" use="required"/>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -132,7 +164,7 @@
 				<annotation>
 					<documentation>R14</documentation>
 				</annotation>
-				<attribute name="Rnum" type="t:Rnum" />
+				<attribute name="Rnum" type="t:Rnum" use="required"/>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -146,9 +178,9 @@
 				<sequence>
 					<element ref="t:Attribute" maxOccurs="unbounded" />
 				</sequence>
-				<attribute name="Name" type="t:Name" />
-				<attribute name="Cnum" type="t:Cnum" />
-				<attribute name="Alias" type="t:Alias" />
+				<attribute name="Name" type="t:Name" use="required"/>
+				<attribute name="Cnum" type="t:Cnum" use="required"/>
+				<attribute name="Alias" type="t:Alias" use="required"/>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -184,7 +216,7 @@
 	<element name="Attribute" type="t:Attribute" />
 
 	<complexType name="Attribute">
-		<attribute name="Name" type="t:Name" />
+		<attribute name="Name" type="t:Name" use="required"/>
 	</complexType>
 
 	<element name="NativeAttribute" substitutionGroup="t:Attribute"
@@ -216,7 +248,7 @@
 	</complexType>
 
 	<complexType name="IdentifierAttribute">
-		<attribute name="Number" type="t:Number" />
+		<attribute name="Number" type="t:Number" use="required"/>
 		<!-- TODO add referential roles -->
 	</complexType>
 
@@ -260,7 +292,7 @@
 				<annotation>
 					<documentation>R25</documentation>
 				</annotation>
-				<attribute name="Formula" type="t:Formula" />
+				<attribute name="Formula" type="t:Formula" use="required"/>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -270,7 +302,7 @@
 	<element name="Identifier" type="t:Identifier" />
 
 	<complexType name="Identifier">
-		<attribute name="Number" type="t:Number" />
+		<attribute name="Number" type="t:Number" use="required"/>
 	</complexType>
 
 	<element name="ModeledIdentifier" substitutionGroup="t:Identifier"
