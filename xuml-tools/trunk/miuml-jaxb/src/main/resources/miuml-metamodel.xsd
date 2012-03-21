@@ -3,7 +3,7 @@
 
 	<annotation>
 		<documentation>
-			This schema describes the information of an miUML model
+			This schema describes the information of a miUML model
 			in xml form. The schema is being created directly from the miUML
 			class diagrams available at http://www.miUML.org. Exactly the same
 			terminology is being used and the superclass heirarchies are being
