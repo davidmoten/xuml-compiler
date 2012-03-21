@@ -221,7 +221,7 @@
 	<!-- Native Attribute specializations -->
 
 	<element name="IndependentAttribute" substitutionGroup="t:NativeAttribute"
-		type="t:NativeAttribute" />
+		type="t:IndependentAttribute" />
 	<element name="DerivedAttribute" substitutionGroup="t:NativeAttribute"
 		type="t:DerivedAttribute" />
 
