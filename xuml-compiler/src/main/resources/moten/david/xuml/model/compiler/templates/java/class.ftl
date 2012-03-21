@@ -221,6 +221,7 @@ public class ${name}Impl implements ${name} {
 	}
 
 	/**
+
 	 * ${(attribute.description)!"setter for ${attribute.name}"}
 	 */
 	public void set${attribute.name?cap_first}(${attribute.type} ${attribute.name}){
@@ -646,9 +647,16 @@ public class ${name}Impl implements ${name} {
 <#list events as event>
 	
 	/**
-	* process the received ${event.type?cap_first} event <em>${event.name}</em>
+	* Processes the received ${event.type?cap_first} event <em>${event.name}</em>. Synchronizes on <code>this<code>.
 	*/
 	public void processEvent(final ${name}.Event${event.name?cap_first} event) {
+		processEvent(event,true);
+	}
+
+	/**
+	* Processes the received ${event.type?cap_first} event <em>${event.name}</em>. If signalling self from an onEntry event then use lock=false in that signal.
+	*/
+	public void processEvent(final ${name}.Event${event.name?cap_first} event,boolean lock) {
 		//log.debug("processing event ${event.name}");
 <#list event.transitions as transition>
 		<#if transition_index gt 0>else</#if>
@@ -669,10 +677,13 @@ public class ${name}Impl implements ${name} {
 			<#elseif event.type="call">
 			state = State.<#assign tempName><@underscore>${transition.toState}</@underscore></#assign>${tempName?upper_case};
 			checkActions();
-			synchronized (this) {
-				//log.debug("performOnEntry${transition.toState?cap_first}");
-				${name?uncap_first}Actions.performOnEntry${transition.toState?cap_first}(event);
-			}
+			if (lock)
+				synchronized (this) {
+					//log.debug("performOnEntry${transition.toState?cap_first}");
+					${name?uncap_first}Actions.performOnEntry${transition.toState?cap_first}(event);
+				}
+			else 
+					${name?uncap_first}Actions.performOnEntry${transition.toState?cap_first}(event);
 			<#elseif event.type="timer">
 			final Object thisObject = this;
 			if (event.getTimeMs()<=0) {
