@@ -158,7 +158,8 @@
 		<complexContent>
 			<extension base="t:SpanningElement">
 				<annotation>
-					<documentation>R17</documentation>
+					<documentation>R17. R131 is for uniqueness purposes only so is not
+						present in the schema.</documentation>
 				</annotation>
 			</extension>
 		</complexContent>
@@ -379,8 +380,16 @@
 		<complexContent>
 			<extension base="t:Relationship">
 				<annotation>
-					<documentation>R100</documentation>
+					<documentation>R100. R103,R102,R118,R117 add uniqueness constraints
+						only and thus do not appear in this schema.</documentation>
 				</annotation>
+				<sequence>
+					<element name="SpecializedClass" type="t:Name" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R101</documentation>
+						</annotation>
+					</element>
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
