@@ -222,6 +222,7 @@ public class ${name}Impl implements ${name} {
 
 	/**
 
+
 	 * ${(attribute.description)!"setter for ${attribute.name}"}
 	 */
 	public void set${attribute.name?cap_first}(${attribute.type} ${attribute.name}){
@@ -654,9 +655,16 @@ public class ${name}Impl implements ${name} {
 	}
 
 	/**
+	* Processes the received ${event.type?cap_first} event <em>${event.name}</em>. Does not synchronize on <code>this<code>.
+	*/
+	public void processEventToSelf(final ${name}.Event${event.name?cap_first} event) {
+		processEvent(event,false);
+	}
+
+	/**
 	* Processes the received ${event.type?cap_first} event <em>${event.name}</em>. If signalling self from an onEntry event then use lock=false in that signal.
 	*/
-	public void processEvent(final ${name}.Event${event.name?cap_first} event,boolean lock) {
+	private void processEvent(final ${name}.Event${event.name?cap_first} event,boolean lock) {
 		//log.debug("processing event ${event.name}");
 <#list event.transitions as transition>
 		<#if transition_index gt 0>else</#if>
