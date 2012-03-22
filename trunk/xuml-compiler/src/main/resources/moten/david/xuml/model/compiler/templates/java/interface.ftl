@@ -80,14 +80,14 @@ public interface ${name} <#if generalizations?exists><#if generalizations?size g
 <#list events as event>
 	
 	/**
-	* process the received ${event.type?cap_first} event <em>${event.name}</em>.
-	* If lock is true then synchronizes on this. Use false only for signals to self from onEntry code.
+	* Processes the received ${event.type?cap_first} event <em>${event.name}</em>.
+	* Does not synchronize on this. Use this method for signals to self from onEntry code.
 	*/
-	public void processEvent(final Event${event.name?cap_first} event, boolean lock);
+	public void processEventToSelf(final Event${event.name?cap_first} event);
 
 	/**
-	* process the received ${event.type?cap_first} event <em>${event.name}</em>. 
-	* Synchronizes on this by default. 
+	* Processes the received ${event.type?cap_first} event <em>${event.name}</em>. 
+	* Synchronizes on this. 
 	*/
 	public void processEvent(final Event${event.name?cap_first} event);
 </#list>
