@@ -611,7 +611,7 @@
 	</complexType>
 
 	<!--+++++++++++++++++++++++++++++++ -->
-	<!-- TYPE SUBSYSTEM ++++++ -->
+	<!-- TYPE SUBSYSTEM +++++++++++++++ -->
 	<!--+++++++++++++++++++++++++++++++ -->
 
 	<element name="Type" type="t:Type" />
@@ -810,7 +810,7 @@
 	</complexType>
 
 	<!--+++++++++++++++++++++++++++++++ -->
-	<!-- STATE SUBSYSTEM ++++++ -->
+	<!-- STATE SUBSYSTEM ++++++++++++++ -->
 	<!--+++++++++++++++++++++++++++++++ -->
 
 	<element name="Destination" type="t:Destination" />
@@ -883,6 +883,20 @@
 		</complexContent>
 	</complexType>
 
+	<complexType name="Transition">
+		<attribute name="State" type="Name" />
+		<attribute name="Destination" type="Name">
+			<annotation>
+				<documentation>R507</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="EventID" type="Nominal"/>
+	</complexType>
+
+	<!--+++++++++++++++++++++++++++++++ -->
+	<!-- POLYMORPHISM SUBSYSTEM +++++++ -->
+	<!--+++++++++++++++++++++++++++++++ -->
+
 	<complexType name="Event">
 		<complexContent>
 			<extension base="t:EventSignature">
@@ -920,8 +934,15 @@
 	</complexType>
 
 	<complexType name="StateModelParameter">
-		<attribute name="Name" type="t:Name" use="required"/>
-		<attribute name="Type" type="t:Name" use="required"/>
+		<attribute name="Name" type="t:Name" use="required" />
+		<attribute name="Type" type="t:Name" use="required" />
+	</complexType>
+	
+	<complexType name="CreationEvent">
+		<complexContent>
+			<extension base="Event">
+			</extension>
+		</complexContent>
 	</complexType>
 
 	<!-- Simple types -->
