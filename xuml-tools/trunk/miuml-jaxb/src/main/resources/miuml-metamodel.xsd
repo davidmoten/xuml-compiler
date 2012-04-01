@@ -6,8 +6,7 @@
 			<html>
 				<p>This schema describes the information of a miUML model in xml
 					form. The schema is created directly from the miUML class
-					diagrams
-					available at http://www.miUML.org.
+					diagrams available at http://www.miUML.org.
 				</p>
 				<p>The same terminology is used and the superclass
 					heirarchies are
