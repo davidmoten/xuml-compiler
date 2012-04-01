@@ -593,12 +593,18 @@
 
 	<complexType name="ConstrainedType">
 		<complexContent>
+			<annotation>
+				<documentation>R714</documentation>
+			</annotation>
 			<extension base="t:Type"></extension>
 		</complexContent>
 	</complexType>
 
 	<complexType name="UnconstrainedType">
 		<complexContent>
+			<annotation>
+				<documentation>R714</documentation>
+			</annotation>
 			<extension base="t:Type"></extension>
 		</complexContent>
 	</complexType>
@@ -610,12 +616,18 @@
 
 	<complexType name="AtomicType">
 		<complexContent>
+			<annotation>
+				<documentation>R700</documentation>
+			</annotation>
 			<extension base="t:ConstrainedType"></extension>
 		</complexContent>
 	</complexType>
 
 	<complexType name="StructuredType">
 		<complexContent>
+			<annotation>
+				<documentation>R700</documentation>
+			</annotation>
 			<extension base="t:ConstrainedType"></extension>
 		</complexContent>
 	</complexType>
@@ -632,20 +644,25 @@
 	<element name="SymbolicType" type="t:SymbolicType"
 		substitutionGroup="t:AtomicType" />
 
-
 	<complexType name="BooleanType">
 		<complexContent>
+			<annotation>
+				<documentation>R706</documentation>
+			</annotation>
 			<extension base="t:AtomicType"></extension>
 		</complexContent>
 	</complexType>
 
 	<complexType name="IntegerType">
 		<complexContent>
+			<annotation>
+				<documentation>R706</documentation>
+			</annotation>
 			<extension base="t:AtomicType">
 				<sequence>
 					<element name="Units" type="t:Name" />
 					<element name="LowerLimit" type="integer" />
-					<element name="LowerLimit" type="integer" />
+					<element name="UpperLimit" type="integer" />
 					<element name="DefaultValue" type="integer" />
 				</sequence>
 			</extension>
@@ -654,35 +671,65 @@
 
 	<complexType name="RealType">
 		<complexContent>
-			<extension base="t:AtomicType"></extension>
+			<annotation>
+				<documentation>R706</documentation>
+			</annotation>
+			<extension base="t:AtomicType">
+				<sequence>
+					<element name="Units" type="t:Name" />
+					<element name="Precision" type="t:PositiveInteger" />
+					<element name="LowerLimit" type="decimal" />
+					<element name="UpperLimit" type="decimal" />
+					<element name="DefaultValue" type="decimal" />
+				</sequence>
+			</extension>
 		</complexContent>
 	</complexType>
 
 	<complexType name="RationalType">
 		<complexContent>
-			<extension base="t:AtomicType"></extension>
+			<annotation>
+				<documentation>R706</documentation>
+			</annotation>
+			<extension base="t:AtomicType">
+				<element name="Units" type="t:Name" />
+				<element name="Precision" type="t:PositiveInteger" />
+				<element name="LowerLimit" type="decimal" />
+				<element name="UpperLimit" type="decimal" />
+				<element name="DefaultValue" type="decimal" />
+			</extension>
 		</complexContent>
 	</complexType>
 
 	<complexType name="EnumeratedType">
 		<complexContent>
-			<extension base="t:AtomicType"></extension>
+			<annotation>
+				<documentation>R706</documentation>
+			</annotation>
+			<extension base="t:AtomicType">
+				<element name="DefaultValue" type="string" />
+				<element name="Value" type="string" maxOccurs="unbounded" />
+			</extension>
 		</complexContent>
 	</complexType>
 
 	<complexType name="SymbolicType">
 		<complexContent>
-			<extension base="t:AtomicType"></extension>
+			<annotation>
+				<documentation>R706</documentation>
+			</annotation>
+			<extension base="t:AtomicType">
+				<element name="Units" type="t:Name" />
+				<element name="MinLength" type="t:PositiveInteger" />
+				<element name="MaxLength" type="t:PositiveInteger" />
+				<element name="Prefix" type="string" />
+				<element name="Suffix" type="string" />
+				<element name="ValidationPattern" type="string" />
+				<element name="DefaultValue" type="string" />
+			</extension>
 		</complexContent>
 	</complexType>
 
-	<complexType name="Type">
-		<complexContent>
-			<extension base="t:AtomicType"></extension>
-		</complexContent>
-	</complexType>
-
-	<!-- TODO -->
 
 	<!-- Simple types -->
 
