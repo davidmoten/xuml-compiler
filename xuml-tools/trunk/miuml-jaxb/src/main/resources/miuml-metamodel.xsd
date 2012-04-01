@@ -890,7 +890,7 @@
 				<documentation>R507</documentation>
 			</annotation>
 		</attribute>
-		<attribute name="EventID" type="Nominal"/>
+		<attribute name="EventID" type="t:Nominal" />
 	</complexType>
 
 	<!--+++++++++++++++++++++++++++++++ -->
@@ -937,10 +937,18 @@
 		<attribute name="Name" type="t:Name" use="required" />
 		<attribute name="Type" type="t:Name" use="required" />
 	</complexType>
-	
+
 	<complexType name="CreationEvent">
 		<complexContent>
-			<extension base="Event">
+			<extension base="t:Event">
+				<annotation>
+					<documentation>R567+R554+R560</documentation>
+				</annotation>
+				<attribute name="State" type="Name" use="required">
+					<annotation>
+						<documentation>R508</documentation>
+					</annotation>
+				</attribute>
 			</extension>
 		</complexContent>
 	</complexType>
