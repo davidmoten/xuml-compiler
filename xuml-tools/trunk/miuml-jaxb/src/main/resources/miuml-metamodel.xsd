@@ -5,11 +5,13 @@
 		<documentation>
 			<html>
 				<p>This schema describes the information of a miUML model in xml
-					form. The schema is being created directly from the miUML class
-					diagrams available at http://www.miUML.org.
+					form. The schema is created directly from the miUML class
+					diagrams
+					available at http://www.miUML.org.
 				</p>
-				<p>Exactly the same terminology is being used and the superclass
-					heirarchies are being implemented where possible.</p>
+				<p>The same terminology is used and the superclass
+					heirarchies are
+					being implemented where possible.</p>
 				<p> To reduce verbosity in xml compliant with the schema attributes
 					are preferred over elements when convenient.</p>
 				<p>Every relationship on the class diagrams should eventually appear
@@ -21,7 +23,9 @@
 					the schema. The miUML approach is to provide a program/service to
 					perform this sort of validation. All relationships that are
 					identified as not being required in the schema should eventually be
-					mentioned in documentation annotations so that it is clear they have been considered.</p>
+					mentioned in documentation annotations so that it is clear they
+					have
+					been considered.</p>
 			</html>
 		</documentation>
 	</annotation>
@@ -572,13 +576,113 @@
 		</complexContent>
 	</complexType>
 
+	<!--+++++++++++++++++++++++++++++++ -->
+	<!-- TYPE SUBSYSTEM ++++++ -->
+	<!--+++++++++++++++++++++++++++++++ -->
+
+	<element name="Type" type="t:Type" />
+	<element name="ConstrainedType" type="t:ConstrainedType"
+		substitutionGroup="t:Type" />
+	<element name="UnconstrainedType" type="t:ConstrainedType"
+		substitutionGroup="t:Type" />
+
+
+	<complexType name="Type">
+		<attribute name="Name" type="Name" />
+	</complexType>
+
+	<complexType name="ConstrainedType">
+		<complexContent>
+			<extension base="t:Type"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="UnconstrainedType">
+		<complexContent>
+			<extension base="t:Type"></extension>
+		</complexContent>
+	</complexType>
+
+	<element name="AtomicType" type="t:AtomicType"
+		substitutionGroup="t:ConstrainedType" />
+	<element name="StructuredType" type="t:StructuredType"
+		substitutionGroup="t:ConstrainedType" />
+
+	<complexType name="AtomicType">
+		<complexContent>
+			<extension base="t:ConstrainedType"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="StructuredType">
+		<complexContent>
+			<extension base="t:ConstrainedType"></extension>
+		</complexContent>
+	</complexType>
+
+	<element name="BooleanType" type="t:BooleanType"
+		substitutionGroup="t:AtomicType" />
+	<element name="IntegerType" type="t:IntegerType"
+		substitutionGroup="t:AtomicType" />
+	<element name="RealType" type="Realt:Type" substitutionGroup="t:AtomicType" />
+	<element name="RationalType" type="t:RationalType"
+		substitutionGroup="t:AtomicType" />
+	<element name="EnumeratedType" type="t:EnumeratedType"
+		substitutionGroup="t:AtomicType" />
+	<element name="SymbolicType" type="t:SymbolicType"
+		substitutionGroup="t:AtomicType" />
+
+
+	<complexType name="BooleanType">
+		<complexContent>
+			<extension base="t:AtomicType"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="IntegerType">
+		<complexContent>
+			<extension base="t:AtomicType">
+				<sequence>
+					<element name="Units" type="t:Name" />
+					<element name="LowerLimit" type="integer" />
+					<element name="LowerLimit" type="integer" />
+					<element name="DefaultValue" type="integer" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="RealType">
+		<complexContent>
+			<extension base="t:AtomicType"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="RationalType">
+		<complexContent>
+			<extension base="t:AtomicType"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="EnumeratedType">
+		<complexContent>
+			<extension base="t:AtomicType"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="SymbolicType">
+		<complexContent>
+			<extension base="t:AtomicType"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Type">
+		<complexContent>
+			<extension base="t:AtomicType"></extension>
+		</complexContent>
+	</complexType>
+
 	<!-- TODO -->
-
-
-
-	<complexType name="ConstrainedType" />
-
-
 
 	<!-- Simple types -->
 
