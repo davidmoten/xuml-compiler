@@ -883,6 +883,47 @@
 		</complexContent>
 	</complexType>
 
+	<complexType name="Event">
+		<complexContent>
+			<extension base="t:EventSignature">
+				<annotation>
+					<documentation>A large portion of the Polymorphism Subsystem has
+						been collapsed by the relationship of Event to Event Signature.
+						The collapsed portion serves validation purposes only.
+					</documentation>
+				</annotation>
+				<attribute name="ID" type="t:Nominal" use="required" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="StateModelSignature" type="t:StateModelSignature" />
+	<element name="EventSignature" type="t:EventSignature"
+		substitutionGroup="t:StateModelSignature" />
+
+	<complexType name="StateModelSignature">
+		<sequence>
+			<element name="StateModelParameter" type="t:StateModelParameter"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="Name" type="t:Name" use="required" />
+	</complexType>
+
+	<complexType name="EventSignature">
+		<complexContent>
+			<annotation>
+				<documentation>R562</documentation>
+			</annotation>
+			<extension base="t:StateModelSignature">
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="StateModelParameter">
+		<attribute name="Name" type="t:Name" use="required"/>
+		<attribute name="Type" type="t:Name" use="required"/>
+	</complexType>
+
 	<!-- Simple types -->
 
 	<simpleType name="Formula">
@@ -890,6 +931,10 @@
 	</simpleType>
 
 	<simpleType name="Cnum">
+		<restriction base="t:PositiveInteger" />
+	</simpleType>
+
+	<simpleType name="Nominal">
 		<restriction base="t:PositiveInteger" />
 	</simpleType>
 
