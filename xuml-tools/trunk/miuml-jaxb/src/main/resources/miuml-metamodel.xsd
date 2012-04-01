@@ -6,7 +6,8 @@
 			<html>
 				<p>This schema describes the information of a miUML model in xml
 					form. The schema is created directly from the miUML class
-					diagrams available at http://www.miUML.org.
+					diagrams
+					available at http://www.miUML.org.
 				</p>
 				<p>The same terminology is used and the superclass
 					heirarchies are
@@ -616,7 +617,7 @@
 
 
 	<complexType name="Type">
-		<attribute name="Name" type="Name" />
+		<attribute name="Name" type="Name" use="required" />
 	</complexType>
 
 	<complexType name="ConstrainedType">
@@ -669,7 +670,7 @@
 	<element name="Field" type="t:Field" substitutionGroup="t:Member" />
 
 	<complexType name="Member">
-		<attribute name="Name" type="t:Name" />
+		<attribute name="Name" type="t:Name" use="required" />
 	</complexType>
 
 	<complexType name="Structure">
@@ -695,6 +696,9 @@
 			</extension>
 		</complexContent>
 	</complexType>
+
+	<!-- TODO: Operator part of Type Subsystem is not included because requires 
+		Action Language which is not developed yet (1 April 2012). -->
 
 	<element name="BooleanType" type="t:BooleanType"
 		substitutionGroup="t:AtomicType" />
@@ -800,6 +804,41 @@
 		</complexContent>
 	</complexType>
 
+	<!--+++++++++++++++++++++++++++++++ -->
+	<!-- STATE SUBSYSTEM ++++++ -->
+	<!--+++++++++++++++++++++++++++++++ -->
+
+	<element name="Destination" type="t:Destination" />
+	<element name="State" type="t:State" substitutionGroup="t:Destination" />
+	<element name="DeletionPseudoState" type="t:State"
+		substitutionGroup="t:Destination" />
+
+	<complexType name="Destination">
+		<attribute name="Name" type="Name" use="required" />
+	</complexType>
+
+	<complexType name="State">
+		<complexContent>
+			<annotation>
+				<documentation>R510</documentation>
+			</annotation>
+			<extension base="t:AtomicType">
+				<attribute name="Snum" type="t:PositiveInteger" use="required" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="StateModel" type="t:StateModel" />
+	<element name="Lifecycle" type="t:Lifecycle" substitutionGroup="t:StateModel" />
+	<element name="Assigner" type="t:Assigner" substitutionGroup="t:StateModel" />
+
+	<complexType name="StateModel">
+		<sequence>
+			<element name="State" type="t:State" maxOccurs="unbounded" />
+			<element name="DeletionPseudoState" type="t:DeletionPseudoState"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
 
 	<!-- Simple types -->
 
