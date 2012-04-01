@@ -822,9 +822,18 @@
 			<annotation>
 				<documentation>R510</documentation>
 			</annotation>
-			<extension base="t:AtomicType">
+			<extension base="t:Destination">
 				<attribute name="Snum" type="t:PositiveInteger" use="required" />
 			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="DeletionPseudoState">
+		<complexContent>
+			<annotation>
+				<documentation>R510</documentation>
+			</annotation>
+			<extension base="t:Destination" />
 		</complexContent>
 	</complexType>
 
@@ -838,6 +847,27 @@
 			<element name="DeletionPseudoState" type="t:DeletionPseudoState"
 				minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
+	</complexType>
+
+	<complexType name="Lifecycle">
+		<complexContent>
+			<annotation>
+				<documentation>R502</documentation>
+			</annotation>
+			<extension base="t:StateModel">
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Assigner">
+		<complexContent>
+			<annotation>
+				<documentation>R502</documentation>
+			</annotation>
+			<extension base="t:StateModel">
+				<!-- TODO add assigner stuff -->
+			</extension>
+		</complexContent>
 	</complexType>
 
 	<!-- Simple types -->
