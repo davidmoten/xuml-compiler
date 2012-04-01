@@ -687,13 +687,13 @@
 	</complexType>
 
 	<complexType name="Field">
-<complexContent>
-		<annotation>
-			<documentation>R705c</documentation>
-		</annotation>
-		<extension base="t:Member">
-			<attribute name="Type" type="t:Name" />
-		</extension>
+		<complexContent>
+			<annotation>
+				<documentation>R705c</documentation>
+			</annotation>
+			<extension base="t:Member">
+				<attribute name="Type" type="t:Name" />
+			</extension>
 		</complexContent>
 	</complexType>
 
