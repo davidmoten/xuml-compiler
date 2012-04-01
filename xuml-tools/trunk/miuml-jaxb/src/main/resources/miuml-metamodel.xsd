@@ -234,6 +234,11 @@
 				</annotation>
 				<sequence>
 					<element ref="t:Attribute" maxOccurs="unbounded" />
+					<element name="Lifecycle" minOccurs="0">
+						<annotation>
+							<documentation>R500</documentation>
+						</annotation>
+					</element>
 				</sequence>
 				<attribute name="Name" type="t:Name" use="required" />
 				<attribute name="Cnum" type="t:Cnum" use="required" />
@@ -843,9 +848,17 @@
 
 	<complexType name="StateModel">
 		<sequence>
-			<element name="State" type="t:State" maxOccurs="unbounded" />
+			<element name="State" type="t:State" maxOccurs="unbounded">
+				<annotation>
+					<documentation>R120</documentation>
+				</annotation>
+			</element>
 			<element name="DeletionPseudoState" type="t:DeletionPseudoState"
-				minOccurs="0" maxOccurs="unbounded" />
+				minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>R120</documentation>
+				</annotation>
+			</element>
 		</sequence>
 	</complexType>
 
@@ -911,6 +924,5 @@
 			<minInclusive value="1" />
 		</restriction>
 	</simpleType>
-
 
 </schema>
