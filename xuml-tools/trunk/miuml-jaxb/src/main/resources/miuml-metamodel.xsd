@@ -36,6 +36,20 @@
 
 	<!-- Domain and specializations -->
 
+	<element name="Domains" type="t:Domains" />
+
+	<complexType name="Domains">
+		<sequence>
+			<element name="Domain" type="t:Domain" minOccurs="0"
+				maxOccurs="unbounded" />
+			<element ref="t:Type" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>R708 CommonType</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+
 	<element name="Domain" type="t:Domain" />
 
 	<complexType name="Domain">
@@ -67,6 +81,12 @@
 						<annotation>
 							<documentation>R15</documentation>
 						</annotation>
+					</element>
+					<element ref="t:Type" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R708 DomainType</documentation>
+						</annotation>
+						<!-- TODO add local name -->
 					</element>
 					<element name="Subsystem" type="t:Subsystem" maxOccurs="unbounded">
 						<annotation>
@@ -560,18 +580,27 @@
 
 	<complexType name="AssociativeReference">
 		<complexContent>
+			<annotation>
+				<documentation>R152</documentation>
+			</annotation>
 			<extension base="t:Reference"></extension>
 		</complexContent>
 	</complexType>
 
 	<complexType name="ToOneReference">
 		<complexContent>
+			<annotation>
+				<documentation>R152</documentation>
+			</annotation>
 			<extension base="t:Reference"></extension>
 		</complexContent>
 	</complexType>
 
 	<complexType name="SuperclassReference">
 		<complexContent>
+			<annotation>
+				<documentation>R152</documentation>
+			</annotation>
 			<extension base="t:Reference"></extension>
 		</complexContent>
 	</complexType>
@@ -628,7 +657,43 @@
 			<annotation>
 				<documentation>R700</documentation>
 			</annotation>
-			<extension base="t:ConstrainedType"></extension>
+			<extension base="t:ConstrainedType">
+				<sequence>
+					<element ref="t:Member" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="Member" type="t:Member" />
+	<element name="Structure" type="t:Structure" substitutionGroup="t:Member" />
+	<element name="Field" type="t:Field" substitutionGroup="t:Member" />
+
+	<complexType name="Member">
+		<attribute name="Name" type="t:Name" />
+	</complexType>
+
+	<complexType name="Structure">
+		<complexContent>
+			<annotation>
+				<documentation>R703</documentation>
+			</annotation>
+			<extension base="t:Member">
+				<sequence>
+					<element ref="t:Member" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Field">
+<complexContent>
+		<annotation>
+			<documentation>R705c</documentation>
+		</annotation>
+		<extension base="t:Member">
+			<attribute name="Type" type="t:Name" />
+		</extension>
 		</complexContent>
 	</complexType>
 
@@ -636,7 +701,7 @@
 		substitutionGroup="t:AtomicType" />
 	<element name="IntegerType" type="t:IntegerType"
 		substitutionGroup="t:AtomicType" />
-	<element name="RealType" type="Realt:Type" substitutionGroup="t:AtomicType" />
+	<element name="RealType" type="t:RealType" substitutionGroup="t:AtomicType" />
 	<element name="RationalType" type="t:RationalType"
 		substitutionGroup="t:AtomicType" />
 	<element name="EnumeratedType" type="t:EnumeratedType"
@@ -692,11 +757,13 @@
 				<documentation>R706</documentation>
 			</annotation>
 			<extension base="t:AtomicType">
-				<element name="Units" type="t:Name" />
-				<element name="Precision" type="t:PositiveInteger" />
-				<element name="LowerLimit" type="decimal" />
-				<element name="UpperLimit" type="decimal" />
-				<element name="DefaultValue" type="decimal" />
+				<sequence>
+					<element name="Units" type="t:Name" />
+					<element name="Precision" type="t:PositiveInteger" />
+					<element name="LowerLimit" type="decimal" />
+					<element name="UpperLimit" type="decimal" />
+					<element name="DefaultValue" type="decimal" />
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -707,8 +774,10 @@
 				<documentation>R706</documentation>
 			</annotation>
 			<extension base="t:AtomicType">
-				<element name="DefaultValue" type="string" />
-				<element name="Value" type="string" maxOccurs="unbounded" />
+				<sequence>
+					<element name="DefaultValue" type="string" />
+					<element name="Value" type="string" maxOccurs="unbounded" />
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -719,13 +788,15 @@
 				<documentation>R706</documentation>
 			</annotation>
 			<extension base="t:AtomicType">
-				<element name="Units" type="t:Name" />
-				<element name="MinLength" type="t:PositiveInteger" />
-				<element name="MaxLength" type="t:PositiveInteger" />
-				<element name="Prefix" type="string" />
-				<element name="Suffix" type="string" />
-				<element name="ValidationPattern" type="string" />
-				<element name="DefaultValue" type="string" />
+				<sequence>
+					<element name="Units" type="t:Name" />
+					<element name="MinLength" type="t:PositiveInteger" />
+					<element name="MaxLength" type="t:PositiveInteger" />
+					<element name="Prefix" type="string" />
+					<element name="Suffix" type="string" />
+					<element name="ValidationPattern" type="string" />
+					<element name="DefaultValue" type="string" />
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
