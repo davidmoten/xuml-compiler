@@ -862,7 +862,7 @@
 		<sequence>
 			<element name="State" type="t:State" maxOccurs="unbounded">
 				<annotation>
-					<documentation>R120</documentation>
+					<documentation>R503</documentation>
 				</annotation>
 			</element>
 			<element ref="t:Event" maxOccurs="unbounded" />
