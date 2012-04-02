@@ -124,12 +124,12 @@
 
 	<complexType name="Subsystem">
 		<sequence>
-			<element ref="t:Element" minOccurs="0" maxOccurs="unbounded">
+			<element ref="t:Class" minOccurs="0" maxOccurs="unbounded">
 				<annotation>
 					<documentation>R15</documentation>
 				</annotation>
 			</element>
-			<element ref="t:Relationship" minOccurs="0" maxOccurs="unbounded"/>
+			<element ref="t:Relationship" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 		<attribute name="Name" type="t:Name" use="required" />
 		<attribute name="Alias" type="t:Name" use="required" />
@@ -745,12 +745,10 @@
 				<documentation>R706</documentation>
 			</annotation>
 			<extension base="t:AtomicType">
-				<sequence>
-					<element name="Units" type="t:Name" />
-					<element name="LowerLimit" type="integer" />
-					<element name="UpperLimit" type="integer" />
-					<element name="DefaultValue" type="integer" />
-				</sequence>
+				<attribute name="Units" type="t:Name" use="required"/>
+				<attribute name="LowerLimit" type="integer" use="required" />
+				<attribute name="UpperLimit" type="integer" use="required"/>
+				<attribute name="DefaultValue" type="integer" use="required"/>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -761,13 +759,11 @@
 				<documentation>R706</documentation>
 			</annotation>
 			<extension base="t:AtomicType">
-				<sequence>
-					<element name="Units" type="t:Name" />
-					<element name="Precision" type="t:PositiveInteger" />
-					<element name="LowerLimit" type="decimal" />
-					<element name="UpperLimit" type="decimal" />
-					<element name="DefaultValue" type="decimal" />
-				</sequence>
+				<attribute name="Units" type="t:Name" use="required"/>
+				<attribute name="Precision" type="t:PositiveInteger" use="required"/>
+				<attribute name="LowerLimit" type="decimal" use="required" />
+				<attribute name="UpperLimit" type="decimal" use="required"/>
+				<attribute name="DefaultValue" type="decimal" use="required"/>
 			</extension>
 		</complexContent>
 	</complexType>
