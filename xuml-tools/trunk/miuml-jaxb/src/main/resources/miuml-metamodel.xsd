@@ -508,7 +508,6 @@
 
 	<complexType name="Perspective">
 		<attribute name="Side" type="t:Number" use="required" />
-		<attribute name="Rnum" type="t:Rnum" use="required" />
 		<attribute name="ViewedClass" type="t:Name" use="required">
 			<annotation>
 				<documentation>Represents the R104 specialization group because

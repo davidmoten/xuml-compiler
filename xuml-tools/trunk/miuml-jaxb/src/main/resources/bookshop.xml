@@ -6,29 +6,33 @@
 		Prefix="" Suffix="" ValidationPattern="?.*" DefaultValue="" />
 	<IntegerType Name="Nominal" Units="None" DefaultValue="0"
 		UpperLimit="99999999999" LowerLimit="1" />
-		
-	<Subsystem Name="Bookshop" Alias="Bookshop" Floor="1"
-		Ceiling="99">
-		<Class Name="Book" Cnum="1" Number="1" Alias="Book">
-			<NativeAttribute Name="isbn" Type="String">
-				<Identifier Number="1" />
-			</NativeAttribute>
-			<NativeAttribute Name="Title" Type="String" />
-		</Class>
-		<Class Name="Author" Cnum="2" Number="2" Alias="Author">
-			<NativeAttribute Name="Id" Type="Nominal"></NativeAttribute>
-			<NativeAttribute Name="Full Name" Type="String" />
-		</Class>
-		<BinaryAssociation Number="2" Rnum="1">
-			<ActivePerspective Side="1" OnePerspective="true"
-				Conditional="true" ViewedClass="Book" Rnum="1" Phrase="wrote" />
-			<PassivePerspective Side="2" OnePerspective="true"
-				Conditional="true" ViewedClass="Author" Rnum="1" Phrase="is written by" />
-		</BinaryAssociation>
 
-	</Subsystem>
+	<ModeledDomain Name="Shop" Alias="Shop">
 
-</ModeledDomain>
+		<Subsystem Name="Bookshop" Alias="Bookshop" Floor="1"
+			Ceiling="99">
 
+			<Class Name="Book" Cnum="1" Number="1" Alias="Book">
+				<NativeAttribute Name="isbn" Type="String">
+					<Identifier Number="1" />
+				</NativeAttribute>
+				<NativeAttribute Name="Title" Type="String" />
+			</Class>
+
+			<Class Name="Author" Cnum="2" Number="2" Alias="Author">
+				<NativeAttribute Name="Id" Type="Nominal"></NativeAttribute>
+				<NativeAttribute Name="Full Name" Type="String" />
+			</Class>
+
+			<BinaryAssociation Number="2" Rnum="1">
+				<ActivePerspective Side="1" OnePerspective="true"
+					Conditional="false" ViewedClass="Book" Phrase="wrote" />
+				<PassivePerspective Side="2" OnePerspective="false"
+					Conditional="false" ViewedClass="Author" Phrase="is written by" />
+			</BinaryAssociation>
+
+		</Subsystem>
+
+	</ModeledDomain>
 
 </Domains>
