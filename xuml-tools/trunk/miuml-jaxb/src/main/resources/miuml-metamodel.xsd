@@ -52,13 +52,12 @@
 
 	<complexType name="Domains">
 		<sequence>
-			<element name="Domain" type="t:Domain" minOccurs="0"
-				maxOccurs="unbounded" />
 			<element ref="t:Type" minOccurs="0" maxOccurs="unbounded">
 				<annotation>
 					<documentation>R708 CommonType</documentation>
 				</annotation>
 			</element>
+			<element ref="t:Domain" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 
@@ -314,11 +313,6 @@
 					<documentation>R21</documentation>
 				</annotation>
 				<sequence>
-					<element name="Type" type="t:ConstrainedType">
-						<annotation>
-							<documentation>R24</documentation>
-						</annotation>
-					</element>
 					<element name="Identifier" type="t:IdentifierAttribute"
 						minOccurs="0" maxOccurs="unbounded">
 						<annotation>
@@ -326,6 +320,11 @@
 						</annotation>
 					</element>
 				</sequence>
+				<attribute name="Type" type="t:Name">
+					<annotation>
+						<documentation>R24</documentation>
+					</annotation>
+				</attribute>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -808,15 +807,12 @@
 				<documentation>R706</documentation>
 			</annotation>
 			<extension base="t:AtomicType">
-				<sequence>
-					<element name="Units" type="t:Name" />
-					<element name="MinLength" type="t:PositiveInteger" />
-					<element name="MaxLength" type="t:PositiveInteger" />
-					<element name="Prefix" type="string" />
-					<element name="Suffix" type="string" />
-					<element name="ValidationPattern" type="string" />
-					<element name="DefaultValue" type="string" />
-				</sequence>
+				<attribute name="MinLength" type="t:PositiveInteger" use="required" />
+				<attribute name="MaxLength" type="t:PositiveInteger" use="required" />
+				<attribute name="Prefix" type="string" use="required" />
+				<attribute name="Suffix" type="string" use="required" />
+				<attribute name="ValidationPattern" type="string" use="required" />
+				<attribute name="DefaultValue" type="string" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
