@@ -26,6 +26,18 @@
 					mentioned in documentation annotations so that it is clear they
 					have
 					been considered.</p>
+
+				<p>Subsystems to be considered by this schema include:</p>
+				<ul>
+					<li>Domain Subsystem</li>
+					<li>Class and Attribute Subsystem</li>
+					<li>Relationship Subsystem</li>
+					<li>State Subsystem</li>
+					<li>Polymorphism Subsystem</li>
+					<li>Formalization Subsystem</li>
+					<li>Type Subsystem</li>
+					<li>Required Referential Identifier Subsystem</li>
+				</ul>
 			</html>
 		</documentation>
 	</annotation>
@@ -815,7 +827,7 @@
 
 	<element name="Destination" type="t:Destination" />
 	<element name="State" type="t:State" substitutionGroup="t:Destination" />
-	<element name="DeletionPseudoState" type="t:State"
+	<element name="DeletionPseudoState" type="t:DeletionPseudoState"
 		substitutionGroup="t:Destination" />
 
 	<complexType name="Destination">
@@ -853,12 +865,7 @@
 					<documentation>R120</documentation>
 				</annotation>
 			</element>
-			<element name="DeletionPseudoState" type="t:DeletionPseudoState"
-				minOccurs="0" maxOccurs="unbounded">
-				<annotation>
-					<documentation>R120</documentation>
-				</annotation>
-			</element>
+			<element ref="t:Event" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 
@@ -868,6 +875,14 @@
 				<documentation>R502</documentation>
 			</annotation>
 			<extension base="t:StateModel">
+				<sequence>
+					<element name="DeletionPseudoState" type="t:DeletionPseudoState"
+						minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R513</documentation>
+						</annotation>
+					</element>
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -896,6 +911,12 @@
 	<!--+++++++++++++++++++++++++++++++ -->
 	<!-- POLYMORPHISM SUBSYSTEM +++++++ -->
 	<!--+++++++++++++++++++++++++++++++ -->
+
+	<element name="Event" type="t:Event" />
+	<element name="CreationEvent" type="t:CreationEvent"
+		substitutionGroup="t:Event" />
+	<element name="EffectiveSignalingEvent" type="t:EffectiveSignalingEvent"
+		substitutionGroup="t:Event" />
 
 	<complexType name="Event">
 		<complexContent>
@@ -949,6 +970,16 @@
 						<documentation>R508</documentation>
 					</annotation>
 				</attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="EffectiveSignalingEvent">
+		<complexContent>
+			<extension base="t:Event">
+				<annotation>
+					<documentation>R568+R554</documentation>
+				</annotation>
 			</extension>
 		</complexContent>
 	</complexType>
