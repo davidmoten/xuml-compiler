@@ -88,11 +88,6 @@
 					<documentation>R4</documentation>
 				</annotation>
 				<sequence>
-					<element ref="t:Element" minOccurs="0" maxOccurs="unbounded">
-						<annotation>
-							<documentation>R15</documentation>
-						</annotation>
-					</element>
 					<element ref="t:Type" minOccurs="0" maxOccurs="unbounded">
 						<annotation>
 							<documentation>R708 DomainType</documentation>
@@ -128,6 +123,14 @@
 	<!-- Subsystem -->
 
 	<complexType name="Subsystem">
+		<sequence>
+			<element ref="t:Element" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>R15</documentation>
+				</annotation>
+			</element>
+			<element ref="t:Relationship" minOccur="0" maxOccurs="unbounded"/>
+		</sequence>
 		<attribute name="Name" type="t:Name" use="required" />
 		<attribute name="Alias" type="t:Name" use="required" />
 		<attribute name="Floor" type="t:PositiveInteger" use="required">
@@ -171,7 +174,6 @@
 				<annotation>
 					<documentation>R16</documentation>
 				</annotation>
-				<attribute name="Subsystem" type="t:Name" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
