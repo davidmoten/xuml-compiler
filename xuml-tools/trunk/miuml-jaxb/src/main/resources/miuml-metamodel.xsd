@@ -129,7 +129,7 @@
 					<documentation>R15</documentation>
 				</annotation>
 			</element>
-			<element ref="t:Relationship" minOccur="0" maxOccurs="unbounded"/>
+			<element ref="t:Relationship" minOccurs="0" maxOccurs="unbounded"/>
 		</sequence>
 		<attribute name="Name" type="t:Name" use="required" />
 		<attribute name="Alias" type="t:Name" use="required" />

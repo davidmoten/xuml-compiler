@@ -14,10 +14,8 @@
 					<Identifier Number="1" />
 				</NativeAttribute>
 				<NativeAttribute Name="Title" Type="String" />
-				<Lifecycle>
-
-				</Lifecycle>
 			</Class>
+
 		</Subsystem>
 		
 	</ModeledDomain>
