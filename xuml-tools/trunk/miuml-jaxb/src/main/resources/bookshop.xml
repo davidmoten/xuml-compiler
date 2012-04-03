@@ -12,7 +12,7 @@
 		<SymbolicType Name="ISBN" MinLength="13" MaxLength="13"
 			Prefix="" Suffix="" ValidationPattern="\d{13}" DefaultValue="" />
 
-		<Subsystem Name="Inventory" Alias="Inventory" Floor="1"
+		<Subsystem Name="Stock" Alias="Stock" Floor="1"
 			Ceiling="99">
 
 			<NonSpecializedClass Name="Book" Cnum="1" Number="1"
