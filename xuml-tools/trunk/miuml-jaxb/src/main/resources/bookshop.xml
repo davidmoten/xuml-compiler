@@ -4,31 +4,60 @@
 
 	<SymbolicType Name="String" MinLength="1" MaxLength="255"
 		Prefix="" Suffix="" ValidationPattern="?.*" DefaultValue="" />
-	<IntegerType Name="Nominal" Units="None" DefaultValue="0"
+	<IntegerType Name="Nominal" Units="None" DefaultValue="1"
 		UpperLimit="99999999999" LowerLimit="1" />
+	<IntegerType Name="Year" Units="Gregorian Calendar"
+		DefaultValue="0" UpperLimit="2100" LowerLimit="-5000" />
+	<RealType Name="Money" Precision="2" Units="Dollars"
+		LowerLimit="0" UpperLimit="999999999999" DefaultValue="0" />
+	<SymbolicType Name="WebsiteURL" MinLength="1" MaxLength="2000"
+		Prefix="" Suffix="" ValidationPattern=".*" DefaultValue="" />
+	<IntegerType Name="Count" Units="Instances" DefaultValue="0"
+		UpperLimit="999999999999" LowerLimit="0" />
 
-	<ModeledDomain Name="Bookshop" Alias="Bookshop">
-	
+	<ModeledDomain Name="Bookstore" Alias="Bookstore">
+
+		<!-- types local to the domain -->
 		<SymbolicType Name="ISBN" MinLength="13" MaxLength="13"
 			Prefix="" Suffix="" ValidationPattern="\d{13}" DefaultValue="" />
+		<SymbolicType Name="UniversalProductCode" MinLength="1"
+			MaxLength="64" Prefix="" Suffix="" ValidationPattern=".*"
+			DefaultValue="" />
 
-		<Subsystem Name="Stock" Alias="Stock" Floor="1"
-			Ceiling="99">
+		<Subsystem Name="Product Specification" Alias="Product Specification"
+			Floor="1" Ceiling="99">
 
-			<NonSpecializedClass Name="Book" Cnum="1" Number="1"
-				Alias="Book">
-				<IndependentAttribute Name="isbn" Type="ISBN">
+			<SpecializedClass Name="Product" Cnum="1" Alias="Product">
+				<IndependentAttribute Name="ProductID"
+					Type="UniversalProductCode">
 					<Identifier Number="1" />
 				</IndependentAttribute>
-				<IndependentAttribute Name="Title" Type="String" />
+				<DerivedAttribute Name="Product Name" Formula="something here"
+					Type="String" />
+				<IndependentAttribute Name="Copyright" Type="Year" />
+				<IndependentAttribute Name="Unit Price" Type="Money" />
+				<IndependentAttribute Name="Description" Type="String" />
+				<IndependentAttribute Name="Website" Type="WebsiteURL" />
+			</SpecializedClass>
+
+			<NonSpecializedClass Name="Special Order Product"
+				Cnum="2" Alias="Special Order Product">
+				<IndependentAttribute Name="Special Order Instructions"
+					Type="String" />
+				<IndependentAttribute Name="Days to Deliver"
+					Type="Count" />
 			</NonSpecializedClass>
 
-			<NonSpecializedClass Name="Publisher" Cnum="2"
-				Number="2" Alias="Author">
-				<IndependentAttribute Name="Id" Type="Nominal">
-					<Identifier Number="1" />
-				</IndependentAttribute>
-				<IndependentAttribute Name="Name" Type="String" />
+			<NonSpecializedClass Name="Stocked Product" Cnum="3"
+				Number="3" Alias="Author">
+				<IndependentAttribute Name="Quantity On hand"
+					Type="Count" />
+				<IndependentAttribute Name="Reorder threshold"
+					Type="Count" />
+				<IndependentAttribute Name="Reorder increment"
+					Type="Count" />
+				<IndependentAttribute Name="Reorder instructions"
+					Type="String" />
 			</NonSpecializedClass>
 
 			<BinaryAssociation Number="3" Rnum="1">
