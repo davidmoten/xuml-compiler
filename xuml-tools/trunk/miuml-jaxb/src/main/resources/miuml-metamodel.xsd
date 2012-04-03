@@ -507,7 +507,12 @@
 	<element name="Perspective" type="t:Perspective" />
 
 	<complexType name="Perspective">
-		<attribute name="Side" type="t:Number" use="required" />
+		<annotation>
+			<documentation>Removed Side attribute because some subclasses do not
+				required it, e.g. ActivePerspective and PassivePerspective
+			</documentation>
+		</annotation>
+		<!-- <attribute name="Side" type="t:Number" use="required" /> -->
 		<attribute name="ViewedClass" type="t:Name" use="required">
 			<annotation>
 				<documentation>Represents the R104 specialization group because
@@ -744,10 +749,10 @@
 				<documentation>R706</documentation>
 			</annotation>
 			<extension base="t:AtomicType">
-				<attribute name="Units" type="t:Name" use="required"/>
+				<attribute name="Units" type="t:Name" use="required" />
 				<attribute name="LowerLimit" type="integer" use="required" />
-				<attribute name="UpperLimit" type="integer" use="required"/>
-				<attribute name="DefaultValue" type="integer" use="required"/>
+				<attribute name="UpperLimit" type="integer" use="required" />
+				<attribute name="DefaultValue" type="integer" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -758,11 +763,11 @@
 				<documentation>R706</documentation>
 			</annotation>
 			<extension base="t:AtomicType">
-				<attribute name="Units" type="t:Name" use="required"/>
-				<attribute name="Precision" type="t:PositiveInteger" use="required"/>
+				<attribute name="Units" type="t:Name" use="required" />
+				<attribute name="Precision" type="t:PositiveInteger" use="required" />
 				<attribute name="LowerLimit" type="decimal" use="required" />
-				<attribute name="UpperLimit" type="decimal" use="required"/>
-				<attribute name="DefaultValue" type="decimal" use="required"/>
+				<attribute name="UpperLimit" type="decimal" use="required" />
+				<attribute name="DefaultValue" type="decimal" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>

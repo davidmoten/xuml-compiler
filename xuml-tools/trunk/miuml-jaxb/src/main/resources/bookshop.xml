@@ -19,16 +19,18 @@
 				<NativeAttribute Name="Title" Type="String" />
 			</Class>
 
-			<Class Name="Author" Cnum="2" Number="2" Alias="Author">
-				<NativeAttribute Name="Id" Type="Nominal"></NativeAttribute>
-				<NativeAttribute Name="Full Name" Type="String" />
+			<Class Name="Publisher" Cnum="2" Number="2" Alias="Author">
+				<NativeAttribute Name="Id" Type="Nominal">
+					<Identifier Number="1" />
+				</NativeAttribute>
+				<NativeAttribute Name="Name" Type="String" />
 			</Class>
 
 			<BinaryAssociation Number="2" Rnum="1">
-				<ActivePerspective Side="1" OnePerspective="true"
-					Conditional="false" ViewedClass="Book" Phrase="wrote" />
-				<PassivePerspective Side="2" OnePerspective="false"
-					Conditional="false" ViewedClass="Author" Phrase="is written by" />
+				<ActivePerspective OnePerspective="false"
+					Conditional="false" ViewedClass="Publisher" Phrase="published" />
+				<PassivePerspective OnePerspective="false"
+					Conditional="false" ViewedClass="Book" Phrase="is published by" />
 			</BinaryAssociation>
 
 		</Subsystem>
