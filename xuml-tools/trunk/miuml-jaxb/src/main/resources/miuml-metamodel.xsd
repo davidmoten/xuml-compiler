@@ -427,6 +427,8 @@
 	<!-- RELATIONSHIP SUBSYSTEM ++++++ -->
 	<!--++++++++++++++++++++++++++++++ -->
 
+	<!--  R131 and Facet and Lineage omitted as they contribute to validation only. -->
+
 	<!-- Relationship specializations -->
 
 	<element name="Generalization" substitutionGroup="t:Relationship"
