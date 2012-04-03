@@ -18,8 +18,6 @@
 	<ModeledDomain Name="Bookstore" Alias="Bookstore">
 
 		<!-- types local to the domain -->
-		<SymbolicType Name="ISBN" MinLength="13" MaxLength="13"
-			Prefix="" Suffix="" ValidationPattern="\d{13}" DefaultValue="" />
 		<SymbolicType Name="ISBN Group Identifier" MinLength="5"
 			MaxLength="5" Prefix="" Suffix="" ValidationPattern="\d{5}"
 			DefaultValue="" />
