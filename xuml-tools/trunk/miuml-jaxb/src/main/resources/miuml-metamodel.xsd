@@ -61,7 +61,7 @@
 		</sequence>
 	</complexType>
 
-	<element name="Domain" type="t:Domain" />
+	<element name="Domain" type="t:Domain" abstract="true" />
 
 	<complexType name="Domain">
 		<sequence>
@@ -147,16 +147,16 @@
 
 	<!-- Element and specializations -->
 
-	<element name="Element" type="t:Element" />
+	<element name="Element" type="t:Element" abstract="true"/>
 
 	<complexType name="Element">
 		<attribute name="Number" type="t:Number" use="required" />
 	</complexType>
 
 	<element name="SpanningElement" substitutionGroup="t:Element"
-		type="t:SpanningElement" />
+		type="t:SpanningElement"  abstract="true"/>
 	<element name="SubsystemElement" substitutionGroup="t:Element"
-		type="t:SubsystemElement" />
+		type="t:SubsystemElement" abstract="true" />
 
 	<complexType name="SpanningElement">
 		<complexContent>
@@ -222,9 +222,9 @@
 	<!-- Subsystem Element specializations -->
 
 	<element name="Relationship" substitutionGroup="t:SubsystemElement"
-		type="t:Relationship" />
+		type="t:Relationship" abstract="true" />
 	<element name="Class" substitutionGroup="t:SubsystemElement"
-		type="t:Class" />
+		type="t:Class" abstract="true"/>
 
 	<complexType name="Relationship">
 		<complexContent>
@@ -297,14 +297,14 @@
 	</complexType>
 
 	<!-- Attribute specializations -->
-	<element name="Attribute" type="t:Attribute" />
+	<element name="Attribute" type="t:Attribute" abstract="true" />
 
 	<complexType name="Attribute">
 		<attribute name="Name" type="t:Name" use="required" />
 	</complexType>
 
 	<element name="NativeAttribute" substitutionGroup="t:Attribute"
-		type="t:NativeAttribute" />
+		type="t:NativeAttribute" abstract="true" />
 	<element name="ReferentialAttribute" substitutionGroup="t:Attribute"
 		type="t:ReferentialAttribute" />
 
@@ -383,7 +383,7 @@
 
 	<!-- Identifier and specializations -->
 
-	<element name="Identifier" type="t:Identifier" />
+	<element name="Identifier" type="t:Identifier" abstract="true" />
 
 	<complexType name="Identifier">
 		<attribute name="Number" type="t:Number" use="required" />
@@ -425,7 +425,7 @@
 	<element name="Generalization" substitutionGroup="t:Relationship"
 		type="t:Generalization" />
 	<element name="Association" substitutionGroup="t:Relationship"
-		type="t:Association" />
+		type="t:Association" abstract="true" />
 
 	<complexType name="Generalization">
 		<complexContent>
@@ -504,7 +504,7 @@
 
 	<!-- Perspective and specializations -->
 
-	<element name="Perspective" type="t:Perspective" />
+	<element name="Perspective" type="t:Perspective" abstract="true" />
 
 	<complexType name="Perspective">
 		<annotation>
@@ -532,9 +532,9 @@
 	</complexType>
 
 	<element name="SymmetricPerspective" substitutionGroup="t:Perspective"
-		type="t:SymmetricPerspective" />
+		type="t:SymmetricPerspective"  abstract="true"/>
 	<element name="AsymmetricPerspective" substitutionGroup="t:Perspective"
-		type="t:AsymmetricPerspective" />
+		type="t:AsymmetricPerspective" abstract="true" />
 
 	<complexType name="SymmetricPerspective">
 		<complexContent>
@@ -588,7 +588,7 @@
 	<!-- FORMALIZATION SUBSYSTEM ++++++ -->
 	<!--+++++++++++++++++++++++++++++++ -->
 
-	<element name="Reference" type="t:Reference" />
+	<element name="Reference" type="t:Reference" abstract="true"/>
 	<element name="AssocativeReference" type="t:AssociativeReference"
 		substitutionGroup="t:Reference" />
 	<element name="ToOneReference" type="t:ToOneReference"
@@ -631,9 +631,9 @@
 	<!-- TYPE SUBSYSTEM +++++++++++++++ -->
 	<!--+++++++++++++++++++++++++++++++ -->
 
-	<element name="Type" type="t:Type" />
+	<element name="Type" type="t:Type" abstract="true"/>
 	<element name="ConstrainedType" type="t:ConstrainedType"
-		substitutionGroup="t:Type" />
+		substitutionGroup="t:Type"  abstract="true"/>
 	<element name="UnconstrainedType" type="t:ConstrainedType"
 		substitutionGroup="t:Type" />
 
@@ -687,7 +687,7 @@
 		</complexContent>
 	</complexType>
 
-	<element name="Member" type="t:Member" />
+	<element name="Member" type="t:Member" abstract="true" />
 	<element name="Structure" type="t:Structure" substitutionGroup="t:Member" />
 	<element name="Field" type="t:Field" substitutionGroup="t:Member" />
 
@@ -823,7 +823,7 @@
 	<!-- STATE SUBSYSTEM ++++++++++++++ -->
 	<!--+++++++++++++++++++++++++++++++ -->
 
-	<element name="Destination" type="t:Destination" />
+	<element name="Destination" type="t:Destination" abstract="true" />
 	<element name="State" type="t:State" substitutionGroup="t:Destination" />
 	<element name="DeletionPseudoState" type="t:DeletionPseudoState"
 		substitutionGroup="t:Destination" />
@@ -852,7 +852,7 @@
 		</complexContent>
 	</complexType>
 
-	<element name="StateModel" type="t:StateModel" />
+	<element name="StateModel" type="t:StateModel" abstract="true" />
 	<element name="Lifecycle" type="t:Lifecycle" substitutionGroup="t:StateModel" />
 	<element name="Assigner" type="t:Assigner" substitutionGroup="t:StateModel" />
 
@@ -910,7 +910,7 @@
 	<!-- POLYMORPHISM SUBSYSTEM +++++++ -->
 	<!--+++++++++++++++++++++++++++++++ -->
 
-	<element name="Event" type="t:Event" />
+	<element name="Event" type="t:Event" abstract="true" />
 	<element name="CreationEvent" type="t:CreationEvent"
 		substitutionGroup="t:Event" />
 	<element name="EffectiveSignalingEvent" type="t:EffectiveSignalingEvent"
@@ -930,7 +930,7 @@
 		</complexContent>
 	</complexType>
 
-	<element name="StateModelSignature" type="t:StateModelSignature" />
+	<element name="StateModelSignature" type="t:StateModelSignature" abstract="true" />
 	<element name="EventSignature" type="t:EventSignature"
 		substitutionGroup="t:StateModelSignature" />
 

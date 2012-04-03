@@ -12,19 +12,19 @@
 		<Subsystem Name="Bookshop" Alias="Bookshop" Floor="1"
 			Ceiling="99">
 
-			<Class Name="Book" Cnum="1" Number="1" Alias="Book">
-				<NativeAttribute Name="isbn" Type="String">
+			<NonSpecializedClass Name="Book" Cnum="1" Number="1" Alias="Book">
+				<IndependentAttribute Name="isbn" Type="String">
 					<Identifier Number="1" />
-				</NativeAttribute>
-				<NativeAttribute Name="Title" Type="String" />
-			</Class>
+				</IndependentAttribute>
+				<IndependentAttribute Name="Title" Type="String" />
+			</NonSpecializedClass>
 
-			<Class Name="Publisher" Cnum="2" Number="2" Alias="Author">
-				<NativeAttribute Name="Id" Type="Nominal">
+			<NonSpecializedClass Name="Publisher" Cnum="2" Number="2" Alias="Author">
+				<IndependentAttribute Name="Id" Type="Nominal">
 					<Identifier Number="1" />
-				</NativeAttribute>
-				<NativeAttribute Name="Name" Type="String" />
-			</Class>
+				</IndependentAttribute>
+				<IndependentAttribute Name="Name" Type="String" />
+			</NonSpecializedClass>
 
 			<BinaryAssociation Number="2" Rnum="1">
 				<ActivePerspective OnePerspective="false"
