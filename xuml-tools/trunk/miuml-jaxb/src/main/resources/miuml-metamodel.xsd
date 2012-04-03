@@ -443,7 +443,7 @@
 					</documentation>
 				</annotation>
 				<sequence>
-					<element name="SpecializedClass" type="t:Name" maxOccurs="unbounded">
+					<element name="SpecializedClass" type="t:Named" maxOccurs="unbounded">
 						<annotation>
 							<documentation>R101</documentation>
 						</annotation>
@@ -451,6 +451,10 @@
 				</sequence>
 			</extension>
 		</complexContent>
+	</complexType>
+	
+	<complexType name="Named">
+		<attribute name="Name" type="t:Name"/>
 	</complexType>
 
 	<complexType name="Association">

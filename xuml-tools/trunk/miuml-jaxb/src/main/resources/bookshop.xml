@@ -60,7 +60,12 @@
 					Type="String" />
 			</NonSpecializedClass>
 
-			<BinaryAssociation Number="3" Rnum="1">
+			<Generalization Number="4" Rnum="12">
+				<SpecializedClass Name="Stocked Product" />
+				<SpecializedClass Name="Special Orders Product" />
+			</Generalization>
+
+			<BinaryAssociation Number="3" Rnum="2">
 				<ActivePerspective OnePerspective="false"
 					Conditional="false" ViewedClass="Publisher" Phrase="published" />
 				<PassivePerspective OnePerspective="false"
