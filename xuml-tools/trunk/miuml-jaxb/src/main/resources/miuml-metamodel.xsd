@@ -150,11 +150,11 @@
 	<element name="Element" type="t:Element" abstract="true" />
 
 	<complexType name="Element">
-		<attribute name="Number" type="t:Number" use="required">
+		<attribute name="Number" type="t:Number" use="optional">
 			<annotation>
 				<documentation>
-					Number has been made optional because it may not
-					always be required to uniquely refer to objects in the schema.
+					Number has been made optional because it is not required
+					 to uniquely refer to an Element within a Domain in the schema.
 				</documentation>
 			</annotation>
 		</attribute>

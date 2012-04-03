@@ -31,7 +31,7 @@
 				<IndependentAttribute Name="Name" Type="String" />
 			</NonSpecializedClass>
 
-			<BinaryAssociation Number="2" Rnum="1">
+			<BinaryAssociation Number="3" Rnum="1">
 				<ActivePerspective OnePerspective="false"
 					Conditional="false" ViewedClass="Publisher" Phrase="published" />
 				<PassivePerspective OnePerspective="false"
