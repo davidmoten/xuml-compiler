@@ -2,7 +2,7 @@
 <Domains xmlns="http://www.miuml.org/metamodel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.miuml.org/metamodel miuml-metamodel.xsd">
 
-	<SymbolicType Name="String" MinLength="1" MaxLength="255"
+	<SymbolicType Name="string" MinLength="1" MaxLength="4096"
 		Prefix="" Suffix="" ValidationPattern="?.*" DefaultValue="" />
 	<IntegerType Name="Nominal" Units="None" DefaultValue="1"
 		UpperLimit="99999999999" LowerLimit="1" />
@@ -20,6 +20,12 @@
 		<!-- types local to the domain -->
 		<SymbolicType Name="ISBN" MinLength="13" MaxLength="13"
 			Prefix="" Suffix="" ValidationPattern="\d{13}" DefaultValue="" />
+		<SymbolicType Name="ISBNGroupIdentifier" MinLength="5"
+			MaxLength="5" Prefix="" Suffix="" ValidationPattern="\d{5}"
+			DefaultValue="" />
+		<SymbolicType Name="ISBNPublisherPrefix" MinLength="2"
+			MaxLength="2" Prefix="" Suffix="" ValidationPattern="[^\s]{5}"
+			DefaultValue="" />
 		<SymbolicType Name="UniversalProductCode" MinLength="1"
 			MaxLength="64" Prefix="" Suffix="" ValidationPattern=".*"
 			DefaultValue="" />
@@ -36,7 +42,7 @@
 					Type="String" />
 				<IndependentAttribute Name="Copyright" Type="Year" />
 				<IndependentAttribute Name="Unit Price" Type="Money" />
-				<IndependentAttribute Name="Description" Type="String" />
+				<IndependentAttribute Name="Description" Type="string" />
 				<IndependentAttribute Name="Website" Type="WebsiteURL" />
 			</SpecializedClass>
 
@@ -60,6 +66,31 @@
 					Type="String" />
 			</NonSpecializedClass>
 
+			<NonSpecializedClass Name="Product Category"
+				Cnum="3" Number="3" Alias="Product Category">
+				<IndependentAttribute Name="Category ID" Type="arbitrary_id">
+					<Identifier Number="1" />
+				</IndependentAttribute>
+				<IndependentAttribute Name="Category Name"
+					Type="string" />
+			</NonSpecializedClass>
+
+			<NonSpecializedClass Name="Publisher" Cnum="4"
+				Number="4" Alias="Publisher">
+				<IndependentAttribute Name="Group code"
+					Type="ISBNGroupIdentifier">
+					<Identifier Number="1" />
+				</IndependentAttribute>
+				<IndependentAttribute Name="Publisher code"
+					Type="ISBNPublisherPrefix">
+					<Identifier Number="1" />
+				</IndependentAttribute>
+				<IndependentAttribute Name="Name" Type="string" />
+				<IndependentAttribute Name="Address" Type="MailingAddress" />
+				<IndependentAttribute Name="Website" Type="WebsiteURL" />
+
+			</NonSpecializedClass>
+
 			<Generalization Number="4" Rnum="12">
 				<SpecializedClass Name="Stocked Product" />
 				<SpecializedClass Name="Special Orders Product" />
@@ -67,9 +98,9 @@
 
 			<BinaryAssociation Number="3" Rnum="2">
 				<ActivePerspective OnePerspective="false"
-					Conditional="false" ViewedClass="Publisher" Phrase="published" />
-				<PassivePerspective OnePerspective="false"
-					Conditional="false" ViewedClass="Book" Phrase="is published by" />
+					Conditional="true" ViewedClass="Product" Phrase="classifies" />
+				<PassivePerspective OnePerspective="true"
+					Conditional="false" ViewedClass="Product Category" Phrase="is classified according to" />
 			</BinaryAssociation>
 
 		</Subsystem>
