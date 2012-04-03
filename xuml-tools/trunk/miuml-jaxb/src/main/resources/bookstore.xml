@@ -93,7 +93,7 @@
 				<SpecializedClass Name="Special Orders Product" />
 			</Generalization>
 
-			<BinaryAssociation Number="5" Rnum="2">
+			<BinaryAssociation Number="5" Rnum="15">
 				<ActivePerspective OnePerspective="false"
 					Conditional="true" ViewedClass="Product" Phrase="classifies" />
 				<PassivePerspective OnePerspective="true"
