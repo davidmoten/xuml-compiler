@@ -10,7 +10,7 @@
 		DefaultValue="0" UpperLimit="2100" LowerLimit="-5000" />
 	<RealType Name="Money" Precision="2" Units="Dollars"
 		LowerLimit="0" UpperLimit="999999999999" DefaultValue="0" />
-	<SymbolicType Name="WebsiteURL" MinLength="1" MaxLength="2000"
+	<SymbolicType Name="Website URL" MinLength="1" MaxLength="2000"
 		Prefix="" Suffix="" ValidationPattern=".*" DefaultValue="" />
 	<IntegerType Name="Count" Units="Instances" DefaultValue="0"
 		UpperLimit="999999999999" LowerLimit="0" />
@@ -20,13 +20,13 @@
 		<!-- types local to the domain -->
 		<SymbolicType Name="ISBN" MinLength="13" MaxLength="13"
 			Prefix="" Suffix="" ValidationPattern="\d{13}" DefaultValue="" />
-		<SymbolicType Name="ISBNGroupIdentifier" MinLength="5"
+		<SymbolicType Name="ISBN Group Identifier" MinLength="5"
 			MaxLength="5" Prefix="" Suffix="" ValidationPattern="\d{5}"
 			DefaultValue="" />
-		<SymbolicType Name="ISBNPublisherPrefix" MinLength="2"
+		<SymbolicType Name="ISBN Publisher Prefix" MinLength="2"
 			MaxLength="2" Prefix="" Suffix="" ValidationPattern="[^\s]{5}"
 			DefaultValue="" />
-		<SymbolicType Name="UniversalProductCode" MinLength="1"
+		<SymbolicType Name="Universal Product Code" MinLength="1"
 			MaxLength="64" Prefix="" Suffix="" ValidationPattern=".*"
 			DefaultValue="" />
 
@@ -88,7 +88,6 @@
 				<IndependentAttribute Name="Name" Type="string" />
 				<IndependentAttribute Name="Address" Type="MailingAddress" />
 				<IndependentAttribute Name="Website" Type="WebsiteURL" />
-
 			</NonSpecializedClass>
 
 			<Generalization Number="4" Rnum="12">
@@ -96,7 +95,7 @@
 				<SpecializedClass Name="Special Orders Product" />
 			</Generalization>
 
-			<BinaryAssociation Number="3" Rnum="2">
+			<BinaryAssociation Number="5" Rnum="2">
 				<ActivePerspective OnePerspective="false"
 					Conditional="true" ViewedClass="Product" Phrase="classifies" />
 				<PassivePerspective OnePerspective="true"

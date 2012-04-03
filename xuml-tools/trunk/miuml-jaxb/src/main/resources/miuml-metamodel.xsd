@@ -650,7 +650,7 @@
 
 
 	<complexType name="Type">
-		<attribute name="Name" type="Name" use="required" />
+		<attribute name="Name" type="t:Name" use="required" />
 	</complexType>
 
 	<complexType name="ConstrainedType">
