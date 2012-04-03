@@ -7,19 +7,24 @@
 	<IntegerType Name="Nominal" Units="None" DefaultValue="0"
 		UpperLimit="99999999999" LowerLimit="1" />
 
-	<ModeledDomain Name="ShoppingCentre" Alias="ShoppingCentre">
+	<ModeledDomain Name="Bookshop" Alias="Bookshop">
+	
+		<SymbolicType Name="ISBN" MinLength="13" MaxLength="13"
+			Prefix="" Suffix="" ValidationPattern="\d{13}" DefaultValue="" />
 
-		<Subsystem Name="Bookshop" Alias="Bookshop" Floor="1"
+		<Subsystem Name="Inventory" Alias="Inventory" Floor="1"
 			Ceiling="99">
 
-			<NonSpecializedClass Name="Book" Cnum="1" Number="1" Alias="Book">
-				<IndependentAttribute Name="isbn" Type="String">
+			<NonSpecializedClass Name="Book" Cnum="1" Number="1"
+				Alias="Book">
+				<IndependentAttribute Name="isbn" Type="ISBN">
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<IndependentAttribute Name="Title" Type="String" />
 			</NonSpecializedClass>
 
-			<NonSpecializedClass Name="Publisher" Cnum="2" Number="2" Alias="Author">
+			<NonSpecializedClass Name="Publisher" Cnum="2"
+				Number="2" Alias="Author">
 				<IndependentAttribute Name="Id" Type="Nominal">
 					<Identifier Number="1" />
 				</IndependentAttribute>
