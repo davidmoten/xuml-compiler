@@ -147,14 +147,21 @@
 
 	<!-- Element and specializations -->
 
-	<element name="Element" type="t:Element" abstract="true"/>
+	<element name="Element" type="t:Element" abstract="true" />
 
 	<complexType name="Element">
-		<attribute name="Number" type="t:Number" use="required" />
+		<attribute name="Number" type="t:Number" use="required">
+			<annotation>
+				<documentation>
+					Number has been made optional because it may not
+					always be required to uniquely refer to objects in the schema.
+				</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 
 	<element name="SpanningElement" substitutionGroup="t:Element"
-		type="t:SpanningElement"  abstract="true"/>
+		type="t:SpanningElement" abstract="true" />
 	<element name="SubsystemElement" substitutionGroup="t:Element"
 		type="t:SubsystemElement" abstract="true" />
 
@@ -224,7 +231,7 @@
 	<element name="Relationship" substitutionGroup="t:SubsystemElement"
 		type="t:Relationship" abstract="true" />
 	<element name="Class" substitutionGroup="t:SubsystemElement"
-		type="t:Class" abstract="true"/>
+		type="t:Class" abstract="true" />
 
 	<complexType name="Relationship">
 		<complexContent>
@@ -532,7 +539,7 @@
 	</complexType>
 
 	<element name="SymmetricPerspective" substitutionGroup="t:Perspective"
-		type="t:SymmetricPerspective"  abstract="true"/>
+		type="t:SymmetricPerspective" abstract="true" />
 	<element name="AsymmetricPerspective" substitutionGroup="t:Perspective"
 		type="t:AsymmetricPerspective" abstract="true" />
 
@@ -588,7 +595,7 @@
 	<!-- FORMALIZATION SUBSYSTEM ++++++ -->
 	<!--+++++++++++++++++++++++++++++++ -->
 
-	<element name="Reference" type="t:Reference" abstract="true"/>
+	<element name="Reference" type="t:Reference" abstract="true" />
 	<element name="AssocativeReference" type="t:AssociativeReference"
 		substitutionGroup="t:Reference" />
 	<element name="ToOneReference" type="t:ToOneReference"
@@ -631,9 +638,9 @@
 	<!-- TYPE SUBSYSTEM +++++++++++++++ -->
 	<!--+++++++++++++++++++++++++++++++ -->
 
-	<element name="Type" type="t:Type" abstract="true"/>
+	<element name="Type" type="t:Type" abstract="true" />
 	<element name="ConstrainedType" type="t:ConstrainedType"
-		substitutionGroup="t:Type"  abstract="true"/>
+		substitutionGroup="t:Type" abstract="true" />
 	<element name="UnconstrainedType" type="t:ConstrainedType"
 		substitutionGroup="t:Type" />
 
@@ -930,7 +937,8 @@
 		</complexContent>
 	</complexType>
 
-	<element name="StateModelSignature" type="t:StateModelSignature" abstract="true" />
+	<element name="StateModelSignature" type="t:StateModelSignature"
+		abstract="true" />
 	<element name="EventSignature" type="t:EventSignature"
 		substitutionGroup="t:StateModelSignature" />
 
