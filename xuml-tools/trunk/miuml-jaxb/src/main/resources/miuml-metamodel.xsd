@@ -223,6 +223,20 @@
 				<annotation>
 					<documentation>R17</documentation>
 				</annotation>
+				<sequence>
+					<annotation>
+						<documentation>
+							Note that as per the miuml metamodel documentation (Relationship
+							Subsystem Class Diagram Notes) the order of the relationships
+							listed below is not important. It is a set of relationships.
+						</documentation>
+					</annotation>
+					<element name="relationship" type="t:Rnum" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R160</documentation>
+						</annotation>
+					</element>
+				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -882,7 +896,8 @@
 				<attribute name="Snum" type="t:PositiveInteger" use="optional">
 					<annotation>
 						<documentation>This field is optional because for many consumers
-							this field can be ignored or generated.</documentation>
+							this field can be ignored or generated.
+						</documentation>
 					</annotation>
 				</attribute>
 			</extension>
@@ -916,15 +931,15 @@
 						R565+R550+R557+R554+R560
 					</documentation>
 				</annotation>
-				</element>
-				<element name="Transition" type="t:Transition" minOccurs="0"
-					maxOccurs="unbounded">
-					<annotation>
-						<documentation>R503+R505+R506</documentation>
-					</annotation>
-				</element>
+			</element>
+			<element name="Transition" type="t:Transition" minOccurs="0"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation>R503+R505+R506</documentation>
+				</annotation>
+			</element>
 		</sequence>
-	</complexType> 
+	</complexType>
 
 	<complexType name="Lifecycle">
 		<complexContent>
