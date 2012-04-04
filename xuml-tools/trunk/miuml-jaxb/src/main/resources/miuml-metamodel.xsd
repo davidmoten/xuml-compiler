@@ -72,7 +72,13 @@
 			</element>
 		</sequence>
 		<attribute name="Name" type="t:Name" use="required" />
-		<attribute name="Alias" type="t:Alias" use="required" />
+		<attribute name="Alias" type="t:Alias" use="optional">
+			<annotation>
+				<documentation>When this attribute is missing the alias should be
+					assumed to be the same as the Name field.
+				</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 
 	<element name="ModeledDomain" substitutionGroup="t:Domain"
@@ -131,7 +137,13 @@
 			<element ref="t:Relationship" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 		<attribute name="Name" type="t:Name" use="required" />
-		<attribute name="Alias" type="t:Name" use="required" />
+		<attribute name="Alias" type="t:Name" use="optional">
+			<annotation>
+				<documentation>When this attribute is missing the alias should be
+					assumed to be the same as the Name field.
+				</documentation>
+			</annotation>
+		</attribute>
 		<attribute name="Floor" type="t:PositiveInteger" use="required">
 			<annotation>
 				<documentation>R3</documentation>
@@ -226,9 +238,12 @@
 				<sequence>
 					<annotation>
 						<documentation>
-							Note that as per the miuml metamodel documentation (Relationship
-							Subsystem Class Diagram Notes) the order of the relationships
-							listed below is not important. It is a set of relationships.
+							Note that as per the miuml metamodel documentation
+							(Relationship
+							Subsystem Class Diagram Notes) the order of the
+							relationships
+							listed below is not important. It is a set of
+							relationships.
 						</documentation>
 					</annotation>
 					<element name="relationship" type="t:Rnum" maxOccurs="unbounded">
@@ -383,7 +398,7 @@
 					<documentation>R21</documentation>
 				</annotation>
 				<sequence>
-					<element name="Reference" type="t:Reference" maxOccurs="unbounded">
+					<element ref="t:Reference">
 						<annotation>
 							<documentation>R31</documentation>
 						</annotation>
