@@ -12,6 +12,18 @@
 		LowerLimit="0" UpperLimit="999999999999" DefaultValue="0" />
 	<SymbolicType Name="Website URL" MinLength="1" MaxLength="2000"
 		Prefix="" Suffix="" ValidationPattern=".*" DefaultValue="" />
+	<SymbolicType Name="Personal Name" MinLength="1"
+		MaxLength="512" Prefix="" Suffix="" ValidationPattern=".*"
+		DefaultValue="" />
+	<SymbolicType Name="Mailing Address" MinLength="1"
+		MaxLength="512" Prefix="" Suffix="" ValidationPattern=".*"
+		DefaultValue="" />
+	<SymbolicType Name="Internet Email Address" MinLength="1"
+		MaxLength="512" Prefix="" Suffix="" ValidationPattern=".*"
+		DefaultValue="" />
+	<SymbolicType Name="Telephone Number" MinLength="1"
+		MaxLength="256" Prefix="" Suffix="" ValidationPattern=".*"
+		DefaultValue="" />
 	<IntegerType Name="Count" Units="Instances" DefaultValue="0"
 		UpperLimit="999999999999" LowerLimit="0" />
 
@@ -31,12 +43,13 @@
 		<Subsystem Name="Product Specification" Alias="Product Specification"
 			Floor="1" Ceiling="99">
 
-			<SpecializedClass Name="Product" Cnum="1" Alias="Product">
+			<SpecializedClass Name="Product" Cnum="1" Number="1"
+				Alias="Product">
 				<IndependentAttribute Name="ProductID"
 					Type="UniversalProductCode">
 					<Identifier Number="1" />
 				</IndependentAttribute>
-				<DerivedAttribute Name="Product Name" Formula="something here"
+				<DerivedAttribute Name="Product Name" Formula="formula for product name"
 					Type="String" />
 				<IndependentAttribute Name="Copyright" Type="Year" />
 				<IndependentAttribute Name="Unit Price" Type="Money" />
@@ -45,15 +58,14 @@
 			</SpecializedClass>
 
 			<NonSpecializedClass Name="Special Order Product"
-				Cnum="2" Alias="Special Order Product">
+				Alias="Special Order Product">
 				<IndependentAttribute Name="Special Order Instructions"
 					Type="String" />
 				<IndependentAttribute Name="Days to Deliver"
 					Type="Count" />
 			</NonSpecializedClass>
 
-			<NonSpecializedClass Name="Stocked Product" Cnum="3"
-				Number="3" Alias="Author">
+			<NonSpecializedClass Name="Stocked Product">
 				<IndependentAttribute Name="Quantity On hand"
 					Type="Count" />
 				<IndependentAttribute Name="Reorder threshold"
@@ -64,8 +76,7 @@
 					Type="String" />
 			</NonSpecializedClass>
 
-			<NonSpecializedClass Name="Product Category"
-				Cnum="3" Number="3" Alias="Product Category">
+			<NonSpecializedClass Name="Product Category">
 				<IndependentAttribute Name="Category ID" Type="arbitrary_id">
 					<Identifier Number="1" />
 				</IndependentAttribute>
@@ -73,8 +84,7 @@
 					Type="string" />
 			</NonSpecializedClass>
 
-			<NonSpecializedClass Name="Publisher" Cnum="4"
-				Number="4" Alias="Publisher">
+			<NonSpecializedClass Name="Publisher">
 				<IndependentAttribute Name="Group code"
 					Type="ISBNGroupIdentifier">
 					<Identifier Number="1" />
@@ -88,31 +98,86 @@
 				<IndependentAttribute Name="Website" Type="WebsiteURL" />
 			</NonSpecializedClass>
 
-			<Generalization Number="4" Rnum="12">
+			<Generalization Rnum="12">
 				<SpecializedClass Name="Stocked Product" />
 				<SpecializedClass Name="Special Orders Product" />
 			</Generalization>
 
-			<BinaryAssociation Number="5" Rnum="15">
+			<BinaryAssociation Rnum="15">
 				<ActivePerspective Phrase="classifies"
 					ViewedClass="Product" OnePerspective="false" Conditional="true" />
 				<PassivePerspective Phrase="is classified according to"
 					ViewedClass="Product Category" OnePerspective="true" Conditional="false" />
 			</BinaryAssociation>
-			
-			<BinaryAssociation Number="6" Rnum="14">
+
+			<BinaryAssociation Rnum="14">
 				<ActivePerspective Phrase="is divided into"
 					ViewedClass="Product Category" OnePerspective="false" Conditional="true" />
 				<PassivePerspective Phrase="is part of"
 					ViewedClass="Product Category" OnePerspective="true" Conditional="true" />
 			</BinaryAssociation>
-			
-			<BinaryAssociation Number="7" Rnum="1">
+
+			<BinaryAssociation Rnum="1">
 				<ActivePerspective Phrase="produces and markets"
 					ViewedClass="Product" OnePerspective="false" Conditional="true" />
 				<PassivePerspective Phrase="is produced and marketed by"
 					ViewedClass="Publisher" OnePerspective="true" Conditional="false" />
 			</BinaryAssociation>
+
+		</Subsystem>
+
+		<Subsystem Name="Ordering" Alias="Ordering" Floor="100"
+			Ceiling="199">
+
+			<NonSpecializedClass Name="Shopping Cart">
+				<IndependentAttribute Name="Cart ID" Type="arbitrary_id">
+					<Identifier Number="1" />
+				</IndependentAttribute>
+				<DerivedAttribute Name="Total value" Formula="formula for total value"
+					Type="Money" />
+			</NonSpecializedClass>
+
+			<NonSpecializedClass Name="Order">
+				<IndependentAttribute Name="Order ID" Type="arbitrary_id">
+					<Identifier Number="1" />
+				</IndependentAttribute>
+				<IndependentAttribute Name="Date order placed"
+					Type="date" />
+				<DerivedAttribute Name="Total value" Formula="formula for total value"
+					Type="Money" />
+				<IndependentAttribute Name="Recipient" Type="Personal Name" />
+				<IndependentAttribute Name="Delivery address"
+					Type="Mailing Address" />
+				<IndependentAttribute Name="Contact phone"
+					Type="Telephone Number" />
+			</NonSpecializedClass>
+
+			<NonSpecializedClass Name="Customer">
+				<IndependentAttribute Name="Email"
+					Type="Internet Email Address">
+					<Identifier Number="1" />
+				</IndependentAttribute>
+				<IndependentAttribute Name="Name" Type="Personal Name" />
+				<IndependentAttribute Name="Shipping address"
+					Type="Mailing Address" />
+				<IndependentAttribute Name="Phone" Type="Telephone Number" />
+				<IndependentAttribute Name="Purchases made"
+					Type="Count" />
+			</NonSpecializedClass>
+
+
+			<NonSpecializedClass Name="Credit Card Charge">
+				<IndependentAttribute Name="Email"
+					Type="Internet Email Address">
+					<Identifier Number="1" />
+				</IndependentAttribute>
+				<IndependentAttribute Name="Name" Type="Personal Name" />
+				<IndependentAttribute Name="Shipping address"
+					Type="Mailing Address" />
+				<IndependentAttribute Name="Phone" Type="Telephone Number" />
+				<IndependentAttribute Name="Purchases made"
+					Type="Count" />
+			</NonSpecializedClass>
 
 		</Subsystem>
 

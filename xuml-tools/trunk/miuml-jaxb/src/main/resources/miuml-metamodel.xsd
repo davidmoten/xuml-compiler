@@ -155,7 +155,8 @@
 				<documentation>
 					Number has been made optional because it is not
 					required
-					to uniquely refer to an Element within a Domain in the schema.
+					to uniquely refer to an Element within a Domain in the
+					schema.
 				</documentation>
 			</annotation>
 		</attribute>
@@ -262,8 +263,26 @@
 					</element>
 				</sequence>
 				<attribute name="Name" type="t:Name" use="required" />
-				<attribute name="Cnum" type="t:Cnum" use="required" />
-				<attribute name="Alias" type="t:Alias" use="required" />
+				<attribute name="Cnum" type="t:Cnum" use="optional">
+					<annotation>
+						<documentation>
+							Schema xml consumers (model
+							compilers/viewers/editors/validators/documenters) will not always
+							require this field
+							so it can be omitted.
+						</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="Alias" type="t:Alias" use="optional">
+					<annotation>
+						<documentation>
+							Schema xml consumers (model
+							compilers/viewers/editors/validators/documenters) will not always
+							require this field and if they do the value should be considered
+							to default to the Name attribute.
+						</documentation>
+					</annotation>
+				</attribute>
 				<attribute name="Association" type="t:Rnum" use="optional">
 					<annotation>
 						<documentation>R120</documentation>
