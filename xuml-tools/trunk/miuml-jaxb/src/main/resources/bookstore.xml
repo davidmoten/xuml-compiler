@@ -94,10 +94,17 @@
 			</Generalization>
 
 			<BinaryAssociation Number="5" Rnum="15">
-				<ActivePerspective OnePerspective="false"
-					Conditional="true" ViewedClass="Product" Phrase="classifies" />
-				<PassivePerspective OnePerspective="true"
-					Conditional="false" ViewedClass="Product Category" Phrase="is classified according to" />
+				<ActivePerspective Phrase="classifies"
+					ViewedClass="Product" OnePerspective="false" Conditional="true" />
+				<PassivePerspective Phrase="is classified according to"
+					ViewedClass="Product Category" OnePerspective="true" Conditional="false" />
+			</BinaryAssociation>
+			
+			<BinaryAssociation Number="6" Rnum="14">
+				<ActivePerspective Phrase="is divided into"
+					ViewedClass="Product Category" OnePerspective="false" Conditional="true" />
+				<PassivePerspective Phrase="is part of"
+					ViewedClass="Product Category" OnePerspective="true" Conditional="true" />
 			</BinaryAssociation>
 
 		</Subsystem>

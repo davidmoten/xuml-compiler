@@ -153,8 +153,9 @@
 		<attribute name="Number" type="t:Number" use="optional">
 			<annotation>
 				<documentation>
-					Number has been made optional because it is not required
-					 to uniquely refer to an Element within a Domain in the schema.
+					Number has been made optional because it is not
+					required
+					to uniquely refer to an Element within a Domain in the schema.
 				</documentation>
 			</annotation>
 		</attribute>
@@ -427,7 +428,8 @@
 	<!-- RELATIONSHIP SUBSYSTEM ++++++ -->
 	<!--++++++++++++++++++++++++++++++ -->
 
-	<!--  R131 and Facet and Lineage omitted as they contribute to validation only. -->
+	<!-- R131 and Facet and Lineage omitted as they contribute to validation 
+		only. -->
 
 	<!-- Relationship specializations -->
 
@@ -454,9 +456,9 @@
 			</extension>
 		</complexContent>
 	</complexType>
-	
+
 	<complexType name="Named">
-		<attribute name="Name" type="t:Name"/>
+		<attribute name="Name" type="t:Name" />
 	</complexType>
 
 	<complexType name="Association">
@@ -525,23 +527,23 @@
 				required it, e.g. ActivePerspective and PassivePerspective
 			</documentation>
 		</annotation>
+		<attribute name="Phrase" type="t:Phrase" use="required" />
 		<!-- <attribute name="Side" type="t:Number" use="required" /> -->
 		<attribute name="ViewedClass" type="t:Name" use="required">
 			<annotation>
 				<documentation>Represents the R104 specialization group because
-					schema cannot handle multiple specialization groups one complexType
+					schema does not support multiple inheritance.
 				</documentation>
 			</annotation>
 		</attribute>
-		<attribute name="Phrase" type="t:Phrase" use="required" />
-		<attribute name="Conditional" type="boolean" use="required" />
 		<attribute name="OnePerspective" type="boolean" use="required">
 			<annotation>
 				<documentation>Represents the R104 specialization group because
-					schema cannot handle multiple specialization groups one complexType
+					schema does not support multiple inheritance.
 				</documentation>
 			</annotation>
 		</attribute>
+		<attribute name="Conditional" type="boolean" use="required" />
 	</complexType>
 
 	<element name="SymmetricPerspective" substitutionGroup="t:Perspective"
