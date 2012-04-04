@@ -307,7 +307,6 @@
 				<PassivePerspective Phrase="is characterized by"
 					ViewedClass="Attribute" OnePerspective="false" Conditional="false" />
 			</BinaryAssociation>
-			
 
 		</Subsystem>
 	</ModeledDomain>
