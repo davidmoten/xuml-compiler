@@ -26,7 +26,6 @@
 					mentioned in documentation annotations so that it is clear they
 					have
 					been considered.</p>
-
 				<p>Subsystems to be considered by this schema include:</p>
 				<ul>
 					<li>Domain Subsystem</li>
@@ -631,7 +630,6 @@
 		substitutionGroup="t:Reference" />
 
 	<complexType name="Reference">
-
 	</complexType>
 
 	<complexType name="AssociativeReference">
@@ -671,9 +669,18 @@
 	<element name="UnconstrainedType" type="t:ConstrainedType"
 		substitutionGroup="t:Type" />
 
-
 	<complexType name="Type">
 		<attribute name="Name" type="t:Name" use="required" />
+		<attribute name="LocalName" type="t:Name" use="optional">
+			<annotation>
+				<documentation>models R708 Domain Type + Common Type. When a type is
+					particular to a domain then it should have a local name property
+					(that may be the same name as the name which should be unique
+					across all domains). When this attribute is omitted the LocalName
+					is assumed to be the same as the Name.
+				</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 
 	<complexType name="ConstrainedType">
@@ -902,15 +909,22 @@
 					<documentation>R503</documentation>
 				</annotation>
 			</element>
-			<element ref="t:Event" maxOccurs="unbounded" />
-			<element name="Transition" type="t:Transition" minOccurs="0"
-						maxOccurs="unbounded">
-						<annotation>
-							<documentation>R503+R505+R506</documentation>
-						</annotation>
-					</element>
+			<element ref="t:Event" maxOccurs="unbounded">
+				<annotation>
+					<documentation>
+						R565+R550+R558+R561+R560,
+						R565+R550+R557+R554+R560
+					</documentation>
+				</annotation>
+				</element>
+				<element name="Transition" type="t:Transition" minOccurs="0"
+					maxOccurs="unbounded">
+					<annotation>
+						<documentation>R503+R505+R506</documentation>
+					</annotation>
+				</element>
 		</sequence>
-	</complexType>
+	</complexType> 
 
 	<complexType name="Lifecycle">
 		<complexContent>
@@ -944,16 +958,16 @@
 	<complexType name="EventResponse">
 	</complexType>
 
-	<complexType name="Transition"> 
+	<complexType name="Transition">
 		<complexContent>
 			<extension base="t:EventResponse">
-				<attribute name="State" type="t:Name" use="required"/>
+				<attribute name="State" type="t:Name" use="required" />
 				<attribute name="Destination" type="t:Name" use="required">
 					<annotation>
 						<documentation>R507</documentation>
 					</annotation>
 				</attribute>
-				<attribute name="EventID" type="t:Nominal" use="required"/>
+				<attribute name="EventID" type="t:Nominal" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -990,7 +1004,11 @@
 	<complexType name="StateModelSignature">
 		<sequence>
 			<element name="StateModelParameter" type="t:StateModelParameter"
-				minOccurs="0" maxOccurs="unbounded" />
+				minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>R563</documentation>
+				</annotation>
+			</element>
 		</sequence>
 		<attribute name="Name" type="t:Name" use="required" />
 	</complexType>
@@ -1007,7 +1025,11 @@
 
 	<complexType name="StateModelParameter">
 		<attribute name="Name" type="t:Name" use="required" />
-		<attribute name="Type" type="t:Name" use="required" />
+		<attribute name="Type" type="t:Name" use="required">
+			<annotation>
+				<documentation>R566</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 
 	<complexType name="CreationEvent">
@@ -1082,3 +1104,4 @@
 	</simpleType>
 
 </schema>
+		

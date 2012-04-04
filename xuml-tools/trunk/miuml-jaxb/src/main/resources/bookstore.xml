@@ -4,26 +4,20 @@
 
 	<SymbolicType Name="string" MinLength="1" MaxLength="4096"
 		Prefix="" Suffix="" ValidationPattern="?.*" DefaultValue="" />
+	<IntegerType Name="date" Units="ms" DefaultValue="0"
+		UpperLimit="99999999999" LowerLimit="-9999999999999" />
+	<IntegerType Name="timestamp" Units="ms" DefaultValue="0"
+		UpperLimit="99999999999" LowerLimit="-9999999999999" />
+	<IntegerType Name="time" Units="ms" DefaultValue="0"
+		UpperLimit="99999999999" LowerLimit="-9999999999999" />
+
 	<IntegerType Name="Nominal" Units="None" DefaultValue="1"
 		UpperLimit="99999999999" LowerLimit="1" />
-	<IntegerType Name="Year" Units="Gregorian Calendar"
-		DefaultValue="0" UpperLimit="2100" LowerLimit="-5000" />
+	<IntegerType Name="Year" Units="year" DefaultValue="0"
+		UpperLimit="2100" LowerLimit="-5000" />
 	<RealType Name="Money" Precision="2" Units="Dollars"
 		LowerLimit="0" UpperLimit="999999999999" DefaultValue="0" />
-	<SymbolicType Name="Website URL" MinLength="1" MaxLength="2000"
-		Prefix="" Suffix="" ValidationPattern=".*" DefaultValue="" />
-	<SymbolicType Name="Personal Name" MinLength="1"
-		MaxLength="512" Prefix="" Suffix="" ValidationPattern=".*"
-		DefaultValue="" />
-	<SymbolicType Name="Mailing Address" MinLength="1"
-		MaxLength="512" Prefix="" Suffix="" ValidationPattern=".*"
-		DefaultValue="" />
-	<SymbolicType Name="Internet Email Address" MinLength="1"
-		MaxLength="512" Prefix="" Suffix="" ValidationPattern=".*"
-		DefaultValue="" />
-	<SymbolicType Name="Telephone Number" MinLength="1"
-		MaxLength="256" Prefix="" Suffix="" ValidationPattern=".*"
-		DefaultValue="" />
+
 	<IntegerType Name="Count" Units="Instances" DefaultValue="0"
 		UpperLimit="999999999999" LowerLimit="0" />
 	<SymbolicType Name="Bank Card Approval Code" MinLength="1"
@@ -41,12 +35,26 @@
 		<!-- types local to the domain -->
 		<SymbolicType Name="ISBN Group Identifier" MinLength="5"
 			MaxLength="5" Prefix="" Suffix="" ValidationPattern="\d{5}"
-			DefaultValue="" />
+			DefaultValue=""  />
 		<SymbolicType Name="ISBN Publisher Prefix" MinLength="2"
 			MaxLength="2" Prefix="" Suffix="" ValidationPattern="[^\s]{5}"
 			DefaultValue="" />
 		<SymbolicType Name="Universal Product Code" MinLength="1"
 			MaxLength="64" Prefix="" Suffix="" ValidationPattern=".*"
+			DefaultValue="" />
+		<SymbolicType Name="Website URL" MinLength="1" MaxLength="2000"
+			Prefix="" Suffix="" ValidationPattern=".*" DefaultValue="" />
+		<SymbolicType Name="Personal Name" MinLength="1"
+			MaxLength="512" Prefix="" Suffix="" ValidationPattern=".*"
+			DefaultValue="" />
+		<SymbolicType Name="Mailing Address" MinLength="1"
+			MaxLength="512" Prefix="" Suffix="" ValidationPattern=".*"
+			DefaultValue="" />
+		<SymbolicType Name="Internet Email Address" MinLength="1"
+			MaxLength="512" Prefix="" Suffix="" ValidationPattern=".*"
+			DefaultValue="" />
+		<SymbolicType Name="Telephone Number" MinLength="1"
+			MaxLength="256" Prefix="" Suffix="" ValidationPattern=".*"
 			DefaultValue="" />
 
 		<Subsystem Name="Product Specification" Alias="Product Specification"
@@ -210,7 +218,7 @@
 						ID="4" />
 					<EffectiveSignallingEvent Name="Order delivered"
 						ID="5" />
-						
+
 					<Transition Name="Submit charge" Destination="Making Charge"
 						EventID="2" />
 					<Transition Name="Payment declined" Destination="Payment Not Approved"
