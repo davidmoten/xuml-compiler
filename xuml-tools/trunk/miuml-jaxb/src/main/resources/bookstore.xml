@@ -292,15 +292,22 @@
 				<IndependentAttribute Name="Domain" Type="string">
 					<Identifier Number="1" />
 				</IndependentAttribute>
-				<!-- TODO sort out referential identifiers -->
 				<ReferentialAttribute Name="Class">
-					<ToOneReference />
+					<ToOneReference Relationship="1" Side="passive"/>
 				</ReferentialAttribute>
 				<IndependentAttribute Name="Name" Type="string">
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<IndependentAttribute Name="Type" Type="string" />
 			</NonSpecializedClass>
+
+			<BinaryAssociation Rnum="1">
+				<ActivePerspective Phrase="characterizes"
+					ViewedClass="Class" OnePerspective="true" Conditional="false" />
+				<PassivePerspective Phrase="is characterized by"
+					ViewedClass="Attribute" OnePerspective="false" Conditional="false" />
+			</BinaryAssociation>
+			
 
 		</Subsystem>
 	</ModeledDomain>

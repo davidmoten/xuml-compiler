@@ -675,7 +675,10 @@
 			<annotation>
 				<documentation>R152</documentation>
 			</annotation>
-			<extension base="t:Reference"></extension>
+			<extension base="t:Reference">
+				<attribute name="Side" type="t:Side" use="required" />
+				<attribute name="Relationship" type="t:Rnum" use="required" />
+			</extension>
 		</complexContent>
 	</complexType>
 
@@ -1107,6 +1110,13 @@
 
 	<simpleType name="Rnum">
 		<restriction base="t:PositiveInteger" />
+	</simpleType>
+
+	<simpleType name="Side">
+		<restriction base="string">
+			<enumeration value="active" />
+			<enumeration value="passive" />
+		</restriction>
 	</simpleType>
 
 	<simpleType name="Name">
