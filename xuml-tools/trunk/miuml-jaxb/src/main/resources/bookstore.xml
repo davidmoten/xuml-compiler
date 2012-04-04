@@ -161,13 +161,14 @@
 					Type="Telephone Number" />
 
 				<Lifecycle>
-					<State Name="Establishing Customer and Verifying Payment"
-						Snum="3" />
-					<State Name="Make Charge" Snum="8" />
-					<State Name="Being Packed and Shipped" Snum="5" />
-					<State Name="Payment Not Approved" Snum="6" />
-					<State Name="Delivered to Customer" Snum="7" />
-					<CreationEvent Name="Check out" ID="1"
+					
+					<State Name="Establishing Customer and Verifying Payment" />
+					<State Name="Making Charge" />
+					<State Name="Being Packed and Shipped" />
+					<State Name="Payment Not Approved" />
+					<State Name="Delivered to Customer" />
+					
+					<CreationEvent Name="Check out"
 						State="Establishing Customer and Verifying Payment">
 						<StateModelParameter Name="Cart" Type="arbitrary_id" />
 						<StateModelParameter Name="Account number"
@@ -189,8 +190,23 @@
 						<StateModelParameter Name="Shipping address"
 							Type="Mailing Address" />
 					</CreationEvent>
-					<EffectiveSignalingEvent Name="Submit charge"
-						ID="2" />
+					
+					<EffectiveSignalingEvent Name="Submit charge">
+						<StateModelParameter Name="Cart" Type="arbitrary_id" />
+						<StateModelParameter Name="Account number"
+							Type="Bank Card Account Number" />
+						<StateModelParameter Name="Billing address"
+							Type="Mailing Address" />
+						<StateModelParameter Name="Card expiration date]"
+							Type="Month Year" />
+						<StateModelParameter Name="Cardholder name"
+							Type="Personal Name" />
+					</EffectiveSignalingEvent>
+					
+					<EffectiveSignallingEvent Name="Payment declined" />
+					<EffectiveSignallingEvent Name="Payment approved" />
+					<EffectiveSignallingEvent Name="Order delivered" />
+
 				</Lifecycle>
 
 			</NonSpecializedClass>
