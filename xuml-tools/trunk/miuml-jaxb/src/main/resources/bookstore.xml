@@ -29,6 +29,9 @@
 	<SymbolicType Name="Bank Card Approval Code" MinLength="1"
 		MaxLength="64" Prefix="" Suffix="" ValidationPattern=".*"
 		DefaultValue="" />
+	<SymbolicType Name="Bank Card Account Number" MinLength="1"
+		MaxLength="64" Prefix="" Suffix="" ValidationPattern=".*"
+		DefaultValue="" />
 	<SymbolicType Name="Month Year" MinLength="6" MaxLength="6"
 		Prefix="" Suffix="" ValidationPattern="[01][0-9][12][9012345][0-9]"
 		DefaultValue="" />
@@ -156,6 +159,7 @@
 					Type="Mailing Address" />
 				<IndependentAttribute Name="Contact phone"
 					Type="Telephone Number" />
+
 				<Lifecycle>
 					<State Name="Establishing Customer and Verifying Payment"
 						Snum="3" />
@@ -163,8 +167,30 @@
 					<State Name="Being Packed and Shipped" Snum="5" />
 					<State Name="Payment Not Approved" Snum="6" />
 					<State Name="Delivered to Customer" Snum="7" />
-					<CreationEvent Name="Check out" ID="1" State="Establishing Customer and Verifying Payment"></CreationEvent>
-					<EffectiveSignalingEvent Name="Submit charge" ID="2"></EffectiveSignalingEvent>
+					<CreationEvent Name="Check out" ID="1"
+						State="Establishing Customer and Verifying Payment">
+						<StateModelParameter Name="Cart" Type="arbitrary_id" />
+						<StateModelParameter Name="Account number"
+							Type="Bank Card Account Number" />
+						<StateModelParameter Name="Billing address"
+							Type="Mailing Address" />
+						<StateModelParameter Name="Card expiration date]"
+							Type="Month Year" />
+						<StateModelParameter Name="Cardholder name"
+							Type="Personal Name" />
+						<StateModelParameter Name="Customer email"
+							Type="Internet Email Address" />
+						<StateModelParameter Name="Customer Name"
+							Type="Personal Name" />
+						<StateModelParameter Name="Billing address"
+							Type="Mailing Address" />
+						<StateModelParameter Name="Customer phone"
+							Type="Telephone Number" />
+						<StateModelParameter Name="Shipping address"
+							Type="Mailing Address" />
+					</CreationEvent>
+					<EffectiveSignalingEvent Name="Submit charge"
+						ID="2" />
 				</Lifecycle>
 
 			</NonSpecializedClass>
@@ -187,7 +213,7 @@
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<IndependentAttribute Name="Account number"
-					Type="Bank Card Approval Code" />
+					Type="Bank Card Account Number" />
 				<IndependentAttribute Name="Cardholder name"
 					Type="Personal Name" />
 				<IndependentAttribute Name="Billing address"
