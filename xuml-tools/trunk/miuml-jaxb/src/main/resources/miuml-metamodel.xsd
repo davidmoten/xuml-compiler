@@ -676,7 +676,13 @@
 				<documentation>R152</documentation>
 			</annotation>
 			<extension base="t:Reference">
-				<attribute name="Side" type="t:Side" use="required" />
+				<attribute name="Side" type="t:Side" use="optional">
+					<annotation>
+						<documentation>This should only be required for reflexive binary 
+							associations.
+						</documentation>
+					</annotation>
+				</attribute>
 				<attribute name="Relationship" type="t:Rnum" use="required" />
 			</extension>
 		</complexContent>
