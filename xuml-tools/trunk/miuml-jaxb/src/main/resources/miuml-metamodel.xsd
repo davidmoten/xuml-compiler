@@ -863,7 +863,7 @@
 		substitutionGroup="t:Destination" />
 
 	<complexType name="Destination">
-		<attribute name="Name" type="Name" use="required" />
+		<attribute name="Name" type="t:Name" use="required" />
 	</complexType>
 
 	<complexType name="State">
@@ -931,8 +931,8 @@
 	</complexType>
 
 	<complexType name="Transition">
-		<attribute name="State" type="Name" />
-		<attribute name="Destination" type="Name">
+		<attribute name="State" type="t:Name" />
+		<attribute name="Destination" type="t:Name">
 			<annotation>
 				<documentation>R507</documentation>
 			</annotation>
@@ -998,7 +998,7 @@
 				<annotation>
 					<documentation>R567+R554+R560</documentation>
 				</annotation>
-				<attribute name="State" type="Name" use="required">
+				<attribute name="State" type="t:Name" use="required">
 					<annotation>
 						<documentation>R508</documentation>
 					</annotation>

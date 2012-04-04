@@ -26,6 +26,12 @@
 		DefaultValue="" />
 	<IntegerType Name="Count" Units="Instances" DefaultValue="0"
 		UpperLimit="999999999999" LowerLimit="0" />
+	<SymbolicType Name="Bank Card Approval Code" MinLength="1"
+		MaxLength="64" Prefix="" Suffix="" ValidationPattern=".*"
+		DefaultValue="" />
+	<SymbolicType Name="Month Year" MinLength="6" MaxLength="6"
+		Prefix="" Suffix="" ValidationPattern="[01][0-9][12][9012345][0-9]"
+		DefaultValue="" />
 
 	<ModeledDomain Name="Bookstore" Alias="Bookstore">
 
@@ -41,7 +47,7 @@
 			DefaultValue="" />
 
 		<Subsystem Name="Product Specification" Alias="Product Specification"
-			Floor="1" Ceiling="99">
+			Floor="11" Ceiling="20">
 
 			<SpecializedClass Name="Product" Cnum="1" Number="1"
 				Alias="Product">
@@ -126,8 +132,8 @@
 
 		</Subsystem>
 
-		<Subsystem Name="Ordering" Alias="Ordering" Floor="100"
-			Ceiling="199">
+		<Subsystem Name="Ordering" Alias="Ordering" Floor="1"
+			Ceiling="10">
 
 			<NonSpecializedClass Name="Shopping Cart">
 				<IndependentAttribute Name="Cart ID" Type="arbitrary_id">
@@ -150,6 +156,17 @@
 					Type="Mailing Address" />
 				<IndependentAttribute Name="Contact phone"
 					Type="Telephone Number" />
+				<Lifecycle>
+					<State Name="Establishing Customer and Verifying Payment"
+						Snum="3" />
+					<State Name="Make Charge" Snum="8" />
+					<State Name="Being Packed and Shipped" Snum="5" />
+					<State Name="Payment Not Approved" Snum="6" />
+					<State Name="Delivered to Customer" Snum="7" />
+					<CreationEvent Name="Check out" ID="1" State="Establishing Customer and Verifying Payment"></CreationEvent>
+					<EffectiveSignalingEvent Name="Submit charge" ID="2"></EffectiveSignalingEvent>
+				</Lifecycle>
+
 			</NonSpecializedClass>
 
 			<NonSpecializedClass Name="Customer">
@@ -165,18 +182,33 @@
 					Type="Count" />
 			</NonSpecializedClass>
 
-
 			<NonSpecializedClass Name="Credit Card Charge">
-				<IndependentAttribute Name="Email"
-					Type="Internet Email Address">
+				<IndependentAttribute Name="Charge Id" Type="arbitrary_id">
 					<Identifier Number="1" />
 				</IndependentAttribute>
-				<IndependentAttribute Name="Name" Type="Personal Name" />
-				<IndependentAttribute Name="Shipping address"
+				<IndependentAttribute Name="Account number"
+					Type="Bank Card Approval Code" />
+				<IndependentAttribute Name="Cardholder name"
+					Type="Personal Name" />
+				<IndependentAttribute Name="Billing address"
 					Type="Mailing Address" />
-				<IndependentAttribute Name="Phone" Type="Telephone Number" />
-				<IndependentAttribute Name="Purchases made"
-					Type="Count" />
+				<IndependentAttribute Name="Card expiration date"
+					Type="Month Year" />
+				<IndependentAttribute Name="Date charge made"
+					Type="date" />
+				<IndependentAttribute Name="Charge amount"
+					Type="Money" />
+				<IndependentAttribute Name="Approval code"
+					Type="Bank Card Approval Code" />
+			</NonSpecializedClass>
+
+			<NonSpecializedClass Name="Product Selection"
+				Association="4">
+				<IndependentAttribute Name="Quantity" Type="Count" />
+				<IndependentAttribute Name="Unit price of selection"
+					Type="Money" />
+				<DerivedAttribute Name="Selection value" Type="Money"
+					Formula="selection value formula" />
 			</NonSpecializedClass>
 
 		</Subsystem>
