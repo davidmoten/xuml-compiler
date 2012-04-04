@@ -106,6 +106,13 @@
 				<PassivePerspective Phrase="is part of"
 					ViewedClass="Product Category" OnePerspective="true" Conditional="true" />
 			</BinaryAssociation>
+			
+			<BinaryAssociation Number="7" Rnum="1">
+				<ActivePerspective Phrase="produces and markets"
+					ViewedClass="Product" OnePerspective="false" Conditional="true" />
+				<PassivePerspective Phrase="is produced and marketed by"
+					ViewedClass="Publisher" OnePerspective="true" Conditional="false" />
+			</BinaryAssociation>
 
 		</Subsystem>
 
