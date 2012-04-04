@@ -161,14 +161,14 @@
 					Type="Telephone Number" />
 
 				<Lifecycle>
-					
+
 					<State Name="Establishing Customer and Verifying Payment" />
 					<State Name="Making Charge" />
 					<State Name="Being Packed and Shipped" />
 					<State Name="Payment Not Approved" />
 					<State Name="Delivered to Customer" />
-					
-					<CreationEvent Name="Check out"
+
+					<CreationEvent Name="Check out" ID="1"
 						State="Establishing Customer and Verifying Payment">
 						<StateModelParameter Name="Cart" Type="arbitrary_id" />
 						<StateModelParameter Name="Account number"
@@ -190,23 +190,33 @@
 						<StateModelParameter Name="Shipping address"
 							Type="Mailing Address" />
 					</CreationEvent>
-					
-					<EffectiveSignalingEvent Name="Submit charge">
+
+					<EffectiveSignalingEvent Name="Submit charge"
+						ID="2">
 						<StateModelParameter Name="Cart" Type="arbitrary_id" />
 						<StateModelParameter Name="Account number"
 							Type="Bank Card Account Number" />
 						<StateModelParameter Name="Billing address"
 							Type="Mailing Address" />
-						<StateModelParameter Name="Card expiration date]"
+						<StateModelParameter Name="Card expiration date"
 							Type="Month Year" />
 						<StateModelParameter Name="Cardholder name"
 							Type="Personal Name" />
 					</EffectiveSignalingEvent>
-					
-					<EffectiveSignallingEvent Name="Payment declined" />
-					<EffectiveSignallingEvent Name="Payment approved" />
-					<EffectiveSignallingEvent Name="Order delivered" />
 
+					<EffectiveSignallingEvent Name="Payment declined"
+						ID="3" />
+					<EffectiveSignallingEvent Name="Payment approved"
+						ID="4" />
+					<EffectiveSignallingEvent Name="Order delivered"
+						ID="5" />
+						
+					<Transition Name="Submit charge" Destination="Making Charge"
+						EventID="2" />
+					<Transition Name="Payment declined" Destination="Payment Not Approved"
+						EventID="3" />
+					<Transition Name="Payment approved" Destination="Being Packed and Shipped"
+						EventID="5" />
 				</Lifecycle>
 
 			</NonSpecializedClass>
