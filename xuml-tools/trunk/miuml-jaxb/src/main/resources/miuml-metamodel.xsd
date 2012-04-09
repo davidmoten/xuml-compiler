@@ -288,7 +288,11 @@
 					<documentation>R14</documentation>
 				</annotation>
 				<sequence>
-					<element ref="t:Attribute" maxOccurs="unbounded" />
+					<element ref="t:Attribute" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R20</documentation>
+						</annotation>
+					</element>
 					<element name="Lifecycle" minOccurs="0">
 						<annotation>
 							<documentation>R500</documentation>
@@ -432,6 +436,12 @@
 
 	<complexType name="DerivedAttribute">
 		<complexContent>
+			<annotation>
+				<documentation>R26 has not been represented in the schema because
+					it's use depends on a formula language for derived attributes.
+					Such a language has not yet been defined in miUML (April 18 2012).
+				</documentation>
+			</annotation>
 			<extension base="t:NativeAttribute">
 				<annotation>
 					<documentation>R25</documentation>
@@ -473,8 +483,6 @@
 			</extension>
 		</complexContent>
 	</complexType>
-
-
 
 	<!--++++++++++++++++++++++++++++++ -->
 	<!-- RELATIONSHIP SUBSYSTEM ++++++ -->
