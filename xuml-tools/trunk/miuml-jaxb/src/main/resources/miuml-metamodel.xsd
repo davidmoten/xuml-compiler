@@ -161,7 +161,7 @@
 	<element name="Element" type="t:Element" abstract="true" />
 
 	<complexType name="Element">
-		<attribute name="Number" type="t:Number" use="optional">
+		<attribute name="Element" type="t:Number" use="optional">
 			<annotation>
 				<documentation>
 					Number has been made optional because it is not
@@ -494,9 +494,11 @@
 					</documentation>
 				</annotation>
 				<sequence>
-					<element name="SpecializedClass" type="t:Named" maxOccurs="unbounded">
+					<element name="SpecializedClass" type="t:Named" minOccurs="2"
+						maxOccurs="unbounded">
 						<annotation>
-							<documentation>R101</documentation>
+							<documentation>R101, minOccurs=2 represents the relationships
+								R116,R117,R118 (Minimal Partition)</documentation>
 						</annotation>
 					</element>
 				</sequence>
@@ -659,6 +661,21 @@
 		substitutionGroup="t:Reference" />
 
 	<complexType name="Reference">
+		<annotation>
+			<documentation>
+				R21,R31,R32
+			</documentation>
+		</annotation>
+		<attribute name="Relationship" type="t:Rnum" use="required" />
+		<attribute name="Attribute" type="t:Name" use="optional">
+			<annotation>
+				<documentation>
+					If this attribute is not used then its value is 
+					assumed to be the name of the enclosing attribute
+					making the reference.
+				</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 
 	<complexType name="AssociativeReference">
@@ -666,7 +683,14 @@
 			<annotation>
 				<documentation>R152</documentation>
 			</annotation>
-			<extension base="t:Reference"></extension>
+			<extension base="t:Reference">
+				<attribute name="Side" type="t:Side" use="optional">
+					<annotation>
+						<documentation>TODO
+						</documentation>
+					</annotation>
+				</attribute>
+			</extension>
 		</complexContent>
 	</complexType>
 
@@ -678,12 +702,11 @@
 			<extension base="t:Reference">
 				<attribute name="Side" type="t:Side" use="optional">
 					<annotation>
-						<documentation>This should only be required for reflexive binary 
+						<documentation>This should only be required for reflexive binary
 							associations.
 						</documentation>
 					</annotation>
 				</attribute>
-				<attribute name="Relationship" type="t:Rnum" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
@@ -1006,7 +1029,18 @@
 						<documentation>R507</documentation>
 					</annotation>
 				</attribute>
-				<attribute name="EventID" type="t:Nominal" use="required" />
+				<attribute name="EventID" type="t:Nominal" use="required">
+					<annotation>
+						<documentation>
+							Note that the EventID might be a
+							LocalEffectiveSignallingEvent on the enclosing class or it might
+							be the EventID of a LocalEffectiveSignallingEvent from a
+							superclass. The possibility of namespace clashes in this case
+							forces the use of an Event ID rather than just the event Name for
+							unique identification.
+						</documentation>
+					</annotation>
+				</attribute>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -1018,7 +1052,7 @@
 	<element name="Event" type="t:Event" abstract="true" />
 	<element name="CreationEvent" type="t:CreationEvent"
 		substitutionGroup="t:Event" />
-	<element name="EffectiveSignalingEvent" type="t:EffectiveSignalingEvent"
+	<element name="LocalEffectiveSignalingEvent" type="t:LocalEffectiveSignalingEvent"
 		substitutionGroup="t:Event" />
 
 	<complexType name="Event">
@@ -1086,7 +1120,7 @@
 		</complexContent>
 	</complexType>
 
-	<complexType name="EffectiveSignalingEvent">
+	<complexType name="LocalEffectiveSignalingEvent">
 		<complexContent>
 			<extension base="t:Event">
 				<annotation>

@@ -60,7 +60,7 @@
 		<Subsystem Name="Product Specification" Alias="Product Specification"
 			Floor="11" Ceiling="20">
 
-			<SpecializedClass Name="Product" Cnum="1" Number="1"
+			<SpecializedClass Name="Product" Cnum="1" Element="1"
 				Alias="Product">
 				<IndependentAttribute Name="ProductID"
 					Type="UniversalProductCode">
@@ -212,11 +212,11 @@
 							Type="Personal Name" />
 					</EffectiveSignalingEvent>
 
-					<EffectiveSignallingEvent Name="Payment declined"
+					<LocalEffectiveSignallingEvent Name="Payment declined"
 						ID="3" />
-					<EffectiveSignallingEvent Name="Payment approved"
+					<LocalEffectiveSignallingEvent Name="Payment approved"
 						ID="4" />
-					<EffectiveSignallingEvent Name="Order delivered"
+					<LocalEffectiveSignallingEvent Name="Order delivered"
 						ID="5" />
 
 					<Transition Name="Submit charge" Destination="Making Charge"
