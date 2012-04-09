@@ -51,7 +51,7 @@
 
 	<complexType name="Domains">
 		<sequence>
-			<element ref="t:Type" minOccurs="0" maxOccurs="unbounded">
+			<element ref="t:ConstrainedType" minOccurs="0" maxOccurs="unbounded">
 				<annotation>
 					<documentation>R708 CommonType</documentation>
 				</annotation>
@@ -67,7 +67,8 @@
 			<element name="Bridge" type="t:Bridge" minOccurs="0"
 				maxOccurs="unbounded">
 				<annotation>
-					<documentation>R7</documentation>
+					<documentation>R7. The enclosing domain is the Client domain
+					</documentation>
 				</annotation>
 			</element>
 		</sequence>
@@ -93,7 +94,7 @@
 					<documentation>R4</documentation>
 				</annotation>
 				<sequence>
-					<element ref="t:Type" minOccurs="0" maxOccurs="unbounded">
+					<element ref="t:ConstrainedType" minOccurs="0" maxOccurs="unbounded">
 						<annotation>
 							<documentation>R708 DomainType</documentation>
 						</annotation>
@@ -122,7 +123,11 @@
 	<!-- Bridge -->
 
 	<complexType name="Bridge">
-		<attribute name="Domain" type="t:Name" use="required" />
+		<attribute name="Service" type="t:Name" use="required">
+			<annotation>
+				<documentation>R7c</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 
 	<!-- Subsystem -->
@@ -498,7 +503,8 @@
 						maxOccurs="unbounded">
 						<annotation>
 							<documentation>R101, minOccurs=2 represents the relationships
-								R116,R117,R118 (Minimal Partition)</documentation>
+								R116,R117,R118 (Minimal Partition)
+							</documentation>
 						</annotation>
 					</element>
 				</sequence>
@@ -670,9 +676,10 @@
 		<attribute name="Attribute" type="t:Name" use="optional">
 			<annotation>
 				<documentation>
-					If this attribute is not used then its value is 
+					If this attribute is not used then its value is
 					assumed to be the name of the enclosing attribute
-					making the reference.
+					making the
+					reference.
 				</documentation>
 			</annotation>
 		</attribute>
@@ -734,11 +741,16 @@
 		<attribute name="Name" type="t:Name" use="required" />
 		<attribute name="LocalName" type="t:Name" use="optional">
 			<annotation>
-				<documentation>models R708 Domain Type + Common Type. When a type is
-					particular to a domain then it should have a local name property
-					(that may be the same name as the name which should be unique
-					across all domains). When this attribute is omitted the LocalName
-					is assumed to be the same as the Name.
+				<documentation>
+					<p>Models R708 Domain Type + Common Type. When a type is particular
+						to a domain then it should have a local name property (that may be
+						the same name as the name which should be unique across all
+						domains). When this attribute is omitted the LocalName is assumed
+						to be the same as the Name.</p>
+					<p>The operator part of the Type subsystem is not modeled because
+						it will not be used till a processing language is developed. For
+						this reason R712,R713,R716 R718,R719,R720 have not been modeled in
+						this schema.</p>
 				</documentation>
 			</annotation>
 		</attribute>
@@ -772,7 +784,15 @@
 			<annotation>
 				<documentation>R700</documentation>
 			</annotation>
-			<extension base="t:ConstrainedType"></extension>
+			<extension base="t:ConstrainedType">
+				<annotation>
+					<documentation>R717. All atomic types are based on an unconstrained
+						type of the same name. For example the constrained Real with
+						precision and upper and lower bounds is based on the mathematical
+						domain R of real numbers (without constraints).
+					</documentation>
+				</annotation>
+			</extension>
 		</complexContent>
 	</complexType>
 
@@ -804,7 +824,11 @@
 			</annotation>
 			<extension base="t:Member">
 				<sequence>
-					<element ref="t:Member" maxOccurs="unbounded" />
+					<element ref="t:Member" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R704</documentation>
+						</annotation>
+					</element>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -813,10 +837,14 @@
 	<complexType name="Field">
 		<complexContent>
 			<annotation>
-				<documentation>R705c</documentation>
+				<documentation>R703</documentation>
 			</annotation>
 			<extension base="t:Member">
-				<attribute name="Type" type="t:Name" />
+				<attribute name="Type" type="t:Name">
+					<annotation>
+						<documentation>R705</documentation>
+					</annotation>
+				</attribute>
 			</extension>
 		</complexContent>
 	</complexType>
@@ -898,8 +926,16 @@
 			</annotation>
 			<extension base="t:AtomicType">
 				<sequence>
-					<element name="DefaultValue" type="string" />
-					<element name="Value" type="string" maxOccurs="unbounded" />
+					<element name="DefaultValue" type="string">
+						<annotation>
+							<documentation>R715</documentation>
+						</annotation>
+					</element>
+					<element name="Value" type="string" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R707</documentation>
+						</annotation>
+					</element>
 				</sequence>
 			</extension>
 		</complexContent>
