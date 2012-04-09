@@ -51,6 +51,7 @@
 
 	<complexType name="Domains">
 		<sequence>
+			<element name="DomainBuildSpecification" type="t:DomainBuildSpecification"/>
 			<element ref="t:ConstrainedType" minOccurs="0" maxOccurs="unbounded">
 				<annotation>
 					<documentation>R708 CommonType</documentation>
@@ -105,7 +106,11 @@
 						</annotation>
 					</element>
 					<element name="ConstrainedLoop" type="t:ConstrainedLoop"
-						minOccurs="0" maxOccurs="unbounded" />
+						minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>R17</documentation>
+						</annotation>
+					</element>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -187,7 +192,12 @@
 		<complexContent>
 			<extension base="t:Element">
 				<annotation>
-					<documentation>R16</documentation>
+					<documentation>R16. Only ConstrainedLoop is modeled as a
+						specialization of SpanningElement. Xsd does not support multiple
+						inheritance so DomainType is modeled via an optional Element
+						attribute on ConstrainedType. Lineage is used only for validation
+						thus does not appear in this schema.
+					</documentation>
 				</annotation>
 			</extension>
 		</complexContent>
@@ -204,36 +214,6 @@
 	</complexType>
 
 	<!-- Spanning Element specializations -->
-
-	<element name="DomainType" substitutionGroup="t:SpanningElement"
-		type="t:DomainType" />
-	<element name="Lineage" substitutionGroup="t:SpanningElement"
-		type="t:Lineage" />
-	<element name="ConstrainedLoop" substitutionGroup="t:SpanningElement"
-		type="t:ConstrainedLoop" />
-
-	<complexType name="DomainType">
-		<complexContent>
-			<extension base="t:SpanningElement">
-				<annotation>
-					<documentation>R17</documentation>
-				</annotation>
-			</extension>
-		</complexContent>
-	</complexType>
-
-	<complexType name="Lineage">
-		<complexContent>
-			<extension base="t:SpanningElement">
-				<annotation>
-					<documentation>R17. R131 is for uniqueness purposes only so is not
-						present in the schema.
-					</documentation>
-				</annotation>
-			</extension>
-		</complexContent>
-	</complexType>
-
 	<complexType name="ConstrainedLoop">
 		<complexContent>
 			<extension base="t:SpanningElement">
@@ -325,6 +305,15 @@
 				</attribute>
 			</extension>
 		</complexContent>
+	</complexType>
+	
+	<complexType name="DomainBuildSpecification">
+		<attribute name="Name" type="string" use="required"/>
+		<attribute name="DomainNameIsDefaultSubsystemName" type="boolean" use="required"/>
+		<attribute name="DefaultSubsystemName" type="string" use="required"/>
+		<attribute name="DefaultSubsystemRange" type="t:PositiveInteger" use="required"/>
+		<attribute name="DefaultIdName" type="string" use="required"/>
+		<attribute name="DefaultIdType" type="t:Name" use="required"/>
 	</complexType>
 
 	<!--++++++++++++++++++++++++ -->
@@ -744,21 +733,6 @@
 
 	<complexType name="Type">
 		<attribute name="Name" type="t:Name" use="required" />
-		<attribute name="LocalName" type="t:Name" use="optional">
-			<annotation>
-				<documentation>
-					<p>Models R708 Domain Type + Common Type. When a type is particular
-						to a domain then it should have a local name property (that may be
-						the same name as the name which should be unique across all
-						domains). When this attribute is omitted the LocalName is assumed
-						to be the same as the Name.</p>
-					<p>The operator part of the Type subsystem is not modeled because
-						it will not be used till a processing language is developed. For
-						this reason R712,R713,R716 R718,R719,R720 have not been modeled in
-						this schema.</p>
-				</documentation>
-			</annotation>
-		</attribute>
 	</complexType>
 
 	<complexType name="ConstrainedType">
@@ -766,7 +740,34 @@
 			<annotation>
 				<documentation>R714</documentation>
 			</annotation>
-			<extension base="t:Type"></extension>
+			<extension base="t:Type">
+				<attribute name="LocalName" type="t:Name" use="optional">
+					<annotation>
+						<documentation>
+							<p>Models R708 Domain Type + Common Type. When a type is
+								particular to a domain then it should have a local name property
+								(that may be the same name as the name which should be unique
+								across all domains). When this attribute is omitted the
+								LocalName is assumed to be the same as the Name.</p>
+							<p>The operator part of the Type subsystem is not modeled because
+								it will not be used till a processing language is developed. For
+								this reason R712,R713,R716 R718,R719,R720 have not been modeled
+								in this schema.</p>
+						</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="Element" type="t:Number" use="optional">
+					<annotation>
+						<documentation>
+							Schema does not support multiple inheritance so
+							R16+R17 is modelled using this optional attribute. A
+							ConstrainedType is only an Element if it is a DomainType. Even if
+							the ConstrainedType is a DomainType the element number is still
+							an optional attribute.
+						</documentation>
+					</annotation>
+				</attribute>
+			</extension>
 		</complexContent>
 	</complexType>
 

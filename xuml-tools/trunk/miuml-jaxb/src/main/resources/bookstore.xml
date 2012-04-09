@@ -2,6 +2,10 @@
 <Domains xmlns="http://www.miuml.org/metamodel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.miuml.org/metamodel miuml-metamodel.xsd">
 
+	<DomainBuildSpecification Name="Base"
+		DomainNameIsDefaultSubsystemName="true" DefaultSubsystemName="Subsystem"
+		DefaultSubsystemRange="100" DefaultIdName="Id" DefaultIdType="arbitrary_id" />
+
 	<SymbolicType Name="string" MinLength="1" MaxLength="4096"
 		Prefix="" Suffix="" ValidationPattern="?.*" DefaultValue="" />
 	<IntegerType Name="date" Units="epoch ms" DefaultValue="0"
@@ -293,7 +297,7 @@
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<ReferentialAttribute Name="Class">
-					<ToOneReference Relationship="1"/>
+					<ToOneReference Relationship="1" />
 				</ReferentialAttribute>
 				<IndependentAttribute Name="Name" Type="string">
 					<Identifier Number="1" />
