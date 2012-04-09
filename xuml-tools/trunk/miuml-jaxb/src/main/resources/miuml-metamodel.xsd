@@ -98,13 +98,14 @@
 						<annotation>
 							<documentation>R708 DomainType</documentation>
 						</annotation>
-						<!-- TODO add local name -->
 					</element>
 					<element name="Subsystem" type="t:Subsystem" maxOccurs="unbounded">
 						<annotation>
 							<documentation>R1</documentation>
 						</annotation>
 					</element>
+					<element name="ConstrainedLoop" type="t:ConstrainedLoop"
+						minOccurs="0" maxOccurs="unbounded" />
 				</sequence>
 			</extension>
 		</complexContent>
@@ -134,12 +135,11 @@
 
 	<complexType name="Subsystem">
 		<sequence>
-			<element ref="t:Class" minOccurs="0" maxOccurs="unbounded">
+			<element ref="t:SubsystemElement" minOccurs="0" maxOccurs="unbounded">
 				<annotation>
-					<documentation>R15</documentation>
+					<documentation>R13</documentation>
 				</annotation>
 			</element>
-			<element ref="t:Relationship" minOccurs="0" maxOccurs="unbounded" />
 		</sequence>
 		<attribute name="Name" type="t:Name" use="required" />
 		<attribute name="Alias" type="t:Name" use="optional">
@@ -520,7 +520,7 @@
 	</complexType>
 
 	<complexType name="Named">
-		<attribute name="Name" type="t:Name" /> 
+		<attribute name="Name" type="t:Name" />
 	</complexType>
 
 	<complexType name="Association">
