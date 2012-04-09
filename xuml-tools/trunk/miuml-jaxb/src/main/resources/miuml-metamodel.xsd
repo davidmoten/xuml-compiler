@@ -244,14 +244,12 @@
 					<annotation>
 						<documentation>
 							Note that as per the miuml metamodel documentation
-							(Relationship
-							Subsystem Class Diagram Notes) the order of the
-							relationships
-							listed below is not important. It is a set of
+							(Relationship Subsystem Class Diagram Notes) the order of the
+							relationships listed below is not important. It is a set of
 							relationships.
 						</documentation>
 					</annotation>
-					<element name="relationship" type="t:Rnum" maxOccurs="unbounded">
+					<element name="LoopSegment" type="t:Rnum" maxOccurs="unbounded">
 						<annotation>
 							<documentation>R160</documentation>
 						</annotation>
@@ -439,7 +437,8 @@
 			<annotation>
 				<documentation>R26 has not been represented in the schema because
 					it's use depends on a formula language for derived attributes.
-					Such a language has not yet been defined in miUML (April 18 2012).
+					Such
+					a language has not yet been defined in miUML (April 18 2012).
 				</documentation>
 			</annotation>
 			<extension base="t:NativeAttribute">
@@ -521,7 +520,7 @@
 	</complexType>
 
 	<complexType name="Named">
-		<attribute name="Name" type="t:Name" />
+		<attribute name="Name" type="t:Name" /> 
 	</complexType>
 
 	<complexType name="Association">
@@ -594,9 +593,7 @@
 		<!-- <attribute name="Side" type="t:Number" use="required" /> -->
 		<attribute name="ViewedClass" type="t:Name" use="required">
 			<annotation>
-				<documentation>Represents the R104 specialization group because
-					schema does not support multiple inheritance.
-				</documentation>
+				<documentation>R110</documentation>
 			</annotation>
 		</attribute>
 		<attribute name="OnePerspective" type="boolean" use="required">
