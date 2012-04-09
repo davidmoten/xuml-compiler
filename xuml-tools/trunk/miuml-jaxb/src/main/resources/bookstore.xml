@@ -4,7 +4,7 @@
 
 	<DomainBuildSpecification Name="Base"
 		DomainNameIsDefaultSubsystemName="true" DefaultSubsystemName="Subsystem"
-		DefaultSubsystemRange="100" DefaultIdName="Id" DefaultIdType="arbitrary_id" />
+		DefaultSubsystemRange="100" DefaultIdName="Id" DefaultIdType="arbitraryId" />
 
 	<SymbolicType Name="string" MinLength="1" MaxLength="4096"
 		Prefix="" Suffix="" ValidationPattern="?.*" DefaultValue="" />
@@ -14,6 +14,8 @@
 		DefaultValue="0" UpperLimit="99999999999" LowerLimit="-9999999999999" />
 	<IntegerType Name="time" Units="epoch ms" DefaultValue="0"
 		UpperLimit="99999999999" LowerLimit="-9999999999999" />
+	<IntegerType Name="arbitraryId" Units="None" DefaultValue="1"
+		UpperLimit="99999999999" LowerLimit="1" />
 
 	<IntegerType Name="Nominal" Units="None" DefaultValue="1"
 		UpperLimit="99999999999" LowerLimit="1" />
@@ -21,7 +23,6 @@
 		UpperLimit="2100" LowerLimit="-5000" />
 	<RealType Name="Money" Precision="2" Units="Dollars"
 		LowerLimit="0" UpperLimit="999999999999" DefaultValue="0" />
-
 	<IntegerType Name="Count" Units="Instances" DefaultValue="0"
 		UpperLimit="999999999999" LowerLimit="0" />
 	<SymbolicType Name="Bank Card Approval Code" MinLength="1"
@@ -98,7 +99,7 @@
 			</NonSpecializedClass>
 
 			<NonSpecializedClass Name="Product Category">
-				<IndependentAttribute Name="Category ID" Type="arbitrary_id">
+				<IndependentAttribute Name="Category ID" Type="arbitraryId">
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<IndependentAttribute Name="Category Name"
@@ -151,7 +152,7 @@
 			Ceiling="10">
 
 			<NonSpecializedClass Name="Shopping Cart">
-				<IndependentAttribute Name="Cart ID" Type="arbitrary_id">
+				<IndependentAttribute Name="Cart ID" Type="arbitraryId">
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<DerivedAttribute Name="Total value" Formula="formula for total value"
@@ -159,7 +160,7 @@
 			</NonSpecializedClass>
 
 			<NonSpecializedClass Name="Order">
-				<IndependentAttribute Name="Order ID" Type="arbitrary_id">
+				<IndependentAttribute Name="Order ID" Type="arbitraryId">
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<IndependentAttribute Name="Date order placed"
@@ -182,7 +183,7 @@
 
 					<CreationEvent Name="Check out" ID="1"
 						State="Establishing Customer and Verifying Payment">
-						<StateModelParameter Name="Cart" Type="arbitrary_id" />
+						<StateModelParameter Name="Cart" Type="arbitraryId" />
 						<StateModelParameter Name="Account number"
 							Type="Bank Card Account Number" />
 						<StateModelParameter Name="Billing address"
@@ -205,7 +206,7 @@
 
 					<EffectiveSignalingEvent Name="Submit charge"
 						ID="2">
-						<StateModelParameter Name="Cart" Type="arbitrary_id" />
+						<StateModelParameter Name="Cart" Type="arbitraryId" />
 						<StateModelParameter Name="Account number"
 							Type="Bank Card Account Number" />
 						<StateModelParameter Name="Billing address"
@@ -247,7 +248,7 @@
 			</NonSpecializedClass>
 
 			<NonSpecializedClass Name="Credit Card Charge">
-				<IndependentAttribute Name="Charge Id" Type="arbitrary_id">
+				<IndependentAttribute Name="Charge Id" Type="arbitraryId">
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<IndependentAttribute Name="Account number"
