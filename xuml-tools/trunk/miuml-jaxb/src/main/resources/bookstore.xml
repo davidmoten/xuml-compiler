@@ -79,15 +79,15 @@
 				<IndependentAttribute Name="Website" Type="WebsiteURL" />
 			</SpecializedClass>
 
-			<NonSpecializedClass Name="Special Order Product"
+			<SpecializedClass Name="Special Order Product"
 				Alias="Special Order Product">
 				<IndependentAttribute Name="Special Order Instructions"
 					Type="String" />
 				<IndependentAttribute Name="Days to Deliver"
 					Type="Count" />
-			</NonSpecializedClass>
+			</SpecializedClass>
 
-			<NonSpecializedClass Name="Stocked Product">
+			<SpecializedClass Name="Stocked Product">
 				<IndependentAttribute Name="Quantity On hand"
 					Type="Count" />
 				<IndependentAttribute Name="Reorder threshold"
@@ -96,7 +96,7 @@
 					Type="Count" />
 				<IndependentAttribute Name="Reorder instructions"
 					Type="String" />
-			</NonSpecializedClass>
+			</SpecializedClass>
 
 			<NonSpecializedClass Name="Product Category">
 				<IndependentAttribute Name="Category ID" Type="arbitraryId">
@@ -284,16 +284,16 @@
 
 		<Subsystem Name="Class and Attribute" Floor="20" Ceiling="40">
 
-			<NonSpecializedClass Name="Class">
+			<SpecializedClass Name="Class">
 				<IndependentAttribute Name="Domain" Type="string">
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<IndependentAttribute Name="Name" Type="string">
 					<Identifier Number="1" />
 				</IndependentAttribute>
-			</NonSpecializedClass>
+			</SpecializedClass>
 
-			<NonSpecializedClass Name="Attribute">
+			<SpecializedClass Name="Attribute">
 				<IndependentAttribute Name="Domain" Type="string">
 					<Identifier Number="1" />
 				</IndependentAttribute>
@@ -304,7 +304,7 @@
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<IndependentAttribute Name="Type" Type="string" />
-			</NonSpecializedClass>
+			</SpecializedClass>
 
 			<BinaryAssociation Rnum="1">
 				<ActivePerspective Phrase="characterizes"
