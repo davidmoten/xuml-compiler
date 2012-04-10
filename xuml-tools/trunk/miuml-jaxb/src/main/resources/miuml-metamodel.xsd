@@ -279,7 +279,7 @@
 							</documentation>
 						</annotation>
 					</element>
-					<element name="Lifecycle" minOccurs="0">
+					<element ref="t:Lifecycle" minOccurs="0">
 						<annotation>
 							<documentation>R500</documentation>
 						</annotation>
@@ -483,6 +483,10 @@
 	</complexType>
 
 	<complexType name="Operation">
+		<annotation>
+			<documentation>Added by Dave Moten 10 April 2012, is not present on
+				diagrams yet.</documentation>
+		</annotation>
 		<sequence>
 			<element name="Parameter" type="t:StateModelParameter"
 				minOccurs="0" maxOccurs="unbounded" />
@@ -523,13 +527,11 @@
 						</annotation>
 					</element>
 				</sequence>
+				<attribute name="Superclass" type="t:Name" use="required" />
 			</extension>
 		</complexContent>
 	</complexType>
 
-	<complexType name="Named">
-		<attribute name="Name" type="t:Name" />
-	</complexType>
 
 	<complexType name="Association">
 		<complexContent>
@@ -1191,6 +1193,12 @@
 		</complexContent>
 	</complexType>
 
+	<!-- Utility complex types -->
+
+	<complexType name="Named">
+		<attribute name="Name" type="t:Name" />
+	</complexType>
+	
 	<!-- Simple types -->
 
 	<simpleType name="Formula">
@@ -1243,6 +1251,7 @@
 			<minInclusive value="1" />
 		</restriction>
 	</simpleType>
+
 
 </schema>
 		

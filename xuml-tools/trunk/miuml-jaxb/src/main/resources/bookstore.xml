@@ -120,7 +120,7 @@
 				<IndependentAttribute Name="Website" Type="WebsiteURL" />
 			</NonSpecializedClass>
 
-			<Generalization Rnum="12">
+			<Generalization Rnum="12" Superclass="Product">
 				<SpecializedClass Name="Stocked Product" />
 				<SpecializedClass Name="Special Orders Product" />
 			</Generalization>
@@ -204,7 +204,7 @@
 							Type="Mailing Address" />
 					</CreationEvent>
 
-					<EffectiveSignalingEvent Name="Submit charge"
+					<LocalEffectiveSignalingEvent Name="Submit charge"
 						ID="2">
 						<StateModelParameter Name="Cart" Type="arbitraryId" />
 						<StateModelParameter Name="Account number"
@@ -215,20 +215,20 @@
 							Type="Month Year" />
 						<StateModelParameter Name="Cardholder name"
 							Type="Personal Name" />
-					</EffectiveSignalingEvent>
+					</LocalEffectiveSignalingEvent>
 
-					<LocalEffectiveSignallingEvent Name="Payment declined"
+					<LocalEffectiveSignalingEvent Name="Payment declined"
 						ID="3" />
-					<LocalEffectiveSignallingEvent Name="Payment approved"
+					<LocalEffectiveSignalingEvent Name="Payment approved"
 						ID="4" />
-					<LocalEffectiveSignallingEvent Name="Order delivered"
+					<LocalEffectiveSignalingEvent Name="Order delivered"
 						ID="5" />
 
-					<Transition Name="Submit charge" Destination="Making Charge"
-						EventID="2" />
-					<Transition Name="Payment declined" Destination="Payment Not Approved"
+					<Transition State="Establishing Customer and Verifying Payment"
+						 Destination="Making Charge" EventID="2" />
+					<Transition State="Making Charge"  Destination="Payment Not Approved"
 						EventID="3" />
-					<Transition Name="Payment approved" Destination="Being Packed and Shipped"
+					<Transition State="Making Charge" Destination="Being Packed and Shipped"
 						EventID="5" />
 				</Lifecycle>
 

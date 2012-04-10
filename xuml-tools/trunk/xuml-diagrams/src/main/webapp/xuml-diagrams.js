@@ -427,6 +427,7 @@ function paintRelationships(c, ctx) {
 		var rel = $(this);
 		var w1 = $("#" + rel.attr("className1"));
 		var w2 = $("#" + rel.attr("className2"));
+		console.log("relationship="+ rel.attr("className1") + " - " + rel.attr("className2"));
 		var middle1 = middle(w1);
 		var middle2 = middle(w2);
 		var mid = midpoint(middle1, middle2);
@@ -614,7 +615,7 @@ function createDivs() {
 			function() {
 				var e = $(this);
 				e.prepend('<div id="className' + e.attr("id")
-						+ '" class="className">' + e.attr("id") + "</div>");
+						+ '" class="className">' + e.attr("id").replace(/_/g," ") + "</div>");
 				// make sure header comes before class name
 				e.find(".header").each(function() {
 					var h = $(this);
@@ -698,7 +699,7 @@ function restoreFromObject(x) {
 	$("#title").text(x.title);
 	$('.cls').each(function() {
 		var e = $(this);
-		var id = e.attr("id");
+		var id = e.attr("id").replace(/_/g," ");
 		console.log(id);
 		if (!(isUndefined(id))) {
 			if (!(isUndefined( x.classPositions[id]))) {

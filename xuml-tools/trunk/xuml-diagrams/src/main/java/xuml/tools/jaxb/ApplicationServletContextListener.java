@@ -24,11 +24,11 @@ public class ApplicationServletContextListener implements
 			ModelPersistence.instance().save(
 					id,
 					IOUtils.toString(ApplicationServletContextListener.class
-							.getResourceAsStream("/xuml-sample-1.xml")));
+							.getResourceAsStream("/bookstore.xml")));
 			PresentationPersistence.instance().save(
 					id,
 					IOUtils.toString(ApplicationServletContextListener.class
-							.getResourceAsStream("/xuml-sample-1.json")));
+							.getResourceAsStream("/bookstore.json")));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
