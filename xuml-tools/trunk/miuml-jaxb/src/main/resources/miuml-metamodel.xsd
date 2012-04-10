@@ -51,7 +51,7 @@
 
 	<complexType name="Domains">
 		<sequence>
-			<element name="DomainBuildSpecification" type="t:DomainBuildSpecification"/>
+			<element name="DomainBuildSpecification" type="t:DomainBuildSpecification" />
 			<element ref="t:ConstrainedType" minOccurs="0" maxOccurs="unbounded">
 				<annotation>
 					<documentation>R708 CommonType</documentation>
@@ -306,14 +306,16 @@
 			</extension>
 		</complexContent>
 	</complexType>
-	
+
 	<complexType name="DomainBuildSpecification">
-		<attribute name="Name" type="string" use="required"/>
-		<attribute name="DomainNameIsDefaultSubsystemName" type="boolean" use="required"/>
-		<attribute name="DefaultSubsystemName" type="string" use="required"/>
-		<attribute name="DefaultSubsystemRange" type="t:PositiveInteger" use="required"/>
-		<attribute name="DefaultIdName" type="string" use="required"/>
-		<attribute name="DefaultIdType" type="t:Name" use="required"/>
+		<attribute name="Name" type="string" use="required" />
+		<attribute name="DomainNameIsDefaultSubsystemName" type="boolean"
+			use="required" />
+		<attribute name="DefaultSubsystemName" type="string" use="required" />
+		<attribute name="DefaultSubsystemRange" type="t:PositiveInteger"
+			use="required" />
+		<attribute name="DefaultIdName" type="string" use="required" />
+		<attribute name="DefaultIdType" type="t:Name" use="required" />
 	</complexType>
 
 	<!--++++++++++++++++++++++++ -->
@@ -351,6 +353,14 @@
 	<element name="Attribute" type="t:Attribute" abstract="true" />
 
 	<complexType name="Attribute">
+		<sequence>
+			<element name="Identifier" type="t:IdentifierAttribute"
+				minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>R22</documentation>
+				</annotation>
+			</element>
+		</sequence>
 		<attribute name="Name" type="t:Name" use="required" />
 	</complexType>
 
@@ -365,14 +375,6 @@
 				<annotation>
 					<documentation>R21</documentation>
 				</annotation>
-				<sequence>
-					<element name="Identifier" type="t:IdentifierAttribute"
-						minOccurs="0" maxOccurs="unbounded">
-						<annotation>
-							<documentation>R22</documentation>
-						</annotation>
-					</element>
-				</sequence>
 				<attribute name="Type" type="t:Name">
 					<annotation>
 						<documentation>R24</documentation>
