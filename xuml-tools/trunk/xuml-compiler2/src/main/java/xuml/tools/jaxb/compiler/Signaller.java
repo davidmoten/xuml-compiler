@@ -48,6 +48,6 @@ public class Signaller<T extends Entity<T, R>, R> {
 			public Actor create() {
 				return new EntityActor<T, R>(emf, cls, id);
 			}
-		}));
+		}).withDispatcher("entity-dispatcher"));
 	}
 }
