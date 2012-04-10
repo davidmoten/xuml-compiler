@@ -271,6 +271,14 @@
 							<documentation>R20</documentation>
 						</annotation>
 					</element>
+					<element name="Operation" type="t:Operation" maxOccurs="unbounded"
+						minOccurs="0">
+						<annotation>
+							<documentation>Added by Dave Moten 10 April 2012 because cannot
+								see this in metamodel. Will talk to Leon about it.
+							</documentation>
+						</annotation>
+					</element>
 					<element name="Lifecycle" minOccurs="0">
 						<annotation>
 							<documentation>R500</documentation>
@@ -472,6 +480,15 @@
 				</annotation>
 			</extension>
 		</complexContent>
+	</complexType>
+
+	<complexType name="Operation">
+		<sequence>
+			<element name="Parameter" type="t:StateModelParameter"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="name" type="t:Name" use="required" />
+		<attribute name="returns" type="t:Name" use="optional" />
 	</complexType>
 
 	<!--++++++++++++++++++++++++++++++ -->
