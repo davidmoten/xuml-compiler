@@ -72,7 +72,7 @@
 					<Identifier Number="1" />
 				</IndependentAttribute>
 				<DerivedAttribute Name="Product Name" Formula="formula for product name"
-					Type="String" />
+					Type="string" />
 				<IndependentAttribute Name="Copyright" Type="Year" />
 				<IndependentAttribute Name="Unit Price" Type="Money" />
 				<IndependentAttribute Name="Description" Type="string" />
@@ -82,7 +82,7 @@
 			<SpecializedClass Name="Special Order Product"
 				Alias="Special Order Product">
 				<IndependentAttribute Name="Special Order Instructions"
-					Type="String" />
+					Type="string" />
 				<IndependentAttribute Name="Days to Deliver"
 					Type="Count" />
 			</SpecializedClass>
@@ -90,12 +90,12 @@
 			<SpecializedClass Name="Stocked Product">
 				<IndependentAttribute Name="Quantity On hand"
 					Type="Count" />
-				<IndependentAttribute Name="Reorder threshold"
+				<IndependentAttribute Name="Reorder Threshold"
 					Type="Count" />
-				<IndependentAttribute Name="Reorder increment"
+				<IndependentAttribute Name="Reorder Increment"
 					Type="Count" />
-				<IndependentAttribute Name="Reorder instructions"
-					Type="String" />
+				<IndependentAttribute Name="Reorder Instructions"
+					Type="string" />
 				<Operation name="doSomething">
 					<Parameter Name="quantity" Type="Integer"/>
 				</Operation>
