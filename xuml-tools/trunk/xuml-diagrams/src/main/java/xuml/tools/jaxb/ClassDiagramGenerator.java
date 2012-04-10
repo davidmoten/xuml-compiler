@@ -32,10 +32,14 @@ import org.apache.commons.io.IOUtils;
 public class ClassDiagramGenerator {
 
 	public String generate(Domains domains) {
+		return placeInTemplate(generateDivs(domains));
+	}
+
+	private String placeInTemplate(String divs) {
 		try {
 			String template = IOUtils.toString(ClassDiagramGenerator.class
 					.getResourceAsStream("/class-diagram-template.html"));
-			return template.replace("${xuml.divs}", generateDivs(domains));
+			return template.replace("${xuml.divs}", divs);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -49,6 +53,13 @@ public class ClassDiagramGenerator {
 			}
 		}
 		return "";
+	}
+
+	public String generate(Domains domains, int domain, int ss) {
+		ModeledDomain md = (ModeledDomain) domains.getDomain().get(domain)
+				.getValue();
+		Subsystem sub = md.getSubsystem().get(ss);
+		return placeInTemplate(generateDivs(sub));
 	}
 
 	private String generateDivs(Subsystem subsystem) {
@@ -203,4 +214,5 @@ public class ClassDiagramGenerator {
 		}
 		s.append("</div>\n");
 	}
+
 }

@@ -24,10 +24,18 @@ public class ClassDiagramServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		String xml = DatastoreText.instance().get("diagram", id + "-model",
 				"model");
-		Domains system = new Marshaller().unmarshal(IOUtils.toInputStream(xml));
-		String html = new ClassDiagramGenerator().generate(system);
+		Domains domains = new Marshaller()
+				.unmarshal(IOUtils.toInputStream(xml));
+		String domainString = req.getParameter("domain");
+		if (domainString == null)
+			domainString = "1";
+		int domain = Integer.parseInt(domainString) - 1;
+		String ssString = req.getParameter("ss");
+		if (ssString == null)
+			ssString = "1";
+		int ss = Integer.parseInt(ssString) - 1;
+		String html = new ClassDiagramGenerator().generate(domains, domain, ss);
 		resp.setContentType("text/html");
 		IOUtils.copy(IOUtils.toInputStream(html), resp.getOutputStream());
 	}
-
 }
