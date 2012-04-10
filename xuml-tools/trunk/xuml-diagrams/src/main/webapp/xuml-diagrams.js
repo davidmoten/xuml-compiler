@@ -699,7 +699,7 @@ function restoreFromObject(x) {
 	$("#title").text(x.title);
 	$('.cls').each(function() {
 		var e = $(this);
-		var id = e.attr("id").replace(/_/g," ");
+		var id = e.attr("id");
 		console.log(id);
 		if (!(isUndefined(id))) {
 			if (!(isUndefined( x.classPositions[id]))) {

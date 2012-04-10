@@ -71,11 +71,16 @@ public class ClassDiagramGenerator {
 
 	private void generateGeneralization(StringBuilder s, Generalization g) {
 		for (Named sp : g.getSpecializedClass())
-			s.append("<div class=\"generalization\" id=\"" + sp.getName() + "-"
+			s.append("<div class=\"generalization\" id=\""
+					+ replaceSpaces(sp.getName()) + "-"
 					+ getRelationshipName(g.getRnum()) + "\" groupName=\""
 					+ getRelationshipName(g.getRnum()) + "\" superClassName=\""
-					+ g.getSuperclass() + "\" subClassName=\"" + sp.getName()
-					+ "\"></div>\n");
+					+ replaceSpaces(g.getSuperclass()) + "\" subClassName=\""
+					+ replaceSpaces(sp.getName()) + "\"></div>\n");
+	}
+
+	private String replaceSpaces(String s) {
+		return s.replaceAll(" ", "_");
 	}
 
 	private void generateAssociation(StringBuilder s, BinaryAssociation r,
