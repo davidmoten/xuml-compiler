@@ -96,6 +96,9 @@
 					Type="Count" />
 				<IndependentAttribute Name="Reorder instructions"
 					Type="String" />
+				<Operation name="doSomething">
+					<Parameter Name="quantity" Type="Integer"/>
+				</Operation>
 			</SpecializedClass>
 
 			<NonSpecializedClass Name="Product Category">

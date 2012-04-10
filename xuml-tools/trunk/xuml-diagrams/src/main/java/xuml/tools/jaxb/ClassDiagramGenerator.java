@@ -19,6 +19,7 @@ import miuml.jaxb.IndependentAttribute;
 import miuml.jaxb.ModeledDomain;
 import miuml.jaxb.Named;
 import miuml.jaxb.Operation;
+import miuml.jaxb.OperationParameter;
 import miuml.jaxb.Perspective;
 import miuml.jaxb.Reference;
 import miuml.jaxb.ReferentialAttribute;
@@ -196,7 +197,15 @@ public class ClassDiagramGenerator {
 			s.append("<div class=\"operations\">");
 			for (Operation op : cls.getOperation()) {
 				s.append("<div class=\"operation\">");
-				s.append(op.getName() + "()");
+				s.append(op.getName() + "(");
+				boolean first = true;
+				for (OperationParameter p : op.getParameter()) {
+					if (!first)
+						s.append(",");
+					s.append(p.getName());
+					first = false;
+				}
+				s.append(")");
 				s.append("</div>");
 			}
 			s.append("</div>");
