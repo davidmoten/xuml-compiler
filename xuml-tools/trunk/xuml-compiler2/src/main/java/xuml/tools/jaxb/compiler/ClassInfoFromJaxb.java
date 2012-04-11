@@ -178,17 +178,6 @@ public class ClassInfoFromJaxb extends ClassInfo {
 	}
 
 	@Override
-	public String getBehaviourFactoryFullClassName() {
-		return getBehaviourPackage() + "." + getBehaviourFactorySimpleName();
-	}
-
-	@Override
-	public String getBehaviourFullClassName() {
-		return getBehaviourPackage() + "." + getJavaClassSimpleName()
-				+ "Behaviour";
-	}
-
-	@Override
 	public String addType(java.lang.Class<?> cls) {
 		return types.addType(cls);
 	}

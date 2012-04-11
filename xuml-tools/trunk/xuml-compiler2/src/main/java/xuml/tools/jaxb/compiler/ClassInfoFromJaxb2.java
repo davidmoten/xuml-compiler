@@ -21,6 +21,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	private final String classDescription;
 	private final String schema;
 	private final String table;
+	private final TypeRegister typeRegister = new TypeRegister();
 
 	public ClassInfoFromJaxb2(Class cls, String packageName,
 			String classDescription, String schema, String table) {
@@ -58,60 +59,21 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	@Override
 	String getSchema() {
-		// TODO Auto-generated method stub
-		return null;
+		return schema;
 	}
 
 	@Override
 	String getTable() {
-		// TODO Auto-generated method stub
-		return null;
+		return table;
 	}
 
 	@Override
 	String getJavaClassSimpleName() {
-		// TODO Auto-generated method stub
-		return null;
+		return Util.toClassSimpleName(cls.getName());
 	}
 
 	@Override
 	List<String> getOperations() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	String getBehaviourFactoryFullClassName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	String getBehaviourFullClassName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	String addType(java.lang.Class<?> cls) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	void addTypes(java.lang.Class<?>... classes) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	String addType(String fullClassName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	String addType(Type type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -198,6 +160,11 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	String getContextPackageName() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	TypeRegister getTypes() {
+		return typeRegister;
 	}
 
 }

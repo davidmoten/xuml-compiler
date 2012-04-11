@@ -21,25 +21,40 @@ public abstract class ClassInfo {
 
 	abstract List<String> getOperations();
 
+	abstract TypeRegister getTypes();
+
 	final public String getBehaviourPackage() {
 		return getPackage() + ".behaviour";
 	}
 
-	abstract String getBehaviourFactoryFullClassName();
+	final public String getBehaviourFactoryFullClassName() {
+		return getBehaviourPackage() + "." + getBehaviourFactorySimpleName();
+	}
 
-	abstract String getBehaviourFullClassName();
+	final public String getBehaviourFullClassName() {
+		return getBehaviourPackage() + "." + getJavaClassSimpleName()
+				+ "Behaviour";
+	}
 
 	final public String getBehaviourFactorySimpleName() {
 		return getJavaClassSimpleName() + "BehaviourFactory";
 	}
 
-	abstract String addType(java.lang.Class<?> cls);
+	final public String addType(java.lang.Class<?> cls) {
+		return getTypes().addType(cls);
+	}
 
-	abstract void addTypes(java.lang.Class<?>... classes);
+	final public void addTypes(java.lang.Class<?>... classes) {
+		getTypes().addTypes(classes);
+	}
 
-	abstract String addType(String fullClassName);
+	final public String addType(String fullClassName) {
+		return getTypes().addType(fullClassName);
+	}
 
-	abstract String addType(Type type);
+	final public String addType(Type type) {
+		return getTypes().addType(type);
+	}
 
 	abstract MyIndependentAttribute getPrimaryId();
 
