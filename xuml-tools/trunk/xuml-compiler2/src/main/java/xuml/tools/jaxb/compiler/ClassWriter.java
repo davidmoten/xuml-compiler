@@ -123,7 +123,7 @@ public class ClassWriter {
 			writeJpaInheritanceAnnotations(out, info);
 	}
 
-	private void writeJpaInheritanceAnnotations(PrintStream out, ClassInfo info2) {
+	private void writeJpaInheritanceAnnotations(PrintStream out, ClassInfo info) {
 
 		if (info.isSuperclass()) {
 			info.addType(Inheritance.class);

@@ -5,12 +5,12 @@ import java.util.Map;
 
 import javax.xml.bind.JAXBElement;
 
-import xuml.metamodel.jaxb.Association;
-import xuml.metamodel.jaxb.Attribute;
-import xuml.metamodel.jaxb.Class;
-import xuml.metamodel.jaxb.Generalization;
-import xuml.metamodel.jaxb.Relationship;
-import xuml.metamodel.jaxb.System;
+import miuml.jaxb.Association;
+import miuml.jaxb.Attribute;
+import miuml.jaxb.Class;
+import miuml.jaxb.Domains;
+import miuml.jaxb.Generalization;
+import miuml.jaxb.Relationship;
 
 import com.google.common.collect.Maps;
 
@@ -20,10 +20,10 @@ class Lookups {
 			.newHashMap();
 
 	private final Map<String, Attribute> attributesByName = Maps.newHashMap();
-	private final System system;
+	private final Domains domains;
 
-	public Lookups(System system) {
-		this.system = system;
+	public Lookups(Domains domains) {
+		this.domains = domains;
 		for (Class c : system.getClazz()) {
 			classesByName.put(key(c), c);
 			for (JAXBElement<? extends Attribute> a : c.getAttributeBase()) {

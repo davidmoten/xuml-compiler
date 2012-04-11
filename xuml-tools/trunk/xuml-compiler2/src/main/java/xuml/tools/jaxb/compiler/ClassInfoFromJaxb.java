@@ -14,26 +14,23 @@ import java.util.Set;
 
 import javax.xml.bind.JAXBElement;
 
-import xuml.metamodel.jaxb.Association;
-import xuml.metamodel.jaxb.AssociationEnd;
-import xuml.metamodel.jaxb.AssociativeReference;
-import xuml.metamodel.jaxb.Attribute;
-import xuml.metamodel.jaxb.Class;
-import xuml.metamodel.jaxb.DerivedAttribute;
-import xuml.metamodel.jaxb.Event;
-import xuml.metamodel.jaxb.Generalization;
-import xuml.metamodel.jaxb.Identifier;
-import xuml.metamodel.jaxb.IndependentAttribute;
-import xuml.metamodel.jaxb.IndependentAttributeType;
-import xuml.metamodel.jaxb.Multiplicity;
-import xuml.metamodel.jaxb.Parameter;
-import xuml.metamodel.jaxb.Reference;
-import xuml.metamodel.jaxb.ReferentialAttribute;
-import xuml.metamodel.jaxb.Relationship;
-import xuml.metamodel.jaxb.State;
-import xuml.metamodel.jaxb.SuperclassReference;
-import xuml.metamodel.jaxb.ToOneReference;
-import xuml.metamodel.jaxb.Transition;
+import miuml.jaxb.Association;
+import miuml.jaxb.AssociativeReference;
+import miuml.jaxb.Attribute;
+import miuml.jaxb.Class;
+import miuml.jaxb.DerivedAttribute;
+import miuml.jaxb.Domain;
+import miuml.jaxb.Event;
+import miuml.jaxb.Generalization;
+import miuml.jaxb.Identifier;
+import miuml.jaxb.IndependentAttribute;
+import miuml.jaxb.Reference;
+import miuml.jaxb.ReferentialAttribute;
+import miuml.jaxb.Relationship;
+import miuml.jaxb.State;
+import miuml.jaxb.SuperclassReference;
+import miuml.jaxb.ToOneReference;
+import miuml.jaxb.Transition;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
@@ -49,14 +46,17 @@ public class ClassInfoFromJaxb extends ClassInfo {
 	private final TypeRegister types = new TypeRegister();
 	private final String contextPackageName;
 	private final Map<String, String> domainPackageNames;
+	private final Domain domain;
 
-	public ClassInfoFromJaxb(Class cls, Map<String, String> domainPackageNames,
-			Lookups lookups, String contextPackageName) {
+	public ClassInfoFromJaxb(Domain domain, Class cls,
+			Map<String, String> domainPackageNames, Lookups lookups,
+			String contextPackageName) {
+		this.domain = domain;
 		this.domainPackageNames = domainPackageNames;
 		this.contextPackageName = contextPackageName;
 		this.cls = cls;
 		this.lookups = lookups;
-		this.packageName = domainPackageNames.get(cls.getDomain());
+		this.packageName = domainPackageNames.get(domain.getName());
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class ClassInfoFromJaxb extends ClassInfo {
 	}
 
 	private static String getColumnName(Attribute attribute, Class cls,
-			Lookups lookups) {
+			Lookups lookups, Domain domain) {
 		if (attribute instanceof IndependentAttribute) {
 			IndependentAttribute a = (IndependentAttribute) attribute;
 			// TODO user override
@@ -103,9 +103,9 @@ public class ClassInfoFromJaxb extends ClassInfo {
 			return Util.toColumnName(a.getName());
 		} else if (attribute instanceof ReferentialAttribute) {
 			ReferentialAttribute a = (ReferentialAttribute) attribute;
-			BigInteger relNumber = a.getReferenceBase().getValue()
+			BigInteger relNumber = a.getReference().getValue()
 					.getRelationship();
-			Relationship rel = lookups.getRelationship(cls.getDomain(),
+			Relationship rel = lookups.getRelationship(domain.getName(),
 					relNumber);
 			if (rel instanceof Association) {
 				Association ass = (Association) rel;

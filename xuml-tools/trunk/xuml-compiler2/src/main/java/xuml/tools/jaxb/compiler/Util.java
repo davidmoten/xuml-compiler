@@ -1,21 +1,18 @@
 package xuml.tools.jaxb.compiler;
 
-import xuml.metamodel.jaxb.Multiplicity;
+import miuml.jaxb.Perspective;
 
 public class Util {
-	public static String getAbbreviation(Multiplicity m) {
-		if (Multiplicity.MANY.equals(m))
-			return "*";
-		else if (Multiplicity.ONE.equals(m))
-			return "1";
-		else if (Multiplicity.ZERO_ONE.equals(m))
+
+	public static String getMultiplicityAbbreviation(Perspective p) {
+		if (p.isConditional() && p.isOnePerspective())
 			return "0..1";
-		else if (Multiplicity.ONE_MANY.equals(m))
-			return "1..*";
-		else if (Multiplicity.ONE.equals(m))
+		else if (!p.isConditional() && p.isOnePerspective())
 			return "1";
+		else if (p.isConditional() && !p.isOnePerspective())
+			return "*";
 		else
-			throw new RuntimeException("unexpected");
+			return "1..*";
 	}
 
 	public static String lowerFirst(String s) {
