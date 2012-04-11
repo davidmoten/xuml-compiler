@@ -24,7 +24,7 @@ class Lookups {
 
 	public Lookups(Domains domains) {
 		this.domains = domains;
-		for (Class c : system.getClazz()) {
+		for (Class c : domains..getClazz()) {
 			classesByName.put(key(c), c);
 			for (JAXBElement<? extends Attribute> a : c.getAttributeBase()) {
 				attributesByName.put(
