@@ -2,16 +2,16 @@ package xuml.tools.jaxb.compiler;
 
 public class SignalToOther<T extends Event<?>> {
 
-	private final T t;
+	private final T event;
 	private final Class<T> cls;
 
-	public SignalToOther(Class<T> cls, T t) {
+	public SignalToOther(Class<T> cls, T event) {
 		this.cls = cls;
-		this.t = t;
+		this.event = event;
 	}
 
-	public T getValue() {
-		return t;
+	public T getEvent() {
+		return event;
 	}
 
 	public Class<T> getClazz() {
