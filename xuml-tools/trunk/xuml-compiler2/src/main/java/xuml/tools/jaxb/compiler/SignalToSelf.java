@@ -1,6 +1,6 @@
 package xuml.tools.jaxb.compiler;
 
-public class SignalToSelf<T> {
+public class SignalToSelf<T extends Event<?>> {
 
 	private final T t;
 	private final Class<T> cls;
