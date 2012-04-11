@@ -12,7 +12,10 @@ import miuml.jaxb.Attribute;
 import miuml.jaxb.Class;
 import miuml.jaxb.IdentifierAttribute;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Sets;
 
 public class ClassInfoFromJaxb2 extends ClassInfo {
 
@@ -44,17 +47,43 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	@Override
 	List<List<String>> getUniqueConstraintColumnNames() {
-		HashMultimap<BigInteger, String> map = HashMultimap.create();
-		for (JAXBElement<? extends Attribute> element : cls.getAttribute()) {
-			Attribute attribute = element.getValue();
-			for (IdentifierAttribute id : attribute.getIdentifier()) {
-				map.put(id.getNumber(), attribute.getName());
-			}
-		}
+		HashMultimap<BigInteger, String> map = getIdentifierAttributeNames();
 		List<List<String>> list = newArrayList();
 		for (BigInteger i : map.keySet())
 			list.add(newArrayList(map.get(i)));
 		return list;
+	}
+
+	private HashMultimap<BigInteger, String> getIdentifierAttributeNames() {
+		HashMultimap<BigInteger, Attribute> map = getIdentifierAttributes();
+		HashMultimap<BigInteger, String> m = HashMultimap.create();
+		for (BigInteger i : map.keySet()) {
+			m.putAll(i, getNames(map.get(i)));
+		}
+		return m;
+	}
+
+	private static Function<Attribute, String> attributeName = new Function<Attribute, String>() {
+		@Override
+		public String apply(Attribute a) {
+			return a.getName();
+		}
+	};
+
+	private Set<String> getNames(Set<Attribute> attributes) {
+		return Sets.newHashSet(Collections2
+				.transform(attributes, attributeName));
+	}
+
+	private HashMultimap<BigInteger, Attribute> getIdentifierAttributes() {
+		HashMultimap<BigInteger, Attribute> map = HashMultimap.create();
+		for (JAXBElement<? extends Attribute> element : cls.getAttribute()) {
+			Attribute attribute = element.getValue();
+			for (IdentifierAttribute id : attribute.getIdentifier()) {
+				map.put(id.getNumber(), attribute);
+			}
+		}
+		return map;
 	}
 
 	@Override

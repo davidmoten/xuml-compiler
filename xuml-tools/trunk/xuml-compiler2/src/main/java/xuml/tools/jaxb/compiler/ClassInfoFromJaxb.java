@@ -178,26 +178,6 @@ public class ClassInfoFromJaxb extends ClassInfo {
 	}
 
 	@Override
-	public String addType(java.lang.Class<?> cls) {
-		return types.addType(cls);
-	}
-
-	@Override
-	public void addTypes(java.lang.Class<?>... classes) {
-		types.addTypes(classes);
-	}
-
-	@Override
-	public String addType(String fullClassName) {
-		return types.addType(fullClassName);
-	}
-
-	@Override
-	public String addType(Type type) {
-		return types.addType(type);
-	}
-
-	@Override
 	public MyIndependentAttribute getPrimaryId() {
 		Collection<Attribute> attributes = getIdentifiers().get(BigInteger.ONE);
 		if (attributes.size() == 1) {
