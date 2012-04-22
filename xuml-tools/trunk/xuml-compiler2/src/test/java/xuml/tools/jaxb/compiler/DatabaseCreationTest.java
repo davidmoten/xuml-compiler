@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class DatabaseCreationTest {
 
-	@Test
+	// @Test
 	public void testCreate() {
 		Persistence.createEntityManagerFactory("db-derby");
 	}

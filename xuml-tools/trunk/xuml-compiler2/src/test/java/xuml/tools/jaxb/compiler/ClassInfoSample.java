@@ -11,7 +11,6 @@ import com.google.common.collect.Sets;
 
 public class ClassInfoSample extends ClassInfo {
 
-	private static final String DOT = ".";
 	private final TypeRegister types = new TypeRegister();
 
 	/*
@@ -83,71 +82,6 @@ public class ClassInfoSample extends ClassInfo {
 	public List<String> getOperations() {
 		ArrayList<String> list = newArrayList("validate");
 		return list;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * xuml.tools.jaxb.compiler.IClassInfo#getBehaviourFactoryFullClassName()
-	 */
-	@Override
-	public String getBehaviourFactoryFullClassName() {
-		return getBehaviourPackage() + DOT + getJavaClassSimpleName()
-				+ "BehaviourFactory";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see xuml.tools.jaxb.compiler.IClassInfo#getBehaviourFullClassName()
-	 */
-	@Override
-	public String getBehaviourFullClassName() {
-		return getBehaviourPackage() + DOT + getBehaviourFactorySimpleName();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see xuml.tools.jaxb.compiler.IClassInfo#addType(java.lang.Class)
-	 */
-	@Override
-	public String addType(Class<?> cls) {
-		return types.addType(cls);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see xuml.tools.jaxb.compiler.IClassInfo#addTypes(java.lang.Class)
-	 */
-	@Override
-	public void addTypes(Class<?>... classes) {
-		for (Class<?> cls : classes)
-			addType(cls);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see xuml.tools.jaxb.compiler.IClassInfo#addType(java.lang.String)
-	 */
-	@Override
-	public String addType(String fullClassName) {
-		return types.addType(fullClassName);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * xuml.tools.jaxb.compiler.IClassInfo#addType(xuml.tools.jaxb.compiler.
-	 * Type)
-	 */
-	@Override
-	public String addType(Type type) {
-		return types.addType(type);
 	}
 
 	/*
@@ -354,6 +288,11 @@ public class ClassInfoSample extends ClassInfo {
 	@Override
 	public String getContextPackageName() {
 		return "xuml";
+	}
+
+	@Override
+	TypeRegister getTypes() {
+		return types;
 	}
 
 }
