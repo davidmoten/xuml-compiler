@@ -26,8 +26,10 @@
 	<properties>
 		<examples>examples</examples>
 		<compiler.source.version>1.6</compiler.source.version>
+		<distribution.id>xuml.compiler</distribution.id>
+		<distribution.url>svn:https://xuml-compiler.googlecode.com/svn/repo/</distribution.url>
 	</properties>
-		<scm>
+	<scm>
 		<connection>scm:svn:http://xuml-compiler.googlecode.com/svn/trunk</connection>
 		<developerConnection>scm:svn:https://xuml-compiler.googlecode.com/svn/trunk</developerConnection>
 		<url>http://code.google.com/p/xuml-compiler/source/browse/#svn/trunk</url>
@@ -157,8 +159,8 @@
 	</pluginRepositories>
 	<distributionManagement>
 		<repository>
-			<id>xuml.compiler</id>
-			<url>svn:https://xuml-compiler.googlecode.com/svn/repo/</url>
+			<id>${distribution.id}</id>
+			<url>${distribution.url}</url>
 			<uniqueVersion>false</uniqueVersion>
 		</repository>
 	</distributionManagement>
