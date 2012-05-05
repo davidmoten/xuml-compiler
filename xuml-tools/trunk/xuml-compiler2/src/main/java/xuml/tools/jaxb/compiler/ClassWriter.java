@@ -152,10 +152,13 @@ public class ClassWriter {
 		} else
 			extension = "";
 
-		out.format("public class %s%s implements %s<%1$s,%s> {\n\n",
-				info.getJavaClassSimpleName(), extension,
+		out.format(
+				"public class %s%s implements %s<%1$s,%s> {\n\n",
+				info.getJavaClassSimpleName(),
+				extension,
 				info.addType(xuml.tools.jaxb.compiler.Entity.class),
-				info.addType(info.getPrimaryId().getType()));
+				info.addType(info.getPrimaryIdAttributeMembers().get(0)
+						.getType()));
 	}
 
 	private void writeConstructors(PrintStream out, ClassInfo info) {
@@ -189,13 +192,16 @@ public class ClassWriter {
 				"    private static %3$s<%1$s,%2$s> signaller =\n"
 						+ "        new %3$s<%1$s,%2$s>(%4$s.getEntityManagerFactory(),%1$s.class);\n\n",
 				info.addType(info.getJavaClassSimpleName()),
-				info.addType(info.getPrimaryId().getType()), signaller,
+				info.addType(info.getPrimaryIdAttributeMembers().get(0)
+						.getType()), signaller,
 				info.addType(info.getContextPackageName() + ".Context"));
 
 		jd(out, "Find the " + info.getJavaClassSimpleName()
 				+ " with id and send the event to it as a signal.", "    ");
-		out.format("    public static void signal(%s id, Event<%s> event){\n",
-				info.addType(info.getPrimaryId().getType()),
+		out.format(
+				"    public static void signal(%s id, Event<%s> event){\n",
+				info.addType(info.getPrimaryIdAttributeMembers().get(0)
+						.getType()),
 				info.addType(info.getJavaClassSimpleName()));
 		out.format("        signaller.signal(id,event);\n");
 		out.format("    }\n\n");
@@ -205,7 +211,8 @@ public class ClassWriter {
 		info.addType(Id.class);
 		jd(out, "Primary key", "    ");
 		out.format("    @Id\n");
-		writeIndependentAttributeMember(out, info.getPrimaryId());
+		writeIndependentAttributeMember(out, info
+				.getPrimaryIdAttributeMembers().get(0));
 	}
 
 	private void writeNonIdIndependentAttributeMembers(PrintStream out,
@@ -361,7 +368,8 @@ public class ClassWriter {
 	}
 
 	private void writeIdGetterAndSetter(PrintStream out, ClassInfo info) {
-		writeIndependentAttributeGetterAndSetter(out, info.getPrimaryId());
+		writeIndependentAttributeGetterAndSetter(out, info
+				.getPrimaryIdAttributeMembers().get(0));
 	}
 
 	private void writeNonIdIndependentAttributeGettersAndSetters(

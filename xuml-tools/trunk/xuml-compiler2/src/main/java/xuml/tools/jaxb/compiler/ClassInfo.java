@@ -56,7 +56,7 @@ public abstract class ClassInfo {
 		return getTypes().addType(type);
 	}
 
-	abstract MyIndependentAttribute getPrimaryId();
+	abstract List<MyIndependentAttribute> getPrimaryIdAttributeMembers();
 
 	abstract List<MyIndependentAttribute> getNonIdIndependentAttributeMembers();
 

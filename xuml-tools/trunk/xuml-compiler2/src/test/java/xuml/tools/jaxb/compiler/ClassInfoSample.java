@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public class ClassInfoSample extends ClassInfo {
@@ -90,9 +91,9 @@ public class ClassInfoSample extends ClassInfo {
 	 * @see xuml.tools.jaxb.compiler.IClassInfo#getPrimaryId()
 	 */
 	@Override
-	public MyIndependentAttribute getPrimaryId() {
-		return new MyIndependentAttribute("id", "class_id", new Type("Long"),
-				false, null);
+	public List<MyIndependentAttribute> getPrimaryIdAttributeMembers() {
+		return Lists.newArrayList(new MyIndependentAttribute("id", "class_id",
+				new Type("Long"), false, null));
 	}
 
 	/*

@@ -108,7 +108,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	}
 
 	@Override
-	MyIndependentAttribute getPrimaryId() {
+	List<MyIndependentAttribute> getPrimaryIdAttributeMembers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
