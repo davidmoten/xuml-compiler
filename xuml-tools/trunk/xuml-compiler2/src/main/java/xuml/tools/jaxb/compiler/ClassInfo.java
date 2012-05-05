@@ -346,4 +346,12 @@ public abstract class ClassInfo {
 			return toState;
 		}
 	}
+
+	public String getEmbeddedIdSimpleClassName() {
+		return getJavaClassSimpleName() + "Id";
+	}
+
+	public String getEmbeddedIdAttributeName() {
+		return "id";
+	}
 }

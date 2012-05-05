@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -210,16 +211,32 @@ public class ClassWriter {
 	private void writeIdMember(PrintStream out, ClassInfo info) {
 		info.addType(Id.class);
 		jd(out, "Primary key", "    ");
-		out.format("    @Id\n");
-		writeIndependentAttributeMember(out, info
-				.getPrimaryIdAttributeMembers().get(0));
+		if (info.getPrimaryIdAttributeMembers().size() == 1) {
+			out.format("    @Id\n");
+			writeIndependentAttributeMember(out, info
+					.getPrimaryIdAttributeMembers().get(0), "    ");
+		} else {
+			info.addType(EmbeddedId.class);
+			out.format("    @EmbeddedId\n");
+			out.format("    private %s %s;\n\n",
+					info.getEmbeddedIdSimpleClassName(),
+					info.getEmbeddedIdAttributeName());
+			out.format("    @Embeddable\n");
+			out.format("    public static class %s {\n\n",
+					info.getEmbeddedIdSimpleClassName());
+			for (MyIndependentAttribute member : info
+					.getPrimaryIdAttributeMembers()) {
+				writeIndependentAttributeMember(out, member, "        ");
+			}
+			out.format("    }\n\n");
+		}
 	}
 
 	private void writeNonIdIndependentAttributeMembers(PrintStream out,
 			ClassInfo info) {
 		for (MyIndependentAttribute attribute : info
 				.getNonIdIndependentAttributeMembers()) {
-			writeIndependentAttributeMember(out, attribute);
+			writeIndependentAttributeMember(out, attribute, "    ");
 		}
 	}
 
@@ -614,12 +631,13 @@ public class ClassWriter {
 	}
 
 	private void writeIndependentAttributeMember(PrintStream out,
-			MyIndependentAttribute attribute) {
+			MyIndependentAttribute attribute, String indent) {
 		String type = info.addType(attribute.getType());
 		info.addType(Column.class);
-		out.format("    @Column(name=\"%s\",nullable=%s)\n",
+		out.format("%s@Column(name=\"%s\",nullable=%s)\n", indent,
 				attribute.getColumnName(), attribute.isNullable());
-		out.format("    private %s %s;\n\n", type, attribute.getFieldName());
+		out.format("%sprivate %s %s;\n\n", indent, type,
+				attribute.getFieldName());
 	}
 
 	private void writeIndependentAttributeGetterAndSetter(PrintStream out,

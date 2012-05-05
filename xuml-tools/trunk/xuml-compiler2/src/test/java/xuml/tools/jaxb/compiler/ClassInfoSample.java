@@ -92,12 +92,13 @@ public class ClassInfoSample extends ClassInfo {
 	 */
 	@Override
 	public List<MyIndependentAttribute> getPrimaryIdAttributeMembers() {
-		return Lists.newArrayList(new MyIndependentAttribute("id", "class_id",
-				new Type("Long"), false, null));
+		return Lists.newArrayList(new MyIndependentAttribute("id1", "class_id",
+				new Type("Long"), false, null), new MyIndependentAttribute(
+				"id2", "domain_id", new Type("Long"), false, null));
 	}
 
 	/*
-	 * (non-Javadoc)
+	 * 00 (non-Javadoc)
 	 * 
 	 * @see
 	 * xuml.tools.jaxb.compiler.IClassInfo#getNonIdIndependentAttributeMembers()
