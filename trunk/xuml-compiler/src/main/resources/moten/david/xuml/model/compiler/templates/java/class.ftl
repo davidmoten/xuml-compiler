@@ -277,7 +277,7 @@ public class ${name}Impl implements ${name} {
     /**
     * 0..1 to 1 (association "${association.name}")
     */
-	@OneToOne(targetEntity=${association.other.classImpl}.class<#if generalizations?exists>,cascade=CascadeType.ALL</#if>, fetch=FetchType.LAZY)
+	@OneToOne(targetEntity=${association.other.classImpl}.class<#if generalizations?exists>,cascade=${cascade}</#if>, fetch=FetchType.LAZY)
 	@JoinColumn(name = "${otherColumn}",nullable = false)
 <#-- 1 to 1 primary -->
 <#elseif !association.this.multiple
@@ -327,7 +327,7 @@ public class ${name}Impl implements ${name} {
   	*/
 	@OneToMany(
 		mappedBy = "${thisName}",
-		cascade=CascadeType.ALL,
+		cascade=${cascade},
 		fetch=FetchType.LAZY,
 		targetEntity=${association.other.classImpl}.class)
 <#-- * to 1 -->
@@ -366,7 +366,7 @@ public class ${name}Impl implements ${name} {
 	*/
 	@OneToMany(
 		mappedBy = "${thisName}",
-		cascade=CascadeType.ALL,
+		cascade=${cascade},
 		fetch=FetchType.LAZY,
 		targetEntity=${association.other.classImpl}.class)
 <#-- 1..* to 1 -->
@@ -413,7 +413,7 @@ public class ${name}Impl implements ${name} {
 	*/
   	@OneToMany(
   		mappedBy = "${thisName}",
-  		cascade=CascadeType.ALL,
+  		cascade=${cascade},
   		fetch=FetchType.LAZY,
   		targetEntity=${association.other.classImpl}.class)
 <#-- * to 0..1 -->
@@ -449,7 +449,7 @@ public class ${name}Impl implements ${name} {
 	*/
   	@OneToMany(
   		mappedBy = "${thisName}",
-  		cascade=CascadeType.ALL,
+  		cascade=${cascade},
   		fetch=FetchType.LAZY,
   		targetEntity=${association.other.classImpl}.class)
 <#-- 1..* to 0..1 -->
@@ -473,7 +473,7 @@ public class ${name}Impl implements ${name} {
 	*/
 	@ManyToMany(
 					targetEntity = ${association.other.classImpl}.class,
-					cascade=CascadeType.ALL,
+					cascade=${cascade},
 					fetch=FetchType.LAZY)
 	@JoinTable(
     	name="${joinTable}",
@@ -496,7 +496,7 @@ public class ${name}Impl implements ${name} {
 	@ManyToMany(
 				mappedBy="${thisName}",
     			targetEntity=${association.other.classImpl}.class,
-    			cascade=CascadeType.ALL,
+    			cascade=${cascade},
     			fetch=FetchType.LAZY)
 <#-- 1..* to 1..* primary -->
 <#elseif association.this.multiple
@@ -522,7 +522,7 @@ public class ${name}Impl implements ${name} {
 	*/
 	@ManyToMany(
 				targetEntity = ${association.other.classImpl}.class,
-				cascade=CascadeType.ALL,
+				cascade=${cascade},
 				fetch=FetchType.LAZY)
 	@JoinTable(
     	name="${joinTable}",
@@ -545,7 +545,7 @@ public class ${name}Impl implements ${name} {
 	@ManyToMany(
 				mappedBy="${thisName}",
     			targetEntity=${association.other.classImpl}.class,
-    			cascade=CascadeType.ALL,
+    			cascade=${cascade},
     			fetch=FetchType.LAZY)
 <#-- 1..* to * -->
 <#elseif association.this.multiple
@@ -558,7 +558,7 @@ public class ${name}Impl implements ${name} {
 	@ManyToMany(
 				mappedBy="${thisName}",
     			targetEntity=${association.other.classImpl}.class,
-    			cascade=CascadeType.ALL,
+    			cascade=${cascade},
     			fetch=FetchType.LAZY)
 <#-- * to 1..*  -->
 <#elseif association.this.multiple
@@ -583,7 +583,7 @@ public class ${name}Impl implements ${name} {
 	*/
 	@ManyToMany(
 				targetEntity = ${association.other.classImpl}.class,
-				cascade=CascadeType.ALL,
+				cascade=${cascade},
 				fetch=FetchType.LAZY)
 	@JoinTable(
     	name="${joinTable}",

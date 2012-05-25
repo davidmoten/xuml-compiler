@@ -65,13 +65,12 @@ public class ClassMap {
 	public KeyMap getMap() {
 		this.map = new KeyMap();
 
-		ImportContext interfaceImportContext = new ImportContextImpl(Util
-				.getFullPath(cls.getPackage(), "."));
-		ImportContext classImportContext = new ImportContextImpl(Util
-				.getFullPath(cls.getPackage(), ".")
-				+ ".impl");
-		ImportContext actionsImportContext = new ImportContextImpl(Util
-				.getFullPath(cls.getPackage(), ".actions"));
+		ImportContext interfaceImportContext = new ImportContextImpl(
+				Util.getFullPath(cls.getPackage(), "."));
+		ImportContext classImportContext = new ImportContextImpl(
+				Util.getFullPath(cls.getPackage(), ".") + ".impl");
+		ImportContext actionsImportContext = new ImportContextImpl(
+				Util.getFullPath(cls.getPackage(), ".actions"));
 		map.put("interface", interfaceImportContext);
 		map.put("class", classImportContext);
 		map.put("actions", actionsImportContext);
@@ -85,9 +84,14 @@ public class ClassMap {
 		map.put("associations", getAssociationsList(cls));
 		map.put("states", getStatesList(cls));
 		map.putAll(getEventsMap(cls));
-		map.put("identifiers", getIdentifiersNonPrimaryList(cls
-				.getIdentifierNonPrimary()));
+		map.put("identifiers",
+				getIdentifiersNonPrimaryList(cls.getIdentifierNonPrimary()));
 		map.put("identifierPrimary", getIdentifierPrimary(cls));
+
+		String cascade = System.getProperty("xuml.compiler.cascade");
+		if (cascade == null)
+			cascade = "CascadeType.ALL";
+		map.put("cascade", cascade);
 		return this.map;
 	}
 
@@ -98,8 +102,9 @@ public class ClassMap {
 			return null;
 		map.put("name", id.getName());
 		map.put("description", id.getDescription());
-		map.put("attributes", getAttributesList(id.getAttribute(), id
-				.getAttributeReferential()));
+		map.put("attributes",
+				getAttributesList(id.getAttribute(),
+						id.getAttributeReferential()));
 		return map;
 	}
 
@@ -200,8 +205,9 @@ public class ClassMap {
 	private KeyMap getIdentifierNonPrimaryMap(IdentifierNonPrimary identifier) {
 		KeyMap map = new KeyMap();
 		map.putAll(getNamedMap(identifier));
-		map.put("attributes", getAttributesList(identifier.getAttribute(),
-				identifier.getAttributeReferential()));
+		map.put("attributes",
+				getAttributesList(identifier.getAttribute(),
+						identifier.getAttributeReferential()));
 		return map;
 	}
 
@@ -316,9 +322,8 @@ public class ClassMap {
 				Association a = ModelFactory.eINSTANCE.createAssociation();
 				a.setName(group.getName() + " generalization of "
 						+ sp.getName());
-				a
-						.setDescription("generalization-specialization relationship to "
-								+ sp.getName());
+				a.setDescription("generalization-specialization relationship to "
+						+ sp.getName());
 				AssociationEndPrimary ae1 = ModelFactory.eINSTANCE
 						.createAssociationEndPrimary();
 				ae1.setClass(cls);
@@ -347,12 +352,13 @@ public class ClassMap {
 			String secondaryEndKey) {
 		KeyMap map = new KeyMap();
 		map.put("name", ass.getName());
-		map.put(secondaryEndKey, getAssociationEndMap(ass.getSecondary(), ass
-				.getSecondary().getClass_(), ass.getSecondary()
-				.getAssociation(), false));
-		map.put(primaryEndKey, getAssociationEndMap(ass.getPrimary(), ass
-				.getPrimary().getClass_(), ass.getPrimary().getAssociation(),
-				true));
+		map.put(secondaryEndKey,
+				getAssociationEndMap(ass.getSecondary(), ass.getSecondary()
+						.getClass_(), ass.getSecondary().getAssociation(),
+						false));
+		map.put(primaryEndKey,
+				getAssociationEndMap(ass.getPrimary(), ass.getPrimary()
+						.getClass_(), ass.getPrimary().getAssociation(), true));
 		if (ass.getAssociationClass() != null) {
 			map.put("associationClass", ass.getAssociationClass().getName());
 			if (ass.getAssociationClass().getPersistence() != null) {
@@ -387,8 +393,8 @@ public class ClassMap {
 		map.put("primary", isPrimary);
 		map.put("type", registerClass(ModelUtil.getCanonicalName(cls)));
 		map.put("orderBy", null);
-		map.put("persistence", getAssociationEndPersistenceMap(assEnd
-				.getPersistence()));
+		map.put("persistence",
+				getAssociationEndPersistenceMap(assEnd.getPersistence()));
 		return map;
 	}
 
@@ -496,8 +502,8 @@ public class ClassMap {
 		for (Attribute attribute : index.getAttribute()) {
 			KeyMap map2 = new KeyMap();
 			map2.put("name", attribute.getName());
-			map2.put("type", registerClass(ModelUtil.getJavaType(attribute
-					.getType())));
+			map2.put("type",
+					registerClass(ModelUtil.getJavaType(attribute.getType())));
 			map2.put("derived", false);
 			list.add(map2);
 		}
@@ -507,8 +513,8 @@ public class ClassMap {
 	private KeyMap getAttributeMap(Attribute attribute) {
 		KeyMap map = new KeyMap();
 		map.put("name", attribute.getName());
-		map.put("type", registerClass(ModelUtil
-				.getJavaType(attribute.getType())));
+		map.put("type",
+				registerClass(ModelUtil.getJavaType(attribute.getType())));
 		map.put("scale", attribute.getType().getScale());
 		map.put("precision", attribute.getType().getPrecision());
 		map.put("utc", attribute.getType().isUtc());
@@ -555,16 +561,16 @@ public class ClassMap {
 		map.put("name", o.getName());
 		map.put("description", o.getDescription());
 		if (o.getReturns() != null)
-			map.put("returns", registerClass(ModelUtil.getTypeName(o
-					.getReturns())));
+			map.put("returns",
+					registerClass(ModelUtil.getTypeName(o.getReturns())));
 		map.put("returnsMultiple", o.isReturnsMultiple());
 		List<KeyMap> list = new ArrayList<KeyMap>();
 		map.put("parameters", list);
 		for (Parameter parameter : o.getParameter()) {
 			KeyMap map2 = new KeyMap();
 			map2.put("name", parameter.getName());
-			map2.put("type", registerClass(ModelUtil.getTypeName(parameter
-					.getType())));
+			map2.put("type",
+					registerClass(ModelUtil.getTypeName(parameter.getType())));
 			map2.put("multiple", parameter.isMultiple());
 			map2.put("description", parameter.getDescription());
 			if (o instanceof Operation) {
