@@ -15,6 +15,7 @@ import org.apache.tools.ant.Task;
  */
 public class GenerateTask extends Task {
 
+	private static final String XUML_COMPILER_CASCADE = "xuml.compiler.cascade";
 	private String outputDirectory;
 	private String resourcesDirectory;
 	private String webDirectory;
@@ -47,6 +48,7 @@ public class GenerateTask extends Task {
 
 	@Override
 	public void execute() throws BuildException {
+		setupCascade();
 		if (outputDirectory == null)
 			throw new BuildException("must specify outputDirectory");
 		if (codeGenerator == null)
@@ -69,6 +71,17 @@ public class GenerateTask extends Task {
 					webDirectory, docsDirectory);
 		} catch (Exception e) {
 			throw new BuildException(e);
+		}
+	}
+
+	private void setupCascade() {
+		if (getOwningTarget() != null && getOwningTarget().getProject() != null) {
+			String cascade = getOwningTarget().getProject().getProperty(
+					XUML_COMPILER_CASCADE);
+			if (cascade == null)
+				System.clearProperty(XUML_COMPILER_CASCADE);
+			else
+				System.setProperty(XUML_COMPILER_CASCADE, cascade);
 		}
 	}
 
