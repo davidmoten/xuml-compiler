@@ -1139,6 +1139,16 @@
 	</complexType>
 
 	<complexType name="StateModelParameter">
+		<annotation>
+			<documentation>Dave Moten simplified the definition of
+				StateModelParameter because parameter typing is intimately related
+				to Action Language which has not been defined for miUml yet (28 May
+				2012). Dave chose to do this also to enable model compilers that may
+				not implement a miUml Action Language but rather map state model
+				signatures to methods in a platform language like java in the case
+				of xuml-compiler2.
+			</documentation>
+		</annotation>
 		<attribute name="Name" type="t:Name" use="required" />
 		<attribute name="Type" type="t:Name" use="required">
 			<annotation>
