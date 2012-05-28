@@ -17,6 +17,7 @@ import miuml.jaxb.ReferentialAttribute;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public class ClassInfoFromJaxb2 extends ClassInfo {
@@ -112,17 +113,35 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	@Override
 	List<MyIndependentAttribute> getPrimaryIdAttributeMembers() {
 		Set<Attribute> list = getIdentifierAttributes().get(BigInteger.ONE);
+		List<MyIndependentAttribute> result = Lists.newArrayList();
 		for (Attribute attribute : list) {
+			MyIndependentAttribute id;
 			if (attribute instanceof NativeAttribute) {
 				NativeAttribute a = (NativeAttribute) attribute;
-
+				id = createMyIndependentAttribute(a);
 			} else {
 				ReferentialAttribute a = (ReferentialAttribute) attribute;
-
+				id = createMyIndependentAttribute(a);
 			}
+			new MyIndependentAttribute(schema, packageName, null, isSubclass(),
+					classDescription);
+			result.add(id);
 		}
-		// TODO Auto-generated method stub
-		return null;
+		return result;
+	}
+
+	private MyIndependentAttribute createMyIndependentAttribute(
+			ReferentialAttribute a) {
+		// TODO
+		return new MyIndependentAttribute(schema, packageName, null,
+				isSubclass(), classDescription);
+	}
+
+	private MyIndependentAttribute createMyIndependentAttribute(
+			NativeAttribute a) {
+		// TODO
+		return new MyIndependentAttribute(schema, packageName, null,
+				isSubclass(), classDescription);
 	}
 
 	@Override
