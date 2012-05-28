@@ -24,8 +24,7 @@
 					perform this sort of validation. All relationships that are
 					identified as not being required in the schema should eventually be
 					mentioned in documentation annotations so that it is clear they
-					have
-					been considered.</p>
+					have been considered.</p>
 				<p>Subsystems to be considered by this schema include:</p>
 				<ul>
 					<li>Domain Subsystem</li>
@@ -1240,7 +1239,6 @@
 			<minInclusive value="1" />
 		</restriction>
 	</simpleType>
-
 
 </schema>
 		
