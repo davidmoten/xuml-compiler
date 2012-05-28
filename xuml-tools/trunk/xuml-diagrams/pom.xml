@@ -16,13 +16,6 @@
 			<artifactId>miuml-jaxb</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>org.moten.david</groupId>
-			<artifactId>xuml-compiler2</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.moten.david</groupId>
 			<artifactId>gae</artifactId>
