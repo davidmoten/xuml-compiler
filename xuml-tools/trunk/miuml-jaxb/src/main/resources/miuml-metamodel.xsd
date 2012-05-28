@@ -271,14 +271,6 @@
 							<documentation>R20</documentation>
 						</annotation>
 					</element>
-					<element name="Operation" type="t:Operation" maxOccurs="unbounded"
-						minOccurs="0">
-						<annotation>
-							<documentation>Added by Dave Moten 10 April 2012 so can generate
-								methods for Java model compiler.
-							</documentation>
-						</annotation>
-					</element>
 					<element ref="t:Lifecycle" minOccurs="0">
 						<annotation>
 							<documentation>R500</documentation>
@@ -480,25 +472,6 @@
 				</annotation>
 			</extension>
 		</complexContent>
-	</complexType>
-
-	<complexType name="Operation">
-		<annotation>
-			<documentation>Added by Dave Moten 10 April 2012, is not present on
-				diagrams yet.
-			</documentation>
-		</annotation>
-		<sequence>
-			<element name="Parameter" type="t:OperationParameter"
-				minOccurs="0" maxOccurs="unbounded" />
-		</sequence>
-		<attribute name="name" type="t:Name" use="required" />
-		<attribute name="returns" type="t:Name" use="optional" />
-	</complexType>
-	
-	<complexType name="OperationParameter">
-		<attribute name="Name" type="t:Name" use="required"/>
-		<attribute name="Type" type="t:Name" use="required"/>
 	</complexType>
 
 	<!--++++++++++++++++++++++++++++++ -->
