@@ -11,6 +11,8 @@ import javax.xml.bind.JAXBElement;
 import miuml.jaxb.Attribute;
 import miuml.jaxb.Class;
 import miuml.jaxb.IdentifierAttribute;
+import miuml.jaxb.NativeAttribute;
+import miuml.jaxb.ReferentialAttribute;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
@@ -109,6 +111,16 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	@Override
 	List<MyIndependentAttribute> getPrimaryIdAttributeMembers() {
+		Set<Attribute> list = getIdentifierAttributes().get(BigInteger.ONE);
+		for (Attribute attribute : list) {
+			if (attribute instanceof NativeAttribute) {
+				NativeAttribute a = (NativeAttribute) attribute;
+
+			} else {
+				ReferentialAttribute a = (ReferentialAttribute) attribute;
+
+			}
+		}
 		// TODO Auto-generated method stub
 		return null;
 	}
