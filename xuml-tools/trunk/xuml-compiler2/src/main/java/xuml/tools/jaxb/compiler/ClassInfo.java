@@ -101,6 +101,16 @@ public abstract class ClassInfo {
 		return getPackage() + "." + getJavaClassSimpleName();
 	}
 
+	public static class MyPrimaryIdAttributeMember extends
+			MyIndependentAttribute {
+
+		public MyPrimaryIdAttributeMember(String fieldName, String columnName,
+				Type type, boolean nullable, String description) {
+			super(fieldName, columnName, type, nullable, description);
+		}
+
+	}
+
 	public static class MyIndependentAttribute {
 		private final String fieldName;
 		private final String columnName;
