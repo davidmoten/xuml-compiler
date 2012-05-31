@@ -8,11 +8,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -226,6 +229,16 @@ public class ClassWriter {
 					info.getEmbeddedIdSimpleClassName());
 			for (MyIndependentAttribute member : info
 					.getPrimaryIdAttributeMembers()) {
+				info.addType(Embedded.class);
+				info.addType(AttributeOverrides.class);
+				info.addType(AttributeOverride.class);
+				info.addType(Column.class);
+				out.format("        //example of how to use embedded foreign keys and map to columns\n");
+				out.format("        @Embedded\n");
+				out.format("        @AttributeOverrides({\n");
+				out.format("          @AttributeOverride(name=\"startDate\" column=@Column(name=\"EMP_START\")),\n");
+				out.format("          @AttributeOverride(name=\"endDate\",column=@Column(name=\"EMP_END\"))\n");
+				out.format("        })\n");
 				writeIndependentAttributeMember(out, member, "        ");
 			}
 			out.format("    }\n\n");
