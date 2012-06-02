@@ -11,7 +11,7 @@
 	<name>${project.artifactId}</name>
 	<description>The group of dependencies for using Hibernate</description>
 	<properties>
-		<hibernate.version>3.5.4-Final</hibernate.version>
+		<hibernate.version>3.6.0.Beta2</hibernate.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -41,11 +41,13 @@
 		</dependency>
 
 		<!-- merged into core as of 3.6 -->
+		<!-- 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-annotations</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>geronimo-spec</groupId>
 			<artifactId>geronimo-spec-jta</artifactId>

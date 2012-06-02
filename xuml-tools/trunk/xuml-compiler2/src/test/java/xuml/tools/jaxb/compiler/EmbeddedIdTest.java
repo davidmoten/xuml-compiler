@@ -7,7 +7,8 @@ import org.junit.Test;
 
 public class EmbeddedIdTest {
 
-	// @Test
+	@Test
+	// TODO get this working
 	public void test() {
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("embeddedIdTest");
