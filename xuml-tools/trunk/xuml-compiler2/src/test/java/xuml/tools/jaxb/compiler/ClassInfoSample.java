@@ -208,37 +208,43 @@ public class ClassInfoSample extends ClassInfo {
 				null, "class", null, null));
 		list.add(new MyReferenceMember("Barge", getPackage() + ".Barge",
 				Mult.ZERO_ONE, Mult.ONE, "carries", "is carried by", "barge",
-				"barge_id", null, null, null));
+				newArrayList(new JoinColumn("barge_id", "barge_id")), null,
+				null, null));
 		list.add(new MyReferenceMember("Wheel", getPackage() + ".Wheel",
 				Mult.ONE, Mult.MANY, "helps move", "moves on", "wheel", null,
 				"class", null, null));
 		list.add(new MyReferenceMember("Insect", getPackage() + ".Insect",
 				Mult.MANY, Mult.ONE, "bites", "is bitten by", "insect",
-				"insect_id", null, null, null));
+				newArrayList(new JoinColumn("insect_id", "insect_id")), null,
+				null, null));
 		list.add(new MyReferenceMember("Train", getPackage() + ".Train",
 				Mult.ONE, Mult.ONE_MANY, "carries", "is carried by", "train",
 				null, "class", null, null));
 		list.add(new MyReferenceMember("Light", getPackage() + ".Light",
 				Mult.ONE_MANY, Mult.ONE, "lights", "is lit by", "light",
-				"light_id", null, null, null));
+				newArrayList(new JoinColumn("light_id", "light_id")), null,
+				null, null));
 		list.add(new MyReferenceMember("Mouse", getPackage() + ".Mouse",
 				Mult.ZERO_ONE, Mult.ZERO_ONE, "scares", "is scared by",
 				"mouse", null, "class", null, null));
 		list.add(new MyReferenceMember("Ant", getPackage() + ".Ant",
 				Mult.ZERO_ONE, Mult.ZERO_ONE, "nibbles", "is nibbled by",
-				"ant", "ant_id", null, null, null));
+				"ant", newArrayList(new JoinColumn("ant_id", "ant_id")), null,
+				null, null));
 		list.add(new MyReferenceMember("Aircraft", getPackage() + ".Aircraft",
 				Mult.ZERO_ONE, Mult.MANY, "flies", "is flown by", "aircraft",
 				null, "class", null, null));
 		list.add(new MyReferenceMember("Balloon", getPackage() + ".Balloon",
 				Mult.MANY, Mult.ZERO_ONE, "floats", "is floated by", "balloon",
-				"balloon_id", null, null, null));
+				newArrayList(new JoinColumn("balloon_id", "balloon_id")), null,
+				null, null));
 		list.add(new MyReferenceMember("Mower", getPackage() + ".Mower",
 				Mult.ZERO_ONE, Mult.MANY, "mows", "is mown by", "mower", null,
 				"class", null, null));
 		list.add(new MyReferenceMember("Chair", getPackage() + ".Chair",
 				Mult.ONE_MANY, Mult.ZERO_ONE, "is sat on by", "sits on",
-				"chair", "chair_id", null, null, null));
+				"chair", newArrayList(new JoinColumn("chair_id", "chair_id")),
+				null, null, null));
 		list.add(new MyReferenceMember("Lemon", getPackage() + ".Lemon",
 				Mult.MANY, Mult.MANY, "is sucked by", "sucks", "lemon", null,
 				null, null, new MyManyToMany("class_lemon", getSchema(),

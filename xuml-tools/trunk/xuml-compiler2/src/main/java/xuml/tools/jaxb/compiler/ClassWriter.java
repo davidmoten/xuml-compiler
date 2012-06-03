@@ -287,8 +287,7 @@ public class ClassWriter {
 				out.format(
 						"    @OneToOne(targetEntity=%s.class,cascade=CascadeType.ALL,fetch=FetchType.LAZY)\n",
 						info.addType(ref.getFullClassName()));
-				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
-						ref.getOtherColumnName());
+				writeJoinColumnsAnnotation(out, ref, false);
 				writeField(out, ref);
 			} else if (isRelationship(ref, Mult.ONE, Mult.MANY)) {
 				info.addType(OneToMany.class);
@@ -305,8 +304,7 @@ public class ClassWriter {
 				out.format(
 						"    @ManyToOne(targetEntity=%s.class,fetch=FetchType.LAZY)\n",
 						ref.getSimpleClassName());
-				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
-						ref.getOtherColumnName());
+				writeJoinColumnsAnnotation(out, ref, false);
 				writeField(out, ref);
 			} else if (isRelationship(ref, Mult.ONE, Mult.ONE_MANY)) {
 				info.addType(OneToMany.class);
@@ -322,8 +320,7 @@ public class ClassWriter {
 				info.addType(JoinColumn.class);
 				out.format("    @ManyToOne(targetEntity=%s.class)\n",
 						info.addType(ref.getFullClassName()));
-				out.format("    @JoinColumn(name=\"%s\",nullable=false)\n",
-						ref.getOtherColumnName());
+				writeJoinColumnsAnnotation(out, ref, false);
 				writeField(out, ref);
 			} else if (isRelationship(ref, Mult.ZERO_ONE, Mult.ZERO_ONE)) {
 				if (info.getJavaClassSimpleName().compareTo(
@@ -345,8 +342,7 @@ public class ClassWriter {
 					out.format(
 							"    @OneToOne(targetEntity=%s.class,fetch=FetchType.LAZY)\n",
 							info.addType(ref.getFullClassName()));
-					out.format("    @JoinColumn(name=\"%s\",nullable=true)\n",
-							ref.getOtherColumnName());
+					writeJoinColumnsAnnotation(out, ref, true);
 				}
 				writeField(out, ref);
 			} else if (isRelationship(ref, Mult.ZERO_ONE, Mult.MANY)) {
@@ -364,8 +360,7 @@ public class ClassWriter {
 				out.format(
 						"    @ManyToOne(targetEntity=%s.class,fetch=FetchType.LAZY)\n",
 						info.addType(ref.getFullClassName()));
-				out.format("    @JoinColumn(name=\"%s\",nullable=true)",
-						ref.getOtherColumnName());
+				writeJoinColumnsAnnotation(out, ref, true);
 				writeField(out, ref);
 			} else if (isRelationship(ref, Mult.ZERO_ONE, Mult.ONE_MANY)) {
 				info.addType(OneToMany.class);
@@ -382,8 +377,7 @@ public class ClassWriter {
 				out.format(
 						"    @ManyToOne(targetEntity=%s.class,fetch=FetchType.LAZY)\n",
 						info.addType(ref.getFullClassName()));
-				out.format("    @JoinColumn(name=\"%s\",nullable=true)\n",
-						ref.getOtherColumnName());
+				writeJoinColumnsAnnotation(out, ref, true);
 				writeField(out, ref);
 			} else if (isRelationship(ref, Mult.MANY, Mult.MANY)) {
 				writeManyToMany(out, info, ref);
@@ -395,6 +389,22 @@ public class ClassWriter {
 				writeManyToManyPrimarySide(out, info, ref);
 			}
 		}
+	}
+
+	private void writeJoinColumnsAnnotation(PrintStream out,
+			MyReferenceMember ref, boolean nullable) {
+		out.format("    @JoinColumns(value={\n");
+		boolean first = true;
+		for (xuml.tools.jaxb.compiler.ClassInfo.JoinColumn col : ref
+				.getJoinColumns()) {
+			if (!first)
+				out.format(",\n");
+			first = false;
+			out.format(
+					"        @JoinColumn(name=\"%s\",referencedColumnName=\"%s\",nullable=%s)",
+					col.getThisColumnName(), col.getOtherColumnName(), nullable);
+		}
+		out.format("})\n");
 	}
 
 	private void writeAtLeastOneFieldChecks(PrintStream out, ClassInfo info) {

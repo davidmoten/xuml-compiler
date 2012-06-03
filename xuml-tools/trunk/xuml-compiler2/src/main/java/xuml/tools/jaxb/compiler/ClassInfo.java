@@ -287,6 +287,25 @@ public abstract class ClassInfo {
 		ONE, ZERO_ONE, MANY, ONE_MANY;
 	}
 
+	public static class JoinColumn {
+		private final String thisColumnName;
+		private final String otherColumnName;
+
+		public JoinColumn(String thisColumnName, String otherColumnName) {
+			super();
+			this.thisColumnName = thisColumnName;
+			this.otherColumnName = otherColumnName;
+		}
+
+		public String getThisColumnName() {
+			return thisColumnName;
+		}
+
+		public String getOtherColumnName() {
+			return otherColumnName;
+		}
+	}
+
 	public static class MyReferenceMember {
 		private final String simpleClassName;
 		private final String fullClassName;
@@ -295,7 +314,7 @@ public abstract class ClassInfo {
 		private final String thisVerbClause;
 		private final String thatVerbClause;
 		private final String fieldName;
-		private final String otherColumnName;
+		private final List<JoinColumn> joinColumns;
 		private final String thisName;
 		private final String otherName;
 		private final MyManyToMany manyToMany;
@@ -303,8 +322,8 @@ public abstract class ClassInfo {
 		public MyReferenceMember(String simpleClassName, String fullClassName,
 				Mult thisMult, Mult thatMult, String thisVerbClause,
 				String thatVerbClause, String fieldName,
-				String otherColumnName, String thisName, String otherName,
-				MyManyToMany manyToMany) {
+				List<JoinColumn> joinColumns, String thisName,
+				String otherName, MyManyToMany manyToMany) {
 			this.simpleClassName = simpleClassName;
 			this.fullClassName = fullClassName;
 			this.thisMult = thisMult;
@@ -312,7 +331,7 @@ public abstract class ClassInfo {
 			this.thisVerbClause = thisVerbClause;
 			this.thatVerbClause = thatVerbClause;
 			this.fieldName = fieldName;
-			this.otherColumnName = otherColumnName;
+			this.joinColumns = joinColumns;
 			this.thisName = thisName;
 			this.otherName = otherName;
 			this.manyToMany = manyToMany;
@@ -330,8 +349,8 @@ public abstract class ClassInfo {
 			return otherName;
 		}
 
-		public String getOtherColumnName() {
-			return otherColumnName;
+		public List<JoinColumn> getJoinColumns() {
+			return joinColumns;
 		}
 
 		public String getSimpleClassName() {
