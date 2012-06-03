@@ -56,7 +56,7 @@ public abstract class ClassInfo {
 		return getTypes().addType(type);
 	}
 
-	abstract List<MyIndependentAttribute> getPrimaryIdAttributeMembers();
+	abstract List<MyPrimaryIdAttribute> getPrimaryIdAttributeMembers();
 
 	abstract List<MyIndependentAttribute> getNonIdIndependentAttributeMembers();
 
@@ -109,6 +109,69 @@ public abstract class ClassInfo {
 			super(fieldName, columnName, type, nullable, description);
 		}
 
+	}
+
+	public static class MyPrimaryIdAttribute {
+		private String fieldName;
+		private String columnName;
+		private String referenceClass;
+		private String referenceColumnName;
+		private Type type;
+
+		public MyPrimaryIdAttribute(String fieldName, String columnName,
+				String referenceClass, String referenceColumnName, Type type) {
+			super();
+			this.fieldName = fieldName;
+			this.columnName = columnName;
+			this.referenceClass = referenceClass;
+			this.referenceColumnName = referenceColumnName;
+			this.type = type;
+		}
+
+		public MyPrimaryIdAttribute(String fieldName, String columnName,
+				Type type) {
+			this(fieldName, columnName, null, null, type);
+		}
+
+		public String getFieldName() {
+			return fieldName;
+		}
+
+		public void setFieldName(String fieldName) {
+			this.fieldName = fieldName;
+		}
+
+		public String getColumnName() {
+			return columnName;
+		}
+
+		public void setColumnName(String columnName) {
+			this.columnName = columnName;
+		}
+
+		public String getReferenceClass() {
+			return referenceClass;
+		}
+
+		public void setReferenceClass(String referenceClass) {
+			this.referenceClass = referenceClass;
+		}
+
+		public String getReferenceColumnName() {
+			return referenceColumnName;
+		}
+
+		public void setReferenceColumnName(String referenceColumnName) {
+			this.referenceColumnName = referenceColumnName;
+		}
+
+		public Type getType() {
+			return type;
+		}
+
+		public void setType(Type type) {
+			this.type = type;
+		}
 	}
 
 	public static class MyIndependentAttribute {

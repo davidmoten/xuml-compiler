@@ -1,6 +1,9 @@
 package xuml.tools.jaxb.compiler;
 
+import static com.google.common.collect.Collections2.transform;
+import static com.google.common.collect.HashMultimap.create;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -15,10 +18,7 @@ import miuml.jaxb.NativeAttribute;
 import miuml.jaxb.ReferentialAttribute;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 public class ClassInfoFromJaxb2 extends ClassInfo {
 
@@ -59,7 +59,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	private HashMultimap<BigInteger, String> getIdentifierAttributeNames() {
 		HashMultimap<BigInteger, Attribute> map = getIdentifierAttributes();
-		HashMultimap<BigInteger, String> m = HashMultimap.create();
+		HashMultimap<BigInteger, String> m = create();
 		for (BigInteger i : map.keySet()) {
 			m.putAll(i, getNames(map.get(i)));
 		}
@@ -74,8 +74,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	};
 
 	private Set<String> getNames(Set<Attribute> attributes) {
-		return Sets.newHashSet(Collections2
-				.transform(attributes, attributeName));
+		return newHashSet(transform(attributes, attributeName));
 	}
 
 	private HashMultimap<BigInteger, Attribute> getIdentifierAttributes() {
@@ -111,23 +110,32 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	}
 
 	@Override
-	List<MyIndependentAttribute> getPrimaryIdAttributeMembers() {
+	List<MyPrimaryIdAttribute> getPrimaryIdAttributeMembers() {
 		Set<Attribute> list = getIdentifierAttributes().get(BigInteger.ONE);
-		List<MyIndependentAttribute> result = Lists.newArrayList();
+		List<MyPrimaryIdAttribute> result = newArrayList();
 		for (Attribute attribute : list) {
-			MyIndependentAttribute id;
+			MyPrimaryIdAttribute id;
 			if (attribute instanceof NativeAttribute) {
 				NativeAttribute a = (NativeAttribute) attribute;
-				id = createMyIndependentAttribute(a);
+				id = createMyPrimaryIdAttribute(a);
 			} else {
 				ReferentialAttribute a = (ReferentialAttribute) attribute;
-				id = createMyIndependentAttribute(a);
+				id = createMyPrimaryIdAttribute(a);
 			}
-			new MyIndependentAttribute(schema, packageName, null, isSubclass(),
-					classDescription);
 			result.add(id);
 		}
 		return result;
+	}
+
+	private MyPrimaryIdAttribute createMyPrimaryIdAttribute(
+			ReferentialAttribute a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private MyPrimaryIdAttribute createMyPrimaryIdAttribute(NativeAttribute a) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private MyIndependentAttribute createMyIndependentAttribute(

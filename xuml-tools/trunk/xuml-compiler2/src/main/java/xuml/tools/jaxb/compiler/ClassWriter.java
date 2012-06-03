@@ -8,14 +8,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.Embedded;
+import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,6 +35,7 @@ import xuml.tools.jaxb.compiler.ClassInfo.Mult;
 import xuml.tools.jaxb.compiler.ClassInfo.MyEvent;
 import xuml.tools.jaxb.compiler.ClassInfo.MyIndependentAttribute;
 import xuml.tools.jaxb.compiler.ClassInfo.MyParameter;
+import xuml.tools.jaxb.compiler.ClassInfo.MyPrimaryIdAttribute;
 import xuml.tools.jaxb.compiler.ClassInfo.MyReferenceMember;
 import xuml.tools.jaxb.compiler.ClassInfo.MySubclassRole;
 import xuml.tools.jaxb.compiler.ClassInfo.MyTransition;
@@ -224,14 +223,12 @@ public class ClassWriter {
 			out.format("    private %s %s;\n\n",
 					info.getEmbeddedIdSimpleClassName(),
 					info.getEmbeddedIdAttributeName());
+			info.addType(Embeddable.class);
 			out.format("    @Embeddable\n");
 			out.format("    public static class %s {\n\n",
 					info.getEmbeddedIdSimpleClassName());
-			for (MyIndependentAttribute member : info
+			for (MyPrimaryIdAttribute member : info
 					.getPrimaryIdAttributeMembers()) {
-				info.addType(Embedded.class);
-				info.addType(AttributeOverrides.class);
-				info.addType(AttributeOverride.class);
 				info.addType(Column.class);
 				out.format("        //example of how to use embedded foreign keys and map to columns\n");
 				out.format("        @Embedded\n");
@@ -243,6 +240,12 @@ public class ClassWriter {
 			}
 			out.format("    }\n\n");
 		}
+	}
+
+	private void writeIndependentAttributeMember(PrintStream out,
+			MyPrimaryIdAttribute myPrimaryIdAttribute, String indent) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private void writeNonIdIndependentAttributeMembers(PrintStream out,
@@ -400,6 +403,12 @@ public class ClassWriter {
 	private void writeIdGetterAndSetter(PrintStream out, ClassInfo info) {
 		writeIndependentAttributeGetterAndSetter(out, info
 				.getPrimaryIdAttributeMembers().get(0));
+	}
+
+	private void writeIndependentAttributeGetterAndSetter(PrintStream out,
+			MyPrimaryIdAttribute myPrimaryIdAttribute) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private void writeNonIdIndependentAttributeGettersAndSetters(

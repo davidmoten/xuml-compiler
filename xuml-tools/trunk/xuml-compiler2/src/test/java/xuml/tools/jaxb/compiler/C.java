@@ -20,21 +20,21 @@ public class C implements Serializable {
 	// @MapsId
 	@ManyToOne
 	@JoinColumns(value = {
-			@JoinColumn(name = "a_one", referencedColumnName = "a_one", insertable = false, updatable = false),
-			@JoinColumn(name = "a_two", referencedColumnName = "a_two", insertable = false, updatable = false),
-			@JoinColumn(name = "b_one", referencedColumnName = "b_one", insertable = false, updatable = false) })
+			@JoinColumn(name = "c_a_one", referencedColumnName = "b_a_one", insertable = false, updatable = false),
+			@JoinColumn(name = "c_a_two", referencedColumnName = "b_a_two", insertable = false, updatable = false),
+			@JoinColumn(name = "c_b_one", referencedColumnName = "b_one", insertable = false, updatable = false) })
 	private B b;
 
 	@Embeddable
 	public static class CId implements Serializable {
 
-		@Column(name = "a_one", insertable = false, updatable = false)
+		@Column(name = "c_a_one", insertable = false, updatable = false)
 		private String a1;
 
-		@Column(name = "a_two", insertable = false, updatable = false)
+		@Column(name = "c_a_two", insertable = false, updatable = false)
 		private String a2;
 
-		@Column(name = "b_one", insertable = false, updatable = false)
+		@Column(name = "c_b_one", insertable = false, updatable = false)
 		private String b1;
 
 		@Column(name = "c_one")
