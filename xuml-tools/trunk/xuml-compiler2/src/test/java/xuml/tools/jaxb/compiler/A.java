@@ -16,7 +16,7 @@ public class A implements Serializable {
 
 	@Embeddable
 	public static class AId implements Serializable {
-		@Column(name = "a_one", insertable = false, updatable = false)
+		@Column(name = "a_one")
 		private String a1;
 
 		@Column(name = "a_two")
