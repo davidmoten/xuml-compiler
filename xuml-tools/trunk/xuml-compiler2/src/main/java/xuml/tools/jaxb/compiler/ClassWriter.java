@@ -230,22 +230,26 @@ public class ClassWriter {
 			for (MyPrimaryIdAttribute member : info
 					.getPrimaryIdAttributeMembers()) {
 				info.addType(Column.class);
-				out.format("        //example of how to use embedded foreign keys and map to columns\n");
-				out.format("        @Embedded\n");
-				out.format("        @AttributeOverrides({\n");
-				out.format("          @AttributeOverride(name=\"startDate\" column=@Column(name=\"EMP_START\")),\n");
-				out.format("          @AttributeOverride(name=\"endDate\",column=@Column(name=\"EMP_END\"))\n");
-				out.format("        })\n");
-				writeIndependentAttributeMember(out, member, "        ");
+				if (member.getReferenceClass() == null)
+					out.format("        @Column(name=\"%s\")\n",
+							member.getColumnName());
+				else {
+					out.format(
+							"        @Column(name=\"%s\",insertable=true,updatable=true)\n",
+							member.getColumnName());
+				}
+				out.format("%sprivate %s %s;\n\n", "        ",
+						info.addType(member.getType()), member.getFieldName());
 			}
 			out.format("    }\n\n");
 		}
 	}
 
 	private void writeIndependentAttributeMember(PrintStream out,
-			MyPrimaryIdAttribute myPrimaryIdAttribute, String indent) {
-		// TODO Auto-generated method stub
-
+			MyPrimaryIdAttribute attribute, String indent) {
+		writeIndependentAttributeMember(out, attribute.getFieldName(),
+				attribute.getColumnName(), false, "    ",
+				info.addType(attribute.getType()));
 	}
 
 	private void writeNonIdIndependentAttributeMembers(PrintStream out,
@@ -406,9 +410,8 @@ public class ClassWriter {
 	}
 
 	private void writeIndependentAttributeGetterAndSetter(PrintStream out,
-			MyPrimaryIdAttribute myPrimaryIdAttribute) {
-		// TODO Auto-generated method stub
-
+			MyPrimaryIdAttribute attribute) {
+		// TODO
 	}
 
 	private void writeNonIdIndependentAttributeGettersAndSetters(
@@ -656,10 +659,20 @@ public class ClassWriter {
 			MyIndependentAttribute attribute, String indent) {
 		String type = info.addType(attribute.getType());
 		info.addType(Column.class);
-		out.format("%s@Column(name=\"%s\",nullable=%s)\n", indent,
-				attribute.getColumnName(), attribute.isNullable());
-		out.format("%sprivate %s %s;\n\n", indent, type,
-				attribute.getFieldName());
+		writeIndependentAttributeMember(out, attribute.getFieldName(),
+				attribute.getColumnName(), attribute.isNullable(), indent, type);
+	}
+
+	private void writeIndependentAttributeMember(PrintStream out,
+			String fieldName, String columnName, boolean isNullable,
+			String indent, String type) {
+		out.format("%s@Column(name=\"%s\",nullable=%s)\n", indent, columnName,
+				isNullable);
+		out.format("%sprivate %s %s;\n\n", indent, type, fieldName);
+	}
+
+	private void writeIndependentAttribute(PrintStream out,
+			MyIndependentAttribute attribute, String indent, String type) {
 	}
 
 	private void writeIndependentAttributeGetterAndSetter(PrintStream out,

@@ -93,8 +93,8 @@ public class ClassInfoSample extends ClassInfo {
 	@Override
 	public List<MyPrimaryIdAttribute> getPrimaryIdAttributeMembers() {
 		return Lists.newArrayList(new MyPrimaryIdAttribute("id1", "class_id",
-				new Type("Long")), new MyPrimaryIdAttribute("id2", "domain_id",
-				new Type("Long")));
+				"org.moten.david.School", "class_col", new Type("Long")),
+				new MyPrimaryIdAttribute("id2", "domain_id", new Type("Long")));
 	}
 
 	/*
