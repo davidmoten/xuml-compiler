@@ -14,16 +14,22 @@ import javax.xml.bind.JAXBElement;
 import miuml.jaxb.Attribute;
 import miuml.jaxb.BinaryAssociation;
 import miuml.jaxb.Class;
+import miuml.jaxb.Event;
 import miuml.jaxb.Generalization;
 import miuml.jaxb.IdentifierAttribute;
+import miuml.jaxb.LocalEffectiveSignalingEvent;
 import miuml.jaxb.NativeAttribute;
 import miuml.jaxb.Reference;
 import miuml.jaxb.ReferentialAttribute;
 import miuml.jaxb.Relationship;
+import miuml.jaxb.State;
+import miuml.jaxb.StateModelParameter;
+import miuml.jaxb.Transition;
 import miuml.jaxb.UnaryAssociation;
 
 import com.google.common.base.Function;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Lists;
 
 public class ClassInfoFromJaxb2 extends ClassInfo {
 
@@ -138,18 +144,20 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	private MyPrimaryIdAttribute createMyPrimaryIdAttribute(
 			ReferentialAttribute a) {
-		List<JoinColumn> joinColumns = newArrayList();
 		Reference ref = a.getReference().getValue();
-
 		Relationship rel = lookups.getRelationship(ref.getRelationship());
+		String otherClassName = getOtherClassName(rel);
+		return getPrimaryIdAttribute(a, ref, otherClassName);
+	}
+
+	private String getOtherClassName(Relationship rel) {
+		String otherClassName;
 		if (rel instanceof BinaryAssociation) {
 			BinaryAssociation b = (BinaryAssociation) rel;
-			String otherClassName;
 			if (isActiveSide(b))
 				otherClassName = b.getPassivePerspective().getViewedClass();
 			else
 				otherClassName = b.getActivePerspective().getViewedClass();
-			return getPrimaryIdAttribute(a, ref, otherClassName);
 		} else if (rel instanceof UnaryAssociation) {
 			// TODO
 			throw new RuntimeException("not sure how to do this one yet");
@@ -160,15 +168,27 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 						"cannot use an id from a specialization as primary id member: "
 								+ g.getRnum());
 			else
-				return getPrimaryIdAttribute(a, ref, g.getSuperclass());
+				otherClassName = g.getSuperclass();
 		} else
 			throw new RuntimeException(
 					"this relationship type not implemented: "
 							+ rel.getClass().getName());
+		return otherClassName;
 	}
 
 	private MyPrimaryIdAttribute getPrimaryIdAttribute(ReferentialAttribute a,
 			Reference ref, String otherClassName) {
+		MyPrimaryIdAttribute p = getOtherPrimaryIdAttribute(a, ref,
+				otherClassName);
+		if (p != null)
+			return new MyPrimaryIdAttribute(a.getName(), Util.toColumnName(a
+					.getName()), otherClassName, p.getColumnName(), p.getType());
+		else
+			throw new RuntimeException("attribute not found!");
+	}
+
+	private MyPrimaryIdAttribute getOtherPrimaryIdAttribute(
+			ReferentialAttribute a, Reference ref, String otherClassName) {
 		ClassInfoFromJaxb2 otherInfo = getClassInfo(otherClassName);
 		// look for attribute
 		String otherAttributeName;
@@ -180,12 +200,11 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 				.getPrimaryIdAttributeMembers();
 		for (MyPrimaryIdAttribute p : members) {
 			if (otherAttributeName.equals(p.getFieldName())) {
-				return new MyPrimaryIdAttribute(a.getName(),
-						Util.toColumnName(a.getName()), otherClassName,
-						p.getColumnName(), p.getType());
+				return p;
 			}
 		}
-		throw new RuntimeException("attribute not found!");
+		// not found
+		return null;
 	}
 
 	private ClassInfoFromJaxb2 getClassInfo(String otherClassName) {
@@ -200,15 +219,18 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	}
 
 	private MyPrimaryIdAttribute createMyPrimaryIdAttribute(NativeAttribute a) {
-		// TODO Auto-generated method stub
-		return null;
+		return new MyPrimaryIdAttribute(a.getName(), Util.toColumnName(a
+				.getName()), new Type(a.getType()));
 	}
 
 	private MyIndependentAttribute createMyIndependentAttribute(
 			ReferentialAttribute a) {
-		// TODO
-		return new MyIndependentAttribute(schema, packageName, null,
-				isSubclass(), classDescription);
+		MyPrimaryIdAttribute otherId = getOtherPrimaryIdAttribute(a, a
+				.getReference().getValue(), classDescription);
+		// TODO find nullable status
+		boolean nullable = true;
+		return new MyIndependentAttribute(a.getName(), Util.toColumnName(a
+				.getName()), otherId.getType(), nullable, "unknown");
 	}
 
 	private MyIndependentAttribute createMyIndependentAttribute(
@@ -226,20 +248,38 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	@Override
 	List<MyEvent> getEvents() {
-		// TODO Auto-generated method stub
-		return null;
+		List<MyEvent> list = Lists.newArrayList();
+		for (JAXBElement<? extends Event> element : cls.getLifecycle()
+				.getEvent()) {
+			Event event = element.getValue();
+			if (event instanceof LocalEffectiveSignalingEvent) {
+				LocalEffectiveSignalingEvent ev = (LocalEffectiveSignalingEvent) event;
+				List<MyParameter> parameters = Lists.newArrayList();
+				for (StateModelParameter p : ev.getStateModelParameter()) {
+					parameters.add(new MyParameter(p.getName(), p.getType()));
+				}
+				list.add(new MyEvent(ev.getName(), Util.toClassSimpleName(ev
+						.getName()), parameters));
+			}
+		}
+		return list;
 	}
 
 	@Override
 	List<String> getStateNames() {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> list = Lists.newArrayList();
+		for (State state : cls.getLifecycle().getState())
+			list.add(state.getName());
+		return list;
 	}
 
 	@Override
 	List<MyTransition> getTransitions() {
-		// TODO Auto-generated method stub
-		return null;
+		List<MyTransition> list = Lists.newArrayList();
+		for (Transition transition : cls.getLifecycle().getTransition()) {
+			// TODO
+		}
+		return list;
 	}
 
 	@Override
