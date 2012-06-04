@@ -15,7 +15,6 @@ public class CodeGeneratorJava {
 
 	private final Domains domains;
 	private final Map<String, String> domainPackageNames;
-	private final Lookups lookups;
 	private final String contextPackageName;
 	private final File resourcesDirectory;
 
@@ -26,8 +25,6 @@ public class CodeGeneratorJava {
 		this.domainPackageNames = domainPackageNames;
 		this.contextPackageName = contextPackageName;
 		this.resourcesDirectory = resourcesDirectory;
-		// create maps for classes, relationships, generalizations
-		lookups = new Lookups(domains);
 	}
 
 	public void generate(File destination) {

@@ -12,10 +12,15 @@ import java.util.Set;
 import javax.xml.bind.JAXBElement;
 
 import miuml.jaxb.Attribute;
+import miuml.jaxb.BinaryAssociation;
 import miuml.jaxb.Class;
+import miuml.jaxb.Generalization;
 import miuml.jaxb.IdentifierAttribute;
 import miuml.jaxb.NativeAttribute;
+import miuml.jaxb.Reference;
 import miuml.jaxb.ReferentialAttribute;
+import miuml.jaxb.Relationship;
+import miuml.jaxb.UnaryAssociation;
 
 import com.google.common.base.Function;
 import com.google.common.collect.HashMultimap;
@@ -28,14 +33,18 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	private final String schema;
 	private final String table;
 	private final TypeRegister typeRegister = new TypeRegister();
+	private final Lookups lookups;
 
 	public ClassInfoFromJaxb2(Class cls, String packageName,
-			String classDescription, String schema, String table) {
+			String classDescription, String schema, String table,
+			Lookups lookups) {
 		this.cls = cls;
 		this.packageName = packageName;
+		// TODO is this property needed?
 		this.classDescription = classDescription;
 		this.schema = schema;
 		this.table = table;
+		this.lookups = lookups;
 	}
 
 	@Override
@@ -114,23 +123,62 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 		Set<Attribute> list = getIdentifierAttributes().get(BigInteger.ONE);
 		List<MyPrimaryIdAttribute> result = newArrayList();
 		for (Attribute attribute : list) {
-			MyPrimaryIdAttribute id;
 			if (attribute instanceof NativeAttribute) {
 				NativeAttribute a = (NativeAttribute) attribute;
-				id = createMyPrimaryIdAttribute(a);
+				MyPrimaryIdAttribute id = createMyPrimaryIdAttribute(a);
+				result.add(id);
 			} else {
 				ReferentialAttribute a = (ReferentialAttribute) attribute;
-				id = createMyPrimaryIdAttribute(a);
+				List<MyPrimaryIdAttribute> ids = createMyPrimaryIdAttribute(a);
+				result.addAll(ids);
 			}
-			result.add(id);
 		}
 		return result;
 	}
 
-	private MyPrimaryIdAttribute createMyPrimaryIdAttribute(
+	private List<MyPrimaryIdAttribute> createMyPrimaryIdAttribute(
 			ReferentialAttribute a) {
-		// TODO Auto-generated method stub
-		return null;
+		List<JoinColumn> joinColumns = newArrayList();
+		Reference ref = a.getReference().getValue();
+		// TODO check model on how to override attribute names inherited via
+		// relationship
+
+		Relationship rel = lookups.getRelationship(ref.getRelationship());
+		if (rel instanceof BinaryAssociation) {
+			BinaryAssociation b = (BinaryAssociation) rel;
+			String otherClassName;
+			if (isActiveSide(b))
+				otherClassName = b.getPassivePerspective().getViewedClass();
+			else
+				otherClassName = b.getActivePerspective().getViewedClass();
+			ClassInfoFromJaxb2 otherInfo = getClassInfo(otherClassName);
+			return otherInfo.getPrimaryIdAttributeMembers();
+		} else if (rel instanceof UnaryAssociation) {
+			// TODO
+			throw new RuntimeException("not sure how to do this one yet");
+		} else if (rel instanceof Generalization) {
+			Generalization g = (Generalization) rel;
+			if (cls.getName().equals(g.getSuperclass()))
+				throw new RuntimeException(
+						"cannot use an id from a specialization as primary id member: "
+								+ g.getRnum());
+			else {
+				ClassInfoFromJaxb2 otherInfo = getClassInfo(g.getSuperclass());
+				return otherInfo.getPrimaryIdAttributeMembers();
+			}
+		} else
+			throw new RuntimeException("unexpected");
+	}
+
+	private ClassInfoFromJaxb2 getClassInfo(String otherClassName) {
+		ClassInfoFromJaxb2 otherInfo = new ClassInfoFromJaxb2(
+				lookups.getClassByName(otherClassName), packageName, "unknown",
+				schema, table, lookups);
+		return otherInfo;
+	}
+
+	private boolean isActiveSide(BinaryAssociation b) {
+		return b.getActivePerspective().getViewedClass().equals(cls.getName());
 	}
 
 	private MyPrimaryIdAttribute createMyPrimaryIdAttribute(NativeAttribute a) {

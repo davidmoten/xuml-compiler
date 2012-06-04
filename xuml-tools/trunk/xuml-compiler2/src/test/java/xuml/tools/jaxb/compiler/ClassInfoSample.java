@@ -208,8 +208,9 @@ public class ClassInfoSample extends ClassInfo {
 				null, "class", null, null));
 		list.add(new MyReferenceMember("Barge", getPackage() + ".Barge",
 				Mult.ZERO_ONE, Mult.ONE, "carries", "is carried by", "barge",
-				newArrayList(new JoinColumn("barge_id", "barge_id")), null,
-				null, null));
+				newArrayList(new JoinColumn("barge_id", "barge_id"),
+						new JoinColumn("region_id", "region_id")), null, null,
+				null));
 		list.add(new MyReferenceMember("Wheel", getPackage() + ".Wheel",
 				Mult.ONE, Mult.MANY, "helps move", "moves on", "wheel", null,
 				"class", null, null));
