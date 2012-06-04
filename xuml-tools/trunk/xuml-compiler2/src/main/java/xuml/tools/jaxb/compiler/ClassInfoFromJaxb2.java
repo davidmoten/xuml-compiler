@@ -123,25 +123,23 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 		Set<Attribute> list = getIdentifierAttributes().get(BigInteger.ONE);
 		List<MyPrimaryIdAttribute> result = newArrayList();
 		for (Attribute attribute : list) {
+			MyPrimaryIdAttribute id;
 			if (attribute instanceof NativeAttribute) {
 				NativeAttribute a = (NativeAttribute) attribute;
-				MyPrimaryIdAttribute id = createMyPrimaryIdAttribute(a);
-				result.add(id);
+				id = createMyPrimaryIdAttribute(a);
 			} else {
 				ReferentialAttribute a = (ReferentialAttribute) attribute;
-				List<MyPrimaryIdAttribute> ids = createMyPrimaryIdAttribute(a);
-				result.addAll(ids);
+				id = createMyPrimaryIdAttribute(a);
 			}
+			result.add(id);
 		}
 		return result;
 	}
 
-	private List<MyPrimaryIdAttribute> createMyPrimaryIdAttribute(
+	private MyPrimaryIdAttribute createMyPrimaryIdAttribute(
 			ReferentialAttribute a) {
 		List<JoinColumn> joinColumns = newArrayList();
 		Reference ref = a.getReference().getValue();
-		// TODO check model on how to override attribute names inherited via
-		// relationship
 
 		Relationship rel = lookups.getRelationship(ref.getRelationship());
 		if (rel instanceof BinaryAssociation) {
@@ -151,8 +149,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 				otherClassName = b.getPassivePerspective().getViewedClass();
 			else
 				otherClassName = b.getActivePerspective().getViewedClass();
-			ClassInfoFromJaxb2 otherInfo = getClassInfo(otherClassName);
-			return otherInfo.getPrimaryIdAttributeMembers();
+			return getPrimaryIdAttribute(a, ref, otherClassName);
 		} else if (rel instanceof UnaryAssociation) {
 			// TODO
 			throw new RuntimeException("not sure how to do this one yet");
@@ -162,12 +159,33 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 				throw new RuntimeException(
 						"cannot use an id from a specialization as primary id member: "
 								+ g.getRnum());
-			else {
-				ClassInfoFromJaxb2 otherInfo = getClassInfo(g.getSuperclass());
-				return otherInfo.getPrimaryIdAttributeMembers();
-			}
+			else
+				return getPrimaryIdAttribute(a, ref, g.getSuperclass());
 		} else
-			throw new RuntimeException("unexpected");
+			throw new RuntimeException(
+					"this relationship type not implemented: "
+							+ rel.getClass().getName());
+	}
+
+	private MyPrimaryIdAttribute getPrimaryIdAttribute(ReferentialAttribute a,
+			Reference ref, String otherClassName) {
+		ClassInfoFromJaxb2 otherInfo = getClassInfo(otherClassName);
+		// look for attribute
+		String otherAttributeName;
+		if (ref.getAttribute() == null)
+			otherAttributeName = a.getName();
+		else
+			otherAttributeName = ref.getAttribute();
+		List<MyPrimaryIdAttribute> members = otherInfo
+				.getPrimaryIdAttributeMembers();
+		for (MyPrimaryIdAttribute p : members) {
+			if (otherAttributeName.equals(p.getFieldName())) {
+				return new MyPrimaryIdAttribute(a.getName(),
+						Util.toColumnName(a.getName()), otherClassName,
+						p.getColumnName(), p.getType());
+			}
+		}
+		throw new RuntimeException("attribute not found!");
 	}
 
 	private ClassInfoFromJaxb2 getClassInfo(String otherClassName) {
