@@ -1075,10 +1075,11 @@
 						<documentation>
 							Note that the EventID might be a
 							LocalEffectiveSignallingEvent on the enclosing class or it might
-							be the EventID of a LocalEffectiveSignallingEvent from a
-							superclass. The possibility of namespace clashes in this case
-							forces the use of an Event ID rather than just the event Name for
-							unique identification.
+							be the EventID of an Inherited Effective Event from a superclass.
+							The possibility of namespace clashes in this case forces the use
+							of an Event ID rather than just the event Name for unique
+							identification. More on event inheritance is yet to be done in
+							this schema.
 						</documentation>
 					</annotation>
 				</attribute>

@@ -419,15 +419,22 @@ public abstract class ClassInfo {
 		private final String eventName;
 		private final String fromState;
 		private final String toState;
+		private final String eventId;
 
 		public String getEventName() {
 			return eventName;
 		}
 
-		public MyTransition(String eventName, String fromState, String toState) {
+		public MyTransition(String eventName, String eventId, String fromState,
+				String toState) {
 			this.eventName = eventName;
+			this.eventId = eventId;
 			this.fromState = fromState;
 			this.toState = toState;
+		}
+
+		public String getEventId() {
+			return eventId;
 		}
 
 		public String getFromState() {

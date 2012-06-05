@@ -277,7 +277,10 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	List<MyTransition> getTransitions() {
 		List<MyTransition> list = Lists.newArrayList();
 		for (Transition transition : cls.getLifecycle().getTransition()) {
-			// TODO
+			// TODO what to do about event name? Event inheritance is involved.
+			new MyTransition(transition.getEventID().toString(), transition
+					.getEventID().toString(), transition.getState(),
+					transition.getDestination());
 		}
 		return list;
 	}
