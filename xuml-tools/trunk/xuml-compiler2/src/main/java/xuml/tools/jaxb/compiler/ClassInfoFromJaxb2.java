@@ -30,6 +30,7 @@ import miuml.jaxb.UnaryAssociation;
 import com.google.common.base.Function;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class ClassInfoFromJaxb2 extends ClassInfo {
 
@@ -121,7 +122,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	@Override
 	List<String> getOperations() {
 		// TODO Auto-generated method stub
-		return null;
+		return Lists.newArrayList();
 	}
 
 	@Override
@@ -243,12 +244,14 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	@Override
 	List<MyIndependentAttribute> getNonIdIndependentAttributeMembers() {
 		// TODO Auto-generated method stub
-		return null;
+		return newArrayList();
 	}
 
 	@Override
 	List<MyEvent> getEvents() {
-		List<MyEvent> list = Lists.newArrayList();
+		if (cls.getLifecycle() == null)
+			return newArrayList();
+		List<MyEvent> list = newArrayList();
 		for (JAXBElement<? extends Event> element : cls.getLifecycle()
 				.getEvent()) {
 			Event event = element.getValue();
@@ -268,9 +271,13 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	@Override
 	List<String> getStateNames() {
 		List<String> list = Lists.newArrayList();
-		for (State state : cls.getLifecycle().getState())
-			list.add(state.getName());
-		return list;
+		if (cls.getLifecycle() == null)
+			return newArrayList();
+		else {
+			for (State state : cls.getLifecycle().getState())
+				list.add(state.getName());
+			return list;
+		}
 	}
 
 	@Override
@@ -286,21 +293,21 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	}
 
 	@Override
-	String getStateIdentifier(String state) {
-		// TODO Auto-generated method stub
-		return null;
+	String getStateIdentifier(String stateName) {
+		for (State state : cls.getLifecycle().getState())
+			if (state.getName().equals(stateName))
+				return state.getSnum().toString();
+		throw new RuntimeException("state not found: " + stateName);
 	}
 
 	@Override
 	boolean isSuperclass() {
-		// TODO Auto-generated method stub
-		return false;
+		return lookups.isSuperclass(cls.getName());
 	}
 
 	@Override
 	boolean isSubclass() {
-		// TODO Auto-generated method stub
-		return false;
+		return lookups.isSpecialization(cls.getName());
 	}
 
 	@Override
@@ -312,31 +319,31 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	@Override
 	List<MyReferenceMember> getReferenceMembers() {
 		// TODO Auto-generated method stub
-		return null;
+		return newArrayList();
 	}
 
 	@Override
 	Set<String> getAtLeastOneFieldChecks() {
 		// TODO Auto-generated method stub
-		return null;
+		return Sets.newHashSet();
 	}
 
 	@Override
 	String getImports() {
 		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 	@Override
 	String getIdColumnName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "ID";
 	}
 
 	@Override
 	String getContextPackageName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "contextPackageName";
 	}
 
 	@Override

@@ -1,43 +1,44 @@
 package xuml.tools.jaxb.compiler;
 
 import java.io.File;
-import java.util.Map;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import javax.xml.bind.JAXBElement;
 
 import miuml.jaxb.Class;
-import miuml.jaxb.Domains;
+import miuml.jaxb.Domain;
 import miuml.jaxb.ModeledDomain;
 import miuml.jaxb.Subsystem;
 import miuml.jaxb.SubsystemElement;
 
 public class CodeGeneratorJava {
 
-	private final Domains domains;
-	private final Map<String, String> domainPackageNames;
 	private final String contextPackageName;
 	private final File resourcesDirectory;
+	private final Domain domain;
+	private final String domainPackageName;
 
-	public CodeGeneratorJava(miuml.jaxb.Domains domains,
-			Map<String, String> domainPackageNames, String contextPackageName,
+	public CodeGeneratorJava(miuml.jaxb.Domain domain,
+			String domainPackageName, String contextPackageName,
 			File resourcesDirectory) {
-		this.domains = domains;
-		this.domainPackageNames = domainPackageNames;
+		this.domain = domain;
+		this.domainPackageName = domainPackageName;
 		this.contextPackageName = contextPackageName;
 		this.resourcesDirectory = resourcesDirectory;
 	}
 
 	public void generate(File destination) {
 
-		ModeledDomain domain = (ModeledDomain) domains.getDomain().get(0)
-				.getValue();
-		for (Subsystem subsystem : domain.getSubsystem()) {
+		ModeledDomain md = (ModeledDomain) domain;
+		Lookups lookups = new Lookups(md);
+		for (Subsystem subsystem : md.getSubsystem()) {
 			for (JAXBElement<? extends SubsystemElement> element : subsystem
 					.getSubsystemElement()) {
 				if (element.getValue() instanceof Class) {
 					Class cls = (Class) element.getValue();
 					// create classes (impls)
-					// createImplementation(cls, destination);
+					createImplementation(cls, destination, lookups);
 					// create behaviour interfaces
 					// createBehaviourInterface(cls, destination);
 					// createBehaviourFactoryInterface(cls, destination);
@@ -118,17 +119,19 @@ public class CodeGeneratorJava {
 	//
 	// }
 	//
-	// private void createImplementation(Class cls, File destination) {
-	// ClassWriter w = new ClassWriter(createClassInfo(cls));
-	// String java = w.generate();
-	// File file = new File(destination, getClassFilename(cls));
-	// writeToFile(java.getBytes(), file);
-	// }
-	//
-	// private ClassInfo createClassInfo(Class cls) {
-	// return new ClassInfoFromJaxb(cls, domainPackageNames, lookups,
-	// contextPackageName);
-	// }
+	private void createImplementation(Class cls, File destination,
+			Lookups lookups) {
+		ClassWriter w = new ClassWriter(createClassInfo(cls, lookups));
+		String java = w.generate();
+		File file = new File(destination, getClassFilename(cls));
+		writeToFile(java.getBytes(), file);
+	}
+
+	private ClassInfo createClassInfo(Class cls, Lookups lookups) {
+		return new ClassInfoFromJaxb2(cls, domainPackageName, "description",
+				"schema", "table", lookups);
+	}
+
 	//
 	// private void createObjectFactory(System system2, File destination) {
 	//
@@ -202,17 +205,16 @@ public class CodeGeneratorJava {
 	// return domainPackageNames.get(cls.getDomain());
 	// }
 	//
-	// private String getClassJavaSimpleName(Class cls) {
-	// return cls.getName().replace(" ", "").replace("-", "");
-	// }
+
+	private String getClassJavaSimpleName(Class cls) {
+		return cls.getName().replace(" ", "").replace("-", "");
+	}
+
 	//
-	// private String getFullClassName(Class cls) {
-	// String packageName = domainPackageNames.get(cls.getDomain());
-	// if (packageName == null)
-	// re("no package name specified for  domain '" + cls.getDomain()
-	// + "'");
-	// return packageName + "." + getClassJavaSimpleName(cls);
-	// }
+	private String getFullClassName(Class cls) {
+		return domainPackageName + "." + getClassJavaSimpleName(cls);
+	}
+
 	//
 	// private String getClassBehaviourFilename(Class cls) {
 	// String s = getFullClassName(cls);
@@ -224,10 +226,11 @@ public class CodeGeneratorJava {
 	// return s.replace(".", "/") + "Behaviour.java";
 	// }
 	//
-	// private String getClassFilename(Class cls) {
-	// String s = getFullClassName(cls);
-	// return s.replace(".", "/") + ".java";
-	// }
+	private String getClassFilename(Class cls) {
+		String s = getFullClassName(cls);
+		return s.replace(".", "/") + ".java";
+	}
+
 	//
 	// private String getClassBehaviourFactoryFilename(Class cls) {
 	// String s = getFullClassName(cls);
@@ -239,21 +242,22 @@ public class CodeGeneratorJava {
 	// return s.replace(".", "/") + "BehaviourFactory.java";
 	// }
 	//
-	// // ----------------------------------------
-	// // Static Utility Methods
-	// // -----------------------------------------
-	//
-	// private static void writeToFile(byte[] bytes, File file) {
-	// try {
-	// file.getParentFile().mkdirs();
-	// java.lang.System.out.println("writing to " + file);
-	// FileOutputStream fos = new FileOutputStream(file);
-	// fos.write(bytes);
-	// fos.close();
-	// } catch (IOException e) {
-	// throw new RuntimeException(e);
-	// }
-	// }
+
+	// ----------------------------------------
+	// Static Utility Methods
+	// -----------------------------------------
+
+	private static void writeToFile(byte[] bytes, File file) {
+		try {
+			file.getParentFile().mkdirs();
+			java.lang.System.out.println("writing to " + file);
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write(bytes);
+			fos.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	//
 	// private static void re(String string) {
 	// throw new RuntimeException(string);

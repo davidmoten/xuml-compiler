@@ -7,7 +7,9 @@ import javax.xml.bind.JAXBElement;
 
 import miuml.jaxb.Attribute;
 import miuml.jaxb.Class;
+import miuml.jaxb.Generalization;
 import miuml.jaxb.ModeledDomain;
+import miuml.jaxb.Named;
 import miuml.jaxb.Relationship;
 import miuml.jaxb.Subsystem;
 import miuml.jaxb.SubsystemElement;
@@ -42,5 +44,28 @@ class Lookups {
 
 	public Class getClassByName(String name) {
 		return classesByName.get(name);
+	}
+
+	public boolean isSuperclass(String className) {
+		for (Relationship r : relationshipsByNumber.values()) {
+			if (r instanceof Generalization) {
+				Generalization g = (Generalization) r;
+				if (className.equals(g.getSuperclass()))
+					return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isSpecialization(String className) {
+		for (Relationship r : relationshipsByNumber.values()) {
+			if (r instanceof Generalization) {
+				Generalization g = (Generalization) r;
+				for (Named sp : g.getSpecializedClass())
+					if (className.equals(sp.getName()))
+						return true;
+			}
+		}
+		return false;
 	}
 }
