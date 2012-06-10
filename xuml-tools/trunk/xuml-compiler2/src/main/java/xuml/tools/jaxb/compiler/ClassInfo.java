@@ -114,12 +114,16 @@ public abstract class ClassInfo {
 	}
 
 	public static class MyPrimaryIdAttribute {
-		private String fieldName;
-		private String columnName;
-		private String referenceClass;
-		private String referenceColumnName;
-		private Type type;
+		private final String fieldName;
+		private final String columnName;
+		private final String referenceClass;
+		private final String referenceColumnName;
+		private final Type type;
 		private final String attributeName;
+
+		public String getAttributeName() {
+			return attributeName;
+		}
 
 		public MyPrimaryIdAttribute(String attributeName, String fieldName,
 				String columnName, String referenceClass,
@@ -141,41 +145,22 @@ public abstract class ClassInfo {
 			return fieldName;
 		}
 
-		public void setFieldName(String fieldName) {
-			this.fieldName = fieldName;
-		}
-
 		public String getColumnName() {
 			return columnName;
-		}
-
-		public void setColumnName(String columnName) {
-			this.columnName = columnName;
 		}
 
 		public String getReferenceClass() {
 			return referenceClass;
 		}
 
-		public void setReferenceClass(String referenceClass) {
-			this.referenceClass = referenceClass;
-		}
-
 		public String getReferenceColumnName() {
 			return referenceColumnName;
-		}
-
-		public void setReferenceColumnName(String referenceColumnName) {
-			this.referenceColumnName = referenceColumnName;
 		}
 
 		public Type getType() {
 			return type;
 		}
 
-		public void setType(Type type) {
-			this.type = type;
-		}
 	}
 
 	public static class MyIndependentAttribute {

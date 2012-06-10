@@ -202,7 +202,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 		List<MyPrimaryIdAttribute> members = otherInfo
 				.getPrimaryIdAttributeMembers();
 		for (MyPrimaryIdAttribute p : members) {
-			if (otherAttributeName.equals(p.getFieldName())) {
+			if (otherAttributeName.equals(p.getAttributeName())) {
 				return p;
 			}
 		}
@@ -347,7 +347,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	@Override
 	String getContextPackageName() {
 		// TODO Auto-generated method stub
-		return "contextPackageName";
+		return packageName;
 	}
 
 	@Override

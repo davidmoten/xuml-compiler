@@ -155,13 +155,23 @@ public class ClassWriter {
 		} else
 			extension = "";
 
-		out.format(
-				"public class %s%s implements %s<%1$s,%s> {\n\n",
-				info.getJavaClassSimpleName(),
-				extension,
+		Type idType = getIdType(info);
+
+		out.format("public class %s%s implements %s<%1$s,%s> {\n\n",
+				info.getJavaClassSimpleName(), extension,
 				info.addType(xuml.tools.jaxb.compiler.Entity.class),
-				info.addType(info.getPrimaryIdAttributeMembers().get(0)
-						.getType()));
+				info.addType(idType));
+	}
+
+	private Type getIdType(ClassInfo info) {
+		Type idType;
+		if (hasEmbeddedId())
+			idType = new Type(info.getPackage() + "."
+					+ info.getJavaClassSimpleName() + "."
+					+ info.getEmbeddedIdSimpleClassName());
+		else
+			idType = info.getPrimaryIdAttributeMembers().get(0).getType();
+		return idType;
 	}
 
 	private void writeConstructors(PrintStream out, ClassInfo info) {
@@ -210,10 +220,14 @@ public class ClassWriter {
 		out.format("    }\n\n");
 	}
 
+	private boolean hasEmbeddedId() {
+		return info.getPrimaryIdAttributeMembers().size() > 1;
+	}
+
 	private void writeIdMember(PrintStream out, ClassInfo info) {
 		info.addType(Id.class);
 		jd(out, "Primary key", "    ");
-		if (info.getPrimaryIdAttributeMembers().size() == 1) {
+		if (!hasEmbeddedId()) {
 			out.format("    @Id\n");
 			writeIndependentAttributeMember(out, info
 					.getPrimaryIdAttributeMembers().get(0), "    ");
@@ -415,8 +429,18 @@ public class ClassWriter {
 	}
 
 	private void writeIdGetterAndSetter(PrintStream out, ClassInfo info) {
-		writeIndependentAttributeGetterAndSetter(out, info
-				.getPrimaryIdAttributeMembers().get(0));
+		if (hasEmbeddedId()) {
+			out.format("    public %s getId() {\n",
+					info.addType(getIdType(info)));
+			out.format("        return id;\n");
+			out.format("    }\n\n");
+			out.format("    public void setId(%s id) {\n",
+					info.addType(getIdType(info)));
+			out.format("        this.id = id;\n");
+			out.format("    }\n\n");
+		} else
+			writeIndependentAttributeGetterAndSetter(out, info
+					.getPrimaryIdAttributeMembers().get(0));
 	}
 
 	private void writeIndependentAttributeGetterAndSetter(PrintStream out,
