@@ -205,7 +205,9 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 			}
 		}
 		// not found
-		return null;
+		throw new RuntimeException("could not find attribute <"
+				+ ref.getAttribute() + " in class " + otherClassName);
+
 	}
 
 	private ClassInfoFromJaxb2 getClassInfo(String otherClassName) {
@@ -330,8 +332,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	@Override
 	String getImports() {
-		// TODO Auto-generated method stub
-		return "";
+		return getTypes().getImports();
 	}
 
 	@Override

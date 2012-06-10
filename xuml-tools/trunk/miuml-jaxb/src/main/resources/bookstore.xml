@@ -352,11 +352,11 @@
 				</IndependentAttribute>
 				<ReferentialAttribute Name="C B A one">
 					<Identifier Number="1" />
-					<ToOneReference Relationship="1" Attribute="B A one" />
+					<ToOneReference Relationship="2" Attribute="B A one" />
 				</ReferentialAttribute>
 				<ReferentialAttribute Name="C B A two">
 					<Identifier Number="1" />
-					<ToOneReference Relationship="1" Attribute="B A two" />
+					<ToOneReference Relationship="2" Attribute="B A two" />
 				</ReferentialAttribute>
 				<IndependentAttribute Name="C two" Type="string" />
 			</SpecializedClass>
