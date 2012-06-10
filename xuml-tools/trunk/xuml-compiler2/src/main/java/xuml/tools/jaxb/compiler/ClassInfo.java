@@ -84,6 +84,8 @@ public abstract class ClassInfo {
 
 	abstract String getContextPackageName();
 
+	abstract Type getType(String name);
+
 	final public String getContextFullClassName() {
 		return getContextPackageName() + ".Context";
 	}
@@ -117,10 +119,12 @@ public abstract class ClassInfo {
 		private String referenceClass;
 		private String referenceColumnName;
 		private Type type;
+		private final String attributeName;
 
-		public MyPrimaryIdAttribute(String fieldName, String columnName,
-				String referenceClass, String referenceColumnName, Type type) {
-			super();
+		public MyPrimaryIdAttribute(String attributeName, String fieldName,
+				String columnName, String referenceClass,
+				String referenceColumnName, Type type) {
+			this.attributeName = attributeName;
 			this.fieldName = fieldName;
 			this.columnName = columnName;
 			this.referenceClass = referenceClass;
@@ -128,9 +132,9 @@ public abstract class ClassInfo {
 			this.type = type;
 		}
 
-		public MyPrimaryIdAttribute(String fieldName, String columnName,
-				Type type) {
-			this(fieldName, columnName, null, null, type);
+		public MyPrimaryIdAttribute(String attributeName, String fieldName,
+				String columnName, Type type) {
+			this(attributeName, fieldName, columnName, null, null, type);
 		}
 
 		public String getFieldName() {

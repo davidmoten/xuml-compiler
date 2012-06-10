@@ -673,6 +673,23 @@ public class ClassWriter {
 				attribute.getColumnName(), attribute.isNullable(), indent, type);
 	}
 
+	public static class MyType {
+		private String javaClassFullName;
+
+		public MyType(String javaClassFullName) {
+			super();
+			this.javaClassFullName = javaClassFullName;
+		}
+
+		public String getJavaClassFullName() {
+			return javaClassFullName;
+		}
+
+		public void setJavaClassFullName(String javaClassFullName) {
+			this.javaClassFullName = javaClassFullName;
+		}
+	}
+
 	private void writeIndependentAttributeMember(PrintStream out,
 			String fieldName, String columnName, boolean isNullable,
 			String indent, String type) {

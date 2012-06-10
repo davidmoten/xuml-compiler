@@ -182,8 +182,10 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 		MyPrimaryIdAttribute p = getOtherPrimaryIdAttribute(a, ref,
 				otherClassName);
 		if (p != null)
-			return new MyPrimaryIdAttribute(a.getName(), Util.toColumnName(a
-					.getName()), otherClassName, p.getColumnName(), p.getType());
+			return new MyPrimaryIdAttribute(a.getName(),
+					Util.toJavaIdentifier(a.getName()), Util.toColumnName(a
+							.getName()), otherClassName, p.getColumnName(),
+					p.getType());
 		else
 			throw new RuntimeException("attribute not found!");
 	}
@@ -222,8 +224,9 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 	}
 
 	private MyPrimaryIdAttribute createMyPrimaryIdAttribute(NativeAttribute a) {
-		return new MyPrimaryIdAttribute(a.getName(), Util.toColumnName(a
-				.getName()), new Type(a.getType()));
+		return new MyPrimaryIdAttribute(a.getName(), Util.toJavaIdentifier(a
+				.getName()), Util.toColumnName(a.getName()),
+				getType(a.getType()));
 	}
 
 	private MyIndependentAttribute createMyIndependentAttribute(
@@ -352,4 +355,11 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 		return typeRegister;
 	}
 
+	@Override
+	Type getType(String name) {
+		if ("string".equals(name))
+			return new Type("java.lang.String");
+		else
+			throw new RuntimeException("type not found " + name);
+	}
 }
