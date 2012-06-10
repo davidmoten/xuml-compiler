@@ -69,9 +69,9 @@ public class Util {
 		boolean underscoreAdded = false;
 		for (int i = 1; i < s.length(); i++) {
 			char ch = s.charAt(i);
-			if (ch == '_') {
+			if (ch == '_' || ch == ' ') {
 				if (!underscoreAdded)
-					b.append(ch);
+					b.append('_');
 				underscoreAdded = true;
 			} else if (Character.isUpperCase(ch)) {
 				if (!underscoreAdded) {

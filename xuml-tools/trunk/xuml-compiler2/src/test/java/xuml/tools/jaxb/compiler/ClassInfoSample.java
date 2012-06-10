@@ -92,9 +92,10 @@ public class ClassInfoSample extends ClassInfo {
 	 */
 	@Override
 	public List<MyPrimaryIdAttribute> getPrimaryIdAttributeMembers() {
-		return Lists.newArrayList(new MyPrimaryIdAttribute("id1", "class_id",
-				"org.moten.david.School", "class_col", new Type("Long")),
-				new MyPrimaryIdAttribute("id2", "domain_id", new Type("Long")));
+		return Lists.newArrayList(new MyPrimaryIdAttribute("class id", "id1",
+				"class_id", "org.moten.david.School", "class_col", new Type(
+						"Long")), new MyPrimaryIdAttribute("domain", "id2",
+				"domain_id", new Type("Long")));
 	}
 
 	/*
@@ -302,6 +303,12 @@ public class ClassInfoSample extends ClassInfo {
 	@Override
 	TypeRegister getTypes() {
 		return types;
+	}
+
+	@Override
+	Type getType(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
