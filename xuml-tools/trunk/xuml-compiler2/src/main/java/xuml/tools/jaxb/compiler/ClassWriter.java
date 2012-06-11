@@ -61,7 +61,7 @@ public class ClassWriter {
 		writeClassAnnotation(out, info);
 		writeClassDeclaration(out, info);
 		writeConstructors(out, info);
-		writeSignaller(out, info);
+		// writeSignaller(out, info);
 		writeIdMember(out, info);
 		writeNonIdIndependentAttributeMembers(out, info);
 		writeStateMember(out, info);
