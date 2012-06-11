@@ -4,6 +4,8 @@ import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.HashMultimap.create;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
+import static xuml.tools.jaxb.compiler.Util.toColumnName;
+import static xuml.tools.jaxb.compiler.Util.toJavaIdentifier;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -184,9 +186,9 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 				otherClassName);
 		if (p != null)
 			return new MyPrimaryIdAttribute(a.getName(),
-					Util.toJavaIdentifier(a.getName()), Util.toColumnName(a
-							.getName()), otherClassName, Util.toColumnName(p
-							.getAttributeName()), p.getType());
+					toJavaIdentifier(a.getName()), toColumnName(a.getName()),
+					otherClassName, toColumnName(p.getAttributeName()),
+					p.getType());
 		else
 			throw new RuntimeException("attribute not found!");
 	}
