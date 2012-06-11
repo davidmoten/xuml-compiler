@@ -225,9 +225,9 @@ public class ClassWriter {
 	}
 
 	private void writeIdMember(PrintStream out, ClassInfo info) {
-		info.addType(Id.class);
 		jd(out, "Primary key", "    ");
 		if (!hasEmbeddedId()) {
+			info.addType(Id.class);
 			out.format("    @Id\n");
 			writeIndependentAttributeMember(out, info
 					.getPrimaryIdAttributeMembers().get(0), "    ");
