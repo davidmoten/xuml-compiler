@@ -445,23 +445,25 @@ public class ClassWriter {
 	}
 
 	private void writeIdGetterAndSetter(PrintStream out, ClassInfo info) {
-		if (hasEmbeddedId()) {
-			out.format("    public %s getId() {\n",
-					info.addType(getIdType(info)));
-			out.format("        return id;\n");
-			out.format("    }\n\n");
-			out.format("    public void setId(%s id) {\n",
-					info.addType(getIdType(info)));
-			out.format("        this.id = id;\n");
-			out.format("    }\n\n");
-		} else
-			writeIndependentAttributeGetterAndSetter(out, info
-					.getPrimaryIdAttributeMembers().get(0));
+		out.format("    public %s getId() {\n", info.addType(getIdType(info)));
+		out.format("        return id;\n");
+		out.format("    }\n\n");
+		out.format("    public void setId(%s id) {\n",
+				info.addType(getIdType(info)));
+		out.format("        this.id = id;\n");
+		out.format("    }\n\n");
 	}
 
 	private void writeIndependentAttributeGetterAndSetter(PrintStream out,
 			MyPrimaryIdAttribute attribute) {
-		// TODO
+
+		out.format("    public %s getId() {\n", info.addType(getIdType(info)));
+		out.format("        return id;\n");
+		out.format("    }\n\n");
+		out.format("    public void setId(%s id) {\n",
+				info.addType(getIdType(info)));
+		out.format("        this.id = id;\n");
+		out.format("    }\n\n");
 	}
 
 	private void writeNonIdIndependentAttributeGettersAndSetters(

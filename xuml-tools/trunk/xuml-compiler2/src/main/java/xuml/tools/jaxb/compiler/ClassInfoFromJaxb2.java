@@ -17,6 +17,7 @@ import miuml.jaxb.Class;
 import miuml.jaxb.Event;
 import miuml.jaxb.Generalization;
 import miuml.jaxb.IdentifierAttribute;
+import miuml.jaxb.IndependentAttribute;
 import miuml.jaxb.LocalEffectiveSignalingEvent;
 import miuml.jaxb.NativeAttribute;
 import miuml.jaxb.Reference;
@@ -241,15 +242,35 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	private MyIndependentAttribute createMyIndependentAttribute(
 			NativeAttribute a) {
-		// TODO
-		return new MyIndependentAttribute(schema, packageName, null,
-				isSubclass(), classDescription);
+		// TODO what to do with isNullable
+		boolean isNullable = true;
+		return new MyIndependentAttribute(Util.toJavaIdentifier(a.getName()),
+				Util.toColumnName(a.getName()), getType(a.getType()),
+				isNullable, "description");
 	}
 
 	@Override
 	List<MyIndependentAttribute> getNonIdIndependentAttributeMembers() {
-		// TODO Auto-generated method stub
-		return newArrayList();
+		List<MyIndependentAttribute> list = newArrayList();
+		for (JAXBElement<? extends Attribute> element : cls.getAttribute()) {
+			if (element.getValue() instanceof IndependentAttribute) {
+				IndependentAttribute a = (IndependentAttribute) element
+						.getValue();
+				if (!isMemberOfPrimaryIdentifier(a)) {
+					list.add(createMyIndependentAttribute(a));
+				}
+			}
+		}
+		return list;
+	}
+
+	private boolean isMemberOfPrimaryIdentifier(IndependentAttribute a) {
+		for (IdentifierAttribute idAttribute : a.getIdentifier()) {
+			if (idAttribute.getNumber().intValue() == 1) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
