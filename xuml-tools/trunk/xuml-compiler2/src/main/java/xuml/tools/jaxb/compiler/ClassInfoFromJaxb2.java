@@ -185,8 +185,8 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 		if (p != null)
 			return new MyPrimaryIdAttribute(a.getName(),
 					Util.toJavaIdentifier(a.getName()), Util.toColumnName(a
-							.getName()), otherClassName, p.getColumnName(),
-					p.getType());
+							.getName()), otherClassName, Util.toColumnName(p
+							.getAttributeName()), p.getType());
 		else
 			throw new RuntimeException("attribute not found!");
 	}
