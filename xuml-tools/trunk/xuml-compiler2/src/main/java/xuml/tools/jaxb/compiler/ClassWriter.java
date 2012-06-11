@@ -255,6 +255,22 @@ public class ClassWriter {
 				out.format("%sprivate %s %s;\n\n", "        ",
 						info.addType(member.getType()), member.getFieldName());
 			}
+			for (MyPrimaryIdAttribute member : info
+					.getPrimaryIdAttributeMembers()) {
+				out.format("%spublic %s get%s(){\n", "        ",
+						info.addType(member.getType()),
+						Util.upperFirst(member.getFieldName()));
+				out.format("%sreturn %s;\n", "            ",
+						member.getFieldName());
+				out.format("%s}\n\n", "        ");
+
+				out.format("%spublic void set%s(%s %s){\n", "        ",
+						Util.upperFirst(member.getFieldName()),
+						info.addType(member.getType()), member.getFieldName());
+				out.format("%sthis.%s=%s;\n", "            ",
+						member.getFieldName(), member.getFieldName());
+				out.format("%s}\n\n", "        ");
+			}
 			out.format("    }\n\n");
 		}
 	}
