@@ -181,7 +181,7 @@ public class ClassWriter {
 		jd(out, BEHAVIOUR_COMMENT, "    ");
 		String behaviourTypeName = info.addType(info
 				.getBehaviourFullClassName());
-		out.format("    private final %s behaviour;\n\n", behaviourTypeName);
+		out.format("    private %s behaviour;\n\n", behaviourTypeName);
 
 		jd(out, "Constructor using BehaviourFactory.", "    ");
 		out.format("    public %s(%s behaviourFactory){\n",
@@ -190,9 +190,14 @@ public class ClassWriter {
 		out.format("    }\n\n");
 		jd(out, "No argument constructor required by JPA.", "    ");
 		out.format("    public %s(){\n", info.getJavaClassSimpleName());
-		out.format("        this(%s.get%s());\n",
-				info.addType(info.getContextFullClassName()),
-				info.getBehaviourFactorySimpleName());
+		out.format("        //JPA requires no-arg constructor\n");
+		out.format("    }\n\n");
+
+		// TODO optionallly add Guice injection
+		// out.format("    @%s\n", info.addType(Inject.class));
+		out.format("    public void setBehaviour(%s behaviourFactory){\n",
+				factoryTypeName);
+		out.format("        this.behaviour = behaviourFactory.create(this);\n");
 		out.format("    }\n\n");
 	}
 
