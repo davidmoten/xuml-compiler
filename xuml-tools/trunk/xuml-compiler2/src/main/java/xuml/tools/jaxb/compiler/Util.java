@@ -137,7 +137,7 @@ public class Util {
 		}
 	}
 
-	public static String toColumnName(Class cls, String attributeName) {
+	public static String toFieldName(Class cls, String attributeName) {
 		if (referenceFields.get(cls.getName()) == null) {
 			BiMap<String, String> bimap = HashBiMap.create();
 			referenceFields.put(cls.getName(), bimap);
@@ -150,12 +150,13 @@ public class Util {
 			String optimalFieldName = Util.lowerFirst(Util
 					.toJavaIdentifier(attributeName));
 			String fieldName = optimalFieldName;
-
-			String currentKey = map.inverse().get(optimalFieldName);
-			if (currentKey == null)
-				fieldName = optimalFieldName;
-			else
-				fieldName = optimalFieldName + "_R" + rNum;
+			if (map.inverse().get(fieldName) != null) {
+				int i = 1;
+				while (map.inverse().get(fieldName + i) != null) {
+					i++;
+				}
+				fieldName = fieldName + i;
+			}
 			map.put(key, fieldName);
 			return fieldName;
 		}
