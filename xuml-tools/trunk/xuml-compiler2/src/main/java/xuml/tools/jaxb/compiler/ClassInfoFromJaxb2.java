@@ -8,11 +8,14 @@ import static xuml.tools.jaxb.compiler.Util.toColumnName;
 import static xuml.tools.jaxb.compiler.Util.toJavaIdentifier;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.JAXBElement;
 
+import miuml.jaxb.Association;
+import miuml.jaxb.AsymmetricPerspective;
 import miuml.jaxb.Attribute;
 import miuml.jaxb.BinaryAssociation;
 import miuml.jaxb.Class;
@@ -346,8 +349,61 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	@Override
 	List<MyReferenceMember> getReferenceMembers() {
-		// TODO Auto-generated method stub
-		return newArrayList();
+		List<MyReferenceMember> list = Lists.newArrayList();
+		List<Association> associations = lookups.getAssociations(cls);
+		for (Association a : associations) {
+			MyReferenceMember m = createMyReferenceMember(a, cls);
+			list.add(m);
+
+		}
+		return list;
+	}
+
+	private MyReferenceMember createMyReferenceMember(Association a, Class cls) {
+		if (a instanceof BinaryAssociation)
+			return createMyReferenceMember((BinaryAssociation) a, cls);
+		else
+			return createMyReferenceMember((UnaryAssociation) a, cls);
+	}
+
+	private MyReferenceMember createMyReferenceMember(UnaryAssociation a,
+			Class cls) {
+		// TODO implement unary association to MyReferenceMember
+		return null;
+	}
+
+	private MyReferenceMember createMyReferenceMember(BinaryAssociation a,
+			Class cls) {
+		AsymmetricPerspective pThis;
+		AsymmetricPerspective pThat;
+
+		if (a.getActivePerspective().getViewedClass().equals(cls.getName())) {
+			pThis = a.getActivePerspective();
+			pThat = a.getPassivePerspective();
+		} else {
+			pThis = a.getPassivePerspective();
+			pThat = a.getActivePerspective();
+		}
+		ClassInfo infoOther = getClassInfo(pThat.getViewedClass());
+
+		// TODO sort this out
+		return new MyReferenceMember(pThat.getViewedClass(),
+				infoOther.getClassFullName(), toMult(pThis), toMult(pThat),
+				pThis.getPhrase(), pThat.getPhrase(), Util.toFieldName(cls,
+						pThat.getViewedClass(), a.getRnum()),
+				new ArrayList<JoinColumn>(), "thisName", "thatName",
+				(MyManyToMany) null);
+	}
+
+	private static Mult toMult(AsymmetricPerspective p) {
+		if (p.isConditional() && p.isOnePerspective())
+			return Mult.ZERO_ONE;
+		else if (p.isConditional() && !p.isOnePerspective())
+			return Mult.ONE_MANY;
+		else if (p.isOnePerspective())
+			return Mult.ONE;
+		else
+			return Mult.MANY;
 	}
 
 	@Override

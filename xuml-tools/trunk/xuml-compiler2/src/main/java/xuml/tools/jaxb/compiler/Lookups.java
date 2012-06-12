@@ -1,10 +1,13 @@
 package xuml.tools.jaxb.compiler;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.JAXBElement;
 
+import miuml.jaxb.Association;
 import miuml.jaxb.Attribute;
 import miuml.jaxb.Class;
 import miuml.jaxb.Generalization;
@@ -14,6 +17,7 @@ import miuml.jaxb.Relationship;
 import miuml.jaxb.Subsystem;
 import miuml.jaxb.SubsystemElement;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 class Lookups {
@@ -67,5 +71,23 @@ class Lookups {
 			}
 		}
 		return false;
+	}
+
+	public List<Association> getAssociations(Class cls) {
+		ArrayList<Association> list = Lists.newArrayList();
+		for (Relationship r : relationshipsByNumber.values()) {
+			if (r instanceof Association)
+				list.add((Association) r);
+		}
+		return list;
+	}
+
+	public List<Generalization> getGeneralizations(Class cls) {
+		ArrayList<Generalization> list = Lists.newArrayList();
+		for (Relationship r : relationshipsByNumber.values()) {
+			if (r instanceof Generalization)
+				list.add((Generalization) r);
+		}
+		return list;
 	}
 }

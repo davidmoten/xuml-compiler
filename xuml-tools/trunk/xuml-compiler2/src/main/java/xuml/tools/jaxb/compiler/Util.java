@@ -1,6 +1,14 @@
 package xuml.tools.jaxb.compiler;
 
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+
+import miuml.jaxb.Class;
 import miuml.jaxb.Perspective;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
 public class Util {
 
@@ -99,5 +107,41 @@ public class Util {
 
 	public static String toColumnName(String attributeName) {
 		return camelCaseToLowerUnderscore(attributeName);
+	}
+
+	// Class -> (OtherClass+RNum<->FieldName)
+	private static Map<String, BiMap<String, String>> referenceFields = new HashMap<String, BiMap<String, String>>();
+
+	public static String toFieldName(Class cls, String viewedClass,
+			BigInteger rNum) {
+		if (referenceFields.get(cls.getName()) == null) {
+			BiMap<String, String> bimap = HashBiMap.create();
+			referenceFields.put(cls.getName(), bimap);
+		}
+		BiMap<String, String> map = referenceFields.get(cls.getName());
+		String key = getKey(viewedClass, rNum);
+		if (map.get(key) != null)
+			return map.get(key);
+		else {
+			String optimalFieldName = Util.lowerFirst(Util
+					.toJavaIdentifier(viewedClass));
+			String currentKey = map.inverse().get(optimalFieldName);
+			String fieldName;
+			if (currentKey == null)
+				fieldName = optimalFieldName;
+			else
+				fieldName = optimalFieldName + "_R" + rNum;
+			map.put(key, fieldName);
+			return fieldName;
+		}
+	}
+
+	public static String toColumnName(Class cls, String viewedClass,
+			BigInteger rNum) {
+		return Util.toColumnName(toFieldName(cls, viewedClass, rNum));
+	}
+
+	private static String getKey(String viewedClass, BigInteger rnum) {
+		return viewedClass + ".R" + rnum;
 	}
 }
