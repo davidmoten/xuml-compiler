@@ -109,7 +109,8 @@ public class Util {
 		return camelCaseToLowerUnderscore(attributeName);
 	}
 
-	// Class -> (OtherClass+RNum<->FieldName)
+	// Class -> (OtherClass+RNum/ThisClass+FieldName<->FieldName)
+
 	private static Map<String, BiMap<String, String>> referenceFields = new HashMap<String, BiMap<String, String>>();
 
 	public static String toFieldName(Class cls, String viewedClass,
@@ -136,12 +137,35 @@ public class Util {
 		}
 	}
 
-	public static String toColumnName(Class cls, String viewedClass,
-			BigInteger rNum) {
-		return Util.toColumnName(toFieldName(cls, viewedClass, rNum));
+	public static String toColumnName(Class cls, String attributeName) {
+		if (referenceFields.get(cls.getName()) == null) {
+			BiMap<String, String> bimap = HashBiMap.create();
+			referenceFields.put(cls.getName(), bimap);
+		}
+		BiMap<String, String> map = referenceFields.get(cls.getName());
+		String key = getKey(cls, attributeName);
+		if (map.get(key) != null)
+			return map.get(key);
+		else {
+			String optimalFieldName = Util.lowerFirst(Util
+					.toJavaIdentifier(attributeName));
+			String fieldName = optimalFieldName;
+
+			String currentKey = map.inverse().get(optimalFieldName);
+			if (currentKey == null)
+				fieldName = optimalFieldName;
+			else
+				fieldName = optimalFieldName + "_R" + rNum;
+			map.put(key, fieldName);
+			return fieldName;
+		}
+	}
+
+	private static String getKey(Class cls, String attributeName) {
+		return cls + "_._" + attributeName;
 	}
 
 	private static String getKey(String viewedClass, BigInteger rnum) {
-		return viewedClass + ".R" + rnum;
+		return viewedClass + "_._R" + rnum;
 	}
 }
