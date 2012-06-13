@@ -4,11 +4,8 @@ import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.HashMultimap.create;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
-import static xuml.tools.jaxb.compiler.Util.toColumnName;
-import static xuml.tools.jaxb.compiler.Util.toJavaIdentifier;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -188,10 +185,12 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 		MyPrimaryIdAttribute p = getOtherPrimaryIdAttribute(a, ref,
 				otherClassName);
 		if (p != null)
-			return new MyPrimaryIdAttribute(a.getName(),
-					toJavaIdentifier(a.getName()), toColumnName(a.getName()),
-					otherClassName, toColumnName(p.getAttributeName()),
-					p.getType());
+			return new MyPrimaryIdAttribute(a.getName(), AttributeNameManager
+					.getInstance().toFieldName(cls.getName(), a.getName()),
+					AttributeNameManager.getInstance().toColumnName(
+							cls.getName(), a.getName()), otherClassName,
+					AttributeNameManager.getInstance().toColumnName(
+							otherClassName, p.getAttributeName()), p.getType());
 		else
 			throw new RuntimeException("attribute not found!");
 	}
@@ -385,14 +384,19 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 			pThat = a.getActivePerspective();
 		}
 		ClassInfo infoOther = getClassInfo(pThat.getViewedClass());
-
+		List<JoinColumn> joins = newArrayList();
+		for (MyPrimaryIdAttribute member : infoOther
+				.getPrimaryIdAttributeMembers()) {
+			joins.add(new JoinColumn(member.getColumnName(), member
+					.getReferenceColumnName()));
+		}
 		// TODO sort this out
 		return new MyReferenceMember(pThat.getViewedClass(),
 				infoOther.getClassFullName(), toMult(pThis), toMult(pThat),
-				pThis.getPhrase(), pThat.getPhrase(), Util.toFieldName(cls,
-						pThat.getViewedClass(), a.getRnum()),
-				new ArrayList<JoinColumn>(), "thisName", "thatName",
-				(MyManyToMany) null);
+				pThis.getPhrase(), pThat.getPhrase(), AttributeNameManager
+						.getInstance().toFieldName(cls.getName(),
+								pThat.getViewedClass(), a.getRnum()), joins,
+				"thisName", "thatName", (MyManyToMany) null);
 	}
 
 	private static Mult toMult(AsymmetricPerspective p) {

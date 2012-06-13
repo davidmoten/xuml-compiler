@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -428,6 +429,7 @@ public class ClassWriter {
 
 	private void writeJoinColumnsAnnotation(PrintStream out,
 			MyReferenceMember ref, boolean nullable) {
+		info.addType(JoinColumns.class);
 		out.format("    @JoinColumns(value={\n");
 		boolean first = true;
 		for (xuml.tools.jaxb.compiler.ClassInfo.JoinColumn col : ref

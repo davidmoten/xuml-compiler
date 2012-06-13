@@ -1,14 +1,6 @@
 package xuml.tools.jaxb.compiler;
 
-import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
-
-import miuml.jaxb.Class;
 import miuml.jaxb.Perspective;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 
 public class Util {
 
@@ -109,64 +101,4 @@ public class Util {
 		return camelCaseToLowerUnderscore(attributeName);
 	}
 
-	// Class -> (OtherClass+RNum/ThisClass+FieldName<->FieldName)
-
-	private static Map<String, BiMap<String, String>> referenceFields = new HashMap<String, BiMap<String, String>>();
-
-	public static String toFieldName(Class cls, String viewedClass,
-			BigInteger rNum) {
-		if (referenceFields.get(cls.getName()) == null) {
-			BiMap<String, String> bimap = HashBiMap.create();
-			referenceFields.put(cls.getName(), bimap);
-		}
-		BiMap<String, String> map = referenceFields.get(cls.getName());
-		String key = getKey(viewedClass, rNum);
-		if (map.get(key) != null)
-			return map.get(key);
-		else {
-			String optimalFieldName = Util.lowerFirst(Util
-					.toJavaIdentifier(viewedClass));
-			String currentKey = map.inverse().get(optimalFieldName);
-			String fieldName;
-			if (currentKey == null)
-				fieldName = optimalFieldName;
-			else
-				fieldName = optimalFieldName + "_R" + rNum;
-			map.put(key, fieldName);
-			return fieldName;
-		}
-	}
-
-	public static String toFieldName(Class cls, String attributeName) {
-		if (referenceFields.get(cls.getName()) == null) {
-			BiMap<String, String> bimap = HashBiMap.create();
-			referenceFields.put(cls.getName(), bimap);
-		}
-		BiMap<String, String> map = referenceFields.get(cls.getName());
-		String key = getKey(cls, attributeName);
-		if (map.get(key) != null)
-			return map.get(key);
-		else {
-			String optimalFieldName = Util.lowerFirst(Util
-					.toJavaIdentifier(attributeName));
-			String fieldName = optimalFieldName;
-			if (map.inverse().get(fieldName) != null) {
-				int i = 1;
-				while (map.inverse().get(fieldName + i) != null) {
-					i++;
-				}
-				fieldName = fieldName + i;
-			}
-			map.put(key, fieldName);
-			return fieldName;
-		}
-	}
-
-	private static String getKey(Class cls, String attributeName) {
-		return cls + "_._" + attributeName;
-	}
-
-	private static String getKey(String viewedClass, BigInteger rnum) {
-		return viewedClass + "_._R" + rnum;
-	}
 }
