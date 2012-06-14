@@ -348,6 +348,9 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 
 	@Override
 	List<MyReferenceMember> getReferenceMembers() {
+		// TODO this is wrong, need to use referential attributes to build up
+		// reference members
+
 		List<MyReferenceMember> list = Lists.newArrayList();
 		List<Association> associations = lookups.getAssociations(cls);
 		for (Association a : associations) {
@@ -387,8 +390,9 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 		List<JoinColumn> joins = newArrayList();
 		for (MyPrimaryIdAttribute member : infoOther
 				.getPrimaryIdAttributeMembers()) {
-			joins.add(new JoinColumn(member.getColumnName(), member
-					.getReferenceColumnName()));
+			joins.add(new JoinColumn(AttributeNameManager.getInstance()
+					.toColumnName(cls.getName(), member.getAttributeName()),
+					member.getColumnName()));
 		}
 		// TODO sort this out
 		return new MyReferenceMember(pThat.getViewedClass(),
