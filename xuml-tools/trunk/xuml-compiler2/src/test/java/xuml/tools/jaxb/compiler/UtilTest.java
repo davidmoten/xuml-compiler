@@ -31,6 +31,7 @@ public class UtilTest {
 		assertEquals("a_b", toColumnName("a_b"));
 		assertEquals("a_b", toColumnName("a b"));
 		assertEquals("a_b_c", toColumnName("a b c"));
+		assertEquals("a_b_two", toColumnName("A B two"));
 	}
 
 }
