@@ -400,7 +400,8 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 				System.out.println(jc);
 				joins.add(jc);
 			}
-		// TODO sort this out
+
+		// TODO
 		return new MyReferenceMember(pThat.getViewedClass(),
 				infoOther.getClassFullName(), toMult(pThis), toMult(pThat),
 				pThis.getPhrase(), pThat.getPhrase(), nameManager.toFieldName(
