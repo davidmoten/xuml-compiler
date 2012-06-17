@@ -657,11 +657,11 @@ public class ClassWriter {
 		// write getter and setter
 		out.format("    public %s get%s(){\n", type, upperFirst(fieldName));
 		out.format("        return %s;\n", fieldName);
-		out.format("    }\n");
+		out.format("    }\n\n");
 		out.format("    public void set%s(%s %s){\n", upperFirst(fieldName),
 				type, fieldName);
 		out.format("        this.%1$s=%1$s;\n", fieldName);
-		out.format("    }\n");
+		out.format("    }\n\n");
 	}
 
 	private void writeMultipleField(PrintStream out, MyReferenceMember ref) {
