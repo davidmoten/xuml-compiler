@@ -67,23 +67,25 @@ public class Util {
 		StringBuilder b = new StringBuilder();
 		b.append(s.charAt(0));
 		boolean underscoreAdded = false;
+		boolean lastCharacterUppercase = false;
 		for (int i = 1; i < s.length(); i++) {
 			char ch = s.charAt(i);
-			if (ch == '_' || ch == ' ') {
+			if (!Character.isLetterOrDigit(ch)) {
 				if (!underscoreAdded)
 					b.append('_');
 				underscoreAdded = true;
+				lastCharacterUppercase = false;
 			} else if (Character.isUpperCase(ch)) {
-				if (!underscoreAdded) {
+				if (!underscoreAdded && !lastCharacterUppercase) {
 					b.append("_");
-					b.append(ch);
-					underscoreAdded = true;
-				} else {
-					b.append(ch);
 				}
+				b.append(ch);
+				underscoreAdded = false;
+				lastCharacterUppercase = true;
 			} else {
 				b.append(ch);
 				underscoreAdded = false;
+				lastCharacterUppercase = false;
 			}
 		}
 		return b.toString().toLowerCase();
