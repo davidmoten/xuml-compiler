@@ -189,8 +189,7 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 		if (p != null)
 			return new MyPrimaryIdAttribute(a.getName(),
 					nameManager.toFieldName(cls.getName(), a.getName()),
-					a.getName(),
-					// nameManager.toColumnName(cls.getName(), a.getName()),
+					nameManager.toColumnName(cls.getName(), a.getName()),
 					otherClassName, nameManager.toColumnName(otherClassName,
 							p.getAttributeName()), p.getType());
 		else
@@ -388,19 +387,41 @@ public class ClassInfoFromJaxb2 extends ClassInfo {
 			pThis = a.getPassivePerspective();
 			pThat = a.getActivePerspective();
 		}
-		ClassInfo infoOther = getClassInfo(pThat.getViewedClass());
+		String otherClassName = pThat.getViewedClass();
+		ClassInfo infoOther = getClassInfo(otherClassName);
 		List<JoinColumn> joins = newArrayList();
-		for (MyPrimaryIdAttribute member : infoOther
-				.getPrimaryIdAttributeMembers()) {
-			joins.add(new JoinColumn(nameManager.toColumnName(cls.getName(),
-					member.getAttributeName()), member.getColumnName()));
-		}
+		if (pThat.isOnePerspective())
+			for (MyPrimaryIdAttribute member : infoOther
+					.getPrimaryIdAttributeMembers()) {
+				String attributeName = getMatchingAttributeName(a.getRnum(),
+						member.getAttributeName());
+				JoinColumn jc = new JoinColumn(nameManager.toColumnName(
+						cls.getName(), attributeName), member.getColumnName());
+				System.out.println(jc);
+				joins.add(jc);
+			}
 		// TODO sort this out
 		return new MyReferenceMember(pThat.getViewedClass(),
 				infoOther.getClassFullName(), toMult(pThis), toMult(pThat),
 				pThis.getPhrase(), pThat.getPhrase(), nameManager.toFieldName(
 						cls.getName(), pThat.getViewedClass(), a.getRnum()),
 				joins, "thisName", "thatName", (MyManyToMany) null);
+	}
+
+	private String getMatchingAttributeName(BigInteger rNum,
+			String otherAttributeName) {
+		for (JAXBElement<? extends Attribute> element : cls.getAttribute()) {
+			Attribute a = element.getValue();
+			if (a instanceof ReferentialAttribute) {
+				ReferentialAttribute r = (ReferentialAttribute) a;
+				if (r.getReference().getValue().getRelationship().equals(rNum)
+						&& r.getReference().getValue().getAttribute()
+								.equals(otherAttributeName))
+					return r.getName();
+			}
+		}
+		throw new RuntimeException("could not find matching attribute "
+				+ cls.getName() + " R" + rNum + " " + otherAttributeName);
 	}
 
 	private static Mult toMult(AsymmetricPerspective p) {

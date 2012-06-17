@@ -281,7 +281,6 @@ public abstract class ClassInfo {
 		private final String otherColumnName;
 
 		public JoinColumn(String thisColumnName, String otherColumnName) {
-			super();
 			this.thisColumnName = thisColumnName;
 			this.otherColumnName = otherColumnName;
 		}
@@ -293,6 +292,18 @@ public abstract class ClassInfo {
 		public String getOtherColumnName() {
 			return otherColumnName;
 		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("JoinColumn [thisColumnName=");
+			builder.append(thisColumnName);
+			builder.append(", otherColumnName=");
+			builder.append(otherColumnName);
+			builder.append("]");
+			return builder.toString();
+		}
+
 	}
 
 	public static class MyReferenceMember {

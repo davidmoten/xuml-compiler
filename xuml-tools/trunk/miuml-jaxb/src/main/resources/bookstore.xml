@@ -350,6 +350,10 @@
 				<IndependentAttribute Name="C one" Type="string">
 					<Identifier Number="1" />
 				</IndependentAttribute>
+				<ReferentialAttribute Name="C B one">
+					<Identifier Number="1" />
+					<ToOneReference Relationship="2" Attribute="B one" />
+				</ReferentialAttribute>
 				<ReferentialAttribute Name="C B A one">
 					<Identifier Number="1" />
 					<ToOneReference Relationship="2" Attribute="B A one" />
