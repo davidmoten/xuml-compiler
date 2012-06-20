@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://davidmoten.homeip.net/uml/executable/model" xsi:schemaLocation="http://davidmoten.homeip.net/uml/executable/model http://xuml-compiler.googlecode.com/svn/trunk/xUmlMetaModel/model/uml.ecore" name="Bookstore">
+  <package name="bookstore" description="an online bookstore">
+    <class name="Book" description="a book, volume or journal" associationEndPrimary="//@association.3/@primary //@association.4/@primary" associationEndSecondary="//@association.5/@secondary">
+      <attribute name="bookNumber" type="//@primitiveType[name='String']" identifierPrimary="//@package.0/@class.0/@identifierPrimary">
+        <persistence/>
+      </attribute>
+      <attribute name="productId" type="//@primitiveType[name='String']"/>
+      <attribute name="title" type="//@primitiveType[name='String']"/>
+      <attribute name="subtitle" type="//@primitiveType[name='String']" mandatory="false"/>
+      <attribute name="copyrightYear" type="//@primitiveType[name='Integer']" mandatory="false"/>
+      <attribute name="unitPrice" type="//@primitiveType[name='Decimal']" mandatory="false"/>
+      <attribute name="description" type="//@primitiveType[name='String']" mandatory="false"/>
+      <attribute name="webSiteUrl" type="//@primitiveType[name='String']" mandatory="false"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
+      <persistence schema="BOOKSTORE"/>
+    </class>
+    <class name="Author" description="the author of a book, volume or journal" associationEndPrimary="//@association.5/@primary">
+      <attribute name="name" type="//@primitiveType[name='String']" identifierPrimary="//@package.0/@class.1/@identifierPrimary">
+        <persistence/>
+      </attribute>
+      <attribute name="website" type="//@primitiveType[name='String']" mandatory="false"/>
+      <attribute name="email" type="//@primitiveType[name='String']" mandatory="false"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.1/@attribute.0"/>
+      <persistence schema="BOOKSTORE"/>
+    </class>
+    <class name="Publisher" description="the publisher of a book, volume or journal" associationEndSecondary="//@association.3/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.2/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="groupCode" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I1']"/>
+      <attribute name="publisherCode" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I1']"/>
+      <attribute name="name" type="//@primitiveType[name='String']"/>
+      <attribute name="address" type="//@primitiveType[name='String']" mandatory="false"/>
+      <attribute name="website" type="//@primitiveType[name='String']" mandatory="false"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.2/@attribute.0"/>
+      <identifierNonPrimary name="I1" attribute="//@package.0/@class.2/@attribute.1 //@package.0/@class.2/@attribute.2"/>
+      <persistence schema="BOOKSTORE"/>
+    </class>
+    <class xsi:type="model:AssociationClass" name="Authorship" description="multiple authors of one book" association="//@association.5">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.3/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="preCredit" type="//@primitiveType[name='String']" mandatory="false"/>
+      <attribute name="postCredit" type="//@primitiveType[name='String']" mandatory="false"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.3/@attribute.0"/>
+      <persistence schema="BOOKSTORE"/>
+    </class>
+    <class xsi:type="model:AssociationClass" name="ProductSelection" description="what books are on what orders" association="//@association.4">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.4/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="quantity" type="//@primitiveType[name='Integer']"/>
+      <attribute name="unitPriceOfSelection" type="//@primitiveType[name='Decimal']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.4/@attribute.0"/>
+      <persistence schema="BOOKSTORE"/>
+    </class>
+    <class name="Shipment" description="the sending of an order to a customer" associationEndSecondary="//@association.1/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.5/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="trackingNumber" type="//@primitiveType[name='String']"/>
+      <attribute name="recipient" type="//@primitiveType[name='String']"/>
+      <attribute name="deliveryAddress" type="//@primitiveType[name='String']"/>
+      <attribute name="contactPhone" type="//@primitiveType[name='String']"/>
+      <attribute name="timePrepared" type="//@primitiveType[name='Date']"/>
+      <attribute name="timePickedUp" type="//@primitiveType[name='Date']"/>
+      <attribute name="timeDelivered" type="//@primitiveType[name='Date']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.5/@attribute.0"/>
+      <persistence schema="BOOKSTORE"/>
+    </class>
+    <class name="Order" description="a customer's order of books" associationEndPrimary="//@association.0/@primary //@association.1/@primary //@association.2/@primary" associationEndSecondary="//@association.4/@secondary">
+      <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.6/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="dateOrderPlaced" type="//@primitiveType[name='Date']"/>
+      <attribute name="recipient" type="//@primitiveType[name='String']"/>
+      <attribute name="deliveryAddress" type="//@primitiveType[name='String']"/>
+      <attribute name="contactPhone" type="//@primitiveType[name='String']"/>
+      <stateMachine>
+        <initialState name="InitialState"/>
+        <state name="Open" transitionTo="//@package.0/@class.6/@stateMachine/@event.0/@transition[name='Open_orderDelivered_Delivered'] //@package.0/@class.6/@stateMachine/@event.1/@transition[name='Open_orderCancelled_Cancelled'] //@package.0/@class.6/@stateMachine/@event.2/@transition[name='Open_orderTimeout_Cancelled']"/>
+        <state name="Delivered" transitionFrom="//@package.0/@class.6/@stateMachine/@event.0/@transition[name='Open_orderDelivered_Delivered']"/>
+        <state name="Cancelled" transitionFrom="//@package.0/@class.6/@stateMachine/@event.1/@transition[name='Open_orderCancelled_Cancelled'] //@package.0/@class.6/@stateMachine/@event.2/@transition[name='Open_orderTimeout_Cancelled']"/>
+        <finalState name="FinalState"/>
+        <event xsi:type="model:SignalEvent" name="orderDelivered">
+          <transition name="Open_orderDelivered_Delivered" fromState="//@package.0/@class.6/@stateMachine/@state.0" toState="//@package.0/@class.6/@stateMachine/@state.1"/>
+        </event>
+        <event xsi:type="model:CallEvent" name="orderCancelled">
+          <transition name="Open_orderCancelled_Cancelled" fromState="//@package.0/@class.6/@stateMachine/@state.0" toState="//@package.0/@class.6/@stateMachine/@state.2"/>
+          <parameter name="reason" type="//@freeType[name='String']"/>
+        </event>
+        <event xsi:type="model:TimerEvent" name="orderTimeout">
+          <transition name="Open_orderTimeout_Cancelled" fromState="//@package.0/@class.6/@stateMachine/@state.0" toState="//@package.0/@class.6/@stateMachine/@state.2"/>
+        </event>
+      </stateMachine>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.6/@attribute.0"/>
+      <persistence schema="BOOKSTORE" table="order_table"/>
+    </class>
+    <class name="Customer" description="someone that orders books" associationEndSecondary="//@association.0/@secondary">
+      <attribute name="email" type="//@primitiveType[name='String']" identifierPrimary="//@package.0/@class.7/@identifierPrimary">
+        <persistence/>
+      </attribute>
+      <attribute name="name" type="//@primitiveType[name='String']"/>
+      <attribute name="shippingAddress" type="//@primitiveType[name='String']"/>
+      <attribute name="phone" type="//@primitiveType[name='String']"/>
+      <attribute name="purchasesMade" type="//@primitiveType[name='String']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.7/@attribute.0"/>
+      <persistence schema="BOOKSTORE"/>
+    </class>
+    <class name="CreditCardCharge" description="a charge made to a credit card" associationEndSecondary="//@association.2/@secondary">
+      <attribute name="chargeId" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.8/@identifierPrimary">
+        <persistence generatedValue="true"/>
+      </attribute>
+      <attribute name="accountNumber" type="//@primitiveType[name='String']"/>
+      <attribute name="cardholderName" type="//@primitiveType[name='String']"/>
+      <attribute name="billingAddress" type="//@primitiveType[name='String']"/>
+      <attribute name="cardExpirationDate" type="//@primitiveType[name='Date']"/>
+      <attribute name="dateChargeMade" type="//@primitiveType[name='Date']"/>
+      <attribute name="chargeAmount" type="//@primitiveType[name='Decimal']"/>
+      <attribute name="bankApprovalCode" type="//@primitiveType[name='String']"/>
+      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.8/@attribute.0"/>
+      <persistence schema="BOOKSTORE"/>
+    </class>
+  </package>
+  <association name="R5">
+    <primary name="Order order" mandatory="true" multiple="true" verbClause="places" role="order" class="//@package.0/@class.6"/>
+    <secondary name="Customer customer" verbClause="is placed by" role="customer" class="//@package.0/@class.7"/>
+  </association>
+  <association name="R6">
+    <primary name="Order order" mandatory="true" verbClause="delivers contents of" role="order" class="//@package.0/@class.6"/>
+    <secondary name="Shipment shipment" verbClause="is sent to customer as" role="shipment" class="//@package.0/@class.5"/>
+  </association>
+  <association name="R7">
+    <primary name="Order order" mandatory="true" verbClause="pays for" role="order" class="//@package.0/@class.6"/>
+    <secondary name="CreditCardCharge creditCardCharge" verbClause="is paid for by" role="creditCardCharge" class="//@package.0/@class.8"/>
+  </association>
+  <association name="R1">
+    <primary name="Book book" multiple="true" verbClause="produces and markets" role="book" class="//@package.0/@class.0"/>
+    <secondary name="Publisher publisher" mandatory="true" verbClause="is produced and marketed by" role="publisher" class="//@package.0/@class.2"/>
+  </association>
+  <association name="R4" associationClass="//@package.0/@class.4">
+    <primary name="Book book" mandatory="true" multiple="true" verbClause="contains" role="book" class="//@package.0/@class.0"/>
+    <secondary name="Order order" multiple="true" verbClause="is purchased on" role="order" class="//@package.0/@class.6"/>
+  </association>
+  <association name="R2" associationClass="//@package.0/@class.3">
+    <primary name="Author author" mandatory="true" multiple="true" verbClause="is written by" role="author" class="//@package.0/@class.1"/>
+    <secondary name="Book book" multiple="true" verbClause="wrote" role="book" class="//@package.0/@class.0"/>
+  </association>
+  <freeType name="String" description="FreeType enclosure for type String" type="String"/>
+  <primitiveType name="String" description="Primitive type enclosure for primitive String" primitive="String"/>
+  <primitiveType name="Integer" description="Primitive type enclosure for primitive Integer" primitive="Integer"/>
+  <primitiveType name="Decimal" description="Primitive type enclosure for primitive Decimal" primitive="Decimal"/>
+  <primitiveType name="ArbitraryId" description="Primitive type enclosure for primitive ArbitraryId" primitive="ArbitraryId"/>
+  <primitiveType name="Date" description="Primitive type enclosure for primitive Date" primitive="Date"/>
+</model:System>
