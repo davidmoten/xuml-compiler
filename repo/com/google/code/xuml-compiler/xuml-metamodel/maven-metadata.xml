@@ -2,15 +2,15 @@
 <metadata>
   <groupId>com.google.code.xuml-compiler</groupId>
   <artifactId>xuml-metamodel</artifactId>
-  <version>0.4.8-SNAPSHOT</version>
   <versioning>
-    <release>0.4.10</release>
+    <release>0.4.11</release>
     <versions>
       <version>0.4.8-SNAPSHOT</version>
       <version>0.4.8</version>
       <version>0.4.9</version>
       <version>0.4.10</version>
+      <version>0.4.11</version>
     </versions>
-    <lastUpdated>20110415115305</lastUpdated>
+    <lastUpdated>20120620221129</lastUpdated>
   </versioning>
 </metadata>
