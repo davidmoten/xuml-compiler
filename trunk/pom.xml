@@ -4,7 +4,7 @@
 	<artifactId>xuml-compiler-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>xuml-compiler-parent</name>
-	<version>0.4.11-SNAPSHOT</version>
+	<version>0.4.11</version>
 	<developers>
 		<developer>
 			<name>Dave Moten</name>
@@ -30,9 +30,9 @@
 		<distribution.url>svn:https://xuml-compiler.googlecode.com/svn/repo/</distribution.url>
 	</properties>
 	<scm>
-		<connection>scm:svn:http://xuml-compiler.googlecode.com/svn/trunk</connection>
-		<developerConnection>scm:svn:https://xuml-compiler.googlecode.com/svn/trunk</developerConnection>
-		<url>http://code.google.com/p/xuml-compiler/source/browse/#svn/trunk</url>
+		<connection>scm:svn:http://xuml-compiler.googlecode.com/svn/tags/xuml-compiler-parent-0.4.11</connection>
+		<developerConnection>scm:svn:https://xuml-compiler.googlecode.com/svn/tags/xuml-compiler-parent-0.4.11</developerConnection>
+		<url>http://code.google.com/p/xuml-compiler/source/browse/#svn/tags/xuml-compiler-parent-0.4.11</url>
 	</scm>
 	<modules>
 		<module>xuml-jpa</module>
