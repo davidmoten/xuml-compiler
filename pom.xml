@@ -1,28 +1,47 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+    <parent>
+		<groupId>com.github.davidmoten</groupId>
+		<artifactId>sonatype-parent</artifactId>
+		<version>0.1</version>
+	</parent>
 	<groupId>com.google.code.xuml-compiler</groupId>
 	<artifactId>xuml-compiler-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>xuml-compiler-parent</name>
 	<version>0.4.12-SNAPSHOT</version>
-	<developers>
-		<developer>
-			<name>Dave Moten</name>
-			<timezone>+10</timezone>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-		</developer>
-	</developers>
 	<licenses>
 		<license>
-			<name>Apache 2</name>
+			<name>The Apache Software License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 			<distribution>repo</distribution>
 			<comments>A business-friendly OSS license</comments>
 		</license>
 	</licenses>
+
+	<ciManagement>
+		<system>Travis</system>
+		<url>https://xuml-tools.ci.cloudbees.com</url>
+	</ciManagement>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/davidmoten/xuml-compiler/issues</url>
+	</issueManagement>
+
+	<inceptionYear>2008</inceptionYear>
+	<developers>
+		<developer>
+			<id>dave</id>
+			<name>Dave Moten</name>
+			<url>https://github.com/davidmoten/</url>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>+10</timezone>
+		</developer>
+	</developers>
 	<properties>
 		<examples>examples</examples>
 		<compiler.source.version>1.6</compiler.source.version>
@@ -30,9 +49,10 @@
 		<distribution.url>svn:https://xuml-compiler.googlecode.com/svn/repo/</distribution.url>
 	</properties>
 	<scm>
-		<connection>scm:svn:http://xuml-compiler.googlecode.com/svn/trunk</connection>
-		<developerConnection>scm:svn:https://xuml-compiler.googlecode.com/svn/trunk</developerConnection>
-		<url>http://code.google.com/p/xuml-compiler/source/browse/#svn/trunk</url>
+		<connection>scm:git:git@github.com:davidmoten/xuml-compiler.git</connection>
+		<developerConnection>scm:git:git@github.com:davidmoten/xuml-compiler.git</developerConnection>
+		<url>scm:git:git@github.com:davidmoten/xuml-compiler.git</url>
+		<tag>HEAD</tag>
 	</scm>
 	<modules>
 		<module>xuml-jpa</module>
@@ -40,8 +60,10 @@
 		<module>xuml-metamodel</module>
 		<module>${examples}/simple-definition</module>
 		<module>${examples}/simple</module>
-		<module>${examples}/cashbooks-definition</module>
+		<!--
+        <module>${examples}/cashbooks-definition</module>
 		<module>${examples}/cashbooks</module>
+        -->
 	</modules>
 	<build>
 		<plugins>
@@ -49,7 +71,7 @@
 				<inherited>true</inherited>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.3</version>
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
@@ -60,7 +82,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>2.4</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -71,31 +93,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-scm-plugin</artifactId>
-				<version>1.3</version>
-				<configuration>
-					<goals>install</goals>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.0</version>
-			</plugin>
 		</plugins>
-		<extensions>
-			<!--
-				Wagon Subversion Extension to allow deployment of Maven artifacts.
-				See: http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
-			-->
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.9</version>
-			</extension>
-		</extensions>
 	</build>
 	<reporting>
 		<plugins>
