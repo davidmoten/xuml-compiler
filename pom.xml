@@ -10,6 +10,7 @@
 	<packaging>pom</packaging>
 	<name>xuml-compiler-parent</name>
 	<version>0.4.12-SNAPSHOT</version>
+
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -21,7 +22,7 @@
 
 	<ciManagement>
 		<system>Travis</system>
-		<url>https://xuml-tools.ci.cloudbees.com</url>
+		<url>https://travis-ci.org/davidmoten/xuml-compiler</url>
 	</ciManagement>
 
 	<issueManagement>
@@ -44,7 +45,7 @@
 	</developers>
 	<properties>
 		<examples>examples</examples>
-		<compiler.source.version>1.6</compiler.source.version>
+		<compiler.source.version>1.8</compiler.source.version>
 		<distribution.id>xuml.compiler</distribution.id>
 		<distribution.url>svn:https://xuml-compiler.googlecode.com/svn/repo/</distribution.url>
 	</properties>
@@ -78,20 +79,6 @@
 					<source>${compiler.source.version}</source>
 					<target>${compiler.source.version}</target>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.4</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -142,24 +129,4 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	<repositories>
-		<repository>
-			<id>xuml-compiler-repo</id>
-			<name>xuml-compiler</name>
-			<url>http://xuml-compiler.googlecode.com/svn/repo/</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>Codehaus repository</id>
-			<url>http://repository.codehaus.org/</url>
-		</pluginRepository>
-	</pluginRepositories>
-	<distributionManagement>
-		<repository>
-			<id>${distribution.id}</id>
-			<url>${distribution.url}</url>
-			<uniqueVersion>false</uniqueVersion>
-		</repository>
-	</distributionManagement>
 </project>
