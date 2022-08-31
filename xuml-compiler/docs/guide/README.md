@@ -6,7 +6,9 @@ xUmlCompiler
 ### Introduction
 ### Define a system
 Consider this class diagram:
+
 ![null](images/img01.jpg)
+
 To define this system create this class:
 
 ```java
@@ -64,7 +66,9 @@ public class Shop extends SystemBase {
 Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be _Shop.ini_ in the java working directory. Change it if you like.
 To view the system, run the above class (the main method calls the viewer). You will need to reposition the elements but when you close the viewer the positions will be saved automatically. 
 You may want to change the name of the location of the settings file in the main method.
+
 ![null](images/img02.jpg)
+
 ### Add methods to the classes
 Add this code to the end of the initialize() method: 
 
@@ -77,6 +81,7 @@ createOperation(order, "dispatch", "dispatches the order", null, false);
         "Integer", false);
 ```
  Run the viewer and we see the new operations in the classes.
+
 ![null](images/img03.jpg)
 
 ### Generate the classes
@@ -105,9 +110,13 @@ public class ShopGenerator {
 
 All classes will be written to the directory temp/shop. Change it if you wish. Create the directory if it does not exist.
 Run the main method in the above class and classes will be generated as below:
+
 ![null](images/img04.jpg)
+
 Notice the getter and setter methods on the Customer interface class and the search methods. If we had defined identifiers (uniqueness rules other than the primary key id field) we would see finders for the identifier attribute groups as well.  
+
 ![null](images/img05.jpg)
+
 ### Implement actions
 All methods and state machine entry points should be implemented by your behaviour classes.
 
