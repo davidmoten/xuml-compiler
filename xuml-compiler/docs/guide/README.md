@@ -9,7 +9,8 @@ Consider this class diagram:
 ![null](images/img01.jpg)
 To define this system create this class:
 
-`package moten.david.uml.xuml.model.example.order;
+```java
+package moten.david.uml.xuml.model.example.order;
 
 import java.io.IOException;
 
@@ -56,7 +57,8 @@ public class Shop extends SystemBase {
         shop.view("Shop.ini");
     }
 
-}`
+}
+```
 
 ### View the system
 Before you run the viewer you need to indicate where you are going to save the setttings for the view of the Shop system. The file is currently set to be _Shop.ini_ in the java working directory. Change it if you like.
@@ -66,12 +68,14 @@ You may want to change the name of the location of the settings file in the main
 ### Add methods to the classes
 Add this code to the end of the initialize() method: 
 
-`    createOperation(order, "dispatch", "dispatches the order", null, false);
+```java
+createOperation(order, "dispatch", "dispatches the order", null, false);
     createOperation(
         customer,
         "getCreditRating",
         "gets the credit rating",
-        "Integer", false);`
+        "Integer", false);
+```
  Run the viewer and we see the new operations in the classes.
 ![null](images/img03.jpg)
 
@@ -87,7 +91,8 @@ xUmlCompiler generates
  
 Paste in the following class:
 
-`package moten.david.uml.xuml.model.example.shop;
+```java
+package moten.david.uml.xuml.model.example.shop;
 
 public class ShopGenerator {
 
@@ -95,7 +100,8 @@ public class ShopGenerator {
         Shop shop = new Shop();
         shop.generate("temp/shop");
     }
-}`
+}
+```
 
 All classes will be written to the directory temp/shop. Change it if you wish. Create the directory if it does not exist.
 Run the main method in the above class and classes will be generated as below:
@@ -106,7 +112,8 @@ Notice the getter and setter methods on the Customer interface class and the sea
 All methods and state machine entry points should be implemented by your behaviour classes.
 
 Here's the behaviour class for the Order class:
-`package moten.david.uml.xuml.model.example.shop;
+```java
+package moten.david.uml.xuml.model.example.shop;
 
 import shop.Order;
 import shop.actions.OrderActions;
@@ -125,9 +132,11 @@ public class OrderBehaviour implements OrderActions {
         this.order = order;
     }
 
-}`
+}
+```
 ### Define an injector
-`package moten.david.uml.xuml.model.example.shop;
+```java
+package moten.david.uml.xuml.model.example.shop;
 
 import shop.actions.OrderActions;
 
@@ -140,10 +149,12 @@ public class ShopInjectorModule extends AbstractModule {
           bind(OrderActions.class).to(OrderBehaviour.class);
      }
 
-}`
+}
+```
 ### Execute the system
 To execute the system we must first ensure that the generated objects use the shop InjectorModule for late bound injection of behaviour:
-`package moten.david.uml.xuml.model.example.shop;
+```java
+package moten.david.uml.xuml.model.example.shop;
 
 import shop.ObjectInjector;
 
@@ -157,5 +168,6 @@ public class ShopLauncher {
                 .createInjector(new ShopInjectorModule()));
     }
 
-}`
+}
+```
 
