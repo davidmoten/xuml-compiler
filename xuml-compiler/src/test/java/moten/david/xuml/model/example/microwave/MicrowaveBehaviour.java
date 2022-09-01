@@ -19,13 +19,14 @@ import microwave.Microwave.EventPluggedIn;
 import microwave.Microwave.EventTimerTimesOut;
 import microwave.actions.MicrowaveActions;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.inject.Guice;
 
 public class MicrowaveBehaviour implements MicrowaveActions {
 
-	private static Logger log = Logger.getLogger(MicrowaveBehaviour.class);
+	private static Logger log = LoggerFactory.getLogger(MicrowaveBehaviour.class);
 
 	private Microwave microwave;
 

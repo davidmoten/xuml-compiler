@@ -23,7 +23,8 @@ import moten.david.xuml.model.compiler.templates.ResourceLocator;
 import moten.david.xuml.model.compiler.util.KeyMap;
 import moten.david.xuml.model.compiler.util.Util;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -49,7 +50,7 @@ public class Compiler {
 
 	private static final String IMPLEMENTATION_PACKAGE_EXTENSION = "impl";
 
-	private static Logger log = Logger.getLogger(Compiler.class);
+	private static Logger log = LoggerFactory.getLogger(Compiler.class);
 
 	private final model.System system;
 

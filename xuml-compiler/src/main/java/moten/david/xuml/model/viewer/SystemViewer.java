@@ -49,22 +49,21 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import model.FinalState;
-import model.InitialState;
-import model.Package;
-import model.State;
-import model.Stately;
-import moten.david.xuml.model.util.SystemBase;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.lf5.util.StreamUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import model.FinalState;
+import model.InitialState;
+import model.Package;
+import model.State;
+import model.Stately;
+import moten.david.xuml.model.util.SystemBase;
 import view.Element;
 import view.Frame;
 import view.View;
@@ -76,8 +75,7 @@ public class SystemViewer {
 	private static final String URL_VIEWER_ECORE = "http://xuml-compiler.googlecode.com/svn/trunk/xUmlCompiler/src/viewer/model/viewer.ecore";
 	private static final String VIEW_PACKAGE_NAMESPACE_URI = "http://davidmoten.homeip.net/uml/executable/view";
 	private static final String SETTINGS_EXTENSION = "systemView";
-	private static Logger log = Logger.getLogger(SystemViewer.class);
-	private static final long serialVersionUID = 4180699653224602583L;
+	private static Logger log = LoggerFactory.getLogger(SystemViewer.class);
 	public static Color backgroundColor = Color.white;
 	private final List<ClassComponent> components = new ArrayList<ClassComponent>();
 
@@ -318,7 +316,7 @@ public class SystemViewer {
 		try {
 			File file = File.createTempFile("Temp", SETTINGS_EXTENSION);
 			FileOutputStream fos = new FileOutputStream(file);
-			StreamUtils.copy(is, fos);
+			SystemBase.copy(is, fos);
 			fos.close();
 			is.close();
 			return load(file.getAbsolutePath());
@@ -344,7 +342,7 @@ public class SystemViewer {
 			resource.getContents().add(temp);
 			resource.getContents().remove(temp);
 		}
-		log.info(ViewFactory.eINSTANCE.getViewPackage());
+		log.info(String.valueOf(ViewFactory.eINSTANCE.getViewPackage()));
 		resourceSet.getPackageRegistry().put(
 				ViewFactory.eINSTANCE.getViewPackage().getNsURI(),
 				ViewFactory.eINSTANCE.getViewPackage());
@@ -684,7 +682,7 @@ public class SystemViewer {
 				else if (e.getKeyChar() == '-')
 					factorChange = 1 / 1.1;
 				zoomable.setZoomFactor(zoomable.getZoomFactor() * factorChange);
-				log.info(e.getKeyChar());
+				log.info("" + e.getKeyChar());
 				Dimension d = systemPanel.getPreferredSize();
 				d = new Dimension((int) (d.width * factorChange),
 						(int) (d.height * factorChange));

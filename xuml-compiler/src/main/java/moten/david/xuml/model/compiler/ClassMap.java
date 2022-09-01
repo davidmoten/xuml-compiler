@@ -39,7 +39,8 @@ import moten.david.xuml.model.compiler.util.StringUtil;
 import moten.david.xuml.model.compiler.util.Util;
 import moten.david.xuml.model.util.ModelUtil;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -51,7 +52,7 @@ import org.eclipse.emf.common.util.EList;
  */
 public class ClassMap {
 
-	private static Logger log = Logger.getLogger(ClassMap.class);
+	private static Logger log = LoggerFactory.getLogger(ClassMap.class);
 
 	private final Map<Object, Object> cache = new HashMap<Object, Object>();
 	private final model.Class cls;

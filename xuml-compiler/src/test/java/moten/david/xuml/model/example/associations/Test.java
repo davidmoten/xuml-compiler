@@ -10,7 +10,8 @@ import moten.david.util.jdbc.DatabaseUtil;
 import moten.david.util.jdbc.MetaDataReporter;
 import moten.david.xuml.model.Multiplicity;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.Assert;
 
 import com.google.inject.Guice;
@@ -18,7 +19,7 @@ import com.google.inject.Injector;
 
 public class Test {
 
-	private static Logger log = Logger.getLogger(Test.class);
+	private static Logger log = LoggerFactory.getLogger(Test.class);
 	private static Injector injector = Guice
 			.createInjector(new AssociationsInjectorModule());
 	private EntityManagerFactory emf;

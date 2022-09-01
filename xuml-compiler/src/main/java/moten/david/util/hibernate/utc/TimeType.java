@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
@@ -15,7 +16,7 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
  */
 public class TimeType extends HibernateUTC {
 
-    private static Logger log = Logger.getLogger(TimeType.class);
+    private static Logger log = LoggerFactory.getLogger(TimeType.class);
     protected static int[] SQL_TYPES_TIME = { Types.TIME };
 
     @Override

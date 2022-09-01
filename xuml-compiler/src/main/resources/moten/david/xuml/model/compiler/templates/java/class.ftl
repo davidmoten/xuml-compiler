@@ -10,7 +10,6 @@ import ${import.name};
 <#if persistence?exists>
 import javax.persistence.*;
 </#if>
-//import org.apache.log4j.Logger;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;

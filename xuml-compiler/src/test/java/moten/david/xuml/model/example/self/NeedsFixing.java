@@ -3,7 +3,8 @@ package moten.david.xuml.model.example.self;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.Before;
 
 import self.ObjectInjector;
@@ -14,7 +15,7 @@ import com.google.inject.Injector;
 
 public class NeedsFixing {
 
-	private Logger log = Logger.getLogger(NeedsFixing.class);
+	private Logger log = LoggerFactory.getLogger(NeedsFixing.class);
 
 	private static Injector injector = Guice
 			.createInjector(new SelfInjectorModule());

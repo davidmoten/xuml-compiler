@@ -3,7 +3,8 @@ package moten.david.xuml.model.example.simple;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ import com.google.inject.Injector;
 
 public class TestSimple {
 
-	private Logger log = Logger.getLogger(TestSimple.class);
+	private Logger log = LoggerFactory.getLogger(TestSimple.class);
 
 	private static Injector injector = Guice
 			.createInjector(new SimpleInjectorModule());

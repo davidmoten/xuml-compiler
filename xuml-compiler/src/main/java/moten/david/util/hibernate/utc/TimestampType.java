@@ -7,7 +7,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
@@ -18,7 +19,7 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 public class TimestampType extends HibernateUTC {
 
 	public static final String DATE_TIME_WITH_ERA = "yyyy MM dd HH:mm:ss.SSS G";
-	private static Logger log = Logger.getLogger(TimestampType.class);
+	private static Logger log = LoggerFactory.getLogger(TimestampType.class);
 
 	public Object deepCopy(Object value) {
 		return (value == null) ? null : new java.sql.Timestamp(((Date) value)

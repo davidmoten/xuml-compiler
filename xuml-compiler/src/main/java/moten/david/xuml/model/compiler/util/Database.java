@@ -15,11 +15,12 @@ import javax.persistence.Persistence;
 
 import moten.david.util.derby.DerbyUtil;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Database {
 	private static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
-	private static Logger log = Logger.getLogger(Database.class);
+	private static Logger log = LoggerFactory.getLogger(Database.class);
 	private static final String DERBY_SHUTDOWN = ";shutdown=true";
 	private static final String HIBERNATE_CONNECTION_URL = "hibernate.connection.url";
 	private static final String HIBERNATE_PROPERTIES = "hibernate.properties";
