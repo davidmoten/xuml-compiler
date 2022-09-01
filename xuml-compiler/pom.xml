@@ -100,7 +100,7 @@
                                 <!--  include the test classpath to enable cobertura -->
                                 <taskdef name="xuml-generate" classname="moten.david.xuml.model.compiler.ant.GenerateTask" classpathref="maven.compile.classpath">
                                     <classpath refid="maven.test.classpath" />
-                                    <!-- include the resources to pick up log4j.properties -->
+                                    <!-- include the resources to pick up logging.properties -->
                                     <classpath path="${basedir}/src/test/resources" />
                                 </taskdef>
 
