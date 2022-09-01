@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.7</version>
+			<version>1.8.0.10</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -46,7 +46,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -54,7 +54,7 @@
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<tasks>
+							<target>
 								<echo message="starting ant task" />
 								<taskdef name="xuml-generate" classname="moten.david.xuml.model.compiler.ant.GenerateTask" classpathref="maven.compile.classpath">
 									<!--  include to enable cobertura -->
@@ -65,7 +65,7 @@
 								<mkdir dir="${generated}" />
 								<echo message="calling xuml-generate" />
 								<xuml-generate outputDirectory="${generated}" resourcesDirectory="${generated.resources}" webDirectory="${generated.web}" docsDirectory="${generated.docs}" codeGenerator="moten.david.xuml.model.example.simple.Simple" />
-							</tasks>
+							</target>
 						</configuration>
 					</execution>
 				</executions>
@@ -73,7 +73,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.9.1</version>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<id>add-source</id>
