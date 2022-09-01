@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import moten.david.util.derby.DerbyUtil;
 import moten.david.util.entity.manager.EntityManagerUtil;
 import moten.david.util.jdbc.DatabaseUtil;

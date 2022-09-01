@@ -1,6 +1,6 @@
 package moten.david.xuml.model.test;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import model.ModelFactory;
 import moten.david.xuml.model.util.SystemBase;
 
