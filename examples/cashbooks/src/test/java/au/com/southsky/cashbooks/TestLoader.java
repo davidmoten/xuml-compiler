@@ -5,8 +5,6 @@ import javax.persistence.EntityManagerFactory;
 
 import junit.framework.Assert;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,9 +20,12 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class TestLoader {
 
-	private static final Logger logger = Logger
+	private static final Logger logger = LoggerFactory
 			.getLogger(TestLoader.class);
 	
 	// Input files with data for these tests
@@ -53,7 +54,6 @@ public class TestLoader {
 
 	@BeforeClass
 	public static void setup() {
-		BasicConfigurator.configure();
 	}
 
 	@Before

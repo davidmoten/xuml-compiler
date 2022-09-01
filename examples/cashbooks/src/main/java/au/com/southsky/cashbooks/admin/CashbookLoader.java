@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.apache.log4j.Logger;
-
 import cashbooks.CashBook;
 import cashbooks.Customer;
 import cashbooks.ObjectFactory;
@@ -15,7 +13,7 @@ import cashbooks.Customer.EventAddEmail;
 
 public class CashbookLoader extends Loader {
 	
-	private static final Logger logger = Logger.getLogger(CashbookLoader.class);
+	private static final Logger logger = LoggerFactory.getLogger(CashbookLoader.class);
 	private String[] csvFieldNames = { "Shortname", "Name", "Description" };
 
 	public CashbookLoader() {

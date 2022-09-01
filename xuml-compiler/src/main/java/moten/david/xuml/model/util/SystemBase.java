@@ -5,9 +5,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import model.Association;
 import model.AssociationClass;
@@ -52,16 +62,6 @@ import moten.david.xuml.model.SqlReservedWords;
 import moten.david.xuml.model.compiler.Compiler;
 import moten.david.xuml.model.compiler.util.StringUtil;
 import moten.david.xuml.model.viewer.SystemViewer;
-
-import org.apache.log4j.lf5.util.StreamUtils;
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.emf.ecore.xmi.XMIResource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class SystemBase implements CodeGenerator {
 
@@ -1139,6 +1139,14 @@ public class SystemBase implements CodeGenerator {
 		if (diagnostic.getSeverity() == Diagnostic.ERROR)
 			throw new ValidationException(diagnostic);
 	}
+	
+	public static void copy(InputStream in, OutputStream out) throws IOException {
+	    byte[] buffer = new byte[8192];
+	    int n;
+	    while ((n = in.read(buffer)) != -1) {
+	        out.write(buffer, 0, n);
+	    }
+	}
 
 	/**
 	 * Load the system from an xmi input stream.
@@ -1151,7 +1159,7 @@ public class SystemBase implements CodeGenerator {
 			File file = File
 					.createTempFile("Temp", SYSTEM_DEFINITION_EXTENSION);
 			FileOutputStream fos = new FileOutputStream(file);
-			StreamUtils.copy(is, fos);
+			copy(is, fos);
 			fos.close();
 			is.close();
 			return load(file.getAbsolutePath());

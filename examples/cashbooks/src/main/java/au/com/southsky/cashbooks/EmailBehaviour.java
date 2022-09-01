@@ -1,13 +1,14 @@
 package au.com.southsky.cashbooks;
 
-import org.apache.log4j.Logger;
-
 import cashbooks.Email;
 import cashbooks.actions.EmailActions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class EmailBehaviour implements  EmailActions {
 
-        private static Logger log = Logger.getLogger(EmailBehaviour.class);
+        private static Logger log = LoggerFactory.getLogger(EmailBehaviour.class);
         private Email email;
 
         @Override

@@ -7,15 +7,16 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
 
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Like a Hibernate date, but using the UTC TimeZone (not the default TimeZone).
  */
 public class DateType extends HibernateUTC {
-	private static Logger log = Logger.getLogger(DateType.class);
+	private static Logger log = LoggerFactory.getLogger(DateType.class);
 	protected static int[] SQL_TYPES_DATE = { Types.DATE };
 
 	@Override

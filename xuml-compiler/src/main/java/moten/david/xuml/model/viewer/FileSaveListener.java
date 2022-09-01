@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileSaveListener implements SaveListener {
 
-	private static Logger log = Logger.getLogger(FileSaveListener.class);
+	private static Logger log = LoggerFactory.getLogger(FileSaveListener.class);
 	private File file;
 
 	public FileSaveListener(File file) {

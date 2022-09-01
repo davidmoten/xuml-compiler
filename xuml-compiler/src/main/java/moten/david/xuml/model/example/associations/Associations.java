@@ -13,13 +13,14 @@ import moten.david.xuml.model.compiler.Compiler;
 import moten.david.xuml.model.compiler.util.Util;
 import moten.david.xuml.model.util.SystemBase;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateException;
 
 public class Associations implements CodeGenerator {
 
-	private static Logger log = Logger.getLogger(Associations.class);
+	private static Logger log = LoggerFactory.getLogger(Associations.class);
 
 	private static int counter = 0;
 

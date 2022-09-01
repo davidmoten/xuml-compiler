@@ -10,7 +10,8 @@ import java.sql.Types;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.cfg.Environment;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
@@ -18,7 +19,7 @@ import org.hibernate.usertype.UserType;
 
 public abstract class HibernateUTC implements UserType {
 
-    private static Logger log = Logger.getLogger(HibernateUTC.class);
+    private static Logger log = LoggerFactory.getLogger(HibernateUTC.class);
 
     /** the SQL type this type manages */
     protected static int[] SQL_TYPES_UTC = { Types.TIMESTAMP };

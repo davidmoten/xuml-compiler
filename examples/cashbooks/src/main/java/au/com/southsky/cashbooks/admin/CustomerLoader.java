@@ -9,13 +9,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
-
 import au.com.southsky.cashbooks.utils.CSVutil;
 import cashbooks.Customer;
 import cashbooks.ObjectFactory;
 import cashbooks.Customer.EventNewCustomer;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Load customers from a CSV file
@@ -27,7 +27,7 @@ import cashbooks.Customer.EventNewCustomer;
  */
 public class CustomerLoader extends Loader {
 
-	private static final Logger logger = Logger.getLogger(CustomerLoader.class);
+	private static final Logger logger = LoggerFactory.getLogger(CustomerLoader.class);
 	private String [] csvFieldNames = {"Name", "Shortname"};
 
 
@@ -111,8 +111,6 @@ public class CustomerLoader extends Loader {
 	}
 
 	public static void main(String[] args) {
-
-		BasicConfigurator.configure();
 
 		if (args.length < 1) {
 			usage("Path to csv file is missing");

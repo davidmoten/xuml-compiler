@@ -14,7 +14,8 @@ import moten.david.util.entity.manager.EntityManagerUtil;
 import moten.david.util.jdbc.DatabaseUtil;
 import moten.david.xuml.model.compiler.util.Database;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bookstore.Author;
 import bookstore.Authorship;
@@ -26,7 +27,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class Test {
-	private static Logger log = Logger.getLogger(Test.class);
+	private static Logger log = LoggerFactory.getLogger(Test.class);
 	private static Injector injector = Guice
 			.createInjector(new BookstoreInjectorModule());
 

@@ -7,11 +7,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 
-import junit.framework.Assert;
+import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import moten.david.util.text.StringUtil;
 import moten.david.xuml.model.compiler.runtime.InvalidRecordException;
-
-import org.apache.log4j.Logger;
 
 /**
  * JPA Utilities including persistence of multiple objects, exception checking
@@ -22,7 +23,7 @@ import org.apache.log4j.Logger;
  */
 public class EntityManagerUtil {
 
-	private static Logger log = Logger.getLogger(EntityManagerUtil.class);
+	private static Logger log = LoggerFactory.getLogger(EntityManagerUtil.class);
 
 	public static void persist(EntityManagerFactory emf, Object... objects)
 			throws Exception {
@@ -47,7 +48,7 @@ public class EntityManagerUtil {
 			persist(emf, a);
 			Assert.fail();
 		} catch (InvalidRecordException e) {
-			log.info(e);
+			log.info(e.getMessage(), e);
 		}
 	}
 
@@ -57,7 +58,7 @@ public class EntityManagerUtil {
 			persist(emf, a);
 			Assert.fail();
 		} catch (PersistenceException e) {
-			log.info(e);
+			log.info(e.getMessage(), e);
 			if (!e.getMessage().contains(
 					"not-null property references a null or transient value")) {
 				throw new Error(e);

@@ -3,14 +3,15 @@ package ${package};
 import com.google.inject.Injector;
 import com.google.inject.Guice;
 import com.google.inject.Module;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ObjectInjector{
 
 	/**
 	* static logger
 	**/
-	private static Logger log = Logger.getLogger(ObjectInjector.class);
+	private static Logger log = LoggerFactory.getLogger(ObjectInjector.class);
 
 	/*
 	* singleton injector

@@ -1,13 +1,14 @@
 package moten.david.xuml.model.example.simple;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import simple.Email;
 import simple.actions.EmailActions;
 
 public class EmailBehaviour implements EmailActions {
 
-	private static Logger log = Logger.getLogger(EmailBehaviour.class);
+	private static Logger log = LoggerFactory.getLogger(EmailBehaviour.class);
 	private Email email;
 
 	@Override

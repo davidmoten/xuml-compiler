@@ -5,16 +5,17 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.apache.log4j.Logger;
-
 import cashbooks.Customer;
 import cashbooks.Email;
 import cashbooks.ObjectFactory;
 import cashbooks.Customer.EventAddEmail;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class EmailLoader extends Loader {
 
-	private static final Logger logger = Logger.getLogger(CustomerLoader.class);
+	private static final Logger logger = LoggerFactory.getLogger(CustomerLoader.class);
 	private String[] csvFieldNames = { "Shortname", "Email" };
 
 	public EmailLoader() {

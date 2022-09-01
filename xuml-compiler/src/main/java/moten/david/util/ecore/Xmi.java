@@ -3,7 +3,8 @@ package moten.david.util.ecore;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -20,7 +21,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
  */
 public class Xmi {
 
-	private static Logger log = Logger.getLogger(Xmi.class);
+	private static Logger log = LoggerFactory.getLogger(Xmi.class);
 
 	public static void save(EObject eObject, String filename) {
 		try {

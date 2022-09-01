@@ -7,13 +7,14 @@ import javax.swing.UIManager;
 import moten.david.util.io.RelativePath;
 import moten.david.xuml.model.util.SystemBase;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import view.View;
 import view.ViewFactory;
 
 public class ViewerUtil {
-	private static Logger log = Logger.getLogger(ViewerUtil.class);
+	private static Logger log = LoggerFactory.getLogger(ViewerUtil.class);
 
 	public static SystemViewer view(String directory,
 			Class<? extends SystemBase> cls) {

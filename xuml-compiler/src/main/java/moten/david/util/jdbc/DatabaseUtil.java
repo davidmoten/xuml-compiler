@@ -7,13 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabaseUtil {
 
 	private static final String ANY = "%";
 
-	private static Logger log = Logger.getLogger(DatabaseUtil.class);
+	private static Logger log = LoggerFactory.getLogger(DatabaseUtil.class);
 
 	private final DatabaseMetaData meta;
 
