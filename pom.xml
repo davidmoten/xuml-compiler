@@ -48,6 +48,7 @@
 		<compiler.source.version>1.8</compiler.source.version>
 		<distribution.id>xuml.compiler</distribution.id>
 		<distribution.url>svn:https://xuml-compiler.googlecode.com/svn/repo/</distribution.url>
+                <slf4j.version>1.7.36</slf4j.version>
 	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:davidmoten/xuml-compiler.git</connection>

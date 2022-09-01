@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
@@ -74,6 +74,12 @@
             <artifactId>xuml-metamodel</artifactId>
             <version>${project.parent.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
