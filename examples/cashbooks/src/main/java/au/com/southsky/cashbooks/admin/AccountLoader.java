@@ -5,17 +5,18 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.apache.log4j.Logger;
-
 import cashbooks.Account;
 import cashbooks.CashBook;
 import cashbooks.Customer;
 import cashbooks.ObjectFactory;
 import cashbooks.Account.EventNewAccount;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class AccountLoader extends Loader {
 	
-	private static final Logger logger = Logger.getLogger(AccountLoader.class);	
+	private static final Logger logger = LoggerFactory.getLogger(AccountLoader.class);	
 	private final String [] csvFieldNames = {"CustShortname","AccountShortname","BSB","AccountNo","AccountName","Type ","Description","CashBookName"};
 
 	public AccountLoader() {
