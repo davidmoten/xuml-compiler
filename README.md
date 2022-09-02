@@ -9,7 +9,7 @@ Get your State Machines sorted, then you can specify a system to xUmlCompiler, a
 
 The result is an executable system so that we satisfy to a fair degree that _"the model is the code"_.
 
-* [Guide](src/docs/index.md)
+* [Guide](src/docs/README.md)
 * [Metamodel](src/docs/metamodel.md)
 
 For background 
