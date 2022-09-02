@@ -9,17 +9,17 @@ This is what you do:
 
 ![image](images/img01.jpg)
 
-![image](images/img02.jpg")
+![image](images/img02.jpg)
 
-![image](images/img03.jpg")
+![image](images/img03.jpg)
 
-![image](images/img04.jpg")
+![image](images/img04.jpg)
 
 * Hit the Load button and the Next button will be enabled:
 
-![image](images/img05.jpg")
+![image](images/img05.jpg)
 
-![image](images/img06.jpg")
+![image](images/img06.jpg)
 
 * Delete previously generated code:
 
