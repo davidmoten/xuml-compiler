@@ -9,6 +9,8 @@ Get your State Machines sorted, then you can specify a system to xUmlCompiler, a
 
 The result is an executable system so that we satisfy to a fair degree that _"the model is the code"_.
 
+**Note** that a completely reworked model compiler is at http://github.com/davidmoten/xuml-tools. The primary difference is a reworked metamodel in accordance with Leon Starr's work and support for concurrency. Dependency updates are still being made to this project as it is still in use in production.
+
 * [Guide](src/docs/README.md)
 * [Metamodel](src/docs/metamodel.md)
 
@@ -30,8 +32,6 @@ For each entity *xuml-compiler* creates
 * Actions interface class (to be implemented by the injected actions class written externally)
 * Event classes as static nested classes of the interface class
 * Search class as a static nested class of the interface class
-
-**Note** that a completely reworked model compiler is at http://github.com/davidmoten/xuml-tools. The primary difference is a reworked metamodel in accordance with Leon Starr's work and support for concurrency.
 
 ## News ##
 | Date      | Comment     |
