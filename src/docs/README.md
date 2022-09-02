@@ -121,6 +121,7 @@ Notice the getter and setter methods on the Customer interface class and the sea
 All methods and state machine entry points should be implemented by your behaviour classes.
 
 Here's the behaviour class for the Order class:
+
 ```java
 package moten.david.uml.xuml.model.example.shop;
 
@@ -144,6 +145,7 @@ public class OrderBehaviour implements OrderActions {
 }
 ```
 ### Define an injector
+
 ```java
 package moten.david.uml.xuml.model.example.shop;
 
@@ -162,6 +164,7 @@ public class ShopInjectorModule extends AbstractModule {
 ```
 ### Execute the system
 To execute the system we must first ensure that the generated objects use the shop InjectorModule for late bound injection of behaviour:
+
 ```java
 package moten.david.uml.xuml.model.example.shop;
 
@@ -176,7 +179,6 @@ public class ShopLauncher {
         ObjectInjector.setInjector(Guice
                 .createInjector(new ShopInjectorModule()));
     }
-
 }
 ```
 
