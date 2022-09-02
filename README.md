@@ -9,6 +9,7 @@ Get your State Machines sorted, then you can specify a system to xUmlCompiler, a
 
 The result is an executable system so that we satisfy to a fair degree that _"the model is the code"_.
 
+* [Guide](xuml-compiler/docs/guide)
 [Overview], [Guide], [Example1Simple QuickStart], [Plan]
 
 For background 

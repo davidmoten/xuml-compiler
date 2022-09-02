@@ -62,10 +62,8 @@
         <module>xuml-metamodel</module>
         <module>${examples}/simple-definition</module>
         <module>${examples}/simple</module>
-        <!--
         <module>${examples}/cashbooks-definition</module>
 		<module>${examples}/cashbooks</module>
-        -->
     </modules>
     <build>
         <plugins>
