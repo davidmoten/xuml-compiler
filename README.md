@@ -1,3 +1,8 @@
+# xuml-compiler
+<a href="https://github.com/davidmoten/xuml-compiler/actions/workflows/ci.yml"><img src="https://github.com/davidmoten/xuml-compiler/actions/workflows/ci.yml/badge.svg"/></a><br/>
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/xuml-compiler-runtime/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/xuml-compiler)<br/>
+[![codecov](https://codecov.io/gh/davidmoten/xuml-compiler/branch/master/graph/badge.svg)](https://codecov.io/gh/davidmoten/xuml-compiler)<br/>
+
 So you are a java programmer, you have a data model (a Class Diagram) and you want to implement your system?
 
 Get your State Machines sorted, then you can specify a system to xUmlCompiler, and validate, test and execute it.
