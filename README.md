@@ -18,11 +18,18 @@ For background
 
 In detail, a system specified in java code using helper methods provided by xUmlCompiler is used to generate java persistence annotated (JPA) classes. [Guice](https://github.com/google/guice) is used to inject action language (java) for methods and events. xUmlCompiler offers a swing viewer for the system and generates persistence.xml resources for quick testing turnaround. 
 
-**Features**
+## Features
 * uses hibernate 5.x
 * requires Java 8
 * compatible with Java 11, 17
 * slf4j logging
+
+For each entity *xuml-compiler* creates
+* Interface class
+* Ejb annotated Implementation class
+* Actions interface class (to be implemented by the injected actions class written externally)
+* Event classes as static nested classes of the interface class
+* Search class as a static nested class of the interface class
 
 **Note** that a completely reworked model compiler is at http://github.com/davidmoten/xuml-tools. The primary difference is a reworked metamodel in accordance with Leon Starr's work and support for concurrency.
 
