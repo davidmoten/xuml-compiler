@@ -22,7 +22,7 @@ In detail, a system specified in java code using helper methods provided by xUml
 
 ## Features
 * uses hibernate 5.x
-* requires Java 8
+* requires Java 8+
 * compatible with Java 11, 17
 * slf4j logging
 
