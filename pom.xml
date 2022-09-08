@@ -21,8 +21,8 @@
     </licenses>
 
     <ciManagement>
-        <system>Travis</system>
-        <url>https://travis-ci.org/davidmoten/xuml-compiler</url>
+        <system>GithubActions</system>
+        <url>https://github.com/davidmoten/xuml-compiler/actions/workflows/ci.yml</url>
     </ciManagement>
 
     <issueManagement>
@@ -46,8 +46,6 @@
     <properties>
         <examples>examples</examples>
         <compiler.source.version>1.8</compiler.source.version>
-        <distribution.id>xuml.compiler</distribution.id>
-        <distribution.url>svn:https://xuml-compiler.googlecode.com/svn/repo/</distribution.url>
         <slf4j.version>1.7.36</slf4j.version>
     </properties>
     <scm>
@@ -70,13 +68,10 @@
     <build>
         <plugins>
             <plugin>
-                <inherited>true</inherited>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <verbose>true</verbose>
-                    <fork>true</fork>
                     <source>${compiler.source.version}</source>
                     <target>${compiler.source.version}</target>
                 </configuration>
@@ -121,36 +116,4 @@
             </plugin>
         </plugins>
     </build>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.14.0</version>
-                <configuration>
-                    <targetJdk>${compiler.source.version}</targetJdk>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jdepend-maven-plugin</artifactId>
-                <version>2.0-beta-2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>taglist-maven-plugin</artifactId>
-                <version>2.4</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>dashboard-maven-plugin</artifactId>
-                <version>1.0.0-beta-1</version>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>
