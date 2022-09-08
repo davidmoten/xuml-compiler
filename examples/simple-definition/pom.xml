@@ -2,29 +2,29 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.google.code.xuml-compiler</groupId>
+		<groupId>com.github.davidmoten.xuml-compiler</groupId>
 		<artifactId>xuml-compiler-parent</artifactId>
 		<version>0.4.12-SNAPSHOT</version>
 		<relativePath>../..</relativePath>
 	</parent>
-
+        <groupId>com.github.davidmoten.xuml-compiler.examples</groupId>
 	<artifactId>simple-definition</artifactId>
 	<name>simple-definition</name>
 	<description>Definition of the Simple Model</description>
 	<dependencies>
 		<dependency>
-			<groupId>com.google.code.xuml-compiler</groupId>
+			<groupId>com.github.davidmoten.xuml-compiler</groupId>
 			<artifactId>xuml-compiler</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.code.xuml-compiler</groupId>
+			<groupId>com.github.davidmoten.xuml-compiler</groupId>
 			<artifactId>xuml-metamodel</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.google.code.xuml-compiler</groupId>
+			<groupId>com.github.davidmoten.xuml-compiler</groupId>
 			<artifactId>xuml-jpa</artifactId>
 			<version>${project.version}</version>
 			<type>pom</type>

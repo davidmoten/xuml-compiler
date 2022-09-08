@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.google.code.xuml-compiler</groupId>
+        <groupId>com.github.davidmoten.xuml-compiler</groupId>
         <artifactId>xuml-compiler-parent</artifactId>
         <version>0.4.12-SNAPSHOT</version>
     </parent>
@@ -55,7 +55,7 @@
             <version>4.13.2</version>
         </dependency>
         <dependency>
-            <groupId>com.google.code.xuml-compiler</groupId>
+            <groupId>com.github.davidmoten.xuml-compiler</groupId>
             <artifactId>xuml-jpa</artifactId>
             <version>${project.parent.version}</version>
             <type>pom</type>
@@ -68,7 +68,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.google.code.xuml-compiler</groupId>
+            <groupId>com.github.davidmoten.xuml-compiler</groupId>
             <artifactId>xuml-metamodel</artifactId>
             <version>${project.parent.version}</version>
             <scope>provided</scope>
