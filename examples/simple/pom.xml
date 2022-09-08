@@ -6,7 +6,6 @@
         <version>0.4.12-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
-    <groupId>com.google.code.xuml-compiler.examples</groupId>
     <artifactId>simple</artifactId>
     <name>simple</name>
     <properties>

@@ -8,7 +8,6 @@
 		<relativePath>../..</relativePath>
 	</parent>
 
-	<groupId>com.google.code.xuml-compiler.examples</groupId>
 	<artifactId>simple-definition</artifactId>
 	<name>simple-definition</name>
 	<description>Definition of the Simple Model</description>

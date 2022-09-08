@@ -7,7 +7,6 @@
 		<version>0.4.12-SNAPSHOT</version>
 		<relativePath>../..</relativePath>
 	</parent>
-	<groupId>com.google.code.xuml-compiler.examples</groupId>
 	<artifactId>cashbooks-definition</artifactId>
 	<name>${project.artifactId}</name>
 	<description>Definition of the Cashbooks Model using xuml-compiler</description>
