@@ -48,12 +48,13 @@
         <compiler.source.version>1.8</compiler.source.version>
         <slf4j.version>1.7.36</slf4j.version>
         <emf.version>2.3.0-v200706262000</emf.version>
+        <scm.url>scm:git:https://github.com/davidmoten/xuml-compiler.git</scm.url>
     </properties>
     <scm>
-        <connection>scm:git:git@github.com:davidmoten/xuml-compiler.git</connection>
-        <developerConnection>scm:git:git@github.com:davidmoten/xuml-compiler.git</developerConnection>
-        <url>scm:git:git@github.com:davidmoten/xuml-compiler.git</url>
-        <tag>HEAD</tag>
+        <connection>${scm.url}</connection>
+        <developerConnection>${scm.url}</developerConnection>
+        <url>${scm.url}</url>
+        <tag>0.5.0</tag>
     </scm>
     <modules>
         <module>xuml-jpa</module>
