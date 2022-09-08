@@ -32,17 +32,8 @@ public class Test {
 	private static Injector injector = Guice
 			.createInjector(new CashbooksInjectorModule());
 
-	private EntityManagerFactory entityManagerFactory;
-
-	public EntityManagerFactory getEntityManagerFactory() {
-		return entityManagerFactory;
-	}
-
 	@Inject
-	public void setEntityManagerFactory(
-			EntityManagerFactory entityManagerFactory) {
-		this.entityManagerFactory = entityManagerFactory;
-	}
+	private EntityManagerFactory entityManagerFactory;
 
 	@Before
 	public void prepare() {

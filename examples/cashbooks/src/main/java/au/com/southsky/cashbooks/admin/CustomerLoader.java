@@ -128,7 +128,7 @@ public class CustomerLoader extends Loader {
 		try {
 			loader.load(csvFile);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			e.printStackTrace();
 		}
 

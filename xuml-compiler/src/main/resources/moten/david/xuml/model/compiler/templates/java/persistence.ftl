@@ -9,13 +9,14 @@
 		</#list>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.EmbeddedDriver" />
 			<property name="hibernate.connection.url" value="jdbc:derby:target/db-${name};create=true" />
 			<property name="hibernate.connection.pool_size" value= "5"/>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.format_sql" value="true"/>
+			<property name="javax.persistence.schema-generation.database.action" value="create"/>
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="${name}-hsql" >

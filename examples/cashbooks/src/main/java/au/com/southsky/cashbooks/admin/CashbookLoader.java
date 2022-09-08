@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cashbooks.CashBook;
+import cashbooks.CashBook.EventNewCashbook;
 import cashbooks.Customer;
 import cashbooks.ObjectFactory;
-import cashbooks.CashBook.EventNewCashbook;
-import cashbooks.Customer.EventAddEmail;
 
 public class CashbookLoader extends Loader {
 	
