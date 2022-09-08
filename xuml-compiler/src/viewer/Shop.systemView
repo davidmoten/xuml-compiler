@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="ASCII"?>
 <view:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:view="http://davidmoten.homeip.net/uml/executable/view" file="Shop.systemDefinition">
   <frame width="941" height="641" x="82" y="183"/>
-  <viewport width="925" height="570"/>
+  <viewport width="935" height="570"/>
   <element x="32" y="220" name="class.Customer"/>
-  <element x="254" y="294" name="label.Class Customer Association R1 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
   <element x="254" y="274" name="label.Class Customer Association R1 Verb Clause" fixedTo="//@element[name='class.Customer']"/>
+  <element x="254" y="294" name="label.Class Customer Association R1 Multiplicity" fixedTo="//@element[name='class.Customer']"/>
   <element x="367" y="221" name="class.Order"/>
   <element x="523" y="272" name="label.Class Order Association R2 Verb Clause" fixedTo="//@element[name='class.Order']"/>
+  <element x="377" y="201" name="label.Class Order Association R3 Verb Clause" fixedTo="//@element[name='class.Order']"/>
+  <element x="356" y="296" name="label.Class Order Association R1 Multiplicity" fixedTo="//@element[name='class.Order']"/>
   <element x="453" y="202" name="label.Class Order Association R3 Multiplicity" fixedTo="//@element[name='class.Order']"/>
   <element x="524" y="297" name="label.Class Order Association R2 Multiplicity" fixedTo="//@element[name='class.Order']"/>
   <element x="334" y="274" name="label.Class Order Association R1 Verb Clause" fixedTo="//@element[name='class.Order']"/>
-  <element x="377" y="201" name="label.Class Order Association R3 Verb Clause" fixedTo="//@element[name='class.Order']"/>
-  <element x="356" y="296" name="label.Class Order Association R1 Multiplicity" fixedTo="//@element[name='class.Order']"/>
   <element x="361" y="29" name="class.Product"/>
-  <element x="393" y="100" name="label.Class Product Association R3 Verb Clause" fixedTo="//@element[name='class.Product']"/>
   <element x="450" y="101" name="label.Class Product Association R3 Multiplicity" fixedTo="//@element[name='class.Product']"/>
+  <element x="393" y="100" name="label.Class Product Association R3 Verb Clause" fixedTo="//@element[name='class.Product']"/>
   <element x="230" y="110" name="class.OrderProduct"/>
   <element x="699" y="152" name="class.Shipment"/>
   <element x="674" y="297" name="label.Class Shipment Association R2 Multiplicity" fixedTo="//@element[name='class.Shipment']"/>
   <element x="626" y="272" name="label.Class Shipment Association R2 Verb Clause" fixedTo="//@element[name='class.Shipment']"/>
-  <element x="499" y="363" name="class.Shipment.state.Returned"/>
-  <element x="342" y="472" name="class.Shipment.state.Delivered"/>
-  <element x="340" y="15" name="class.Shipment.state.InitialState"/>
-  <element x="586" y="117" name="class.Order.state.Delivered"/>
-  <element x="220" y="27" name="class.Order.state.InitialState"/>
-  <element x="346" y="363" name="class.Shipment.state.Shipped"/>
-  <element x="322" y="248" name="class.Shipment.state.ReadyForShipping"/>
-  <element x="330" y="130" name="class.Shipment.state.BeingPrepared"/>
-  <element x="234" y="179" name="class.Order.state.Open"/>
-  <element x="461" y="207" name="class.Order.state.BeingPreparedAndShipped"/>
-  <element x="803" y="181" name="class.Order.state.FinalState"/>
-  <element x="572" y="187" name="class.Shipment.state.Cancelled"/>
-  <element x="761" y="347" name="class.Shipment.state.FinalState"/>
-  <element x="228" y="363" name="class.Shipment.state.Lost"/>
   <element x="210" y="356" name="class.Order.state.Cancelled"/>
+  <element x="342" y="472" name="class.Shipment.state.Delivered"/>
+  <element x="499" y="363" name="class.Shipment.state.Returned"/>
+  <element x="322" y="248" name="class.Shipment.state.ReadyForShipping"/>
+  <element x="220" y="27" name="class.Order.state.InitialState"/>
+  <element x="340" y="15" name="class.Shipment.state.InitialState"/>
+  <element x="803" y="181" name="class.Order.state.FinalState"/>
+  <element x="228" y="363" name="class.Shipment.state.Lost"/>
+  <element x="761" y="347" name="class.Shipment.state.FinalState"/>
+  <element x="586" y="117" name="class.Order.state.Delivered"/>
+  <element x="346" y="363" name="class.Shipment.state.Shipped"/>
+  <element x="461" y="207" name="class.Order.state.BeingPreparedAndShipped"/>
+  <element x="330" y="130" name="class.Shipment.state.BeingPrepared"/>
+  <element x="572" y="187" name="class.Shipment.state.Cancelled"/>
+  <element x="234" y="179" name="class.Order.state.Open"/>
 </view:View>

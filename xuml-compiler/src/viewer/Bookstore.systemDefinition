@@ -12,7 +12,7 @@
       <attribute name="unitPrice" type="//@primitiveType[name='Decimal']" mandatory="false"/>
       <attribute name="description" type="//@primitiveType[name='String']" mandatory="false"/>
       <attribute name="webSiteUrl" type="//@primitiveType[name='String']" mandatory="false"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.0/@attribute.0"/>
       <persistence schema="BOOKSTORE"/>
     </class>
     <class name="Author" description="the author of a book, volume or journal" associationEndPrimary="//@association.5/@primary">
@@ -21,43 +21,43 @@
       </attribute>
       <attribute name="website" type="//@primitiveType[name='String']" mandatory="false"/>
       <attribute name="email" type="//@primitiveType[name='String']" mandatory="false"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.1/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.1/@attribute.0"/>
       <persistence schema="BOOKSTORE"/>
     </class>
     <class name="Publisher" description="the publisher of a book, volume or journal" associationEndSecondary="//@association.3/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.2/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="groupCode" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I1']"/>
       <attribute name="publisherCode" type="//@primitiveType[name='String']" identifierNonPrimary="//@package.0/@class.2/@identifierNonPrimary[name='I1']"/>
       <attribute name="name" type="//@primitiveType[name='String']"/>
       <attribute name="address" type="//@primitiveType[name='String']" mandatory="false"/>
       <attribute name="website" type="//@primitiveType[name='String']" mandatory="false"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.2/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.2/@attribute.0"/>
       <identifierNonPrimary name="I1" attribute="//@package.0/@class.2/@attribute.1 //@package.0/@class.2/@attribute.2"/>
       <persistence schema="BOOKSTORE"/>
     </class>
     <class xsi:type="model:AssociationClass" name="Authorship" description="multiple authors of one book" association="//@association.5">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.3/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="preCredit" type="//@primitiveType[name='String']" mandatory="false"/>
       <attribute name="postCredit" type="//@primitiveType[name='String']" mandatory="false"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.3/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.3/@attribute.0"/>
       <persistence schema="BOOKSTORE"/>
     </class>
     <class xsi:type="model:AssociationClass" name="ProductSelection" description="what books are on what orders" association="//@association.4">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.4/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="quantity" type="//@primitiveType[name='Integer']"/>
       <attribute name="unitPriceOfSelection" type="//@primitiveType[name='Decimal']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.4/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.4/@attribute.0"/>
       <persistence schema="BOOKSTORE"/>
     </class>
     <class name="Shipment" description="the sending of an order to a customer" associationEndSecondary="//@association.1/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.5/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="trackingNumber" type="//@primitiveType[name='String']"/>
       <attribute name="recipient" type="//@primitiveType[name='String']"/>
@@ -66,12 +66,12 @@
       <attribute name="timePrepared" type="//@primitiveType[name='Date']"/>
       <attribute name="timePickedUp" type="//@primitiveType[name='Date']"/>
       <attribute name="timeDelivered" type="//@primitiveType[name='Date']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.5/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.5/@attribute.0"/>
       <persistence schema="BOOKSTORE"/>
     </class>
     <class name="Order" description="a customer's order of books" associationEndPrimary="//@association.0/@primary //@association.1/@primary //@association.2/@primary" associationEndSecondary="//@association.4/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.6/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="dateOrderPlaced" type="//@primitiveType[name='Date']"/>
       <attribute name="recipient" type="//@primitiveType[name='String']"/>
@@ -94,7 +94,7 @@
           <transition name="Open_orderTimeout_Cancelled" fromState="//@package.0/@class.6/@stateMachine/@state.0" toState="//@package.0/@class.6/@stateMachine/@state.2"/>
         </event>
       </stateMachine>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.6/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.6/@attribute.0"/>
       <persistence schema="BOOKSTORE" table="order_table"/>
     </class>
     <class name="Customer" description="someone that orders books" associationEndSecondary="//@association.0/@secondary">
@@ -105,12 +105,12 @@
       <attribute name="shippingAddress" type="//@primitiveType[name='String']"/>
       <attribute name="phone" type="//@primitiveType[name='String']"/>
       <attribute name="purchasesMade" type="//@primitiveType[name='String']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.7/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.7/@attribute.0"/>
       <persistence schema="BOOKSTORE"/>
     </class>
     <class name="CreditCardCharge" description="a charge made to a credit card" associationEndSecondary="//@association.2/@secondary">
       <attribute name="chargeId" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.8/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="accountNumber" type="//@primitiveType[name='String']"/>
       <attribute name="cardholderName" type="//@primitiveType[name='String']"/>
@@ -119,7 +119,7 @@
       <attribute name="dateChargeMade" type="//@primitiveType[name='Date']"/>
       <attribute name="chargeAmount" type="//@primitiveType[name='Decimal']"/>
       <attribute name="bankApprovalCode" type="//@primitiveType[name='String']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.8/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.8/@attribute.0"/>
       <persistence schema="BOOKSTORE"/>
     </class>
   </package>

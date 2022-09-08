@@ -3,7 +3,7 @@
   <package name="shop" description="shop system">
     <class name="Customer" description="a shop customer, a potential or actual purchaser of products from the shop" associationEndPrimary="//@association.0/@primary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.0/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="name" type="//@primitiveType[name='String']"/>
       <attribute name="email" type="//@primitiveType[name='String']"/>
@@ -15,12 +15,12 @@
         <parameter name="subject" description="subject of message" type="//@primitiveType[name='String']"/>
         <parameter name="body" description="body of message" type="//@primitiveType[name='String']"/>
       </operation>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
-      <persistence schema="SHOP"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.0/@attribute.0"/>
+      <persistence/>
     </class>
     <class name="Order" description="an order of products made by a customer" associationEndPrimary="//@association.1/@primary //@association.2/@primary" associationEndSecondary="//@association.0/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.1/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="timeCreated" type="//@primitiveType[name='Timestamp']"/>
       <stateMachine>
@@ -56,29 +56,29 @@
           <transition name="BeingPreparedAndShipped_cancel_Cancelled" fromState="//@package.0/@class.1/@stateMachine/@state.3" toState="//@package.0/@class.1/@stateMachine/@state.2"/>
         </event>
       </stateMachine>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.1/@attribute.0"/>
-      <persistence schema="SHOP" table="order_table"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.1/@attribute.0"/>
+      <persistence table="order_table"/>
     </class>
     <class name="Product" description="products" associationEndSecondary="//@association.2/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.2/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="numberInStock" type="//@primitiveType[name='Integer']"/>
       <attribute name="numberCommitted" type="//@primitiveType[name='Integer']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.2/@attribute.0"/>
-      <persistence schema="SHOP"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.2/@attribute.0"/>
+      <persistence/>
     </class>
     <class xsi:type="model:AssociationClass" name="OrderProduct" description="products on an order" association="//@association.2">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.3/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="itemCount" type="//@primitiveType[name='Integer']"/>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.3/@attribute.0"/>
-      <persistence schema="SHOP"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.3/@attribute.0"/>
+      <persistence/>
     </class>
     <class name="Shipment" description="shipment of an order" associationEndSecondary="//@association.1/@secondary">
       <attribute name="id" type="//@primitiveType[name='ArbitraryId']" identifierPrimary="//@package.0/@class.4/@identifierPrimary">
-        <persistence generatedValue="true"/>
+        <persistence generatedValue="true" generatedByIdentity="true"/>
       </attribute>
       <attribute name="shippingName" type="//@primitiveType[name='String']"/>
       <attribute name="shippingAddress" type="//@primitiveType[name='String']"/>
@@ -135,8 +135,8 @@
           <parameter name="comment" type="//@freeType[name='String']"/>
         </event>
       </stateMachine>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.4/@attribute.0"/>
-      <persistence schema="SHOP"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.4/@attribute.0"/>
+      <persistence/>
     </class>
   </package>
   <association name="R1">

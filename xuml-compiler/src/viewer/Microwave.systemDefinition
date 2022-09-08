@@ -46,7 +46,7 @@
           <transition name="InitialState_pluggedIn_ReadyToCook" fromState="//@package.0/@class.0/@stateMachine/@initialState" toState="//@package.0/@class.0/@stateMachine/@state.0"/>
         </event>
       </stateMachine>
-      <identifierPrimary name="I" description="primary key for the class" attribute="//@package.0/@class.0/@attribute.0"/>
+      <identifierPrimary name="I" attribute="//@package.0/@class.0/@attribute.0"/>
       <persistence/>
     </class>
   </package>
