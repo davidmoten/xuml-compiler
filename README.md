@@ -9,7 +9,7 @@ Get your State Machines sorted, then you can specify a system to *xuml-compiler*
 
 The result is an executable system so that we satisfy to a fair degree that _"the model is the code"_.
 
-Dependency updates are still being made to this project as it is still in use in production. **Note** that a completely reworked model compiler is at http://github.com/davidmoten/xuml-tools. The primary difference is a reworked metamodel in accordance with Leon Starr's work and more support for concurrency. 
+Dependency updates are still being made to this project as it is still in use in production. **Note** that a completely reworked model compiler is at http://github.com/davidmoten/xuml-tools. The primary difference is a reworked metamodel in accordance with Leon Starr's work and more support for concurrency (Akka used for signals). 
 
 * [Guide](src/docs/README.md)
 * [Metamodel](src/docs/metamodel.md)
