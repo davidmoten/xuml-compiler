@@ -10,9 +10,6 @@
 	<packaging>pom</packaging>
 	<name>xuml-jpa</name>
 	<description>JPA dependencies for xuml at runtime</description>
-	<properties>
-		<emf.version>2.3.0-v200706262000</emf.version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.hibernate</groupId>
