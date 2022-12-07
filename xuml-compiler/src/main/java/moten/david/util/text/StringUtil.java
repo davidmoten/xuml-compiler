@@ -1,6 +1,5 @@
 package moten.david.util.text;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,24 +29,21 @@ public class StringUtil {
 	}
 
 	public static String readString(File file) throws IOException {
-		FileInputStream fis = new FileInputStream(file);
-		String s = readString(fis);
-		fis.close();
-		return s;
+		try (FileInputStream fis = new FileInputStream(file)) {
+            return readString(fis);
+		}
 	}
 
 	public static void removeCarriageReturns(InputStream is, OutputStream os)
 			throws IOException {
-		InputStreamReader isr = new InputStreamReader(is);
-		BufferedReader br = new BufferedReader(isr);
-		String line;
-		while ((line = br.readLine()) != null) {
-			line = line.replace(((char) 13) + "", "");
-			os.write(line.getBytes());
-			os.write("\n".getBytes());
-		}
-		br.close();
-		isr.close();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.replace(((char) 13) + "", "");
+                os.write(line.getBytes());
+                os.write("\n".getBytes());
+            }
+        }
 	}
 
 }
