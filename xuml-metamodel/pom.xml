@@ -12,29 +12,13 @@
     <dependencies>
         <dependency>
             <groupId>org.eclipse.emf</groupId>
-            <artifactId>common</artifactId>
-            <version>${emf.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.equinox</groupId>
-                    <artifactId>app</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>org.eclipse.emf.common</artifactId>
+            <version>2.27.0</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.emf</groupId>
-            <artifactId>ecore</artifactId>
-            <version>${emf.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.equinox</groupId>
-                    <artifactId>app</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.emf</groupId>
-                    <artifactId>common</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>org.eclipse.emf.ecore</artifactId>
+            <version>2.27.0</version>
         </dependency>
     </dependencies>
 </project>
