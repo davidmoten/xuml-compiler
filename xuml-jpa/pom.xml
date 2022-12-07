@@ -40,13 +40,40 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.equinox.app</artifactId>
-            <version>1.6.200</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.core.runtime</artifactId>
             <version>3.26.100</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>org.eclipse.osgi</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>org.eclipse.equinox.app</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>org.eclipse.core.jobs</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>
+                        org.eclipse.equinox.registry
+                    </artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>
+                        org.eclipse.equinox.preferences
+                    </artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>
+                        org.eclipse.core.contenttype
+                    </artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.emf</groupId>
@@ -54,13 +81,6 @@
             <version>2.17.0</version>
         </dependency>
 
-        <!--
-			<dependency> <groupId>org.eclipse.emf</groupId>
-			<artifactId>common</artifactId>
-			<version>2.4.0.v200804012208</version> </dependency> <dependency>
-			<groupId>org.eclipse.emf</groupId> <artifactId>ecore</artifactId>
-			<version>2.4.0.v200804012208</version> </dependency>
-		-->
         <dependency>
             <groupId>org.swinglabs</groupId>
             <artifactId>swingx</artifactId>
