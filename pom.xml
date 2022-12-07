@@ -9,7 +9,7 @@
     <artifactId>xuml-compiler-parent</artifactId>
     <packaging>pom</packaging>
     <name>xuml-compiler-parent</name>
-    <version>0.5.1</version>
+    <version>0.5.2-SNAPSHOT</version>
 
     <licenses>
         <license>
@@ -54,7 +54,7 @@
         <connection>${scm.url}</connection>
         <developerConnection>${scm.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>0.5.1</tag>
+        <tag>0.5.0</tag>
     </scm>
     <modules>
         <module>xuml-jpa</module>
