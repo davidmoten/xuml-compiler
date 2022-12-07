@@ -101,7 +101,7 @@ public class SystemBase implements CodeGenerator {
 	 * 
 	 * @param name should not contain delimiters e.g. '.' . Use createPackage repeatedly to create nested packages.
 	 * @param description
-	 * @return
+	 * @return root package
 	 */
 	public model.Package createRootPackage(String name, String description) {
 		model.Package pkg = ModelFactory.eINSTANCE.createPackage();
@@ -118,7 +118,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param parent
 	 * @param name
 	 * @param description
-	 * @return
+	 * @return package
 	 */
 	public model.Package createPackage(model.Package parent, String name,
 			String description) {
@@ -134,7 +134,7 @@ public class SystemBase implements CodeGenerator {
 	 * primitive.
 	 * 
 	 * @param primitive
-	 * @return
+	 * @return primitive type
 	 */
 	private PrimitiveType getPrimitiveType(Primitive primitive) {
 		if (primitive == null)
@@ -155,7 +155,7 @@ public class SystemBase implements CodeGenerator {
 	 * Get the FreeType for the typeName.
 	 * 
 	 * @param typeName
-	 * @return
+	 * @return free type
 	 */
 	private FreeType getFreeType(String typeName) {
 		if (typeName == null)
@@ -179,7 +179,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param name
 	 * @param type
 	 * @param values
-	 * @return
+	 * @return attribute
 	 */
 	public Attribute createAttribute(model.Class cls, String name,
 			Primitive type, String[] values) {
@@ -199,7 +199,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param name
 	 * @param type
-	 * @return
+	 * @return attribute
 	 */
 	public Attribute createAttribute(model.Class cls, String name,
 			Primitive type) {
@@ -213,7 +213,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param name
 	 * @param values
-	 * @return
+	 * @return attribute
 	 */
 	public Attribute createAttribute(model.Class cls, String name,
 			String[] values) {
@@ -226,7 +226,7 @@ public class SystemBase implements CodeGenerator {
 	 * 
 	 * @param cls
 	 * @param name
-	 * @return
+	 * @return attribute
 	 */
 	public Attribute createAttribute(model.Class cls, String name) {
 		return createAttribute(cls, name, Primitive.STRING, null);
@@ -240,7 +240,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param pkg
 	 * @param name
 	 * @param description
-	 * @return
+	 * @return class
 	 */
 	public model.Class createClass(model.Package pkg, String name,
 			String description) {
@@ -257,7 +257,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param description
 	 * @param tableName
 	 * @param persistent
-	 * @return
+	 * @return class
 	 */
 	public model.Class createClassWithTableName(model.Package pkg, String name,
 			String description, String tableName, boolean persistent) {
@@ -277,7 +277,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param pkg
 	 * @param name
 	 * @param description
-	 * @return
+	 * @return asssociation class
 	 */
 	public AssociationClass createAssociationClass(model.Package pkg,
 			String name, String description) {
@@ -299,7 +299,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param a
 	 * @param generated
 	 * @param generatedBySequence
-	 * @return
+	 * @return persistence attribute
 	 */
 	private AttributePersistence createIdentifierPrimary(Attribute a,
 			boolean generated, boolean generatedBySequence) {
@@ -322,7 +322,7 @@ public class SystemBase implements CodeGenerator {
 	 * 
 	 * @param attribute
 	 * @param generator
-	 * @return
+	 * @return persistence attribute
 	 */
 	public AttributePersistence createIdentifierPrimary(Attribute attribute,
 			Generator generator) {
@@ -341,7 +341,7 @@ public class SystemBase implements CodeGenerator {
 	 * 
 	 * @param cls
 	 * @param attributes
-	 * @return
+	 * @return identifier 
 	 */
 	public IdentifierNonPrimary createIdentifierNonPrimary(model.Class cls,
 			Attribute... attributes) {
@@ -362,7 +362,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param pkg
 	 * @param name
 	 * @param description
-	 * @return
+	 * @return association class
 	 */
 	public AssociationClass createAssociationClassWithArbitraryId(
 			model.Package pkg, String name, String description) {
@@ -377,7 +377,7 @@ public class SystemBase implements CodeGenerator {
 	 * as a suffix.
 	 * 
 	 * @param cls
-	 * @return
+	 * @return string
 	 */
 	private String getNextIdentifierName(model.Class cls) {
 		if (identifierNumbers.get(cls) == null)
@@ -395,7 +395,7 @@ public class SystemBase implements CodeGenerator {
 	 * SystemBase.
 	 * 
 	 * @param cls
-	 * @return
+	 * @return persistence class
 	 */
 	public ClassPersistence createPersistence(model.Class cls) {
 		return createPersistence(cls, null);
@@ -411,7 +411,7 @@ public class SystemBase implements CodeGenerator {
 	 * 
 	 * @param cls
 	 * @param tableName
-	 * @return
+	 * @return persistence class
 	 */
 	public ClassPersistence createPersistence(model.Class cls, String tableName) {
 		ClassPersistence persistence = ModelFactory.eINSTANCE
@@ -433,7 +433,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param relationshipName
 	 * @param primary
 	 * @param secondary
-	 * @return
+	 * @return association
 	 */
 	public Association createAssociation(String relationshipName,
 			AssociationEndPrimary primary, AssociationEndSecondary secondary) {
@@ -453,7 +453,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param end
 	 * @param name
-	 * @return
+	 * @return attribute
 	 */
 	public AttributeReferential createAttributeReferential(model.Class cls,
 			AssociationEnd end, String name) {
@@ -475,7 +475,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param name
 	 * @param attributes
 	 * @param derivedAttributes
-	 * @return
+	 * @return identifier
 	 */
 	public IdentifierPrimary createIdentifierPrimary(model.Class cls,
 			String name, Attribute[] attributes,
@@ -526,7 +526,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param name
 	 * @param attributes
 	 * @param derivedAttributes
-	 * @return
+	 * @return identifier
 	 */
 	public IdentifierNonPrimary createIdentifierNonPrimary(model.Class cls,
 			String name, Attribute[] attributes,
@@ -553,7 +553,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param role
 	 * @param multiplicity
 	 * @param verbClause
-	 * @return
+	 * @return association
 	 */
 	public AssociationEndPrimary createAssociationEndPrimary(model.Class cls,
 			String role, Multiplicity multiplicity, String verbClause) {
@@ -577,7 +577,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param multiplicity
 	 * @param verbClause
-	 * @return
+	 * @return association
 	 */
 	public AssociationEndPrimary createAssociationEndPrimary(model.Class cls,
 			Multiplicity multiplicity, String verbClause) {
@@ -594,7 +594,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param role
 	 * @param multiplicity
 	 * @param verbClause
-	 * @return
+	 * @return association
 	 */
 	public AssociationEndSecondary createAssociationEndSecondary(
 			model.Class cls, String role, Multiplicity multiplicity,
@@ -619,7 +619,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param multiplicity
 	 * @param verbClause
-	 * @return
+	 * @return association
 	 */
 	public AssociationEndSecondary createAssociationEndSecondary(
 			model.Class cls, Multiplicity multiplicity, String verbClause) {
@@ -642,7 +642,7 @@ public class SystemBase implements CodeGenerator {
 	 *            whether the return is multiple (an array)
 	 * @param params
 	 *            multiple paremeters
-	 * @return
+	 * @return operation
 	 */
 	public Operation createOperation(model.Class cls, String name,
 			String description, String returns, boolean multiple,
@@ -668,7 +668,7 @@ public class SystemBase implements CodeGenerator {
 	 *            the parameter description
 	 * @param primitive
 	 *            the type of the parameter
-	 * @return
+	 * @return parameter for the Event
 	 */
 	public Parameter createParameter(Event event, String name,
 			String description, Primitive primitive) {
@@ -684,7 +684,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param description
 	 * @param type
 	 *            the full java class name of the type
-	 * @return
+	 * @return parameter
 	 */
 	public Parameter createParameter(String name, String description,
 			String type) {
@@ -700,7 +700,7 @@ public class SystemBase implements CodeGenerator {
 	 * 
 	 * @param name
 	 * @param description
-	 * @return
+	 * @return parameter
 	 */
 	public Parameter createParameter(String name, String description) {
 		Parameter p = ModelFactory.eINSTANCE.createParameter();
@@ -716,7 +716,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param name
 	 * @param description
 	 * @param primitive
-	 * @return
+	 * @return parameter
 	 */
 	public Parameter createParameter(String name, String description,
 			Primitive primitive) {
@@ -732,7 +732,7 @@ public class SystemBase implements CodeGenerator {
 	 * "InitialState" and a final state called "FinalState".
 	 * 
 	 * @param cls
-	 * @return
+	 * @return state machine
 	 */
 	public synchronized StateMachine createStateMachine(model.Class cls) {
 		if (cls.getStateMachine() == null) {
@@ -756,7 +756,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param name
 	 *            the name of the state
-	 * @return
+	 * @return state
 	 */
 	public State createState(model.Class cls, String name) {
 		createStateMachine(cls);
@@ -774,7 +774,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param name
 	 *            the name of the signal event
-	 * @return
+	 * @return signal event
 	 */
 	public SignalEvent createSignalEvent(model.Class cls, String name) {
 		createStateMachine(cls);
@@ -792,7 +792,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param name
 	 *            the name of the call event
-	 * @return
+	 * @return call event
 	 */
 	public CallEvent createCallEvent(model.Class cls, String name) {
 		createStateMachine(cls);
@@ -810,7 +810,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param name
 	 *            the name of the timer event
-	 * @return
+	 * @return timer event
 	 */
 	public TimerEvent createTimerEvent(model.Class cls, String name) {
 		createStateMachine(cls);
@@ -844,7 +844,7 @@ public class SystemBase implements CodeGenerator {
 	 *            the name of the parameter
 	 * @param type
 	 *            java class name of type
-	 * @return
+	 * @return parameter
 	 */
 	public Parameter createParameter(Event event, String name, String type) {
 		Parameter parameter = ModelFactory.eINSTANCE.createParameter();
@@ -860,7 +860,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param event
 	 * @param name
 	 *            the name of the parameter
-	 * @return
+	 * @return parameter
 	 */
 	public Parameter createParameter(Event event, String name) {
 		return createParameter(event, name, "String");
@@ -885,7 +885,7 @@ public class SystemBase implements CodeGenerator {
 	 * 
 	 * @param ae
 	 * @param attributes
-	 * @return
+	 * @return association
 	 */
 	public AssociationEndPersistence createOrderBy(AssociationEnd ae,
 			Attribute... attributes) {
@@ -907,7 +907,7 @@ public class SystemBase implements CodeGenerator {
 	 *            the name of the attribute
 	 * @param type
 	 *            the type of the attribute
-	 * @return
+	 * @return attribute
 	 */
 	public Attribute createAttributeIndexed(Class cls, String name,
 			Primitive type) {
@@ -931,7 +931,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param pkg
 	 * @param name
 	 * @param description
-	 * @return
+	 * @return class
 	 */
 	public Class createClassNonPersistent(Package pkg, String name,
 			String description) {
@@ -944,7 +944,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param cls
 	 * @param name
 	 * @param description
-	 * @return
+	 * @return specialization group
 	 */
 	public SpecializationGroup createSpecializationGroup(Class cls,
 			String name, String description) {
@@ -963,7 +963,7 @@ public class SystemBase implements CodeGenerator {
 	 * @param pkg
 	 * @param name
 	 * @param description
-	 * @return
+	 * @return specialization
 	 */
 	public Specialization createSpecialization(SpecializationGroup group,
 			Package pkg, String name, String description) {
@@ -988,7 +988,7 @@ public class SystemBase implements CodeGenerator {
 	/**
 	 * Get the default generator.
 	 * 
-	 * @return
+	 * @return generator
 	 */
 	public Generator getGenerator() {
 		return this.generator;
@@ -1003,7 +1003,7 @@ public class SystemBase implements CodeGenerator {
 	 *            the name of the class
 	 * @param description
 	 *            description of the class
-	 * @return
+	 * @return class
 	 */
 	public Class createClassWithArbitraryId(Package pkg, String name,
 			String description) {
@@ -1016,7 +1016,7 @@ public class SystemBase implements CodeGenerator {
 	 * Create an arbitrary id on a class.
 	 * 
 	 * @param cls
-	 * @return
+	 * @return persistence attribute
 	 */
 	public AttributePersistence createArbitraryId(Class cls) {
 		return createIdentifierPrimary(createAttribute(cls, "id",
@@ -1026,7 +1026,7 @@ public class SystemBase implements CodeGenerator {
 	/**
 	 * Get the schema.
 	 * 
-	 * @return
+	 * @return string
 	 */
 	public String getSchema() {
 		return schema;
@@ -1035,7 +1035,7 @@ public class SystemBase implements CodeGenerator {
 	/**
 	 * Get the system.
 	 * 
-	 * @return
+	 * @return system
 	 */
 	public System getSystem() {
 		return system;
@@ -1152,7 +1152,7 @@ public class SystemBase implements CodeGenerator {
 	 * Load the system from an xmi input stream.
 	 * 
 	 * @param is
-	 * @return
+	 * @return system
 	 */
 	public static System load(InputStream is) {
 		try {
@@ -1172,7 +1172,7 @@ public class SystemBase implements CodeGenerator {
 	 * Load the system from a URI in xmi format.
 	 * 
 	 * @param uri
-	 * @return
+	 * @return system
 	 */
 	public static System load(URI uri) {
 		// Register the XMI resource factory for the extension
@@ -1204,7 +1204,7 @@ public class SystemBase implements CodeGenerator {
 	 * Load the system from a file in xmi format.
 	 * 
 	 * @param filename
-	 * @return
+	 * @return system
 	 */
 	public static System load(String filename) {
 		if (!new File(filename).exists())

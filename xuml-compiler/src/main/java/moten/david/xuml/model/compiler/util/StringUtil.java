@@ -14,8 +14,8 @@ public class StringUtil {
 	/**
 	 * Reads an InputStream completely to return a string
 	 * 
-	 * @param is
-	 * @return
+	 * @param is InputStream to read from
+	 * @return String  
 	 * @throws IOException
 	 */
 	public static String readString(InputStream is) throws IOException {

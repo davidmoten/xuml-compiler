@@ -8,7 +8,9 @@ import javax.swing.ScrollPaneConstants;
 public class AutoResizingLabel extends JScrollPane {
 
 	/**
-	 * @param component
+         * Constructor.
+         *
+	 * @param text
 	 * @param width
 	 * @param height
 	 */
