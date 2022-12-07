@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.github.davidmoten.xuml-compiler</groupId>
 		<artifactId>xuml-compiler-parent</artifactId>
-		<version>0.5.1-SNAPSHOT</version>
+		<version>0.5.1</version>
 		<relativePath>../..</relativePath>
 	</parent>
         <groupId>com.github.davidmoten.xuml-compiler.examples</groupId>
