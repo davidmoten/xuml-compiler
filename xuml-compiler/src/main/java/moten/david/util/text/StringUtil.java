@@ -2,6 +2,7 @@ package moten.david.util.text;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,14 +20,13 @@ public class StringUtil {
 	 * @throws IOException
 	 */
 	public static String readString(InputStream is) throws IOException {
-		StringBuffer s = new StringBuffer();
-		BufferedInputStream bis = new BufferedInputStream(is);
-		int ch;
-		while ((ch = bis.read()) != -1) {
-			s.append((char) ch);
-		}
-		bis.close();
-		return s.toString();
+	    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+	    int n;
+	    byte[] buffer = new byte[8192];
+	    while ((n = is.read(buffer)) != -1) {
+	        bytes.write(buffer, 0, n);
+	    }
+	    return bytes.toString("UTF-8");
 	}
 
 	public static String readString(File file) throws IOException {
